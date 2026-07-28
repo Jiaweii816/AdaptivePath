@@ -1,82 +1,135 @@
-# PatternCoach AI
+<h1 align="center">PatternCoach AI</h1>
 
-> **Your coding history should coach you back.**
+<p align="center"><b><i>Your coding history should coach you back.</i></b></p>
 
-PatternCoach AI is a local practice system for algorithm interview preparation. It connects real Python execution, focused coaching, review memory, study artifacts, and a goal-based daily plan—so an attempt can become evidence and context for what you practice next.
+<p align="center">
+  A local practice workbench for the Interview-150 list.<br>
+  It runs your Python, reads the actual failure, and remembers what tripped you up.
+</p>
 
-[Quick Start](#quick-start) · [See the Practice Loop](#one-practice-loop) · [Explore the Design](#built-beyond-a-chat-wrapper)
+<p align="center">
+  <img alt="License AGPL-3.0" src="https://img.shields.io/badge/license-AGPL--3.0-1f6feb">
+  <img alt="Runs locally" src="https://img.shields.io/badge/runs-100%25%20locally-2ea043">
+  <img alt="150 of 150 problems" src="https://img.shields.io/badge/problems-150%2F150%20runnable-2ea043">
+  <img alt="Python" src="https://img.shields.io/badge/language-Python-3572A5">
+  <img alt="No account" src="https://img.shields.io/badge/account-not%20required-6e7681">
+</p>
 
-**150 Python Practice Contracts · Piston-Backed Evidence · Persistent Review Context · Permission-Gated Learning Writes · Goal-Based Today Plan**
+<p align="center">
+  <img src="docs/assets/demo.gif" width="860" alt="Writing a buggy sliding-window solution, asking for a Review, getting the first failing case, fixing it, and finding it saved in the Mistake Book">
+</p>
 
-## Why PatternCoach?
+<p align="center">
+  <a href="#-get-it-running">Get it running</a> ·
+  <a href="#-questions-you-probably-have">FAQ</a> ·
+  <a href="#-where-your-stuff-lives">Your data</a> ·
+  <a href="docs/user-guide.md">User guide</a>
+</p>
 
-- **Stop repeating the same blind spot.** Keep the failed case, diagnosis, and draft together so you can revisit the reason—not just the rejected solution.
-- **Get the next useful clue—not an instant solution.** Ask for one step, check an invariant, or trace a failure before rewriting everything.
-- **Turn each attempt into future context.** Reviews, mistakes, and reusable notes stay available for later practice and configured Coach requests.
+---
 
-## What You Can Do
+## What this is
 
-- **Focused Workbench** — Keep the problem link, Python editor, visible tests, run evidence, **Review My Code**, and **Coach Chat** in one working screen.
-- **Evidence-Grounded Review** — Review executes the selected tests in local Piston, then examines the exact draft, status, output, and first failing case.
-- **Progressive Coach** — Ask about the current draft or run, request one next step, test an invariant, or walk through the first failure before seeing more.
-- **Today** — Turn a target date and weekly study time into a deterministic daily dose, then open the next catalog problem directly in the Workbench.
-- **Mistake Book** — Convert failed Reviews or explicit saves into **Problems to Revisit**, preserving what failed and what to check on the next attempt.
-- **Knowledge Handbook** — Capture transferable Python techniques and algorithm patterns; search, edit, copy, or export them when a similar problem appears.
-- **Problem History & Skill Profile** — Revisit attempts and activity, then maintain the strengths, weaknesses, and learning preferences you want the Coach to know.
+You solve a problem, get it wrong, read someone's explanation, and move on. Two weeks later you make the same mistake on a different problem and don't notice.
 
-## Built Beyond a Chat Wrapper
+PatternCoach is a workbench that closes that gap. You write Python in it, and it **runs your code before it says anything about it** — so the feedback is about the case that actually broke, not about what your code looks like. Every review it writes stays: the failing case, the diagnosis, your draft. Next time you sit down, it still knows.
 
-- **The Coach executes before it advises.** **Review My Code** sends selected visible tests to local Piston, captures the first failure plus standard output or runtime errors, and stores that evidence with the Review. Advice starts from an observed run, not a pasted-code guess.
-- **One inspectable Coach runtime.** The public release keeps teaching and persistence in a single foreground flow. Execution, recent Review context, response generation, and transactional writes can be followed end to end.
-- **Persistent context, not a stateless prompt.** Every completed Review creates a durable episode and deterministic learning facts. When an external provider is configured, focused facts and recent episodes can inform later Reviews and chats without sending the full local history.
-- **Controlled long-term writes.** Preferences, Knowledge Handbook notes, and Mistake Book entries are saved from Coach Chat only after an explicit user request. Durable learning state is intentional and traceable rather than inferred from every message.
-- **Explicit orchestration.** The active path connects execution, evidence, history, and authorized learning writes through inspectable application services. Coach Chat uses a bounded tool loop for real code execution, focused retrieval, practice search, hints, and explicitly authorized learning writes.
-- **Local learning state.** Drafts, runs, plans, chats, history, and study artifacts persist in the local app. External model context is sent only when the user configures a compatible provider.
+It runs entirely on your machine. No account, no upload, no subscription.
 
-```mermaid
-flowchart LR
-    T[Today] --> W[Workbench]
-    W --> P[Local Piston]
-    P --> R[Coach Review]
-    W --> C[Coach Chat]
-    R --> H[Review Episodes and History]
-    R --> A[Mistake Book]
-    C --> A2[Handbook, Mistakes, Preferences]
-```
+> [!IMPORTANT]
+> **It will never tell you your solution is Accepted.**
+> It can only see the tests it actually ran. If you want a verdict, that's what LeetCode is for — this is for understanding *why* it broke.
 
-For the compact technical map, see the [architecture overview](docs/architecture-overview.md).
+---
 
-## One Practice Loop
+## What using it looks like
 
-```text
-Pick from Today or the catalog → Write and run Python → Review the evidence
-→ Ask for one focused next step → Keep the Review in History
-→ Save the mistake or reusable idea → Revisit it in a later session
-```
+### The loop
 
-The result of a session does not disappear into a chat transcript: its run evidence, Review episode, and intentionally saved learning artifacts remain available after the Workbench closes.
+<img src="docs/assets/agent-trace.png" width="860" alt="Trace timeline of one coach turn: three model calls interleaved with run_current_code and get_algorithm_hint tool calls, each row showing tokens, cost and latency">
 
-## Quick Start
+**Nothing the coach does is a black box.**
+*Every model call, every tool it ran, what each one cost, how long each took. One turn, on the record.*
 
-Requires Node.js `^20.19.0`, `^22.12.0`, or `>=24.0.0`, plus npm, Docker, and Docker Compose. The setup script creates the local environment and database; Piston provides real Python execution.
+<br>
+
+### What it keeps
+
+<img src="docs/assets/mistake-book.png" width="860" alt="Mistake Book listing resolved problems, each with the specific root cause of the earlier failure and buttons to redo the review or open a flashcard">
+
+**Your mistakes file themselves.**
+*Each entry keeps the actual root cause — not "got it wrong", but which branch, which boundary, which line.*
+
+<br>
+
+<img src="docs/assets/flashcard.png" width="860" alt="A flashcard for Search in Rotated Sorted Array: a self-check prompt on the left, and the revealed answer with explanation and code on the right">
+
+**Then you can drill them.**
+*Answer from memory first, then reveal. The prompt comes from your own failure, so it asks the thing you actually missed.*
+
+<br>
+
+<img src="docs/assets/handbook.png" width="860" alt="Knowledge Handbook page with reusable Python technique notes, each showing when to use it, a code snippet, and how many times it has been looked up">
+
+**Notes that earn their place.**
+*"Looked up 7 times" isn't a label you typed. It's how often you actually needed it.*
+
+<br>
+
+<img src="docs/assets/handbook-export.png" width="720" alt="The exported knowledge-handbook.md open in an editor, with a document outline showing every note as a heading">
+
+**And they leave with you.**
+*One click, one Markdown file, headings and code fences intact. No export tier, no lock-in.*
+
+<br>
+
+### Where you are
+
+<img src="docs/assets/today.png" width="860" alt="Today page showing a readiness target date, pace rule, pattern coverage bars, a capped daily dose of problems, and re-plan proposals awaiting approval">
+
+**A plan you didn't have to build.**
+*Target date in, daily dose out. When it notices you've stalled on a pattern it proposes a re-plan — and waits for you to accept it.*
+
+<br>
+
+<img src="docs/assets/progress.png" width="860" alt="Problem History page with daily activity, first-AC attempts over time, solved difficulty mix, and per-category progress bars">
+
+**Progress you can't fake.**
+*First-AC attempts, and passed / practiced / total per category. These move when you solve something, not when you open the app.*
+
+<br>
+
+<img src="docs/assets/profile.png" width="860" alt="Skill Profile page: a synthesised briefing, a skill graph where each skill carries a confidence percentage and evidence count, and common mistake patterns with how many times each has been observed">
+
+**It keeps score, and it shows its work.**
+*Every line carries a confidence and the number of attempts behind it. Nothing here declares you bad at something — a skill sits at **Watch** until enough evidence agrees, and each mistake pattern names the problem it came from.*
+
+---
+
+## ⚡ Get it running
+
+You need **Node** (`^20.19`, `^22.12`, or `>=24`), **npm**, and **Docker** — Docker is what actually executes your Python, in a container, on your machine.
 
 ```bash
 git clone https://github.com/Iriss0904/personalized-leetcode-coach.git
 cd personalized-leetcode-coach
-```
 
-Then run:
-
-```bash
 npm ci
-npm run setup
-npm run piston:up
-npm run piston:smoke
-npm run doctor
+npm run setup        # local env + database
+npm run piston:up    # start the Python sandbox
+npm run piston:smoke # prove it can really run code
+npm run doctor       # check everything before you start
 npm run dev
 ```
 
-If the first Piston smoke specifically reports that Python 3.12.0 is missing, approve the one-time runtime download and retry:
+Open **<http://localhost:3000>**. That's it — no API key needed to start.
+
+<details>
+<summary>If the smoke test says Python 3.12.0 is missing</summary>
+
+<br>
+
+The sandbox downloads its runtime once, and only when you approve it:
 
 ```bash
 npm run piston:install -- --confirm
@@ -84,47 +137,163 @@ npm run piston:smoke
 npm run doctor
 ```
 
-Open <http://localhost:3000>. The built-in local Coach needs no provider setup; an OpenAI-compatible provider is optional.
+</details>
 
-For Piston runtime setup, provider configuration, shutdown, and troubleshooting, see the [setup guide](docs/user-setup.md).
+Full setup, provider configuration, and shutdown: **[setup guide](docs/user-setup.md)** · Something broken: **[troubleshooting](docs/troubleshooting.md)**
 
-## Get More From Your Coach
+---
 
-- Ask for one hint and say what you already understand.
-- Ask the Coach to trace the first failing visible test before suggesting a fix.
-- Ask for the smallest next step that preserves your current approach.
-- Add a boundary case before changing the algorithm.
-- Use **Review My Code** when you want feedback grounded in a fresh real run.
-- Explicitly save reusable ideas to the **Knowledge Handbook**.
-- Explicitly save important failures to the **Mistake Book**.
-- Reopen a **Problem to Revisit** before attempting a related pattern.
-
-## Documentation
-
-- [Setup guide](docs/user-setup.md)
-- [User guide](docs/user-guide.md)
-- [Troubleshooting](docs/troubleshooting.md)
-- [Data and privacy](docs/privacy.md)
-- [Architecture overview](docs/architecture-overview.md)
-
-## Status, Privacy, and License
-
-PatternCoach stores profiles, drafts, runs, chats, plans, history, mistakes, and notes locally. Code is executed by the configured Piston service. When you configure an external Coach, selected current context—including the request, draft, problem, focused learning records, and requested tool results—is sent to that provider. See the [privacy guide](docs/privacy.md) before enabling it.
+## 🤔 Questions you probably have
 
 <details>
-<summary>Current v0.1 limitations</summary>
+<summary><b>Do I need an API key?</b></summary>
 
-- Python only; the catalog includes 150/150 local Python contracts and independently authored visible-test sets.
-- Visible tests are not official or hidden judge tests, and problem statements are linked rather than bundled.
-- Docker and a healthy local Piston runtime are required for Run Code and Review My Code.
-- Today schedules catalog work from the goal and available study time. Review self-ratings complete matching items, update deterministic review schedules, and feed Review Focus; open-ended Chat requests do not automatically rewrite the plan.
-- Skill Profile preferences are editable, and real Reviews update deterministic skill/mistake facts and local synthesis. Public v0.1 does not use embedding or sqlite-vec retrieval.
-- Public memory retrieval uses SQLite FTS5, focused deterministic facts, recent local episodes, and recent Chat turns; there is no background LLM consolidation service.
-- Coach Chat dispatches the public bounded tool set. Durable Profile, Memory, Handbook, and Mistake Book writes require an explicit user request or confirmation.
-- The built-in local Coach provides deterministic guidance; model-powered responses require your own compatible provider.
+<br>
+
+No. There's a built-in coach that works offline — it reads your run evidence and gives you deterministic, rule-based feedback. It's genuinely useful and it never makes anything up.
+
+If you point the app at any OpenAI-compatible provider (three env vars: `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`), the coach gets conversational and can use its tools. That's your key, your provider, your bill — the project ships with no default.
 
 </details>
 
-PatternCoach AI is licensed under [AGPL-3.0-only](LICENSE). See [NOTICE](NOTICE) for third-party and content notices. Local execution uses [Engineer Man Piston](https://github.com/engineer-man/piston), an independent project.
+<details>
+<summary><b>What does it cost to run?</b></summary>
 
+<br>
+
+The app is free and there is nothing to subscribe to. If you bring your own provider, you pay that provider directly — and you can see exactly what for.
+
+Every model call is recorded with its token counts, cached-token count, latency, and cost, which is what the trace above is showing. A coaching turn that ran two tools and three model calls came to about a tenth of a cent on a small model. Your mileage depends entirely on which model you point it at.
+
+</details>
+
+<details>
+<summary><b>Why is this slower than just pasting my code into a chatbot?</b></summary>
+
+<br>
+
+Because it actually runs your code first.
+
+Every review sends your selected tests into the sandbox, waits for the real result — first failing case, your stdout, the runtime error if there was one — and only then writes the diagnosis, in a single model call, from that evidence.
+
+The two or three seconds you're waiting is the container, not the model. It buys you feedback that can't be about a bug you don't have.
+
+There is no simulated run path in this project. If the sandbox is down, you get an error, not an answer.
+
+</details>
+
+<details>
+<summary><b>Why won't it just fix my code?</b></summary>
+
+<br>
+
+Because a fix that replaces your approach teaches you nothing, and because you'd have read it in three seconds and learned it for none.
+
+Ask for one hint and you get one hint. Ask it to walk the first failing case and it walks the case with you. When it does suggest a change, it's the smallest one that keeps your idea alive — not a rewrite into the canonical solution.
+
+Optimization is opt-in, and only after the thing works. It won't lecture you about time complexity while your code is still broken.
+
+</details>
+
+<details>
+<summary><b>Can I add problems that aren't in the 150?</b></summary>
+
+<br>
+
+Yes, and it's not a special case — a problem here is a contract, not a hardcoded test file: a method signature, a typed I/O schema, a serialization adapter, and a comparison strategy. All 150 in the repo use that same shape, so the fastest route is to copy the closest one.
+
+They live in `src/data/hot150/`. PRs welcome.
+
+</details>
+
+<details>
+<summary><b>Does my code leave my machine?</b></summary>
+
+<br>
+
+Not unless you configure an external provider.
+
+Out of the box: your drafts, runs, chats, plans, history, mistakes, and notes are written to a SQLite file on your disk, and your Python is executed by a container on `127.0.0.1`. Nothing is sent anywhere.
+
+If you do configure a provider, the app sends that provider the current request, your draft, the problem, a small focused slice of your learning records, and the results of any tool the coach ran — not your full local history. The exact boundary is written down in the **[privacy guide](docs/privacy.md)**, and it's worth two minutes before you paste in a key.
+
+</details>
+
+<details>
+<summary><b>Can the coach change my profile behind my back?</b></summary>
+
+<br>
+
+No. Saving a preference, a handbook note, or a mistake entry is something you ask for out loud.
+
+The coach has tools that write, but they're gated: durable writes require an explicit request from you, enforced in code rather than requested in a prompt. It can't quietly decide what your weaknesses are, and it can't rewrite your plan because a conversation drifted.
+
+</details>
+
+<details>
+<summary><b>What exactly runs where?</b></summary>
+
+<br>
+
+Fair question to ask before installing something. The whole data path — UI, the coach, the sandbox, the database, what touches the network and what never does — is written up in the **[architecture overview](docs/architecture-overview.md)**. It's short.
+
+</details>
+
+---
+
+## 🔒 Where your stuff lives
+
+One SQLite file: `data/patterncoach.db`.
+
+Everything is in there — drafts, runs, the evidence from each run, diagnoses, chats, review episodes, what it has learned about you, your plan, your mistakes, your notes. Twenty-three tables, no cloud copy, no telemetry.
+
+Delete the file and you are a new user. That's the entire uninstall procedure for your data.
+
+---
+
+## 🚧 What it won't do
+
+Deliberate, not missing:
+
+- **No verdicts.** It runs visible tests, never LeetCode's hidden ones, and never claims Accepted.
+- **No bundled problem statements.** Titles and links only — the text belongs to LeetCode, so the app links you out. What ships here is the runnable Python contract for each problem.
+- **Python only.** One language, done properly.
+- **No offline mode for code execution.** Docker has to be up. Real execution or nothing.
+- **It won't quietly rewrite your plan.** Self-rating a review updates your schedule; a freeform chat doesn't.
+- **It's v0.1.** The local coach is rule-based; the interesting conversational behavior needs your own provider.
+
+<details>
+<summary>The full, boring version of the limitations</summary>
+
+<br>
+
+- The catalog contains 150/150 local Python contracts with independently authored visible-test sets. These are not official or hidden judge tests.
+- Docker and a healthy sandbox are required for **Run Code** and **Review My Code**.
+- Today schedules from your goal and available study time. Review self-ratings complete matching items, update review schedules, and feed Review Focus; open-ended chat requests do not automatically rewrite the plan.
+- Skill Profile preferences are editable, and real reviews update skill and mistake facts plus local synthesis. Public v0.1 does not use embedding or vector retrieval — recall is SQLite FTS5, focused facts, recent episodes, and recent chat turns. There is no background consolidation service.
+- Coach Chat dispatches a fixed set of eight tools with a hard step cap. Durable Profile, Memory, Handbook, and Mistake Book writes require an explicit user request or confirmation.
+- The built-in local coach is deterministic; model-powered responses require your own compatible provider.
+
+</details>
+
+---
+
+## Docs
+
+| Doc | What's in it |
+|---|---|
+| [Setup guide](docs/user-setup.md) | Install, sandbox, providers, shutdown |
+| [User guide](docs/user-guide.md) | How to actually get value out of the coach |
+| [Troubleshooting](docs/troubleshooting.md) | When Docker or the runtime misbehaves |
+| [Data and privacy](docs/privacy.md) | What is stored, what is sent, and when |
+| [Architecture overview](docs/architecture-overview.md) | The whole data path, briefly |
+
+---
+
+<sub>
+
+Licensed under **[AGPL-3.0-only](LICENSE)**. Third-party and content notices in **[NOTICE](NOTICE)**.
+Code execution uses **[Engineer Man Piston](https://github.com/engineer-man/piston)**, an independent project.
 LeetCode and its problem titles are third-party content and trademarks. This project is not affiliated with or endorsed by LeetCode.
+
+</sub>
