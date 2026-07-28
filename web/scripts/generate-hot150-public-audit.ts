@@ -38,7 +38,12 @@ const document = [
   "",
 ].join("\n");
 
-writeFileSync("HOT150_PUBLIC_CONTENT_AUDIT.md", document);
+const outputPath = new URL(
+  "../../docs/release/HOT150_PUBLIC_CONTENT_AUDIT.md",
+  import.meta.url,
+);
+
+writeFileSync(outputPath, document);
 console.log(
-  `Wrote HOT150_PUBLIC_CONTENT_AUDIT.md with ${rows.length} content PASS rows; semantic verifier ${semanticPassRecorded ? "recorded" : "not recorded"}.`,
+  `Wrote docs/release/HOT150_PUBLIC_CONTENT_AUDIT.md with ${rows.length} content PASS rows; semantic verifier ${semanticPassRecorded ? "recorded" : "not recorded"}.`,
 );

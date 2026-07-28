@@ -3,6 +3,13 @@
 PatternCoach AI uses a small local-first architecture:
 
 ```text
+repository root
+  README.md + LICENSE + NOTICE
+  docs/   product and setup documentation
+  web/    complete runnable Next.js application
+```
+
+```text
 Next.js UI
   → API routes
     → Coach (built-in local guidance or user-configured OpenAI-compatible provider)

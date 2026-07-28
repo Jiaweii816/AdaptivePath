@@ -2,6 +2,8 @@
 
 > Public v0.1. Start with the symptom you can observe. You do not need to understand the whole stack before fixing one layer.
 
+All project commands in this guide run from the repository's `web/` application directory, which contains `package.json`.
+
 ## Before You Share an Error
 
 Keep diagnostics local until you have reviewed them.
@@ -139,12 +141,12 @@ Dependency installation stops with a lockfile, network, permissions, or native-m
 
 **Likely cause**
 
-- The terminal is not in the project root.
+- The terminal is not in the `web/` application directory.
 - `package-lock.json` is missing or does not match `package.json`.
 - Node.js is outside the supported range.
 - The npm registry or network is temporarily unavailable.
 - A native `better-sqlite3` package cannot use its prebuilt binary on this platform and lacks local build prerequisites.
-- The source folder is on a read-only or restricted filesystem.
+- The application directory is on a read-only or restricted filesystem.
 
 **Check**
 
@@ -190,7 +192,7 @@ Read the first npm error, not only the final summary. Redact local usernames and
 - npm reports `ENOENT` for `package.json`.
 - a `piston/docker-compose.yml` path cannot be found;
 - setup creates files somewhere unexpected;
-- reset safety checks stop with `Not in the PatternCoach project root`.
+- reset safety checks stop with `Not in the PatternCoach application directory`.
 
 **Likely cause**
 
@@ -216,7 +218,7 @@ Test-Path piston/docker-compose.yml
 
 **Fix**
 
-Open a terminal in the PatternCoach source folder—the folder containing `package.json`—and repeat the original non-destructive check.
+Open a terminal in the repository's `web/` application directory—the folder containing `package.json`—and repeat the original non-destructive check.
 
 **Success looks like**
 
@@ -636,7 +638,7 @@ Read the first setup error. Check `DATABASE_URL` in your local editor without pr
 **Fix**
 
 1. Finish `npm ci` successfully.
-2. Confirm the terminal is in the project root.
+2. Confirm the terminal is in the application directory.
 3. Close other PatternCoach instances and SQLite browser tools.
 4. Correct a malformed custom `DATABASE_URL` locally, or restore the default.
 5. Run `npm run setup` again.
@@ -777,7 +779,7 @@ PASS  SQLite: 150/150 problems; FTS5 ready
 npm run doctor
 ```
 
-Also confirm the current project root. Inspect `DATABASE_URL` locally without printing `.env.local`.
+Also confirm the current application directory. Inspect `DATABASE_URL` locally without printing `.env.local`.
 
 **Fix**
 
@@ -1068,7 +1070,7 @@ The Next.js page and API routes are in one process, but individual actions still
 
 **Check**
 
-In a second terminal in the project root:
+In a second terminal in the application directory:
 
 ```bash
 npm run doctor
@@ -1149,7 +1151,7 @@ Look at every terminal that may be running `npm run dev`, then identify the port
 
 **Fix**
 
-Stop the stale server through the terminal that launched it. From the intended project root, run:
+Stop the stale server through the terminal that launched it. From the intended application directory, run:
 
 ```bash
 npm run dev
@@ -1159,7 +1161,7 @@ Do not move the new server to another port; that can hide the stale-backend prob
 
 **Success looks like**
 
-- The terminal and browser both point to the intended source folder and <http://localhost:3000>.
+- The terminal points to the intended application directory and the browser points to <http://localhost:3000>.
 
 ### `.env.local` changes do not take effect
 
@@ -1173,7 +1175,7 @@ The running Next.js process loaded environment values before the edit.
 
 **Check**
 
-Confirm in a local editor that the intended file is named `.env.local` and is in the project root. Do not print it.
+Confirm in a local editor that the intended file is named `.env.local` and is in the application directory. Do not print it.
 
 **Fix**
 

@@ -21,9 +21,11 @@ An LLM API key is optional. LeetCode cookies are neither required nor supported 
 This guide assumes that you:
 
 - have obtained the PatternCoach AI source folder;
-- can open a terminal in that folder;
+- can open a terminal in its `web/` application directory;
 - are comfortable copying a command and checking its result; or
 - want Codex to handle the non-sensitive installation work for you.
+
+> **Repository layout:** The repository landing page stays intentionally small. The runnable application and its `package.json` live in `web/`. After cloning, run `cd personalized-leetcode-coach/web`. This guide calls that folder the **application directory**, and every command below runs from there.
 
 > **Local-use security boundary:** PatternCoach public v0.1 has no login screen or multi-user access control. Keep it on a trusted computer and network. Do not forward ports 3000 or 2000, publish them through a tunnel, or expose them to the internet.
 
@@ -113,7 +115,7 @@ You can still use the local Hot-150 catalog, synthetic visible tests, and links 
 - Complete or skip the in-app learner profile.
 - Optionally obtain an LLM base URL, API key, and model name from your provider.
 - Enter any API key yourself in the local `.env.local` file.
-- Keep the source folder, `.env.local`, database, and backups private.
+- Keep the application directory, `.env.local`, database, and backups private.
 
 ### AUTOMATED — project scripts or Codex can do this
 
@@ -141,7 +143,7 @@ You can still use the local Hot-150 catalog, synthetic visible tests, and links 
 
 - A supported Node.js runtime: Node 20.19+, Node 22.12+, or Node 24+.
 - npm, included with a normal Node.js installation.
-- The source folder with `package.json` and `package-lock.json`.
+- The `web/` application directory with `package.json` and `package-lock.json`.
 - JavaScript dependencies installed with `npm ci`.
 - The local SQLite database initialized with `npm run setup`.
 - Port 3000 available for the fixed WebUI URL.
@@ -219,7 +221,7 @@ Ordinary users should keep the safety limits at their defaults. The WebUI also r
 
 ## 4. Bootstrap the WebUI and SQLite
 
-Run every command in the project root—the folder containing `package.json`.
+Run every command in the application directory—the repository's `web/` folder containing `package.json`.
 
 > **Windows path:** WSL 2 is the verified/recommended public v0.1 environment. The setup scripts explicitly use `npm.cmd` on native Windows, but the full native PowerShell path has not completed the v0.1 release E2E matrix. Use WSL 2 with Docker Desktop integration when you want the verified path.
 
@@ -275,7 +277,7 @@ npm ci
 
 **If it fails**
 
-Check that you are in the project root, then see [npm ci fails](./troubleshooting.md#npm-ci-fails).
+Check that you are in the application directory, then see [npm ci fails](./troubleshooting.md#npm-ci-fails).
 
 ### Step 3: Initialize local configuration and SQLite
 
@@ -582,7 +584,7 @@ Save the file, stop the running WebUI with `Ctrl+C`, and restart it:
 npm run dev
 ```
 
-Then, in a second terminal in the project root, run:
+Then, in a second terminal in the application directory, run:
 
 ```bash
 npm run coach:smoke
@@ -662,9 +664,9 @@ Copy the prompt below into Codex after opening the PatternCoach project folder. 
 ```text
 Help me install PatternCoach AI on this computer.
 
-First read docs/user-setup.md and
-docs/troubleshooting.md. Inspect the current operating system,
-shell, project root, and existing local state before changing anything.
+First read ../docs/user-setup.md and
+../docs/troubleshooting.md. Inspect the current operating system,
+shell, application directory, and existing local state before changing anything.
 
 Ask me which target I want:
 1) UI/catalog preview with the built-in local Coach (not a complete install),
@@ -843,7 +845,7 @@ This permanently deletes the learner profile, drafts, runs, chat, history, notes
 
 1. Stop the WebUI.
 2. Make a backup.
-3. Confirm that you are in the PatternCoach project root and that `DATABASE_URL` still uses the default `data/patterncoach.db` path.
+3. Confirm that you are in the PatternCoach application directory and that `DATABASE_URL` still uses the default `data/patterncoach.db` path.
 
 macOS, Linux, or WSL:
 
@@ -856,7 +858,7 @@ npm run setup
 Windows PowerShell:
 
 ```powershell
-if (-not (Test-Path package.json) -or -not (Test-Path prisma/schema.prisma)) { throw "Not in the PatternCoach project root" }
+if (-not (Test-Path package.json) -or -not (Test-Path prisma/schema.prisma)) { throw "Not in the PatternCoach application directory" }
 Remove-Item -Force -ErrorAction SilentlyContinue data/patterncoach.db, data/patterncoach.db-wal, data/patterncoach.db-shm
 npm run setup
 ```
@@ -884,7 +886,7 @@ There is no named Docker volume in the provided compose file. Python packages li
 
 This forces a future Python runtime download. It does not reset the PatternCoach database.
 
-First stop Piston. Then verify the project root and remove only the exact runtime directory.
+First stop Piston. Then verify the application directory and remove only the exact runtime directory.
 
 macOS, Linux, or WSL:
 
@@ -897,7 +899,7 @@ Windows PowerShell:
 
 ```powershell
 npm run piston:down
-if (-not (Test-Path piston/docker-compose.yml)) { throw "Not in the PatternCoach project root" }
+if (-not (Test-Path piston/docker-compose.yml)) { throw "Not in the PatternCoach application directory" }
 Remove-Item -Recurse -Force -ErrorAction SilentlyContinue piston/data/packages
 ```
 

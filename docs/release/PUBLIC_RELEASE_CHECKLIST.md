@@ -23,9 +23,14 @@ Status: release candidate prepared and end-to-end checked, including an owner-ap
 
 Root and support:
 
-- `.env.example`, `.gitignore`
+- `.gitignore`
 - `README.md`, `LICENSE`, `NOTICE`
-- `HOT150_PUBLIC_CONTENT_AUDIT.md`, `PUBLIC_RELEASE_CHECKLIST.md`
+- `docs/` for user and release documentation
+- `web/` for the complete runnable application
+
+Application support under `web/`:
+
+- `.env.example`
 - `package.json`, `package-lock.json`
 - Next.js, TypeScript, ESLint, PostCSS, Playwright, Vitest, and Prisma public configuration files
 - `piston/docker-compose.yml`
@@ -37,30 +42,32 @@ User documentation:
 - `docs/user-setup.md`
 - `docs/user-guide.md`
 - `docs/troubleshooting.md`
+- `docs/release/HOT150_PUBLIC_CONTENT_AUDIT.md`
+- `docs/release/PUBLIC_RELEASE_CHECKLIST.md`
 
 Application entry points:
 
-- Public pages under `app/`: Onboarding, Today, Workbench, Profile, Problem History, Chat History, Mistake Book, and Knowledge Handbook
-- Public APIs under `app/api/`: Coach review/chat, Workbench run/draft/custom tests, deterministic Planner, and Handbook CRUD
+- Public pages under `web/app/`: Onboarding, Today, Workbench, Profile, Problem History, Chat History, Mistake Book, and Knowledge Handbook
+- Public APIs under `web/app/api/`: Coach review/chat, Workbench run/draft/custom tests, deterministic Planner, and Handbook CRUD
 
 Runtime source:
 
-- Public UI components under `src/components/`
-- Public end-user feature modules under `src/features/`
-- `src/data/hot150/local-bank.public.ts` and `local-run-types.ts`
-- Public Python wrapper, Piston runner, result normalization, and Workbench execution paths under `src/server/tools/code-runner/`
-- Public Coach prompt/protocol/orchestration and bounded OpenAI-compatible tool loop under `src/server/agents/coach-agent/`
+- Public UI components under `web/src/components/`
+- Public end-user feature modules under `web/src/features/`
+- `web/src/data/hot150/local-bank.public.ts` and `local-run-types.ts`
+- Public Python wrapper, Piston runner, result normalization, and Workbench execution paths under `web/src/server/tools/code-runner/`
+- Public Coach prompt/protocol/orchestration and bounded OpenAI-compatible tool loop under `web/src/server/agents/coach-agent/`
 - Explicit durable-write authorization at `durable-write-authorization.ts` and `turn-authorization.ts`
 - SQLite/FTS5 memory, deterministic facts, recent episode retrieval, Planner, growth, history, notebook, and handbook modules
-- Shared public runtime types under `src/types/`
+- Shared public runtime types under `web/src/types/`
 
 Database and setup:
 
-- `prisma/schema.prisma`
-- `prisma/migrations/0001_public_baseline/migration.sql`
-- `prisma/migrations/migration_lock.toml`
-- `prisma/seed.ts` with a local user shell and 150 public problem rows; first-run Onboarding creates the Profile
-- Public setup, doctor, database, FTS, Coach provider smoke, Piston health/install/smoke/boundary probes, all-bank Piston verification, and Hot-150 audit scripts under `scripts/`
+- `web/prisma/schema.prisma`
+- `web/prisma/migrations/0001_public_baseline/migration.sql`
+- `web/prisma/migrations/migration_lock.toml`
+- `web/prisma/seed.ts` with a local user shell and 150 public problem rows; first-run Onboarding creates the Profile
+- Public setup, doctor, database, FTS, Coach provider smoke, Piston health/install/smoke/boundary probes, all-bank Piston verification, and Hot-150 audit scripts under `web/scripts/`
 
 Public tests:
 
@@ -98,7 +105,7 @@ Public tests:
 - Replaced fixed personal bootstrap data with first-run local Onboarding.
 - Preserved explicit authorization for durable Profile, Memory, Handbook, and Mistake Book writes.
 - Excluded the private Runtime Trace browser-session module; the public Monaco editor and Workbench browser flow remain complete.
-- Scoped the local database ignore rule to the repository-root `data` directory so essential `src/data` runtime files remain trackable.
+- Scoped the local database ignore rule to `web/data` so essential `web/src/data` runtime files remain trackable.
 - Configured Monaco from the bundled npm package with a bundled editor worker, removing its default CDN dependency and main-thread worker fallback.
 - Added dependency overrides for patched `postcss`, `dompurify`, and `@hono/node-server` transitive versions.
 - Pinned every installer, health check, request, and Compose check to Python 3.12.0 so a fresh install cannot accidentally select Python 2.
@@ -116,7 +123,7 @@ Public tests:
 - Public synthetic visible-test sets: 150/150 PASS.
 - Exported benchmark/hidden/reference/provenance assets: 0.
 - Independent release verifier: 150 PASS / 0 BLOCKED using known-correct Python implementations against the public wrappers, adapters, comparators, and visible tests in real Piston. The private correctness oracle was neither printed nor exported.
-- Full row-level evidence: `HOT150_PUBLIC_CONTENT_AUDIT.md`.
+- Full row-level evidence: [`HOT150_PUBLIC_CONTENT_AUDIT.md`](HOT150_PUBLIC_CONTENT_AUDIT.md).
 
 The owner should review all future BLOCKED rows and a stratified 15-problem sample before the first public commit. Suggested sample: 1, 27, 76, 117, 133, 141, 173, 208, 210, 215, 236, 295, 380, 427, and 72.
 
@@ -143,6 +150,8 @@ Run the same scans again against the exact staged path set before committing.
 - AGPL does not grant permission to redistribute third-party LeetCode content; the public bank intentionally excludes protected bulk content.
 
 ## Verification results
+
+All `npm` commands below run from the repository's `web/` application directory.
 
 | Check | Result |
 |---|---|

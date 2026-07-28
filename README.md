@@ -112,7 +112,7 @@ You need **Node** (`^20.19`, `^22.12`, or `>=24`), **npm**, and **Docker** — D
 
 ```bash
 git clone https://github.com/Iriss0904/personalized-leetcode-coach.git
-cd personalized-leetcode-coach
+cd personalized-leetcode-coach/web
 
 npm ci
 npm run setup        # local env + database
@@ -202,7 +202,7 @@ Optimization is opt-in, and only after the thing works. It won't lecture you abo
 
 Yes, and it's not a special case — a problem here is a contract, not a hardcoded test file: a method signature, a typed I/O schema, a serialization adapter, and a comparison strategy. All 150 in the repo use that same shape, so the fastest route is to copy the closest one.
 
-They live in `src/data/hot150/`. PRs welcome.
+They live in [`web/src/data/hot150/`](web/src/data/hot150/). PRs welcome.
 
 </details>
 
@@ -243,7 +243,7 @@ Fair question to ask before installing something. The whole data path — UI, th
 
 ## 🔒 Where your stuff lives
 
-One SQLite file: `data/patterncoach.db`.
+One SQLite file: `web/data/patterncoach.db`.
 
 Everything is in there — drafts, runs, the evidence from each run, diagnoses, chats, review episodes, what it has learned about you, your plan, your mistakes, your notes. Twenty-three tables, no cloud copy, no telemetry.
 
