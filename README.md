@@ -30,11 +30,16 @@
 
 ## What this is
 
-You solve a problem, get it wrong, read someone's explanation, and move on. Two weeks later you make the same mistake on a different problem and don't notice.
+You solve a problem, get it wrong, read someone's explanation, and move on. Two weeks later you make the same mistake on a different problem and do not notice.
 
-PatternCoach is a workbench that closes that gap. You write Python in it, and it **runs your code before it says anything about it** — so the feedback is about the case that actually broke, not about what your code looks like. Every review it writes stays: the failing case, the diagnosis, your draft. Next time you sit down, it still knows.
+PatternCoach turns that loop into a local practice system that gets more useful as you use it:
 
-It runs entirely on your machine. No account, no upload, no subscription.
+- 🧠 **Learning event → stable fact → cross-problem profile.** Runs, Reviews, and chats leave an inspectable trail; repeated evidence becomes skill or mistake facts, then a living Profile that helps the Coach meet you where you are.
+- ⚡ **Evidence before advice.** Piston runs your Python against the public visible tests you select **and the custom cases you add**, captures outputs and the first failure, then grounds Review in what actually happened.
+- 💬 **Hints that keep you thinking.** Ask for a small next step, trace a failure, or unlock progressive hints from level 1 to 3—without being buried under an instant full solution.
+- 📚 **More than a chat transcript.** Turn a recurring bug into a Mistake Book repair guide and flashcard; save reusable Python, API, and pattern notes to your Knowledge Handbook and export them as Markdown.
+- 🎯 **Every next problem has a reason.** A goal-based Today plan, self-rating-driven review intervals, and Review Focus bring due work and recurring weak patterns back at the right time.
+- 🔒 **Local-first, inspectable, and yours.** Your drafts, runs, history, plan, and learning artifacts stay in local SQLite; an external Coach is optional, never required.
 
 > [!IMPORTANT]
 > **It will never tell you your solution is Accepted.**
