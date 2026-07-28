@@ -41,10 +41,6 @@ PatternCoach turns that loop into a local practice system that gets more useful 
 - 🎯 **Every next problem has a reason.** A goal-based Today plan, self-rating-driven review intervals, and Review Focus bring due work and recurring weak patterns back at the right time.
 - 🔒 **Local-first, inspectable, and yours.** Your drafts, runs, history, plan, and learning artifacts stay in local SQLite; an external Coach is optional, never required.
 
-> [!IMPORTANT]
-> **It will never tell you your solution is Accepted.**
-> It can only see the tests it actually ran. If you want a verdict, that's what LeetCode is for — this is for understanding *why* it broke.
-
 ---
 
 ## What using it looks like
