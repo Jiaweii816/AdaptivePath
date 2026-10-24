@@ -1,0 +1,107 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-two-sum-store-before-check-same-index",
+    "problem": {
+      "leetcodeId": 1,
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "methodName": "twoSum",
+      "tags": [
+        "Array",
+        "Hash Table"
+      ]
+    },
+    "language": "Python",
+    "scenario": "A common HashMap attempt stores the current value before checking its complement, so the current index can pair with itself.",
+    "bugPattern": "state_update_order_error",
+    "userCode": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        seen = {}\n        for i, num in enumerate(nums):\n            seen[num] = i\n            complement = target - num\n            if complement in seen:\n                return [seen[complement], i]\n        return []\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Point out that index 0 is reused with itself before a real pair is found.",
+      "Keep the HashMap idea and suggest checking the complement before storing the current number."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "[0,0]",
+    "expectedOutput": "[1,2]",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "same value cannot reuse current index",
+      "input": {
+        "nums": [
+          3,
+          2,
+          4
+        ],
+        "target": 6
+      },
+      "expected": [
+        1,
+        2
+      ],
+      "actual": [
+        0,
+        0
+      ]
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "same value cannot reuse current index",
+        "input": {
+          "nums": [
+            3,
+            2,
+            4
+          ],
+          "target": 6
+        },
+        "expected": [
+          1,
+          2
+        ],
+        "actual": [
+          0,
+          0
+        ],
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-two-sum-store-before-check-same-index",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

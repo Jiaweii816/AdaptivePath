@@ -1,0 +1,88 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-valid-anagram-uses-set-and-loses-counts",
+    "problem": {
+      "leetcodeId": 242,
+      "slug": "valid-anagram",
+      "title": "Valid Anagram",
+      "methodName": "isAnagram",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sorting"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code checks whether both strings contain the same unique letters, but ignores how many times each letter appears.",
+    "bugPattern": "duplicate_or_frequency_count_error",
+    "userCode": "class Solution:\n    def isAnagram(self, s: str, t: str) -> bool:\n        return set(s) == set(t)\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Point out that set equality loses the second a.",
+      "Suggest comparing Counter/dict frequencies or sorted strings."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "true",
+    "expectedOutput": "false",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "same character set but different counts",
+      "input": {
+        "s": "aacc",
+        "t": "ccac"
+      },
+      "expected": false,
+      "actual": true
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "same character set but different counts",
+        "input": {
+          "s": "aacc",
+          "t": "ccac"
+        },
+        "expected": false,
+        "actual": true,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-valid-anagram-uses-set-and-loses-counts",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "datasetVersion": "memory-citation-v1",
+  "name": "memory-citation-v1-seed",
+  "status": "agent_drafted_needs_human_review",
+  "description": "Personalized memory citation cases for Week3 Task3C. The default ablation suite does not call an LLM; these labels support deterministic citation scoring once structured citations are available.",
+  "humanReviewStatus": "pending",
+  "cases": [
+    {
+      "caseId": "pcite-v1-longest-abba-regression",
+      "category": "mistake_memory",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "userQuestion": "Have I made this abba left-boundary mistake before?",
+      "expectedFactKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "fact.sliding_window.shrink_condition_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.longest_substring_abba_left_regression"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Direct personalized memory question about an active sliding-window mistake.",
+      "limitations": ["Agent-drafted citation labels pending human review."]
+    },
+    {
+      "caseId": "pcite-v1-sliding-window-watch-for",
+      "category": "mistake_memory",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "userQuestion": "When I use last_seen, what window-shrink mistake from my history should I watch for?",
+      "expectedFactKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "fact.sliding_window.shrink_condition_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.longest_substring_abba_left_regression"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Pattern-history wording should still ground to the sliding-window fact and episode.",
+      "limitations": ["Only one sliding-window problem exists in v1."]
+    },
+    {
+      "caseId": "pcite-v1-two-sum-complement-skill",
+      "category": "skill_memory",
+      "problemSlug": "two-sum",
+      "userQuestion": "Do I have a useful complement lookup skill from previous Two Sum practice?",
+      "expectedFactKeys": ["fact.skill.hashmap_complement_lookup"],
+      "expectedEpisodeKeys": ["episode.review.two_sum_hashmap_repair"],
+      "forbiddenFactKeys": ["fact.two_sum.same_index_reuse"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Should cite the repaired skill and avoid treating the superseded same-index reuse fact as current.",
+      "limitations": ["The current tag matcher may miss the hashmap_complement_lookup fact."]
+    },
+    {
+      "caseId": "pcite-v1-two-sum-stale-not-current",
+      "category": "stale_memory",
+      "problemSlug": "two-sum",
+      "userQuestion": "Should my old same-index reuse in Two Sum still count as my current blocker?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.review.two_sum_same_index_reuse",
+        "episode.review.two_sum_hashmap_repair"
+      ],
+      "forbiddenFactKeys": ["fact.two_sum.same_index_reuse"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "The old episode can be cited as history, but the contradicted fact should not be cited as current memory.",
+      "limitations": ["This case tests stale citation suppression, not free-form answer quality."]
+    },
+    {
+      "caseId": "pcite-v1-binary-first-ge",
+      "category": "skill_memory",
+      "problemSlug": "search-insert-position",
+      "userQuestion": "What binary-search invariant did I learn for insertion point?",
+      "expectedFactKeys": ["fact.skill.binary_search_first_ge_invariant"],
+      "expectedEpisodeKeys": ["episode.review.search_insert_boundary_repair"],
+      "forbiddenFactKeys": [
+        "fact.binary_search.return_left_plus_one",
+        "fact.binary_search.insertion_point_boundary",
+        "fact.binary_search.loop_invariant_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Should cite the active first >= target skill, not resolved binary-search mistakes.",
+      "limitations": ["Repair episode retrieval was a known weak spot in Task3B."]
+    },
+    {
+      "caseId": "pcite-v1-binary-history-neutral",
+      "category": "mistake_memory",
+      "problemSlug": "search-insert-position",
+      "userQuestion": "Have I previously returned left + 1 in Search Insert?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.review.search_insert_return_shift",
+        "episode.review.search_insert_boundary_repair"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [
+        "fact.binary_search.return_left_plus_one",
+        "fact.binary_search.insertion_point_boundary",
+        "fact.binary_search.loop_invariant_confusion"
+      ],
+      "citationRequirement": "required",
+      "notes": "Resolved binary-search facts are neutral here only if framed as historical, not current.",
+      "limitations": ["The scorer validates citation IDs, not wording nuance."]
+    },
+    {
+      "caseId": "pcite-v1-python-dict-confusion",
+      "category": "api_confusion_memory",
+      "problemSlug": "two-sum",
+      "userQuestion": "When did I ask about Python dict.get versus checking key membership?",
+      "expectedFactKeys": ["fact.python.dict_get_confusion"],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_python_dict"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "This should expose the current API-confusion tag-match limitation if citations come only from focused retrieval.",
+      "limitations": ["The fact is current in manifest but hard to retrieve through problem-tag scoring."]
+    },
+    {
+      "caseId": "pcite-v1-preference-short-next-step",
+      "category": "preference_memory",
+      "problemSlug": "two-sum",
+      "userQuestion": "Do I prefer short hints with one concrete next step?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_python_dict"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Preference L2 facts are diagnostic-only in v1; the chat episode is the expected citation.",
+      "limitations": ["L2 preference facts remain expectedRetrievable=false in the manifest."]
+    },
+    {
+      "caseId": "pcite-v1-no-evidence-recursion",
+      "category": "no_memory_evidence",
+      "problemSlug": "two-sum",
+      "userQuestion": "Have I shown a recurring recursion weakness before?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "none_expected",
+      "notes": "A grounded answer should say there is no seeded evidence instead of citing unrelated memory.",
+      "limitations": ["No-citation cases need human review so absence of evidence is not over-penalized."]
+    }
+  ],
+  "limitations": [
+    "V1 has 9 agent-drafted citation cases and is below a statistically powered personalized memory benchmark.",
+    "The default Task3C suite does not call an LLM, so free-text hallucinated memory rate is unscorable unless structured citations are provided.",
+    "Preference facts are present in the seed manifest but not expected L2 retrieval positives in v1."
+  ]
+}

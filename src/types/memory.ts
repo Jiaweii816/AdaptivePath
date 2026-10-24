@@ -1,0 +1,35 @@
+import { z } from "zod";
+
+export const l1MemoryEventTypeSchema = z.enum([
+  "review_attempt",
+  "run_evidence",
+  "practice_run_milestone",
+  "diagnosis",
+  "coach_reply",
+  "chat_user_message",
+  "chat_reply",
+  "reply_protocol_replaced",
+  "reply_protocol_scrubbed",
+  "chat_history_cleared",
+  "memory_note",
+  "knowledge_note",
+  "knowledge_lookup",
+  "mistake_book_entry",
+  "mistake_book_retrieval_index_pending_repair",
+  "memory_synthesis_failed",
+  "consolidation_failed",
+  "fact_rejected",
+  "strategy_planned",
+  "strategy_applied",
+  "mock_interview_started",
+  "mock_interview_turn",
+  "mock_interview_run_evidence",
+  "mock_interview_code_discussion",
+  "mock_interview_feedback",
+  "leetcode_history_import",
+  "historical_replay_attestation",
+  "historical_replay_completed",
+  "assisted_repair_chain_closed",
+]);
+
+export type L1MemoryEventType = z.infer<typeof l1MemoryEventTypeSchema>;

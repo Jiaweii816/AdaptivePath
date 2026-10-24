@@ -1,0 +1,104 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-lis-compares-only-adjacent-elements",
+    "problem": {
+      "leetcodeId": 300,
+      "slug": "longest-increasing-subsequence",
+      "title": "Longest Increasing Subsequence",
+      "methodName": "lengthOfLIS",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code treats LIS like a contiguous increasing run, comparing only nums[i] with nums[i-1].",
+    "bugPattern": "dp_transition_error",
+    "userCode": "class Solution:\n    def lengthOfLIS(self, nums: list[int]) -> int:\n        if not nums:\n            return 0\n        dp = [1] * len(nums)\n        for i in range(1, len(nums)):\n            if nums[i] > nums[i - 1]:\n                dp[i] = dp[i - 1] + 1\n        return max(dp)\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Explain that LIS is not required to be contiguous.",
+      "Suggest checking all j < i transitions or using tails for the optimized path later."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "3",
+    "expectedOutput": "4",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "subsequence can skip non-adjacent values",
+      "input": {
+        "nums": [
+          10,
+          9,
+          2,
+          5,
+          3,
+          7,
+          101,
+          18
+        ]
+      },
+      "expected": 4,
+      "actual": 3
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "subsequence can skip non-adjacent values",
+        "input": {
+          "nums": [
+            10,
+            9,
+            2,
+            5,
+            3,
+            7,
+            101,
+            18
+          ]
+        },
+        "expected": 4,
+        "actual": 3,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-lis-compares-only-adjacent-elements",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

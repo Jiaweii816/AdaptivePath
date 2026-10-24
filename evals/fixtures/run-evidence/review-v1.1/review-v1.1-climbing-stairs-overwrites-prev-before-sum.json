@@ -1,0 +1,86 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-climbing-stairs-overwrites-prev-before-sum",
+    "problem": {
+      "leetcodeId": 70,
+      "slug": "climbing-stairs",
+      "title": "Climbing Stairs",
+      "methodName": "climbStairs",
+      "tags": [
+        "Math",
+        "Dynamic Programming",
+        "Memoization"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The Fibonacci rolling variables are named correctly, but the first assignment overwrites the old value needed by the sum.",
+    "bugPattern": "state_update_order_error",
+    "userCode": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        prev2, prev1 = 1, 1\n        for _ in range(2, n + 1):\n            prev2 = prev1\n            prev1 = prev2 + prev1\n        return prev1\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Explain that both operands in the sum now read the same updated value.",
+      "Suggest using a temporary variable or tuple assignment."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "4",
+    "expectedOutput": "3",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "three steps needs 2+1 split without double-counting",
+      "input": {
+        "n": 3
+      },
+      "expected": 3,
+      "actual": 4
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "three steps needs 2+1 split without double-counting",
+        "input": {
+          "n": 3
+        },
+        "expected": 3,
+        "actual": 4,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-climbing-stairs-overwrites-prev-before-sum",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

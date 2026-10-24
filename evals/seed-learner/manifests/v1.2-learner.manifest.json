@@ -1,0 +1,1327 @@
+{
+  "manifestVersion": "seed-learner-manifest-v1",
+  "generatedAt": "2026-07-09T17:10:33.902Z",
+  "scenarioId": "seed-learner-v1.2",
+  "scenarioVersion": "seed-learner-scenario-v1",
+  "scenarioPath": "/home/iris/projects/LeetcodeCoach/evals/seed-learner/scenarios/v1.2-learner.json",
+  "dbPath": "/home/iris/projects/LeetcodeCoach/evals/tmp/memory-seed-v1.2.db",
+  "learnerId": "learner.synthetic.v1_2",
+  "userId": "seed_user_learner_synthetic_v1_2",
+  "humanReviewStatus": "pending",
+  "counts": {
+    "facts": 24,
+    "episodes": 25,
+    "staleOrSupersededFacts": 2,
+    "preferenceFacts": 1
+  },
+  "facts": [
+    {
+      "scenarioFactKey": "fact.hash.contains_duplicate_membership_order",
+      "factId": "seed_fact_fact_hash_contains_duplicate_membership_order",
+      "factType": "mistake",
+      "tag": "hash_table_membership_order",
+      "label": "Checks hash-set membership after adding the current value",
+      "value": "Checks hash-set membership after adding the current value",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "contains-duplicate"
+      ],
+      "sourceEpisodeKey": "episode.review.contains_duplicate_add_before_check_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_contains_duplicate_add_before_check_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_contains_duplicate_add_before_check_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.contains_duplicate_add_before_check_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_contains_duplicate_add_before_check_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.hash_sequence_start_points",
+      "factId": "seed_fact_fact_skill_hash_sequence_start_points",
+      "factType": "skill",
+      "tag": "hash_table_sequence_start_points",
+      "label": "Uses hash-set sequence start points to avoid repeated scans",
+      "value": "Uses hash-set sequence start points to avoid repeated scans",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "longest-consecutive-sequence",
+        "contains-duplicate"
+      ],
+      "sourceEpisodeKey": "episode.review.longest_consecutive_start_points_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_longest_consecutive_start_points_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_longest_consecutive_start_points_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.longest_consecutive_start_points_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_longest_consecutive_start_points_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.prefix.product_except_self_include_self",
+      "factId": "seed_fact_fact_prefix_product_except_self_include_self",
+      "factType": "mistake",
+      "tag": "prefix_suffix_include_self",
+      "label": "Includes nums[i] in Product Except Self prefix/suffix products",
+      "value": "Includes nums[i] in Product Except Self prefix/suffix products",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "product-of-array-except-self"
+      ],
+      "sourceEpisodeKey": "episode.review.product_except_self_include_self_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_product_except_self_include_self_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_product_except_self_include_self_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.product_except_self_include_self_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_product_except_self_include_self_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.find_min_discards_mid",
+      "factId": "seed_fact_fact_binary_search_find_min_discards_mid",
+      "factType": "mistake",
+      "tag": "binary_search_discards_mid",
+      "label": "Discards mid when mid could still be the minimum",
+      "value": "Discards mid when mid could still be the minimum",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "find-minimum-in-rotated-sorted-array",
+        "koko-eating-bananas"
+      ],
+      "sourceEpisodeKey": "episode.review.find_min_discards_mid_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_find_min_discards_mid_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_find_min_discards_mid_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.find_min_discards_mid_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_find_min_discards_mid_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.koko_answer_bounds",
+      "factId": "seed_fact_fact_binary_search_koko_answer_bounds",
+      "factType": "weakness",
+      "tag": "binary_search_answer_bounds",
+      "label": "Starts binary-search answer space from an invalid lower bound",
+      "value": "Starts binary-search answer space from an invalid lower bound",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "koko-eating-bananas",
+        "find-minimum-in-rotated-sorted-array"
+      ],
+      "sourceEpisodeKey": "episode.review.koko_answer_bounds_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_koko_answer_bounds_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_koko_answer_bounds_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.koko_answer_bounds_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_koko_answer_bounds_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.sliding_window.permutation_count_balance",
+      "factId": "seed_fact_fact_sliding_window_permutation_count_balance",
+      "factType": "mistake",
+      "tag": "sliding_window_count_balance",
+      "label": "Does not decrement outgoing character in fixed-size sliding-window counts",
+      "value": "Does not decrement outgoing character in fixed-size sliding-window counts",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "permutation-in-string",
+        "longest-repeating-character-replacement"
+      ],
+      "sourceEpisodeKey": "episode.review.permutation_in_string_count_balance_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_permutation_in_string_count_balance_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_permutation_in_string_count_balance_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.permutation_in_string_count_balance_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_permutation_in_string_count_balance_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.sliding_window.character_replacement_max_frequency",
+      "factId": "seed_fact_fact_sliding_window_character_replacement_max_frequency",
+      "factType": "weakness",
+      "tag": "sliding_window_max_frequency",
+      "label": "Updates sliding-window best length at the wrong point around max frequency",
+      "value": "Updates sliding-window best length at the wrong point around max frequency",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "longest-repeating-character-replacement",
+        "permutation-in-string"
+      ],
+      "sourceEpisodeKey": "episode.review.character_replacement_maxfreq_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_character_replacement_maxfreq_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_character_replacement_maxfreq_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.character_replacement_maxfreq_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_character_replacement_maxfreq_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.two_pointers_alphanumeric_cleanup",
+      "factId": "seed_fact_fact_skill_two_pointers_alphanumeric_cleanup",
+      "factType": "skill",
+      "tag": "two_pointers_alphanumeric_cleanup",
+      "label": "Can skip non-alphanumeric characters before two-pointer comparison",
+      "value": "Can skip non-alphanumeric characters before two-pointer comparison",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "valid-palindrome",
+        "3sum"
+      ],
+      "sourceEpisodeKey": "episode.review.valid_palindrome_cleanup_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_valid_palindrome_cleanup_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_valid_palindrome_cleanup_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.valid_palindrome_cleanup_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_palindrome_cleanup_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.two_pointers.threesum_duplicate_skip",
+      "factId": "seed_fact_fact_two_pointers_threesum_duplicate_skip",
+      "factType": "mistake",
+      "tag": "two_pointers_duplicate_skip",
+      "label": "Does not skip duplicate anchors and pointer values in 3Sum",
+      "value": "Does not skip duplicate anchors and pointer values in 3Sum",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "3sum",
+        "valid-palindrome"
+      ],
+      "sourceEpisodeKey": "episode.review.threesum_duplicate_skip_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_threesum_duplicate_skip_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_threesum_duplicate_skip_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.threesum_duplicate_skip_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_threesum_duplicate_skip_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.stack.min_stack_duplicate_minimum",
+      "factId": "seed_fact_fact_stack_min_stack_duplicate_minimum",
+      "factType": "mistake",
+      "tag": "stack_duplicate_minimum",
+      "label": "Loses duplicate minimum values in Min Stack",
+      "value": "Loses duplicate minimum values in Min Stack",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "min-stack",
+        "evaluate-reverse-polish-notation"
+      ],
+      "sourceEpisodeKey": "episode.review.min_stack_duplicate_min_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_min_stack_duplicate_min_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_min_stack_duplicate_min_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.min_stack_duplicate_min_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_min_stack_duplicate_min_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.stack.rpn_division_truncation_confusion",
+      "factId": "seed_fact_fact_stack_rpn_division_truncation_confusion",
+      "factType": "unresolved_confusion",
+      "tag": "stack_division_truncation",
+      "label": "Unsure how Python and C++ integer division should truncate in Evaluate RPN",
+      "value": "Unsure how Python and C++ integer division should truncate in Evaluate RPN",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "evaluate-reverse-polish-notation",
+        "min-stack"
+      ],
+      "sourceEpisodeKey": "episode.chat.rpn_division_truncation_confusion",
+      "sourceEpisodeId": "seed_episode_episode_chat_rpn_division_truncation_confusion",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_rpn_division_truncation_confusion_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.rpn_division_truncation_confusion",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_rpn_division_truncation_confusion_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.tree.validate_bst_bounds_parent_only",
+      "factId": "seed_fact_fact_tree_validate_bst_bounds_parent_only",
+      "factType": "mistake",
+      "tag": "tree_bst_bounds",
+      "label": "Validates BST nodes only against their direct parent",
+      "value": "Validates BST nodes only against their direct parent",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "validate-binary-search-tree"
+      ],
+      "sourceEpisodeKey": "episode.review.validate_bst_parent_only_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_validate_bst_parent_only_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_validate_bst_parent_only_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.validate_bst_parent_only_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_validate_bst_parent_only_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.graph_topological_indegree",
+      "factId": "seed_fact_fact_skill_graph_topological_indegree",
+      "factType": "skill",
+      "tag": "graph_topological_indegree",
+      "label": "Can use indegree queue for Course Schedule topological sort",
+      "value": "Can use indegree queue for Course Schedule topological sort",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "course-schedule",
+        "rotting-oranges"
+      ],
+      "sourceEpisodeKey": "episode.review.course_schedule_indegree_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_course_schedule_indegree_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_course_schedule_indegree_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.course_schedule_indegree_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_course_schedule_indegree_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.graph.rotting_oranges_level_time",
+      "factId": "seed_fact_fact_graph_rotting_oranges_level_time",
+      "factType": "mistake",
+      "tag": "graph_bfs_level_time",
+      "label": "Increments BFS time per cell rather than per layer",
+      "value": "Increments BFS time per cell rather than per layer",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "rotting-oranges",
+        "course-schedule"
+      ],
+      "sourceEpisodeKey": "episode.review.rotting_oranges_level_time_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_rotting_oranges_level_time_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_rotting_oranges_level_time_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.rotting_oranges_level_time_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_rotting_oranges_level_time_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.dynamic_programming.house_robber_state_order",
+      "factId": "seed_fact_fact_dynamic_programming_house_robber_state_order",
+      "factType": "mistake",
+      "tag": "dynamic_programming_rolling_state",
+      "label": "Overwrites rolling DP state before using the old previous best",
+      "value": "Overwrites rolling DP state before using the old previous best",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "house-robber",
+        "word-break"
+      ],
+      "sourceEpisodeKey": "episode.review.house_robber_state_order_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_house_robber_state_order_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_house_robber_state_order_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.house_robber_state_order_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_house_robber_state_order_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.dynamic_programming.word_break_prefix_reachability",
+      "factId": "seed_fact_fact_dynamic_programming_word_break_prefix_reachability",
+      "factType": "weakness",
+      "tag": "dynamic_programming_prefix_reachability",
+      "label": "Sets Word Break dp[i] without requiring the prefix dp[j] to be reachable",
+      "value": "Sets Word Break dp[i] without requiring the prefix dp[j] to be reachable",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "word-break",
+        "house-robber"
+      ],
+      "sourceEpisodeKey": "episode.review.word_break_prefix_reachability_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_word_break_prefix_reachability_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_word_break_prefix_reachability_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.word_break_prefix_reachability_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_word_break_prefix_reachability_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.dynamic_programming.low_confidence_greedy_guess",
+      "factId": "seed_fact_fact_dynamic_programming_low_confidence_greedy_guess",
+      "factType": "weakness",
+      "tag": "dynamic_programming_greedy_guess",
+      "label": "May overgeneralize DP problems into greedy guesses",
+      "value": "May overgeneralize DP problems into greedy guesses",
+      "dbStatus": "active",
+      "scenarioStatus": "low_confidence",
+      "confidence": 0.38,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "house-robber",
+        "word-break"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_dp_greedy_aside",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_dp_greedy_aside_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_dp_greedy_aside_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+          "evidenceKind": "weaken",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_dp_greedy_aside_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.two_pointers.low_confidence_sorted_only",
+      "factId": "seed_fact_fact_two_pointers_low_confidence_sorted_only",
+      "factType": "weakness",
+      "tag": "two_pointers_sorted_only",
+      "label": "May think two pointers only applies to sorted arrays",
+      "value": "May think two pointers only applies to sorted arrays",
+      "dbStatus": "active",
+      "scenarioStatus": "low_confidence",
+      "confidence": 0.38,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "3sum",
+        "valid-palindrome"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_two_pointers_sorted_only",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_two_pointers_sorted_only_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_two_pointers_sorted_only_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+          "evidenceKind": "weaken",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_two_pointers_sorted_only_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.graph.low_confidence_recursion_depth_fear",
+      "factId": "seed_fact_fact_graph_low_confidence_recursion_depth_fear",
+      "factType": "weakness",
+      "tag": "graph_recursion_depth_fear",
+      "label": "May avoid graph recursion because deep calls feel scary",
+      "value": "May avoid graph recursion because deep calls feel scary",
+      "dbStatus": "active",
+      "scenarioStatus": "low_confidence",
+      "confidence": 0.38,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "rotting-oranges",
+        "course-schedule"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_graph_recursion_depth",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_graph_recursion_depth_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_graph_recursion_depth_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+          "evidenceKind": "weaken",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_graph_recursion_depth_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.sliding_window.low_confidence_fixed_size_only",
+      "factId": "seed_fact_fact_sliding_window_low_confidence_fixed_size_only",
+      "factType": "weakness",
+      "tag": "sliding_window_fixed_size_only",
+      "label": "May think all sliding windows have fixed length",
+      "value": "May think all sliding windows have fixed length",
+      "dbStatus": "active",
+      "scenarioStatus": "low_confidence",
+      "confidence": 0.38,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "permutation-in-string",
+        "longest-repeating-character-replacement"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_sliding_fixed_size",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_sliding_fixed_size_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_sliding_fixed_size_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+          "evidenceKind": "weaken",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_sliding_fixed_size_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.return_mid_after_loop_resolved",
+      "factId": "seed_fact_fact_binary_search_return_mid_after_loop_resolved",
+      "factType": "mistake",
+      "tag": "binary_search_return_mid_after_loop",
+      "label": "Returned stale mid after binary-search convergence",
+      "value": "Returned stale mid after binary-search convergence",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "find-minimum-in-rotated-sorted-array"
+      ],
+      "sourceEpisodeKey": "episode.review.find_min_return_mid_after_loop_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_find_min_return_mid_after_loop_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_find_min_return_mid_after_loop_failed_diagnosis",
+        "seed_trace_episode_review_find_min_return_left_repair_passed_run_evidence"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.find_min_return_mid_after_loop_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_find_min_return_mid_after_loop_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.find_min_return_left_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_find_min_return_left_repair_passed_run_evidence"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.find_min_return_left_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_find_min_return_left_repair_passed_run_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.hash.only_sorting_for_duplicates_contradicted",
+      "factId": "seed_fact_fact_hash_only_sorting_for_duplicates_contradicted",
+      "factType": "weakness",
+      "tag": "hash_table_only_sorting",
+      "label": "Believed duplicate detection had to be solved by sorting",
+      "value": "Believed duplicate detection had to be solved by sorting",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "confidence": 0.25,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "contains-duplicate"
+      ],
+      "sourceEpisodeKey": "episode.chat.contains_duplicate_sorting_assumption",
+      "sourceEpisodeId": "seed_episode_episode_chat_contains_duplicate_sorting_assumption",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_contains_duplicate_sorting_assumption_chat_reply_0",
+        "seed_trace_episode_review_contains_duplicate_set_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.contains_duplicate_sorting_assumption",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_contains_duplicate_sorting_assumption_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.contains_duplicate_set_repair_passed",
+          "evidenceKind": "contradict",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_contains_duplicate_set_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.preference.micro_step_first",
+      "factId": "seed_fact_fact_preference_micro_step_first",
+      "factType": "preference",
+      "tag": "output_style_micro_step",
+      "label": "Give one runnable micro-step before theory; no full solution on the first reply.",
+      "value": "Give one runnable micro-step before theory; no full solution on the first reply.",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.9,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "contains-duplicate"
+      ],
+      "sourceEpisodeKey": "episode.chat.preference_micro_step_first",
+      "sourceEpisodeId": "seed_episode_episode_chat_preference_micro_step_first",
+      "source": "user_explicit",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preference_micro_step_first_memory_note"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preference_micro_step_first",
+          "evidenceKind": "preference_set",
+          "source": "user_explicit",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preference_micro_step_first_memory_note"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.strength.two_pointers_boundary_trace",
+      "factId": "seed_fact_fact_strength_two_pointers_boundary_trace",
+      "factType": "strength",
+      "tag": "two_pointers_boundary_trace",
+      "label": "Can trace two-pointer boundary skips in small string examples",
+      "value": "Can trace two-pointer boundary skips in small string examples",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "valid-palindrome",
+        "3sum"
+      ],
+      "sourceEpisodeKey": "episode.review.valid_palindrome_cleanup_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_valid_palindrome_cleanup_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_valid_palindrome_cleanup_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.valid_palindrome_cleanup_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_palindrome_cleanup_passed_diagnosis"
+          ]
+        }
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "scenarioEpisodeKey": "episode.review.contains_duplicate_add_before_check_failed",
+      "episodeId": "seed_episode_episode_review_contains_duplicate_add_before_check_failed",
+      "kind": "review",
+      "problemSlug": "contains-duplicate",
+      "problemPath": "/workbench?problem=contains-duplicate",
+      "title": "Contains Duplicate review: membership check after add",
+      "summary": "The learner added the current number into seen before checking membership, so Contains Duplicate returned true immediately on a unique list. The blocker was hash table membership order, not lack of a set idea.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_contains_duplicate_add_before_check_failed_review_attempt",
+        "seed_trace_episode_review_contains_duplicate_add_before_check_failed_run_evidence",
+        "seed_trace_episode_review_contains_duplicate_add_before_check_failed_diagnosis",
+        "seed_trace_episode_review_contains_duplicate_add_before_check_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.contains_duplicate_set_repair_passed",
+      "episodeId": "seed_episode_episode_review_contains_duplicate_set_repair_passed",
+      "kind": "review",
+      "problemSlug": "contains-duplicate",
+      "problemPath": "/workbench?problem=contains-duplicate",
+      "title": "Contains Duplicate repair: check before add",
+      "summary": "The learner repaired Contains Duplicate by checking x in seen before adding x, and the visible unique and duplicate cases passed. This contradicted the earlier casual belief that sorting was the only workable route.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_contains_duplicate_set_repair_passed_review_attempt",
+        "seed_trace_episode_review_contains_duplicate_set_repair_passed_run_evidence",
+        "seed_trace_episode_review_contains_duplicate_set_repair_passed_diagnosis",
+        "seed_trace_episode_review_contains_duplicate_set_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.longest_consecutive_start_points_passed",
+      "episodeId": "seed_episode_episode_review_longest_consecutive_start_points_passed",
+      "kind": "review",
+      "problemSlug": "longest-consecutive-sequence",
+      "problemPath": "/workbench?problem=longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence review: start only at x-1 gaps",
+      "summary": "The learner used a set and only started counting when x-1 was absent, avoiding repeated sequence scans. This is a reusable hash table sequence-start skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_longest_consecutive_start_points_passed_review_attempt",
+        "seed_trace_episode_review_longest_consecutive_start_points_passed_run_evidence",
+        "seed_trace_episode_review_longest_consecutive_start_points_passed_diagnosis",
+        "seed_trace_episode_review_longest_consecutive_start_points_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.product_except_self_include_self_failed",
+      "episodeId": "seed_episode_episode_review_product_except_self_include_self_failed",
+      "kind": "review",
+      "problemSlug": "product-of-array-except-self",
+      "problemPath": "/workbench?problem=product-of-array-except-self",
+      "title": "Product Except Self review: prefix and suffix include self",
+      "summary": "The learner multiplied nums[i] into both prefix and suffix before writing answer[i], so Product Except Self included the current element in its own product.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_product_except_self_include_self_failed_review_attempt",
+        "seed_trace_episode_review_product_except_self_include_self_failed_run_evidence",
+        "seed_trace_episode_review_product_except_self_include_self_failed_diagnosis",
+        "seed_trace_episode_review_product_except_self_include_self_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.find_min_return_mid_after_loop_failed",
+      "episodeId": "seed_episode_episode_review_find_min_return_mid_after_loop_failed",
+      "kind": "review",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "problemPath": "/workbench?problem=find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum repair history: returned mid after loop",
+      "summary": "The learner once returned mid after the rotated-array binary-search loop, which picked a stale midpoint rather than the converged left boundary.",
+      "outcome": "failed",
+      "expectedRetrievable": false,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_find_min_return_mid_after_loop_failed_review_attempt",
+        "seed_trace_episode_review_find_min_return_mid_after_loop_failed_run_evidence",
+        "seed_trace_episode_review_find_min_return_mid_after_loop_failed_diagnosis",
+        "seed_trace_episode_review_find_min_return_mid_after_loop_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.find_min_return_left_repair_passed",
+      "episodeId": "seed_episode_episode_review_find_min_return_left_repair_passed",
+      "kind": "review",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "problemPath": "/workbench?problem=find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum repair: return left after convergence",
+      "summary": "The learner repaired the old return-mid mistake by returning nums[left] after the loop, and visible rotated cases passed.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_find_min_return_left_repair_passed_review_attempt",
+        "seed_trace_episode_review_find_min_return_left_repair_passed_run_evidence",
+        "seed_trace_episode_review_find_min_return_left_repair_passed_diagnosis",
+        "seed_trace_episode_review_find_min_return_left_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.find_min_discards_mid_failed",
+      "episodeId": "seed_episode_episode_review_find_min_discards_mid_failed",
+      "kind": "review",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "problemPath": "/workbench?problem=find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum review: discarded mid that could be minimum",
+      "summary": "In a later Find Minimum attempt, the learner used r = mid - 1 when nums[mid] <= nums[r], discarding mid even though mid could still be the minimum.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_find_min_discards_mid_failed_review_attempt",
+        "seed_trace_episode_review_find_min_discards_mid_failed_run_evidence",
+        "seed_trace_episode_review_find_min_discards_mid_failed_diagnosis",
+        "seed_trace_episode_review_find_min_discards_mid_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.koko_answer_bounds_failed",
+      "episodeId": "seed_episode_episode_review_koko_answer_bounds_failed",
+      "kind": "review",
+      "problemSlug": "koko-eating-bananas",
+      "problemPath": "/workbench?problem=koko-eating-bananas",
+      "title": "Koko Eating Bananas review: answer-space lower bound starts at zero",
+      "summary": "The learner started Koko's binary search speed at 0, which made the feasibility check divide by zero. The blocker was answer-space bounds for binary search.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_koko_answer_bounds_failed_review_attempt",
+        "seed_trace_episode_review_koko_answer_bounds_failed_run_evidence",
+        "seed_trace_episode_review_koko_answer_bounds_failed_diagnosis",
+        "seed_trace_episode_review_koko_answer_bounds_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.permutation_in_string_count_balance_failed",
+      "episodeId": "seed_episode_episode_review_permutation_in_string_count_balance_failed",
+      "kind": "review",
+      "problemSlug": "permutation-in-string",
+      "problemPath": "/workbench?problem=permutation-in-string",
+      "title": "Permutation in String review: counts not balanced when window slides",
+      "summary": "The learner added the incoming character but forgot to decrement the outgoing character, so the sliding-window counts drifted away from the fixed window.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_permutation_in_string_count_balance_failed_review_attempt",
+        "seed_trace_episode_review_permutation_in_string_count_balance_failed_run_evidence",
+        "seed_trace_episode_review_permutation_in_string_count_balance_failed_diagnosis",
+        "seed_trace_episode_review_permutation_in_string_count_balance_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.character_replacement_maxfreq_failed",
+      "episodeId": "seed_episode_episode_review_character_replacement_maxfreq_failed",
+      "kind": "review",
+      "problemSlug": "longest-repeating-character-replacement",
+      "problemPath": "/workbench?problem=longest-repeating-character-replacement",
+      "title": "Character Replacement review: recomputed max frequency as exact window state",
+      "summary": "The learner tried to recompute max frequency after every shrink and tied it to the exact current window, making the shrink condition unstable. The stable-window invariant was the blocker.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_character_replacement_maxfreq_failed_review_attempt",
+        "seed_trace_episode_review_character_replacement_maxfreq_failed_run_evidence",
+        "seed_trace_episode_review_character_replacement_maxfreq_failed_diagnosis",
+        "seed_trace_episode_review_character_replacement_maxfreq_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.valid_palindrome_cleanup_passed",
+      "episodeId": "seed_episode_episode_review_valid_palindrome_cleanup_passed",
+      "kind": "review",
+      "problemSlug": "valid-palindrome",
+      "problemPath": "/workbench?problem=valid-palindrome",
+      "title": "Valid Palindrome review: alphanumeric cleanup with two pointers",
+      "summary": "The learner correctly skipped non-alphanumeric characters and compared lowercase characters from both ends. This is a reliable two-pointers cleanup skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_valid_palindrome_cleanup_passed_review_attempt",
+        "seed_trace_episode_review_valid_palindrome_cleanup_passed_run_evidence",
+        "seed_trace_episode_review_valid_palindrome_cleanup_passed_diagnosis",
+        "seed_trace_episode_review_valid_palindrome_cleanup_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.threesum_duplicate_skip_failed",
+      "episodeId": "seed_episode_episode_review_threesum_duplicate_skip_failed",
+      "kind": "review",
+      "problemSlug": "3sum",
+      "problemPath": "/workbench?problem=3sum",
+      "title": "3Sum review: duplicate triplets not skipped",
+      "summary": "The learner sorted the array and used two pointers, but did not skip duplicate anchors or duplicate left/right values, so 3Sum returned repeated triplets.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_threesum_duplicate_skip_failed_review_attempt",
+        "seed_trace_episode_review_threesum_duplicate_skip_failed_run_evidence",
+        "seed_trace_episode_review_threesum_duplicate_skip_failed_diagnosis",
+        "seed_trace_episode_review_threesum_duplicate_skip_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.min_stack_duplicate_min_failed",
+      "episodeId": "seed_episode_episode_review_min_stack_duplicate_min_failed",
+      "kind": "review",
+      "problemSlug": "min-stack",
+      "problemPath": "/workbench?problem=min-stack",
+      "title": "Min Stack review: duplicate minimum pop loses min state",
+      "summary": "The learner only pushed to min_stack when x was strictly smaller than the current min, so duplicate minimum values were not tracked and pop lost the correct min.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_min_stack_duplicate_min_failed_review_attempt",
+        "seed_trace_episode_review_min_stack_duplicate_min_failed_run_evidence",
+        "seed_trace_episode_review_min_stack_duplicate_min_failed_diagnosis",
+        "seed_trace_episode_review_min_stack_duplicate_min_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.rpn_division_truncation_confusion",
+      "episodeId": "seed_episode_episode_chat_rpn_division_truncation_confusion",
+      "kind": "chat_segment",
+      "problemSlug": "evaluate-reverse-polish-notation",
+      "problemPath": "/workbench?problem=evaluate-reverse-polish-notation",
+      "title": "Evaluate RPN chat: integer division truncates toward zero",
+      "summary": "The learner asked whether Python // and C++ / behave the same for negative Reverse Polish Notation division. The unresolved API confusion is that LeetCode expects integer division truncated toward zero.",
+      "outcome": "unresolved",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_rpn_division_truncation_confusion_chat_user_0",
+        "seed_trace_episode_chat_rpn_division_truncation_confusion_chat_reply_0"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.validate_bst_parent_only_failed",
+      "episodeId": "seed_episode_episode_review_validate_bst_parent_only_failed",
+      "kind": "review",
+      "problemSlug": "validate-binary-search-tree",
+      "problemPath": "/workbench?problem=validate-binary-search-tree",
+      "title": "Validate BST review: compared only with direct parent",
+      "summary": "The learner checked each node only against its direct parent, so a deep right-subtree value that violated the root bound was accepted.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_validate_bst_parent_only_failed_review_attempt",
+        "seed_trace_episode_review_validate_bst_parent_only_failed_run_evidence",
+        "seed_trace_episode_review_validate_bst_parent_only_failed_diagnosis",
+        "seed_trace_episode_review_validate_bst_parent_only_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.course_schedule_indegree_passed",
+      "episodeId": "seed_episode_episode_review_course_schedule_indegree_passed",
+      "kind": "review",
+      "problemSlug": "course-schedule",
+      "problemPath": "/workbench?problem=course-schedule",
+      "title": "Course Schedule review: indegree queue skill",
+      "summary": "The learner correctly modeled prerequisites with indegree counts and a queue of zero-indegree courses. This is a reusable graph topological-sort skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_course_schedule_indegree_passed_review_attempt",
+        "seed_trace_episode_review_course_schedule_indegree_passed_run_evidence",
+        "seed_trace_episode_review_course_schedule_indegree_passed_diagnosis",
+        "seed_trace_episode_review_course_schedule_indegree_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.rotting_oranges_level_time_failed",
+      "episodeId": "seed_episode_episode_review_rotting_oranges_level_time_failed",
+      "kind": "review",
+      "problemSlug": "rotting-oranges",
+      "problemPath": "/workbench?problem=rotting-oranges",
+      "title": "Rotting Oranges review: minutes increment per cell instead of per layer",
+      "summary": "The learner incremented minutes for every rotten orange popped from the queue, so the BFS time counted cells rather than layers.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_rotting_oranges_level_time_failed_review_attempt",
+        "seed_trace_episode_review_rotting_oranges_level_time_failed_run_evidence",
+        "seed_trace_episode_review_rotting_oranges_level_time_failed_diagnosis",
+        "seed_trace_episode_review_rotting_oranges_level_time_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.house_robber_state_order_failed",
+      "episodeId": "seed_episode_episode_review_house_robber_state_order_failed",
+      "kind": "review",
+      "problemSlug": "house-robber",
+      "problemPath": "/workbench?problem=house-robber",
+      "title": "House Robber review: rolling state overwritten before using previous best",
+      "summary": "The learner updated prev1 before computing the new House Robber state, so the recurrence reused the current-house value as if it were the previous best.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_house_robber_state_order_failed_review_attempt",
+        "seed_trace_episode_review_house_robber_state_order_failed_run_evidence",
+        "seed_trace_episode_review_house_robber_state_order_failed_diagnosis",
+        "seed_trace_episode_review_house_robber_state_order_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.word_break_prefix_reachability_failed",
+      "episodeId": "seed_episode_episode_review_word_break_prefix_reachability_failed",
+      "kind": "review",
+      "problemSlug": "word-break",
+      "problemPath": "/workbench?problem=word-break",
+      "title": "Word Break review: ignores prefix reachability",
+      "summary": "The learner marked dp[i] true whenever s[j:i] was in the dictionary, without checking that dp[j] was reachable, so unreachable suffix matches leaked into the answer.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_word_break_prefix_reachability_failed_review_attempt",
+        "seed_trace_episode_review_word_break_prefix_reachability_failed_run_evidence",
+        "seed_trace_episode_review_word_break_prefix_reachability_failed_diagnosis",
+        "seed_trace_episode_review_word_break_prefix_reachability_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+      "episodeId": "seed_episode_episode_chat_low_confidence_dp_greedy_aside",
+      "kind": "chat_segment",
+      "problemSlug": "word-break",
+      "problemPath": "/workbench?problem=word-break",
+      "title": "Low-confidence DP aside: wondered whether DP can be greedy",
+      "summary": "The learner casually asked once whether dynamic programming problems can usually be solved greedily, without submitting code or repeating the behavior. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "expectedRetrievable": false,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_dp_greedy_aside_chat_user_0",
+        "seed_trace_episode_chat_low_confidence_dp_greedy_aside_chat_reply_0"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+      "episodeId": "seed_episode_episode_chat_low_confidence_two_pointers_sorted_only",
+      "kind": "chat_segment",
+      "problemSlug": "3sum",
+      "problemPath": "/workbench?problem=3sum",
+      "title": "Low-confidence two-pointers aside: wondered if pointers require sorted arrays",
+      "summary": "The learner casually asked once whether two pointers only works on sorted arrays, but there was no repeated mistake or code evidence. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "expectedRetrievable": false,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_two_pointers_sorted_only_chat_user_0",
+        "seed_trace_episode_chat_low_confidence_two_pointers_sorted_only_chat_reply_0"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+      "episodeId": "seed_episode_episode_chat_low_confidence_graph_recursion_depth",
+      "kind": "chat_segment",
+      "problemSlug": "rotting-oranges",
+      "problemPath": "/workbench?problem=rotting-oranges",
+      "title": "Low-confidence graph aside: recursion depth fear",
+      "summary": "The learner casually said deep recursion feels scary in graph problems, but there was no code evidence of recursion-depth failure. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "expectedRetrievable": false,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_graph_recursion_depth_chat_user_0",
+        "seed_trace_episode_chat_low_confidence_graph_recursion_depth_chat_reply_0"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+      "episodeId": "seed_episode_episode_chat_low_confidence_sliding_fixed_size",
+      "kind": "chat_segment",
+      "problemSlug": "permutation-in-string",
+      "problemPath": "/workbench?problem=permutation-in-string",
+      "title": "Low-confidence sliding-window aside: wondered if windows are always fixed size",
+      "summary": "The learner casually wondered once whether sliding-window problems are always fixed size, without repeated examples or code evidence. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "expectedRetrievable": false,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_sliding_fixed_size_chat_user_0",
+        "seed_trace_episode_chat_low_confidence_sliding_fixed_size_chat_reply_0"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.preference_micro_step_first",
+      "episodeId": "seed_episode_episode_chat_preference_micro_step_first",
+      "kind": "chat_segment",
+      "problemSlug": "contains-duplicate",
+      "problemPath": "/workbench?problem=contains-duplicate",
+      "title": "Preference note: one runnable micro-step before theory",
+      "summary": "The learner explicitly asked the coach to give one runnable micro-step before theory and to avoid pasting a full solution on the first reply.",
+      "outcome": "resolved",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_preference_micro_step_first_chat_user_0",
+        "seed_trace_episode_chat_preference_micro_step_first_chat_reply_0",
+        "seed_trace_episode_chat_preference_micro_step_first_memory_note"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.contains_duplicate_sorting_assumption",
+      "episodeId": "seed_episode_episode_chat_contains_duplicate_sorting_assumption",
+      "kind": "chat_segment",
+      "problemSlug": "contains-duplicate",
+      "problemPath": "/workbench?problem=contains-duplicate",
+      "title": "Contradicted hash-table aside: thought only sorting works for duplicates",
+      "summary": "Before the set repair, the learner casually thought duplicate detection had to use sorting because hash set membership felt unreliable. Later visible evidence contradicted this.",
+      "outcome": "unresolved",
+      "expectedRetrievable": false,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_contains_duplicate_sorting_assumption_chat_user_0",
+        "seed_trace_episode_chat_contains_duplicate_sorting_assumption_chat_reply_0"
+      ]
+    }
+  ],
+  "staleFacts": [
+    {
+      "scenarioFactKey": "fact.binary_search.return_mid_after_loop_resolved",
+      "factId": "seed_fact_fact_binary_search_return_mid_after_loop_resolved",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "reason": "Later passed visible cases after returning nums[left]; should not be current blocker."
+    },
+    {
+      "scenarioFactKey": "fact.hash.only_sorting_for_duplicates_contradicted",
+      "factId": "seed_fact_fact_hash_only_sorting_for_duplicates_contradicted",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "reason": "Later set-based visible evidence contradicted the sorting-only assumption."
+    }
+  ],
+  "preferences": [
+    {
+      "scenarioFactKey": "fact.preference.micro_step_first",
+      "factId": "seed_fact_fact_preference_micro_step_first",
+      "tag": "output_style_micro_step",
+      "label": "Give one runnable micro-step before theory; no full solution on the first reply.",
+      "expectedRetrievable": false
+    }
+  ],
+  "arbitration": {
+    "used": true,
+    "sources": [
+      "chat_consolidation",
+      "review_diagnosis",
+      "user_explicit"
+    ],
+    "rejectedCandidateCount": 0,
+    "deterministicIdUpdates": [
+      "fact.hash.contains_duplicate_membership_order->seed_fact_fact_hash_contains_duplicate_membership_order",
+      "fact.skill.hash_sequence_start_points->seed_fact_fact_skill_hash_sequence_start_points",
+      "fact.prefix.product_except_self_include_self->seed_fact_fact_prefix_product_except_self_include_self",
+      "fact.binary_search.find_min_discards_mid->seed_fact_fact_binary_search_find_min_discards_mid",
+      "fact.binary_search.koko_answer_bounds->seed_fact_fact_binary_search_koko_answer_bounds",
+      "fact.sliding_window.permutation_count_balance->seed_fact_fact_sliding_window_permutation_count_balance",
+      "fact.sliding_window.character_replacement_max_frequency->seed_fact_fact_sliding_window_character_replacement_max_frequency",
+      "fact.skill.two_pointers_alphanumeric_cleanup->seed_fact_fact_skill_two_pointers_alphanumeric_cleanup",
+      "fact.two_pointers.threesum_duplicate_skip->seed_fact_fact_two_pointers_threesum_duplicate_skip",
+      "fact.stack.min_stack_duplicate_minimum->seed_fact_fact_stack_min_stack_duplicate_minimum",
+      "fact.stack.rpn_division_truncation_confusion->seed_fact_fact_stack_rpn_division_truncation_confusion",
+      "fact.tree.validate_bst_bounds_parent_only->seed_fact_fact_tree_validate_bst_bounds_parent_only",
+      "fact.skill.graph_topological_indegree->seed_fact_fact_skill_graph_topological_indegree",
+      "fact.graph.rotting_oranges_level_time->seed_fact_fact_graph_rotting_oranges_level_time",
+      "fact.dynamic_programming.house_robber_state_order->seed_fact_fact_dynamic_programming_house_robber_state_order",
+      "fact.dynamic_programming.word_break_prefix_reachability->seed_fact_fact_dynamic_programming_word_break_prefix_reachability",
+      "fact.dynamic_programming.low_confidence_greedy_guess->seed_fact_fact_dynamic_programming_low_confidence_greedy_guess",
+      "fact.two_pointers.low_confidence_sorted_only->seed_fact_fact_two_pointers_low_confidence_sorted_only",
+      "fact.graph.low_confidence_recursion_depth_fear->seed_fact_fact_graph_low_confidence_recursion_depth_fear",
+      "fact.sliding_window.low_confidence_fixed_size_only->seed_fact_fact_sliding_window_low_confidence_fixed_size_only",
+      "fact.binary_search.return_mid_after_loop_resolved->seed_fact_fact_binary_search_return_mid_after_loop_resolved",
+      "fact.hash.only_sorting_for_duplicates_contradicted->seed_fact_fact_hash_only_sorting_for_duplicates_contradicted",
+      "fact.preference.micro_step_first->seed_fact_fact_preference_micro_step_first",
+      "fact.strength.two_pointers_boundary_trace->seed_fact_fact_strength_two_pointers_boundary_trace"
+    ],
+    "fixtureOnlyWrites": []
+  },
+  "realLlmCalls": false,
+  "notes": [
+    "Agent-drafted held-out set; humanReviewStatus stays pending until manual audit.",
+    "All practiced problem slugs are distinct from memory retrieval v1.1's practiced problem list.",
+    "Low-confidence facts are active DB rows after reinforce+weaken arbitration and settle at confidence 0.38, below the default 0.45 retrieval floor.",
+    "The low-confidence tags deliberately use algorithm prefixes that match current problem tags so disabling the floor can surface them.",
+    "Preference memory is evaluated through learnerProfile output preference markers, not as expected L2 fact retrieval."
+  ],
+  "limitations": [
+    "This is a synthetic closed-book held-out draft and should not be treated as approved gate ground truth until human review.",
+    "Episode retrieval remains lexical FTS-only in the eval runner unless embeddings are configured elsewhere; queries include explicit English anchors for target episodes.",
+    "No real LLM calls are used by the seed step; all memory writes are fixture-only arbitration paths."
+  ]
+}

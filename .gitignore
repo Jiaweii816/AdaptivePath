@@ -1,50 +1,83 @@
-# Secrets and local configuration
-.env
-.env.*
-!.env.example
-
-# Local SQLite state
-*.db
-*.db-shm
-*.db-wal
-*.sqlite
-*.sqlite3
-/web/data/
-/web/backups/
-
-# Dependencies and generated application output
+# --- dependencies ---
 node_modules/
+.pnp
+.pnp.js
+
+# --- Next.js build output ---
 .next/
 out/
+build/
 dist/
-coverage/
-*.tsbuildinfo
 
-# Piston runtime and Docker state
-web/piston/data/
-web/piston/packages/
-web/piston/runtime/
+# --- environment (keep .env.example tracked) ---
+.env
+.env.local
+.env*.local
 
-# Logs, traces, evaluations, and internal/generated data
-logs/
-traces/
-cache/
-.cache/
-evals/
-evaluations/
-benchmark/
-benchmarks/
-experiments/
-reports/
-generated/
-uploads/
-test-results/
+# --- Prisma / SQLite local DB (WAL mode) ---
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+
+# --- local Piston runtime volume ---
+piston/data/
+
+# --- test artifacts / coverage / e2e reports ---
+/coverage/
 playwright-report/
+test-results/
+.nyc_output/
 
-# Local tools and editor files
-.DS_Store
-Thumbs.db
-.idea/
+# --- generated eval run outputs (regenerable; do not commit) ---
+evals/reports/
+
+# --- logs (keep the dir, ignore its contents) ---
+logs/*
+!logs/.gitkeep
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- editor / OS ---
 .vscode/
-.claude/
+.DS_Store
+*.tsbuildinfo
+*:Zone.Identifier
+
+# --- personal notes (tracked by default) ---
+# Uncomment the next line to keep interview-prep notes out of git:
+# notes/
 .superpowers/
+
+# --- local PatternCoach operations / learner-data exports ---
+.mcp.json
+backups/
+artifacts/memory-repair/
+
+# Source-only publication: keep local documents, secrets, stores and exports out.
+*.md
+*.mdx
+*.markdown
+*.MD
+*.db*
+*.sqlite*
+*.dump
+*.backup*
+*.sql.gz
+.env*
+!.env.example
+.agents/
+.claude/
+.mcp.json
+*.code-workspace
+docs/
+memory-bank/
+notes/
+interview/
+artifacts/
+evals/tmp/
+evals/datasets/chat-intent-v3/real-user-queries-v1.json
+evals/datasets/tool-governance/real-user-complex-seed-v1.json

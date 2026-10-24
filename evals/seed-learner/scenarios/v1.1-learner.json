@@ -1,0 +1,1947 @@
+{
+  "scenarioVersion": "seed-learner-scenario-v1",
+  "scenarioId": "seed-learner-v1.1",
+  "name": "v1.1 synthetic undergraduate learner",
+  "status": "human_approved",
+  "description": "Expanded synthetic learner history for P4 memory evals. The learner is a realistic undergraduate interview-prep student: able to write loops, dicts, stacks, and basic recursion, but shaky on invariants, boundaries, state update order, API semantics, and when to stop generalizing a pattern.",
+  "humanReviewStatus": "approved",
+  "learnerProfile": {
+    "learnerId": "learner.synthetic.v1_1",
+    "userId": "seed_user_learner_synthetic_v1_1",
+    "handle": "EvalLearnerV11",
+    "displayName": "Eval Learner V1.1",
+    "interviewGoal": "Undergraduate LeetCode interview prep for internship and new-grad roles",
+    "preferredLanguages": ["Python", "C++"],
+    "strongPatterns": ["Basic loops", "Python dict", "Simple stack usage"],
+    "weakPatterns": ["Binary Search invariants", "Sliding Window state updates", "Boundary cases", "DP state definition"],
+    "explanationStyle": ["Short hint first", "Concrete failing case before abstraction"],
+    "outputPreferences": ["One next step", "No full solution on first response", "Default to Python unless I ask for C++", "Short hint first"]
+  },
+  "practicedProblems": [
+    {
+      "key": "problem.two_sum",
+      "problemId": "seed_problem_v11_two_sum",
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "leetcodeNumber": 1,
+      "difficulty": "Easy",
+      "tags": ["Array", "Hash Table", "HashMap"],
+      "methodName": "twoSum",
+      "isDemoSupported": true
+    },
+    {
+      "key": "problem.valid_anagram",
+      "problemId": "seed_problem_v11_valid_anagram",
+      "slug": "valid-anagram",
+      "title": "Valid Anagram",
+      "leetcodeNumber": 242,
+      "difficulty": "Easy",
+      "tags": ["Hash Table", "String", "Sorting"],
+      "methodName": "isAnagram",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.group_anagrams",
+      "problemId": "seed_problem_v11_group_anagrams",
+      "slug": "group-anagrams",
+      "title": "Group Anagrams",
+      "leetcodeNumber": 49,
+      "difficulty": "Medium",
+      "tags": ["Hash Table", "String", "Sorting"],
+      "methodName": "groupAnagrams",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.top_k_frequent",
+      "problemId": "seed_problem_v11_top_k_frequent_elements",
+      "slug": "top-k-frequent-elements",
+      "title": "Top K Frequent Elements",
+      "leetcodeNumber": 347,
+      "difficulty": "Medium",
+      "tags": ["Array", "Hash Table", "Heap", "Bucket Sort"],
+      "methodName": "topKFrequent",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.search_insert",
+      "problemId": "seed_problem_v11_search_insert_position",
+      "slug": "search-insert-position",
+      "title": "Search Insert Position",
+      "leetcodeNumber": 35,
+      "difficulty": "Easy",
+      "tags": ["Array", "Binary Search"],
+      "methodName": "searchInsert",
+      "isDemoSupported": true
+    },
+    {
+      "key": "problem.search_rotated",
+      "problemId": "seed_problem_v11_search_rotated",
+      "slug": "search-in-rotated-sorted-array",
+      "title": "Search in Rotated Sorted Array",
+      "leetcodeNumber": 33,
+      "difficulty": "Medium",
+      "tags": ["Array", "Binary Search"],
+      "methodName": "search",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.find_first_last",
+      "problemId": "seed_problem_v11_find_first_last",
+      "slug": "find-first-and-last-position-of-element-in-sorted-array",
+      "title": "Find First and Last Position of Element in Sorted Array",
+      "leetcodeNumber": 34,
+      "difficulty": "Medium",
+      "tags": ["Array", "Binary Search"],
+      "methodName": "searchRange",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.longest_substring",
+      "problemId": "seed_problem_v11_longest_substring",
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters",
+      "leetcodeNumber": 3,
+      "difficulty": "Medium",
+      "tags": ["Hash Table", "String", "Sliding Window"],
+      "methodName": "lengthOfLongestSubstring",
+      "isDemoSupported": true
+    },
+    {
+      "key": "problem.minimum_window",
+      "problemId": "seed_problem_v11_minimum_window",
+      "slug": "minimum-window-substring",
+      "title": "Minimum Window Substring",
+      "leetcodeNumber": 76,
+      "difficulty": "Hard",
+      "tags": ["Hash Table", "String", "Sliding Window"],
+      "methodName": "minWindow",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.merge_intervals",
+      "problemId": "seed_problem_v11_merge_intervals",
+      "slug": "merge-intervals",
+      "title": "Merge Intervals",
+      "leetcodeNumber": 56,
+      "difficulty": "Medium",
+      "tags": ["Array", "Sorting", "Intervals"],
+      "methodName": "merge",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.container",
+      "problemId": "seed_problem_v11_container",
+      "slug": "container-with-most-water",
+      "title": "Container With Most Water",
+      "leetcodeNumber": 11,
+      "difficulty": "Medium",
+      "tags": ["Array", "Two Pointers"],
+      "methodName": "maxArea",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.daily_temperatures",
+      "problemId": "seed_problem_v11_daily_temperatures",
+      "slug": "daily-temperatures",
+      "title": "Daily Temperatures",
+      "leetcodeNumber": 739,
+      "difficulty": "Medium",
+      "tags": ["Array", "Stack", "Monotonic Stack"],
+      "methodName": "dailyTemperatures",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.valid_parentheses",
+      "problemId": "seed_problem_v11_valid_parentheses",
+      "slug": "valid-parentheses",
+      "title": "Valid Parentheses",
+      "leetcodeNumber": 20,
+      "difficulty": "Easy",
+      "tags": ["String", "Stack"],
+      "methodName": "isValid",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.level_order",
+      "problemId": "seed_problem_v11_level_order",
+      "slug": "binary-tree-level-order-traversal",
+      "title": "Binary Tree Level Order Traversal",
+      "leetcodeNumber": 102,
+      "difficulty": "Medium",
+      "tags": ["Tree", "Breadth-First Search", "Queue"],
+      "methodName": "levelOrder",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.number_islands",
+      "problemId": "seed_problem_v11_number_islands",
+      "slug": "number-of-islands",
+      "title": "Number of Islands",
+      "leetcodeNumber": 200,
+      "difficulty": "Medium",
+      "tags": ["Array", "Depth-First Search", "Breadth-First Search", "Matrix"],
+      "methodName": "numIslands",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.climbing_stairs",
+      "problemId": "seed_problem_v11_climbing_stairs",
+      "slug": "climbing-stairs",
+      "title": "Climbing Stairs",
+      "leetcodeNumber": 70,
+      "difficulty": "Easy",
+      "tags": ["Math", "Dynamic Programming"],
+      "methodName": "climbStairs",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.coin_change",
+      "problemId": "seed_problem_v11_coin_change",
+      "slug": "coin-change",
+      "title": "Coin Change",
+      "leetcodeNumber": 322,
+      "difficulty": "Medium",
+      "tags": ["Array", "Dynamic Programming", "Breadth-First Search"],
+      "methodName": "coinChange",
+      "isDemoSupported": false
+    }
+  ],
+  "episodes": [
+    {
+      "key": "episode.review.two_sum_duplicate_same_index_failed",
+      "kind": "review",
+      "problemSlug": "two-sum",
+      "title": "Two Sum review: duplicate value same-index bug",
+      "summary": "The learner wrote a normal dict loop but stored the current number before checking the complement, so nums=[3,3], target=6 returned the same index twice. This is a realistic beginner HashMap update-order confusion.",
+      "outcome": "failed",
+      "tags": ["hash_table", "two_sum", "duplicate_handling", "update_order"],
+      "salience": 0.95,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-10T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know the dict idea but duplicates confuse me.",
+        "userQuestion": "Why does [3,3] break my Two Sum?",
+        "codeSnapshot": "class Solution:\n    def twoSum(self, nums, target):\n        seen = {}\n        for i, x in enumerate(nums):\n            seen[x] = i\n            if target - x in seen:\n                return [seen[target - x], i]\n        return []\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 2,
+          "failedCount": 1,
+          "actualOutput": "[0,0]",
+          "expectedOutput": "[0,1]",
+          "firstFailedCase": {
+            "id": "two-sum-duplicate",
+            "label": "duplicate values require two different indices",
+            "input": { "nums": [3, 3], "target": 6 },
+            "expected": [0, 1],
+            "actual": [0, 0]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["hash_table_duplicate_same_index", "hash_table_update_order"],
+          "skillTags": ["hash_table"],
+          "userIssueSummary": "The current value is stored before the complement check, so the code can reuse the same index.",
+          "coachSummary": "Keep the dict idea, but check complement before writing the current value."
+        },
+        "coachReplyMarkdown": "根因不是不会 HashMap，而是顺序反了：你先把 3 存进 seen，再查 need=3，就会拿到同一个 i。下一步只改顺序：先查 need，再写 seen[x]=i。"
+      }
+    },
+    {
+      "key": "episode.review.two_sum_complement_repair_passed",
+      "kind": "review",
+      "problemSlug": "two-sum",
+      "title": "Two Sum review: check-before-store repair",
+      "summary": "The learner moved the complement check before storing the current value and passed visible duplicate-value cases. This supports a HashMap complement skill and resolves the same-index bug.",
+      "outcome": "passed",
+      "tags": ["hash_table", "two_sum", "complement_lookup", "duplicate_handling"],
+      "salience": 0.78,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-11T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I changed only the order.",
+        "codeSnapshot": "class Solution:\n    def twoSum(self, nums, target):\n        seen = {}\n        for i, x in enumerate(nums):\n            need = target - x\n            if need in seen:\n                return [seen[need], i]\n            seen[x] = i\n        return []\n",
+        "run": { "status": "passed_visible_tests", "passedCount": 4, "failedCount": 0 },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["hash_table_complement_lookup", "hash_table_check_before_store"],
+          "userIssueSummary": "The complement lookup now avoids reusing the same index.",
+          "coachSummary": "The learner can apply check-before-store complement lookup for Two Sum."
+        },
+        "coachReplyMarkdown": "这次可见用例通过了。你保留了自己的 dict 思路，只把查 need 放在写 seen 前面。下一步把这个顺序记成 Two Sum 的关键不变量。"
+      }
+    },
+    {
+      "key": "episode.review.valid_anagram_counter_unbalanced_failed",
+      "kind": "review",
+      "problemSlug": "valid-anagram",
+      "title": "Valid Anagram review: counter decrement missing",
+      "summary": "The learner built a frequency dict for s but forgot to decrement while scanning t, so unequal strings with shared letters looked valid. This shows basic HashMap familiarity but weak count-balance reasoning.",
+      "outcome": "failed",
+      "tags": ["hash_table", "string", "counter_balance"],
+      "salience": 0.72,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-12T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I can build a count dict, but the checking part is fuzzy.",
+        "codeSnapshot": "class Solution:\n    def isAnagram(self, s, t):\n        count = {}\n        for ch in s:\n            count[ch] = count.get(ch, 0) + 1\n        for ch in t:\n            if ch not in count:\n                return False\n        return len(s) == len(t)\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 2,
+          "failedCount": 1,
+          "actualOutput": "true",
+          "expectedOutput": "false",
+          "firstFailedCase": {
+            "id": "valid-anagram-counts",
+            "label": "same length and letters but different counts",
+            "input": { "s": "aacc", "t": "ccac" },
+            "expected": false,
+            "actual": true
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["hash_table_counter_balance", "frequency_map_decrement_missing"],
+          "skillTags": ["hash_table"],
+          "userIssueSummary": "The code checks membership but never consumes counts from t.",
+          "coachSummary": "After building counts, decrement for each character in t and reject negative counts."
+        },
+        "coachReplyMarkdown": "你的 count dict 建起来了，问题在第二段只查 key 存不存在，没有把次数用掉。下一步：遍历 t 时 count[ch] -= 1，如果变成负数就 False。"
+      }
+    },
+    {
+      "key": "episode.review.group_anagrams_signature_repair_passed",
+      "kind": "review",
+      "problemSlug": "group-anagrams",
+      "title": "Group Anagrams review: frequency signature repair",
+      "summary": "After struggling with raw string sorting, the learner used a 26-count tuple as the group key and explained why it is stable for anagrams. This supports a reusable frequency-signature skill.",
+      "outcome": "passed",
+      "tags": ["hash_table", "string", "frequency_signature"],
+      "salience": 0.74,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-13T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I tried to avoid sorting and used counts.",
+        "codeSnapshot": "class Solution:\n    def groupAnagrams(self, strs):\n        groups = {}\n        for word in strs:\n            cnt = [0] * 26\n            for ch in word:\n                cnt[ord(ch) - ord('a')] += 1\n            key = tuple(cnt)\n            groups.setdefault(key, []).append(word)\n        return list(groups.values())\n",
+        "run": { "status": "passed_visible_tests", "passedCount": 3, "failedCount": 0 },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["hash_table_frequency_signature", "string_count_tuple"],
+          "userIssueSummary": "The learner formed a stable tuple key from character counts.",
+          "coachSummary": "The learner can reuse frequency signatures for string grouping problems."
+        },
+        "coachReplyMarkdown": "这版是对的：你把每个单词压成 26 维次数 tuple，同组 anagram 会得到同一个 key。下一步把这个套路和 Valid Anagram 的 count balance 对比一下。"
+      }
+    },
+    {
+      "key": "episode.review.search_insert_left_plus_one_failed",
+      "kind": "review",
+      "problemSlug": "search-insert-position",
+      "title": "Search Insert review: returned left + 1",
+      "summary": "The learner wrote a near-correct inclusive binary search but returned left + 1, making target=2 in [1,3,5,6] produce 2 instead of 1. The blocker is loop-exit invariant, not syntax.",
+      "outcome": "failed",
+      "tags": ["binary_search", "insertion_point", "off_by_one"],
+      "salience": 0.94,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-14T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "Binary search always feels off by one.",
+        "userQuestion": "Should I return left or left + 1?",
+        "codeSnapshot": "class Solution:\n    def searchInsert(self, nums, target):\n        left, right = 0, len(nums) - 1\n        while left <= right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return left + 1\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "2",
+          "expectedOutput": "1",
+          "firstFailedCase": {
+            "id": "search-insert-middle",
+            "label": "insert in the middle",
+            "input": { "nums": [1, 3, 5, 6], "target": 2 },
+            "expected": 1,
+            "actual": 2
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_return_left_plus_one", "binary_search_invariant_verbalization"],
+          "skillTags": ["array"],
+          "userIssueSummary": "At loop exit, left already points to the first index whose value is >= target.",
+          "coachSummary": "The learner needs to name the first >= target invariant and return left directly."
+        },
+        "coachReplyMarkdown": "循环结束时 left 已经停在插入位置，再 +1 就右移。用 target=2 走一遍，left 会停在 1。下一步只改 return left。"
+      }
+    },
+    {
+      "key": "episode.review.search_insert_first_ge_repair_passed",
+      "kind": "review",
+      "problemSlug": "search-insert-position",
+      "title": "Search Insert review: first >= target repair",
+      "summary": "The learner returned left directly and could say the loop finds the first position with value >= target. This resolves the old left + 1 mistake and supports a binary-search invariant skill.",
+      "outcome": "passed",
+      "tags": ["binary_search", "insertion_point", "first_ge_invariant"],
+      "salience": 0.76,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-15T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I changed the return and can say what left means now.",
+        "codeSnapshot": "class Solution:\n    def searchInsert(self, nums, target):\n        left, right = 0, len(nums) - 1\n        while left <= right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return left\n",
+        "run": { "status": "passed_visible_tests", "passedCount": 4, "failedCount": 0 },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["binary_search_first_ge_invariant"],
+          "userIssueSummary": "The loop invariant and return value are aligned.",
+          "coachSummary": "The learner can use the first >= target invariant after a focused correction."
+        },
+        "coachReplyMarkdown": "这次对齐了：循环是在找第一个 >= target 的位置，所以 return left 正好。下一步做 34 题时把同一个 invariant 拆成找左边界和右边界。"
+      }
+    },
+    {
+      "key": "episode.review.search_rotated_half_selection_failed",
+      "kind": "review",
+      "problemSlug": "search-in-rotated-sorted-array",
+      "title": "Search Rotated review: chose the wrong sorted half",
+      "summary": "The learner could write binary search mechanics but mixed up which half is sorted after rotation. nums=[4,5,6,7,0,1,2], target=0 failed because the branch discarded the valid half.",
+      "outcome": "failed",
+      "tags": ["binary_search", "rotated_array", "half_selection"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-16T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I can write mid updates, but rotated array logic gets confusing.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "-1",
+          "expectedOutput": "4",
+          "firstFailedCase": {
+            "id": "search-rotated-target-right",
+            "label": "target lies in rotated right half",
+            "input": { "nums": [4, 5, 6, 7, 0, 1, 2], "target": 0 },
+            "expected": 4,
+            "actual": -1
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_rotated_half_selection", "binary_search_invariant_verbalization"],
+          "skillTags": ["binary_search"],
+          "userIssueSummary": "The code identifies a sorted half but then applies the target range test to the wrong half.",
+          "coachSummary": "State the sorted half first, then ask whether target lies inside that half before moving pointers."
+        },
+        "coachReplyMarkdown": "这里不是 mid 公式问题，是你判断完“哪半边有序”以后，把 target 范围套到反方向了。下一步先写一句注释：left..mid 有序时，target 在这个闭区间里才丢右边。"
+      }
+    },
+    {
+      "key": "episode.review.first_last_range_right_bias_failed",
+      "kind": "review",
+      "problemSlug": "find-first-and-last-position-of-element-in-sorted-array",
+      "title": "Search Range review: stopped at any match",
+      "summary": "For duplicates, the learner returned as soon as nums[mid] == target and missed that the task asks for both boundaries. This is a binary-search goal/invariant mismatch, not a generic array issue.",
+      "outcome": "failed",
+      "tags": ["binary_search", "duplicates", "boundary_search"],
+      "salience": 0.82,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-17T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I found target but not the range.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "[3,3]",
+          "expectedOutput": "[3,4]",
+          "firstFailedCase": {
+            "id": "search-range-duplicates",
+            "label": "target appears multiple times",
+            "input": { "nums": [5, 7, 7, 8, 8, 10], "target": 8 },
+            "expected": [3, 4],
+            "actual": [3, 3]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_boundary_goal_mismatch", "binary_search_any_match_return"],
+          "skillTags": ["binary_search"],
+          "userIssueSummary": "Returning on the first match solves search, but not leftmost/rightmost boundary search.",
+          "coachSummary": "Use two binary searches with different boundary goals instead of one early return."
+        },
+        "coachReplyMarkdown": "你找到了一个 8，但这题问的是边界。下一步把“找到就 return”改成两个目标：第一次继续向左找 first 8，第二次继续向右找 last 8。"
+      }
+    },
+    {
+      "key": "episode.review.longest_substring_abba_regression_failed",
+      "kind": "review",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring review: left boundary regressed",
+      "summary": "The learner used last_seen but set left = last_seen[ch] + 1 without max(), so s='abba' reopened a duplicate outside the current window and returned 3 instead of 2.",
+      "outcome": "failed",
+      "tags": ["sliding_window", "string", "last_seen", "left_boundary"],
+      "salience": 0.95,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-18T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I understand last_seen but abba keeps failing.",
+        "userQuestion": "Why can left move backward?",
+        "run": {
+          "status": "failed",
+          "passedCount": 2,
+          "failedCount": 1,
+          "actualOutput": "3",
+          "expectedOutput": "2",
+          "firstFailedCase": {
+            "id": "longest-substring-abba",
+            "label": "old duplicate before current window",
+            "input": { "s": "abba" },
+            "expected": 2,
+            "actual": 3
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["sliding_window_left_boundary_regression", "sliding_window_state_update_order"],
+          "skillTags": ["hash_table", "sliding_window"],
+          "userIssueSummary": "left can move backward when a repeated character was last seen before the current window.",
+          "coachSummary": "Use max(left, last_seen[ch] + 1) so the left boundary is monotonic."
+        },
+        "coachReplyMarkdown": "第二个 a 的旧位置已经在窗口外了，但你把 left 拉回去了。下一步把更新写成 left = max(left, last_seen[ch] + 1)，保证 left 只能右移。"
+      }
+    },
+    {
+      "key": "episode.review.minimum_window_have_count_failed",
+      "kind": "review",
+      "problemSlug": "minimum-window-substring",
+      "title": "Minimum Window review: counted total chars instead of satisfied types",
+      "summary": "The learner had the window skeleton but used total matched characters as have, so repeated required characters made the window look valid too early. The issue is distinct satisfied counts versus raw counts.",
+      "outcome": "failed",
+      "tags": ["sliding_window", "string", "have_need", "state_update"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-19T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "This hard sliding window has too many counters.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "\"ADOBEC\"",
+          "expectedOutput": "\"BANC\"",
+          "firstFailedCase": {
+            "id": "minimum-window-classic",
+            "label": "classic shrinking case",
+            "input": { "s": "ADOBECODEBANC", "t": "ABC" },
+            "expected": "BANC",
+            "actual": "ADOBEC"
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["sliding_window_have_need_distinct_count", "sliding_window_state_update_order"],
+          "skillTags": ["sliding_window"],
+          "userIssueSummary": "The window validity state should count satisfied character types, not total matched characters.",
+          "coachSummary": "Track have as the number of chars whose window count equals need count; only then shrink."
+        },
+        "coachReplyMarkdown": "这里 have 不是匹配了几个字符，而是有几个字符种类已经满足 need。下一步只改 have 的更新条件：window[c] == need[c] 时加一，降到不足时减一。"
+      }
+    },
+    {
+      "key": "episode.review.merge_intervals_touching_boundary_failed",
+      "kind": "review",
+      "problemSlug": "merge-intervals",
+      "title": "Merge Intervals review: touching boundary misunderstood",
+      "summary": "The learner sorted intervals but used start < current_end instead of start <= current_end, so [1,4] and [4,5] were kept separate. The bug is closed-interval boundary interpretation.",
+      "outcome": "failed",
+      "tags": ["intervals", "sorting", "closed_boundary"],
+      "salience": 0.82,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-20T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I sorted first but boundary cases feel arbitrary.",
+        "run": {
+          "status": "failed",
+          "passedCount": 2,
+          "failedCount": 1,
+          "actualOutput": "[[1,4],[4,5]]",
+          "expectedOutput": "[[1,5]]",
+          "firstFailedCase": {
+            "id": "merge-interval-touching",
+            "label": "closed intervals overlap at endpoint",
+            "input": { "intervals": [[1, 4], [4, 5]] },
+            "expected": [[1, 5]],
+            "actual": [[1, 4], [4, 5]]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["intervals_closed_boundary_overlap", "boundary_condition_confusion"],
+          "skillTags": ["sorting"],
+          "userIssueSummary": "LeetCode intervals are closed, so sharing endpoint 4 still overlaps.",
+          "coachSummary": "Use start <= last_end for merge, then update last_end=max(last_end,end)."
+        },
+        "coachReplyMarkdown": "这题的区间是闭区间，[1,4] 和 [4,5] 在 4 相交。下一步把判断从 start < last_end 改成 start <= last_end。"
+      }
+    },
+    {
+      "key": "episode.review.container_pointer_wrong_failed",
+      "kind": "review",
+      "problemSlug": "container-with-most-water",
+      "title": "Container review: moved the taller pointer",
+      "summary": "The learner computed area correctly but moved the taller pointer, which can discard the only chance to improve the shorter wall. This is a two-pointer reasoning error, not a formula error.",
+      "outcome": "failed",
+      "tags": ["two_pointers", "greedy_choice", "container"],
+      "salience": 0.78,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-21T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know two pointers but do not know which one to move.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "40",
+          "expectedOutput": "49",
+          "firstFailedCase": {
+            "id": "container-classic",
+            "label": "classic example",
+            "input": { "height": [1, 8, 6, 2, 5, 4, 8, 3, 7] },
+            "expected": 49,
+            "actual": 40
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["two_pointers_move_taller_wall", "two_pointers_decision_reason"],
+          "skillTags": ["two_pointers"],
+          "userIssueSummary": "Moving the taller wall keeps the limiting shorter wall, so width shrinks without improving the bottleneck.",
+          "coachSummary": "Move the shorter wall because only that side can increase the limiting height."
+        },
+        "coachReplyMarkdown": "面积被短板限制。移动高的一边，短板没变、宽度还变小。下一步只记一句：每轮移动较短的那根线。"
+      }
+    },
+    {
+      "key": "episode.review.container_pointer_repair_passed",
+      "kind": "review",
+      "problemSlug": "container-with-most-water",
+      "title": "Container review: shorter wall repair",
+      "summary": "The learner moved the shorter pointer after each area check and passed visible examples. This resolves the earlier taller-pointer mistake and supports a two-pointer decision skill.",
+      "outcome": "passed",
+      "tags": ["two_pointers", "container", "shorter_wall"],
+      "salience": 0.7,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-22T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I changed the pointer movement rule.",
+        "run": { "status": "passed_visible_tests", "passedCount": 3, "failedCount": 0 },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["two_pointers_move_shorter_wall"],
+          "userIssueSummary": "Pointer movement now targets the limiting height.",
+          "coachSummary": "The learner can apply the shorter-wall rule for Container."
+        },
+        "coachReplyMarkdown": "这次规则对了：先算面积，再移动短板。下一步遇到 two pointers 时先问“哪一边是瓶颈”。"
+      }
+    },
+    {
+      "key": "episode.review.daily_temperatures_value_stack_failed",
+      "kind": "review",
+      "problemSlug": "daily-temperatures",
+      "title": "Daily Temperatures review: stored values instead of indices",
+      "summary": "The learner used a monotonic stack but stored temperatures rather than indices, so they could compare values but could not compute day distance. This is a state representation mistake.",
+      "outcome": "failed",
+      "tags": ["stack", "monotonic_stack", "state_representation"],
+      "salience": 0.86,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-23T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know it should be a stack, but I lose the answer distance.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "[1,1,1,1,1,1,0,0]",
+          "expectedOutput": "[1,1,4,2,1,1,0,0]",
+          "firstFailedCase": {
+            "id": "daily-temperatures-classic",
+            "label": "distance needs indices",
+            "input": { "temperatures": [73, 74, 75, 71, 69, 72, 76, 73] },
+            "expected": [1, 1, 4, 2, 1, 1, 0, 0],
+            "actual": [1, 1, 1, 1, 1, 1, 0, 0]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["stack_store_index_vs_value", "state_representation_confusion"],
+          "skillTags": ["stack"],
+          "userIssueSummary": "The stack must store indices so the answer can be i - previous_index.",
+          "coachSummary": "Keep temperatures accessible by index and store unresolved day indices on the stack."
+        },
+        "coachReplyMarkdown": "你用栈的方向是对的，但栈里放温度会丢掉距离。下一步改成 stack 存 index；比较 temperatures[stack[-1]]，答案写 i - prev。"
+      }
+    },
+    {
+      "key": "episode.review.valid_parentheses_empty_stack_failed",
+      "kind": "review",
+      "problemSlug": "valid-parentheses",
+      "title": "Valid Parentheses review: empty stack not checked",
+      "summary": "The learner used a stack and matching map but popped before checking whether the stack was empty. A closing bracket at the start produced a runtime error instead of false.",
+      "outcome": "failed",
+      "tags": ["stack", "parentheses", "empty_check"],
+      "salience": 0.72,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-24T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "The normal examples pass, but weird starts fail.",
+        "run": {
+          "status": "runtime_error",
+          "passedCount": 2,
+          "failedCount": 1,
+          "actualOutput": "IndexError",
+          "expectedOutput": "false",
+          "firstFailedCase": {
+            "id": "valid-parentheses-closing-first",
+            "label": "closing bracket before opening",
+            "input": { "s": "]" },
+            "expected": false,
+            "error": "pop from empty list"
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["stack_empty_check_missing", "parentheses_closing_first"],
+          "skillTags": ["stack"],
+          "userIssueSummary": "The code pops before proving there is an opener to match.",
+          "coachSummary": "On a closing bracket, first check stack is non-empty, then compare the top opener."
+        },
+        "coachReplyMarkdown": "思路是栈匹配，但遇到右括号时要先确认栈不空。下一步在 pop 前加 if not stack: return False。"
+      }
+    },
+    {
+      "key": "episode.review.valid_parentheses_repair_passed",
+      "kind": "review",
+      "problemSlug": "valid-parentheses",
+      "title": "Valid Parentheses review: empty-check repair",
+      "summary": "The learner added an empty-stack guard before popping and passed closing-first cases. This resolves the stack empty-check mistake and supports a basic stack matching skill.",
+      "outcome": "passed",
+      "tags": ["stack", "parentheses", "matching"],
+      "salience": 0.66,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-25T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I added the guard.",
+        "run": { "status": "passed_visible_tests", "passedCount": 5, "failedCount": 0 },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["stack_parentheses_matching"],
+          "userIssueSummary": "The stack guard now handles closing-first strings.",
+          "coachSummary": "The learner can use stack matching with an empty-check guard."
+        },
+        "coachReplyMarkdown": "这次边界补上了：右括号先看 stack 是否为空，再匹配栈顶。下一步把这个 guard 放进所有括号题模板。"
+      }
+    },
+    {
+      "key": "episode.review.level_order_mixed_levels_failed",
+      "kind": "review",
+      "problemSlug": "binary-tree-level-order-traversal",
+      "title": "Level Order review: mixed levels in one list",
+      "summary": "The learner used a queue but appended children into the same loop without freezing the current level size, so nodes from different depths leaked into the same result row.",
+      "outcome": "failed",
+      "tags": ["queue", "breadth_first_search", "level_boundary"],
+      "salience": 0.84,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-26T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I can use a queue, but levels blend together.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "[[3,9,20,15,7]]",
+          "expectedOutput": "[[3],[9,20],[15,7]]",
+          "firstFailedCase": {
+            "id": "level-order-classic",
+            "label": "three levels",
+            "input": { "root": [3, 9, 20, null, null, 15, 7] },
+            "expected": [[3], [9, 20], [15, 7]],
+            "actual": [[3, 9, 20, 15, 7]]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["queue_level_boundary_mixed", "bfs_level_size_missing"],
+          "skillTags": ["queue"],
+          "userIssueSummary": "The loop does not freeze the number of nodes in the current level before enqueuing children.",
+          "coachSummary": "At the start of each while iteration, store level_size=len(queue) and process exactly that many nodes."
+        },
+        "coachReplyMarkdown": "queue 用对了，但每层边界没固定。下一步在 while 开头写 level_size = len(q)，这一轮只 pop 这么多个节点。"
+      }
+    },
+    {
+      "key": "episode.review.number_islands_visited_late_failed",
+      "kind": "review",
+      "problemSlug": "number-of-islands",
+      "title": "Number of Islands review: marked visited too late",
+      "summary": "The learner wrote DFS but marked cells visited after recursive calls, causing repeated visits around cycles and occasional recursion blow-up. The issue is visited timing, not knowing DFS syntax.",
+      "outcome": "failed",
+      "tags": ["depth_first_search", "matrix", "visited_timing"],
+      "salience": 0.88,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-27T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "DFS makes sense but my grid repeats work.",
+        "run": {
+          "status": "runtime_error",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "RecursionError",
+          "expectedOutput": "1",
+          "firstFailedCase": {
+            "id": "islands-cycle",
+            "label": "adjacent land cycle",
+            "input": { "grid": [["1", "1"], ["1", "1"]] },
+            "expected": 1,
+            "error": "maximum recursion depth exceeded"
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["depth_first_search_visited_marking_late", "graph_cycle_revisit"],
+          "skillTags": ["depth_first_search"],
+          "userIssueSummary": "Cells are marked visited after exploring neighbors, so neighbors can recurse back before the mark exists.",
+          "coachSummary": "Mark a cell visited immediately when entering DFS, before recursing."
+        },
+        "coachReplyMarkdown": "DFS 的入口时机很关键：一进格子就要标记 visited，否则邻居会绕回来。下一步把 grid[r][c]='0' 放到递归邻居之前。"
+      }
+    },
+    {
+      "key": "episode.review.climbing_stairs_base_case_failed",
+      "kind": "review",
+      "problemSlug": "climbing-stairs",
+      "title": "Climbing Stairs review: base cases shifted",
+      "summary": "The learner knew the Fibonacci recurrence but initialized dp[0]=0, dp[1]=1 and returned 1 for n=2. This is a DP base-case indexing mistake.",
+      "outcome": "failed",
+      "tags": ["dynamic_programming", "base_case", "indexing"],
+      "salience": 0.76,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-28T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know this is Fibonacci but the small n cases confuse me.",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "1",
+          "expectedOutput": "2",
+          "firstFailedCase": {
+            "id": "climbing-stairs-two",
+            "label": "two steps has two ways",
+            "input": { "n": 2 },
+            "expected": 2,
+            "actual": 1
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["dynamic_programming_base_case_shift", "dp_state_definition_confusion"],
+          "skillTags": ["dynamic_programming"],
+          "userIssueSummary": "The recurrence is right, but dp[i] is not tied to a clear meaning for small i.",
+          "coachSummary": "Define dp[i] as ways to stand on step i, then set dp[1]=1 and dp[2]=2."
+        },
+        "coachReplyMarkdown": "递推式方向对，错在 dp[i] 的含义没钉住。下一步先写注释：dp[i] = 到第 i 阶的方法数，所以 dp[1]=1, dp[2]=2。"
+      }
+    },
+    {
+      "key": "episode.review.climbing_stairs_repair_passed",
+      "kind": "review",
+      "problemSlug": "climbing-stairs",
+      "title": "Climbing Stairs review: base-case repair",
+      "summary": "The learner fixed dp[1]=1 and dp[2]=2, then passed small visible cases. This resolves the shifted base-case fact and supports a basic one-dimensional DP skill.",
+      "outcome": "passed",
+      "tags": ["dynamic_programming", "base_case", "one_dimensional_dp"],
+      "salience": 0.68,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-29T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I wrote down what dp[i] means first.",
+        "run": { "status": "passed_visible_tests", "passedCount": 4, "failedCount": 0 },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["dynamic_programming_base_cases", "dp_state_definition"],
+          "userIssueSummary": "The base cases now match the stated dp meaning.",
+          "coachSummary": "The learner can repair simple one-dimensional DP by naming the state first."
+        },
+        "coachReplyMarkdown": "这次 small n 对齐了。你先定义 dp[i]，再写初值，这是 DP 里最稳的顺序。下一步 Coin Change 也先写 state，再想转移。"
+      }
+    },
+    {
+      "key": "episode.chat.preferences_and_api_confusions",
+      "kind": "chat_segment",
+      "problemSlug": "two-sum",
+      "title": "Chat: explicit preferences and Python/C++ map confusion",
+      "summary": "The learner explicitly asked the coach to remember short hints, one next step, default Python, and no full solution on the first answer. The same chat included confusion about Python dict.get versus membership and C++ unordered_map operator[] insertion.",
+      "outcome": "unresolved",
+      "tags": ["preference", "python_dict", "cpp_unordered_map", "api_confusion"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-30T15:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "记住：以后先给我一个下一步，解释短一点，第一轮不要直接给完整解。",
+          "我默认还是想用 Python，除非我特别问 C++。",
+          "Python 里 dict.get 和 if key in dict 我总混；C++ unordered_map[key] 会不会自动插入？"
+        ],
+        "assistantMessages": [
+          "记住了：之后优先短提示、一个 next step、默认 Python，并且第一轮不直接给完整解。dict.get 适合读取默认值；Two Sum 查存在性更适合用 in。C++ 的 operator[] 会插入默认值，查存在性用 find。"
+        ],
+        "memoryNote": {
+          "tag": "short_next_step_default_python",
+          "value": "User explicitly prefers short hints, one next step first, default Python, and no full solution on the first response."
+        }
+      }
+    },
+    {
+      "key": "episode.chat.low_confidence_coin_change_and_recursion",
+      "kind": "chat_segment",
+      "problemSlug": "coin-change",
+      "title": "Chat: uncertain recursion and greedy worry",
+      "summary": "The learner casually said recursion feels scary and wondered whether Coin Change might be greedy, but did not attempt enough code to prove a recurring weakness. These are intentionally low-confidence signals.",
+      "outcome": "unresolved",
+      "tags": ["low_confidence", "recursion", "greedy", "dynamic_programming"],
+      "salience": 0.45,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-01T15:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "我还没写 Coin Change，只是感觉递归有点慌。",
+          "是不是硬币题一般都能贪心？我不确定。"
+        ],
+        "assistantMessages": [
+          "先别把它当成定论。Coin Change 通常要验证贪心是否成立；这条更像一个待观察信号。"
+        ]
+      }
+    },
+    {
+      "key": "episode.chat.mock_interview_feedback_state_updates",
+      "kind": "chat_segment",
+      "problemSlug": "minimum-window-substring",
+      "title": "Mock interview feedback: state updates need narration",
+      "summary": "A text mock-interview debrief noted that the learner can code basic data structures but often cannot narrate why a boundary or state variable is safe before changing it. This is used as synthetic mock_interview_feedback evidence.",
+      "outcome": "unresolved",
+      "tags": ["mock_interview", "communication", "state_update_order", "invariant"],
+      "salience": 0.86,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-02T15:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "面试复盘：我能写代码，但讲 invariant 的时候会卡。",
+          "尤其是 sliding window 和 binary search，我经常先改变量，再想为什么安全。"
+        ],
+        "assistantMessages": [
+          "记录为面试反馈：你不是不会写循环，而是需要在更新 left/right/have 之前先说清楚这个变量代表什么。"
+        ]
+      }
+    }
+  ],
+  "facts": [
+    {
+      "key": "fact.hash_table.duplicate_key_order_weakness",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Hash table update order is fragile when duplicate values appear",
+      "tag": "hash_table_duplicate_key_order",
+      "confidence": 0.5,
+      "evidenceSummary": "Two Sum duplicate case reused the same index because the current value was stored before checking the complement.",
+      "relatedProblemSlugs": ["two-sum", "valid-anagram", "group-anagrams"],
+      "sourceEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Stored nums[i] before checking complement and reused index i on [3,3]."
+        }
+      ]
+    },
+    {
+      "key": "fact.hash_table.counter_balance_missing",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Frequency-map checks may ignore count balance",
+      "tag": "hash_table_counter_balance",
+      "confidence": 0.5,
+      "evidenceSummary": "Valid Anagram code checked membership only and never decremented counts for t.",
+      "relatedProblemSlugs": ["valid-anagram", "group-anagrams"],
+      "sourceEpisodeKey": "episode.review.valid_anagram_counter_unbalanced_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.valid_anagram_counter_unbalanced_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Built count dict but did not consume counts while scanning the second string."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.rotated_half_selection",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Rotated binary search loses the valid sorted half",
+      "tag": "binary_search_rotated_half_selection",
+      "confidence": 0.5,
+      "evidenceSummary": "Search Rotated discarded the half containing target after identifying the sorted side.",
+      "relatedProblemSlugs": ["search-in-rotated-sorted-array", "search-insert-position"],
+      "sourceEpisodeKey": "episode.review.search_rotated_half_selection_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_rotated_half_selection_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Applied the target range test to the wrong half of the rotated array."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.boundary_goal_mismatch",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Binary search returns any match when the task asks for a boundary",
+      "tag": "binary_search_boundary_goal",
+      "confidence": 0.5,
+      "evidenceSummary": "Search Range returned a single match and missed the right boundary for duplicates.",
+      "relatedProblemSlugs": ["find-first-and-last-position-of-element-in-sorted-array", "search-insert-position"],
+      "sourceEpisodeKey": "episode.review.first_last_range_right_bias_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.first_last_range_right_bias_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned as soon as nums[mid] == target instead of continuing toward a boundary."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.left_boundary_regression",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Sliding window left boundary can regress without max()",
+      "tag": "sliding_window_left_boundary_regression",
+      "confidence": 0.5,
+      "evidenceSummary": "Longest Substring on abba moved left backward to an old duplicate and returned 3.",
+      "relatedProblemSlugs": ["longest-substring-without-repeating-characters", "minimum-window-substring"],
+      "sourceEpisodeKey": "episode.review.longest_substring_abba_regression_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.longest_substring_abba_regression_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Set left = last_seen[ch] + 1 without max(), reopening an old duplicate."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.have_need_distinct_count",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Minimum-window validity mixes total matched chars with satisfied types",
+      "tag": "sliding_window_have_need_distinct_count",
+      "confidence": 0.5,
+      "evidenceSummary": "Minimum Window used total matches as have instead of number of satisfied required character types.",
+      "relatedProblemSlugs": ["minimum-window-substring", "longest-substring-without-repeating-characters"],
+      "sourceEpisodeKey": "episode.review.minimum_window_have_count_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.minimum_window_have_count_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Treated repeated matched characters as if they satisfied new required types."
+        }
+      ]
+    },
+    {
+      "key": "fact.intervals.closed_boundary_overlap",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Closed interval endpoints are sometimes treated as non-overlapping",
+      "tag": "intervals_closed_boundary_overlap",
+      "confidence": 0.5,
+      "evidenceSummary": "Merge Intervals failed to merge [1,4] and [4,5] because it used start < end instead of start <= end.",
+      "relatedProblemSlugs": ["merge-intervals"],
+      "sourceEpisodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Used a strict boundary check for closed intervals that touch at an endpoint."
+        }
+      ]
+    },
+    {
+      "key": "fact.stack.store_index_vs_value",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Monotonic stack state stores values when indices are needed",
+      "tag": "stack_store_index_vs_value",
+      "confidence": 0.5,
+      "evidenceSummary": "Daily Temperatures stored temperatures on the stack, so it could not compute index distances.",
+      "relatedProblemSlugs": ["daily-temperatures", "valid-parentheses"],
+      "sourceEpisodeKey": "episode.review.daily_temperatures_value_stack_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.daily_temperatures_value_stack_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Stack carried values but the answer required i - previous_index."
+        }
+      ]
+    },
+    {
+      "key": "fact.queue.level_boundary_mixed",
+      "factType": "mistake",
+      "status": "current",
+      "label": "BFS level traversal mixes depths without freezing queue length",
+      "tag": "breadth_first_search_level_boundary",
+      "confidence": 0.5,
+      "evidenceSummary": "Level Order put all nodes into one result row because it did not process a fixed level_size.",
+      "relatedProblemSlugs": ["binary-tree-level-order-traversal"],
+      "sourceEpisodeKey": "episode.review.level_order_mixed_levels_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.level_order_mixed_levels_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Enqueued children while still building the current level without freezing level_size."
+        }
+      ]
+    },
+    {
+      "key": "fact.graph.visited_marking_late",
+      "factType": "mistake",
+      "status": "current",
+      "label": "DFS/BFS visited marking happens too late",
+      "tag": "depth_first_search_visited_marking_late",
+      "confidence": 0.5,
+      "evidenceSummary": "Number of Islands marked cells after recursion, allowing cycles to revisit the same land.",
+      "relatedProblemSlugs": ["number-of-islands"],
+      "sourceEpisodeKey": "episode.review.number_islands_visited_late_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.number_islands_visited_late_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Marked grid cells after recursive neighbor calls instead of on entry."
+        }
+      ]
+    },
+    {
+      "key": "fact.learning.state_update_order_weakness",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Often changes state variables before explaining why the update is safe",
+      "tag": "sliding_window_state_update_order",
+      "confidence": 0.5,
+      "evidenceSummary": "Mock interview feedback tied sliding-window and binary-search mistakes to updating variables before naming the invariant.",
+      "relatedProblemSlugs": ["minimum-window-substring", "longest-substring-without-repeating-characters", "search-in-rotated-sorted-array"],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "source": "mock_interview_feedback",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Interview debrief noted that the learner updates left/right/have before stating the variable meaning."
+        }
+      ]
+    },
+    {
+      "key": "fact.learning.invariant_verbalization_weakness",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Needs to verbalize the loop invariant before changing binary-search boundaries",
+      "tag": "binary_search_invariant_verbalization",
+      "confidence": 0.5,
+      "evidenceSummary": "Reflection-style audit connected Search Insert, Search Rotated, and Search Range errors to not stating the invariant.",
+      "relatedProblemSlugs": ["search-insert-position", "search-in-rotated-sorted-array", "find-first-and-last-position-of-element-in-sorted-array"],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "source": "reflection",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Reflection audit summarized repeated boundary updates without a stated invariant.",
+          "source": "reflection"
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.hash_table_complement_lookup",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can use check-before-store complement lookup",
+      "tag": "hash_table_complement_lookup",
+      "confidence": 0.5,
+      "evidenceSummary": "Two Sum repair passed duplicate cases by checking complement before storing current value.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.review.two_sum_complement_repair_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Passed duplicate Two Sum cases with check-before-store complement lookup."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.hash_table_frequency_signature",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can group strings by a frequency tuple signature",
+      "tag": "hash_table_frequency_signature",
+      "confidence": 0.5,
+      "evidenceSummary": "Group Anagrams used a 26-count tuple key and passed visible examples.",
+      "relatedProblemSlugs": ["group-anagrams", "valid-anagram"],
+      "sourceEpisodeKey": "episode.review.group_anagrams_signature_repair_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.group_anagrams_signature_repair_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Used tuple(counts) as a stable anagram key."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.binary_search_first_ge_invariant",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can use first >= target invariant after correction",
+      "tag": "binary_search_first_ge_invariant",
+      "confidence": 0.5,
+      "evidenceSummary": "Search Insert repair returned left and explained it as first index whose value is >= target.",
+      "relatedProblemSlugs": ["search-insert-position", "find-first-and-last-position-of-element-in-sorted-array"],
+      "sourceEpisodeKey": "episode.review.search_insert_first_ge_repair_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_insert_first_ge_repair_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Passed Search Insert after returning left and naming the first >= target invariant."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.two_pointers_move_shorter_wall",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can move the shorter wall in Container after checking area",
+      "tag": "two_pointers_move_shorter_wall",
+      "confidence": 0.5,
+      "evidenceSummary": "Container repair moved the shorter pointer and passed visible examples.",
+      "relatedProblemSlugs": ["container-with-most-water"],
+      "sourceEpisodeKey": "episode.review.container_pointer_repair_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.container_pointer_repair_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Passed Container examples after moving the shorter wall."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.stack_parentheses_matching",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can use stack matching with an empty-check guard",
+      "tag": "stack_parentheses_matching",
+      "confidence": 0.5,
+      "evidenceSummary": "Valid Parentheses repair added the empty-stack guard and passed closing-first cases.",
+      "relatedProblemSlugs": ["valid-parentheses"],
+      "sourceEpisodeKey": "episode.review.valid_parentheses_repair_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.valid_parentheses_repair_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Guarded stack before popping and matched bracket pairs correctly."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.dynamic_programming_base_cases",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can repair simple one-dimensional DP by naming base cases",
+      "tag": "dynamic_programming_base_cases",
+      "confidence": 0.5,
+      "evidenceSummary": "Climbing Stairs repair aligned dp[1]=1 and dp[2]=2 with a clear state meaning.",
+      "relatedProblemSlugs": ["climbing-stairs", "coin-change"],
+      "sourceEpisodeKey": "episode.review.climbing_stairs_repair_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.climbing_stairs_repair_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Passed small DP cases after defining dp[i] and base cases first."
+        }
+      ]
+    },
+    {
+      "key": "fact.two_sum.same_index_duplicate_return",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Returned the same index twice on duplicate Two Sum values",
+      "tag": "hash_table_same_index_duplicate",
+      "confidence": 0.5,
+      "evidenceSummary": "Initial Two Sum duplicate case returned [0,0], then later repair passed duplicate cases.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Two Sum repair passed duplicate-value visible tests with check-before-store.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned the same index for [3,3], target 6."
+        },
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "First repair evidence: duplicate Two Sum case passed after check-before-store."
+        },
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second repair evidence: learner could explain why complement must be checked before storing x."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.return_left_plus_one",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Returned left + 1 after a correct insertion-point loop",
+      "tag": "binary_search_return_left_plus_one",
+      "confidence": 0.5,
+      "evidenceSummary": "Search Insert returned 2 instead of 1 for target=2, then later returned left directly.",
+      "relatedProblemSlugs": ["search-insert-position"],
+      "sourceEpisodeKey": "episode.review.search_insert_left_plus_one_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Search Insert repair returned left directly and passed visible tests.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_insert_left_plus_one_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned left + 1 after a loop that already found insertion point."
+        },
+        {
+          "episodeKey": "episode.review.search_insert_first_ge_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "First resolving evidence: returned left directly and passed visible tests.",
+          "source": "reflection"
+        },
+        {
+          "episodeKey": "episode.review.search_insert_first_ge_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second resolving evidence: learner explained the first >= target invariant.",
+          "source": "reflection"
+        }
+      ]
+    },
+    {
+      "key": "fact.two_pointers.move_taller_wall",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Moved the taller wall in Container With Most Water",
+      "tag": "two_pointers_move_taller_wall",
+      "confidence": 0.5,
+      "evidenceSummary": "Container initially moved the taller pointer, then later moved the shorter pointer and passed.",
+      "relatedProblemSlugs": ["container-with-most-water"],
+      "sourceEpisodeKey": "episode.review.container_pointer_wrong_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Container repair used the shorter-wall rule and passed visible examples.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.container_pointer_wrong_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Moved the taller wall and missed the best area."
+        },
+        {
+          "episodeKey": "episode.review.container_pointer_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "First resolving evidence: moved the shorter wall and passed visible examples."
+        },
+        {
+          "episodeKey": "episode.review.container_pointer_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second resolving evidence: learner explained the shorter wall is the bottleneck."
+        }
+      ]
+    },
+    {
+      "key": "fact.stack.empty_check_missing",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Popped from an empty stack on closing-first parentheses",
+      "tag": "stack_empty_check_missing",
+      "confidence": 0.5,
+      "evidenceSummary": "Valid Parentheses popped before checking stack emptiness, then later passed after adding the guard.",
+      "relatedProblemSlugs": ["valid-parentheses"],
+      "sourceEpisodeKey": "episode.review.valid_parentheses_empty_stack_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Valid Parentheses repair added the empty-stack guard and passed visible tests.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.valid_parentheses_empty_stack_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Popped from an empty stack for input ]."
+        },
+        {
+          "episodeKey": "episode.review.valid_parentheses_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "First resolving evidence: added empty-stack guard and passed closing-first cases."
+        },
+        {
+          "episodeKey": "episode.review.valid_parentheses_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second resolving evidence: learner could state guard-before-pop rule."
+        }
+      ]
+    },
+    {
+      "key": "fact.dynamic_programming.climbing_stairs_base_case_shift",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Shifted Climbing Stairs base cases by one index",
+      "tag": "dynamic_programming_base_case_shift",
+      "confidence": 0.5,
+      "evidenceSummary": "Climbing Stairs returned 1 for n=2, then later passed after setting dp[1]=1 and dp[2]=2.",
+      "relatedProblemSlugs": ["climbing-stairs"],
+      "sourceEpisodeKey": "episode.review.climbing_stairs_base_case_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later repair aligned the base cases with the state definition and passed visible tests.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.climbing_stairs_base_case_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned 1 for n=2 because base cases were shifted."
+        },
+        {
+          "episodeKey": "episode.review.climbing_stairs_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "First resolving evidence: set dp[1]=1 and dp[2]=2 and passed small cases."
+        },
+        {
+          "episodeKey": "episode.review.climbing_stairs_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second resolving evidence: learner wrote the state definition before initial values."
+        }
+      ]
+    },
+    {
+      "key": "fact.two_sum.check_before_store_confusion",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Checks the Two Sum complement only after storing the current value",
+      "tag": "two_sum_check_before_store_confusion",
+      "confidence": 0.5,
+      "evidenceSummary": "The duplicate-value case reused the current index because the map update happened before the complement check.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "A later repair consistently checked the complement before storing the current value.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "The failed review stored the current value before lookup and returned the same index twice for duplicate values."
+        },
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "contradict",
+          "observedBehavior": "The repair moved complement lookup before the map update and passed the duplicate-value case.",
+          "value": "Superseded: learner now checks the complement before storing the current value.",
+          "source": "reflection"
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.any_match_is_enough",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Thought returning any matched index is enough for boundary-search tasks",
+      "tag": "binary_search_any_match_return",
+      "confidence": 0.5,
+      "evidenceSummary": "Search Range initially returned any match; reflection marks this as contradicted for boundary-search tasks.",
+      "relatedProblemSlugs": ["find-first-and-last-position-of-element-in-sorted-array"],
+      "sourceEpisodeKey": "episode.review.first_last_range_right_bias_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "This fact is contradicted as a general strategy; boundary tasks require continuing search after a match.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.first_last_range_right_bias_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned immediately when nums[mid] equaled target."
+        },
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "contradict",
+          "observedBehavior": "Mock feedback distinguished ordinary search from boundary-search goals.",
+          "value": "Contradicted: any-match return is not a valid general binary-search strategy for boundary tasks.",
+          "source": "mock_interview_feedback"
+        }
+      ]
+    },
+    {
+      "key": "fact.intervals.open_boundary_assumption",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Assumed Merge Intervals uses open endpoint boundaries",
+      "tag": "intervals_open_boundary_assumption",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner treated touching intervals as separate, then the review clarified that LeetCode intervals are closed.",
+      "relatedProblemSlugs": ["merge-intervals"],
+      "sourceEpisodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "The open-boundary assumption was contradicted by the problem's closed-interval evidence.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Treated [1,4] and [4,5] as non-overlapping."
+        },
+        {
+          "episodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+          "evidenceKind": "contradict",
+          "observedBehavior": "Review evidence showed the expected output merges touching closed intervals.",
+          "value": "Contradicted: this LeetCode problem uses closed intervals, so touching endpoints overlap."
+        }
+      ]
+    },
+    {
+      "key": "fact.coin_change.greedy_always_works",
+      "factType": "weakness",
+      "status": "superseded",
+      "label": "Overgeneralized that coin-change style problems can be solved greedily",
+      "tag": "dynamic_programming_greedy_overgeneralization",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner wondered whether Coin Change can be greedy; later reflection warns not to treat that as a proven strategy.",
+      "relatedProblemSlugs": ["coin-change"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "This was contradicted as a general rule; it should not be retrieved as a current proven belief.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Casually guessed that coin problems may be greedy."
+        },
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "contradict",
+          "observedBehavior": "Reflection warned that Coin Change requires checking greedy counterexamples and DP state.",
+          "value": "Contradicted: do not treat greedy as a default for Coin Change.",
+          "source": "reflection"
+        }
+      ]
+    },
+    {
+      "key": "fact.recursion.low_confidence_fear",
+      "factType": "weakness",
+      "status": "low_confidence",
+      "label": "May feel anxious about recursion, but evidence is thin",
+      "tag": "depth_first_search_recursion_anxiety",
+      "confidence": 0.38,
+      "evidenceSummary": "The learner said recursion feels scary once, without enough repeated code evidence.",
+      "relatedProblemSlugs": ["number-of-islands", "coin-change"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "Only one weak chat signal; do not use as a strong current blocker.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "User casually said recursion feels scary."
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "weaken",
+          "observedBehavior": "No repeated recursion code failure was present in the chat segment."
+        }
+      ]
+    },
+    {
+      "key": "fact.dp.coin_change_low_confidence_state_confusion",
+      "factType": "weakness",
+      "status": "low_confidence",
+      "label": "May confuse Coin Change state definition, but no code evidence yet",
+      "tag": "dynamic_programming_coin_change_state_uncertain",
+      "confidence": 0.38,
+      "evidenceSummary": "The learner had not written Coin Change code, only asked whether greedy might work.",
+      "relatedProblemSlugs": ["coin-change", "climbing-stairs"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "No attempted solution yet; keep as low-confidence background only.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "User guessed about greedy before defining a DP state."
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "weaken",
+          "observedBehavior": "The chat contained no submitted Coin Change code or failed run evidence."
+        }
+      ]
+    },
+    {
+      "key": "fact.python.dict_get_membership_confusion",
+      "factType": "unresolved_confusion",
+      "status": "current",
+      "label": "Confuses Python dict.get with key membership checks",
+      "tag": "hash_table_python_dict_get_membership",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner explicitly asked when to use dict.get versus if key in dict while discussing Two Sum.",
+      "relatedProblemSlugs": ["two-sum", "valid-anagram"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "chat_consolidation",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked about Python dict.get versus membership in the context of HashMap problems."
+        }
+      ]
+    },
+    {
+      "key": "fact.cpp.unordered_map_operator_insert_confusion",
+      "factType": "unresolved_confusion",
+      "status": "current",
+      "label": "Unsure that C++ unordered_map operator[] inserts default values",
+      "tag": "hash_table_cpp_unordered_map_operator_insert",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner asked whether C++ unordered_map[key] automatically inserts an entry.",
+      "relatedProblemSlugs": ["two-sum", "top-k-frequent-elements"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "chat_consolidation",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked whether unordered_map[key] inserts default values and when to use find."
+        }
+      ]
+    },
+    {
+      "key": "fact.python.deque_popleft_vs_list_pop0",
+      "factType": "unresolved_confusion",
+      "status": "current",
+      "label": "Confuses deque.popleft with list.pop(0) for queues",
+      "tag": "breadth_first_search_python_deque_popleft",
+      "confidence": 0.5,
+      "evidenceSummary": "During BFS discussion, the learner asked whether Python list.pop(0) is fine for queues.",
+      "relatedProblemSlugs": ["binary-tree-level-order-traversal", "number-of-islands"],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "source": "chat_consolidation",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked whether list.pop(0) is acceptable for BFS queue behavior."
+        }
+      ]
+    },
+    {
+      "key": "fact.cpp.vector_bounds_confusion",
+      "factType": "unresolved_confusion",
+      "status": "current",
+      "label": "Unsure about C++ vector bounds access and empty checks",
+      "tag": "array_cpp_vector_bounds",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner asked whether vector[i] checks bounds and how that differs from at().",
+      "relatedProblemSlugs": ["search-insert-position", "container-with-most-water"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "chat_consolidation",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked whether C++ vector indexing performs bounds checks."
+        }
+      ]
+    },
+    {
+      "key": "fact.learning.boundary_case_self_check",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Needs an explicit boundary-case self-check before trusting a solution",
+      "tag": "boundary_condition_self_check",
+      "confidence": 0.5,
+      "evidenceSummary": "Mock interview feedback tied several misses to not testing the smallest or edge-touching case before generalizing.",
+      "relatedProblemSlugs": ["merge-intervals", "valid-parentheses", "climbing-stairs", "search-insert-position"],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "source": "mock_interview_feedback",
+      "expectedRetrievable": false,
+      "negativeUseCase": "Source-coverage/learner-snapshot background weakness only; algorithm-agnostic tag intentionally does not match any practiced-problem tags, so it is not a tag-retrieval positive and must not be scored as one.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Mock interview debrief noted that the learner often skips a concrete boundary case before trusting the invariant."
+        }
+      ]
+    },
+    {
+      "key": "fact.learning.trace_small_case_before_abstraction",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Benefits from tracing one small failing case before abstract explanation",
+      "tag": "learning_trace_small_case_before_abstraction",
+      "confidence": 0.5,
+      "evidenceSummary": "Mock interview feedback suggested the learner understands loops better after tracing one concrete case before naming the invariant.",
+      "relatedProblemSlugs": ["search-insert-position", "search-in-rotated-sorted-array", "minimum-window-substring"],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "source": "mock_interview_feedback",
+      "expectedRetrievable": false,
+      "negativeUseCase": "Source-coverage/learner-snapshot background weakness only; algorithm-agnostic tag intentionally does not match any practiced-problem tags, so it is not a tag-retrieval positive and must not be scored as one.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Mock interview debrief observed that a small trace helps the learner explain left/right or window state safely."
+        }
+      ]
+    },
+    {
+      "key": "fact.learning.template_overgeneralization",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Sometimes overgeneralizes a familiar template before checking the problem goal",
+      "tag": "learning_template_overgeneralization",
+      "confidence": 0.5,
+      "evidenceSummary": "Reflection noted the learner may reuse a familiar pattern such as greedy or any-match search before checking whether the task asks for a boundary or DP state.",
+      "relatedProblemSlugs": ["coin-change", "find-first-and-last-position-of-element-in-sorted-array", "container-with-most-water"],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "source": "reflection",
+      "expectedRetrievable": false,
+      "negativeUseCase": "Source-coverage/learner-snapshot background weakness only; algorithm-agnostic tag intentionally does not match any practiced-problem tags, so it is not a tag-retrieval positive and must not be scored as one.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Reflection audit connected greedy guesses and any-match binary search to overusing a familiar template before checking the exact problem goal.",
+          "source": "reflection"
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.short_hints",
+      "factType": "preference",
+      "status": "current",
+      "label": "Prefers short explanations",
+      "tag": "explanation_style_short",
+      "confidence": 0.9,
+      "evidenceSummary": "Explicitly asked the coach to keep future explanations short.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "user_explicit",
+      "expectedRetrievable": false,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "User explicitly said future explanations should be shorter.",
+          "value": "User prefers short explanations."
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.one_next_step",
+      "factType": "preference",
+      "status": "current",
+      "label": "Prefers one concrete next step first",
+      "tag": "next_step_style",
+      "confidence": 0.9,
+      "evidenceSummary": "Explicitly asked to receive one next step before longer explanation.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "user_explicit",
+      "expectedRetrievable": false,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "User explicitly asked for one next step first.",
+          "value": "User prefers one concrete next step before broader explanation."
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.default_python",
+      "factType": "preference",
+      "status": "current",
+      "label": "Defaults to Python unless asking for C++",
+      "tag": "language_default_python",
+      "confidence": 0.9,
+      "evidenceSummary": "Explicitly said Python should be the default unless C++ is requested.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "user_explicit",
+      "expectedRetrievable": false,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "User explicitly said to default to Python unless they ask for C++.",
+          "value": "User prefers Python as the default language."
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.no_full_solution_first",
+      "factType": "preference",
+      "status": "current",
+      "label": "Does not want full solution on the first response",
+      "tag": "full_solution_opt_in",
+      "confidence": 0.9,
+      "evidenceSummary": "Explicitly asked not to receive a full solution in the first answer.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "source": "user_explicit",
+      "expectedRetrievable": false,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "User explicitly said first response should not give the complete solution.",
+          "value": "User wants full solutions to be opt-in after a hint-first response."
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "currentFactKeys": [
+      "fact.hash_table.duplicate_key_order_weakness",
+      "fact.hash_table.counter_balance_missing",
+      "fact.binary_search.rotated_half_selection",
+      "fact.binary_search.boundary_goal_mismatch",
+      "fact.sliding_window.left_boundary_regression",
+      "fact.sliding_window.have_need_distinct_count",
+      "fact.intervals.closed_boundary_overlap",
+      "fact.stack.store_index_vs_value",
+      "fact.queue.level_boundary_mixed",
+      "fact.graph.visited_marking_late",
+      "fact.learning.state_update_order_weakness",
+      "fact.learning.invariant_verbalization_weakness",
+      "fact.skill.hash_table_complement_lookup",
+      "fact.skill.hash_table_frequency_signature",
+      "fact.skill.binary_search_first_ge_invariant",
+      "fact.skill.two_pointers_move_shorter_wall",
+      "fact.skill.stack_parentheses_matching",
+      "fact.skill.dynamic_programming_base_cases",
+      "fact.python.dict_get_membership_confusion",
+      "fact.cpp.unordered_map_operator_insert_confusion",
+      "fact.python.deque_popleft_vs_list_pop0",
+      "fact.cpp.vector_bounds_confusion",
+      "fact.learning.boundary_case_self_check",
+      "fact.learning.trace_small_case_before_abstraction",
+      "fact.learning.template_overgeneralization",
+      "fact.preference.short_hints",
+      "fact.preference.one_next_step",
+      "fact.preference.default_python",
+      "fact.preference.no_full_solution_first"
+    ],
+    "staleFactKeys": [
+      "fact.two_sum.same_index_duplicate_return",
+      "fact.binary_search.return_left_plus_one",
+      "fact.two_pointers.move_taller_wall",
+      "fact.stack.empty_check_missing",
+      "fact.dynamic_programming.climbing_stairs_base_case_shift",
+      "fact.two_sum.check_before_store_confusion",
+      "fact.binary_search.any_match_is_enough",
+      "fact.intervals.open_boundary_assumption",
+      "fact.coin_change.greedy_always_works",
+      "fact.recursion.low_confidence_fear",
+      "fact.dp.coin_change_low_confidence_state_confusion"
+    ],
+    "episodeKeys": [
+      "episode.review.two_sum_duplicate_same_index_failed",
+      "episode.review.two_sum_complement_repair_passed",
+      "episode.review.valid_anagram_counter_unbalanced_failed",
+      "episode.review.group_anagrams_signature_repair_passed",
+      "episode.review.search_insert_left_plus_one_failed",
+      "episode.review.search_insert_first_ge_repair_passed",
+      "episode.review.search_rotated_half_selection_failed",
+      "episode.review.first_last_range_right_bias_failed",
+      "episode.review.longest_substring_abba_regression_failed",
+      "episode.review.minimum_window_have_count_failed",
+      "episode.review.merge_intervals_touching_boundary_failed",
+      "episode.review.container_pointer_wrong_failed",
+      "episode.review.container_pointer_repair_passed",
+      "episode.review.daily_temperatures_value_stack_failed",
+      "episode.review.valid_parentheses_empty_stack_failed",
+      "episode.review.valid_parentheses_repair_passed",
+      "episode.review.level_order_mixed_levels_failed",
+      "episode.review.number_islands_visited_late_failed",
+      "episode.review.climbing_stairs_base_case_failed",
+      "episode.review.climbing_stairs_repair_passed",
+      "episode.chat.preferences_and_api_confusions",
+      "episode.chat.low_confidence_coin_change_and_recursion",
+      "episode.chat.mock_interview_feedback_state_updates"
+    ]
+  },
+  "notes": [
+    "Agent-drafted v1.1 seed learner; human review is required before final GT use.",
+    "The persona is intentionally a realistic undergraduate learner: can write basic Python/C++ code, but is not yet stable on invariants, boundaries, update order, or API semantics.",
+    "Facts are seeded through deterministic arbitration; no real LLM calls are made by the seed runner.",
+    "Synthetic mock interview and reflection sources are represented through chat_segment episodes because the v1 seed runner supports review/chat episodes only.",
+    "Human-approved after two audit rounds (see evals/audits/memory-v1.1-human-audit.md).",
+    "fact.learning.boundary_case_self_check / trace_small_case_before_abstraction / template_overgeneralization exist only to meet the plan 8.3.4 source-coverage minimums (mock_interview_feedback>=3, reflection>=2). They carry algorithm-agnostic learning_* tags that intentionally match no practiced-problem tag, so they are learner-snapshot background weaknesses (expectedRetrievable=false), not tag-retrieval positives, and are diagnostic-only per plan 8.3.4."
+  ],
+  "limitations": [
+    "The scenario is synthetic and still needs human audit for realism and label correctness.",
+    "Several non-demo Hot-150 problems are store-level histories and do not imply local Piston adapters exist.",
+    "Low-confidence facts are represented by scenarioStatus plus weaken evidence; the DB row may still have an active status because the v1 arbitration state machine has no dedicated low-confidence DB status.",
+    "Preference facts are valid L2 rows but expectedRetrievable=false because current retrieval profiles do not surface preference factType.",
+    "Cross-problem transfer cases intentionally include some retrieval-hard facts to expose current tag-match limitations rather than inflate the baseline."
+  ]
+}

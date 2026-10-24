@@ -1,0 +1,59 @@
+{
+  "datasetVersion": "model-assembler-recordings-v1",
+  "source": "offline evaluation recordings; never a live provider fallback",
+  "recordings": [
+    {
+      "caseId": "real-030",
+      "output": {
+        "requests": [
+          { "id": "m0", "kind": "execute", "target": "current", "sourceClauseIds": ["c0"], "dependsOn": [] },
+          { "id": "m1", "kind": "respond", "deliverable": "solve", "target": "current", "basis": ["current_evidence"], "delivery": { "depth": "hint", "form": "prose" }, "sourceClauseIds": ["c1"], "dependsOn": ["m0"] },
+          { "id": "m2", "kind": "respond", "deliverable": "recall", "target": "current", "basis": ["current_evidence", "past_mistakes"], "delivery": { "depth": "normal", "form": "prose" }, "sourceClauseIds": ["c2"], "dependsOn": ["m1"] }
+        ],
+        "denials": [],
+        "certainty": { "status": "confident", "confidence": 0.94 }
+      }
+    },
+    {
+      "caseId": "real-005",
+      "output": {
+        "requests": [
+          { "id": "m0", "kind": "respond", "deliverable": "understand", "target": "current", "basis": ["current_evidence", "past_problems"], "delivery": { "depth": "normal", "form": "prose" }, "sourceClauseIds": ["c0"], "dependsOn": [] }
+        ],
+        "denials": [],
+        "certainty": { "status": "confident", "confidence": 0.92 }
+      }
+    },
+    {
+      "caseId": "real-008",
+      "output": {
+        "requests": [
+          { "id": "m0", "kind": "respond", "deliverable": "recall", "target": "current", "basis": ["current_evidence", "learner_profile"], "delivery": { "depth": "normal", "form": "prose" }, "sourceClauseIds": ["c0"], "dependsOn": [] }
+        ],
+        "denials": [],
+        "certainty": { "status": "confident", "confidence": 0.93 }
+      }
+    },
+    {
+      "caseId": "real-035",
+      "output": {
+        "requests": [
+          { "id": "m0", "kind": "respond", "deliverable": "fix", "target": "current", "basis": ["current_evidence"], "delivery": { "depth": "normal", "form": "prose" }, "sourceClauseIds": ["c0"], "dependsOn": [] },
+          { "id": "m1", "kind": "respond", "deliverable": "recall", "target": "current", "basis": ["current_evidence", "past_problems"], "delivery": { "depth": "normal", "form": "prose" }, "sourceClauseIds": ["c0"], "dependsOn": ["m0"] }
+        ],
+        "denials": [],
+        "certainty": { "status": "confident", "confidence": 0.91 }
+      }
+    },
+    {
+      "caseId": "real-011",
+      "output": {
+        "requests": [
+          { "id": "m0", "kind": "respond", "deliverable": "recall", "target": "current", "basis": ["current_evidence", "past_problems"], "delivery": { "depth": "normal", "form": "prose" }, "sourceClauseIds": ["c0", "c1", "c2", "c3"], "dependsOn": [] }
+        ],
+        "denials": [],
+        "certainty": { "status": "confident", "confidence": 0.9 }
+      }
+    }
+  ]
+}

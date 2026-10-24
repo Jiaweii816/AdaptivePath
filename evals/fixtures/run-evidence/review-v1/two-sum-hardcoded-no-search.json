@@ -1,0 +1,113 @@
+{
+  "fixtureVersion": "review-v1",
+  "case": {
+    "id": "review-v1-two-sum-hardcoded-no-search",
+    "problem": {
+      "leetcodeId": 1,
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "tags": ["Array", "Hash Table"]
+    },
+    "language": "Python",
+    "scenario": "The code returns the first two indices for every input instead of searching for the complement.",
+    "bugPattern": "hardcoded_answer_no_search",
+    "userCode": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        return [0, 1]\n",
+    "selectedTestIds": [
+      "case-sample-direct-hit",
+      "case-sample-needs-search",
+      "case-duplicates"
+    ],
+    "expectedCoachFocus": [
+      "Use the failing case nums=[3,2,4], target=6 to show that indices 0 and 1 sum to 5.",
+      "Keep feedback on replacing the hardcoded return with a complement lookup.",
+      "Avoid giving a full official solution; suggest the next minimal loop step."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 2,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 18,
+    "actualOutput": "[0,1]",
+    "expectedOutput": "[1,2]",
+    "firstFailedCase": {
+      "id": "case-sample-needs-search",
+      "label": "sample requires non-adjacent pair",
+      "input": {
+        "nums": [3, 2, 4],
+        "target": 6
+      },
+      "expected": [1, 2],
+      "actual": [0, 1]
+    },
+    "testResults": [
+      {
+        "id": "case-sample-direct-hit",
+        "label": "sample first two indices happen to work",
+        "input": {
+          "nums": [2, 7, 11, 15],
+          "target": 9
+        },
+        "expected": [0, 1],
+        "actual": [0, 1],
+        "passed": true,
+        "status": "passed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      },
+      {
+        "id": "case-sample-needs-search",
+        "label": "sample requires non-adjacent pair",
+        "input": {
+          "nums": [3, 2, 4],
+          "target": 6
+        },
+        "expected": [1, 2],
+        "actual": [0, 1],
+        "passed": false,
+        "status": "failed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      },
+      {
+        "id": "case-duplicates",
+        "label": "duplicate values",
+        "input": {
+          "nums": [3, 3],
+          "target": 6
+        },
+        "expected": [0, 1],
+        "actual": [0, 1],
+        "passed": true,
+        "status": "passed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "piston_fallback",
+      "executionKind": "review",
+      "fixtureId": "review-v1-two-sum-hardcoded-no-search",
+      "normalizedFrom": "replay_fixture"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "piston_fallback",
+    "scopeLabel": "execution evidence",
+    "modelInstruction": "You may reason from this execution evidence, without claiming hidden-test acceptance."
+  }
+}

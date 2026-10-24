@@ -1,0 +1,1980 @@
+{
+  "manifestVersion": "seed-learner-manifest-v1",
+  "generatedAt": "2026-07-09T02:53:55.106Z",
+  "scenarioId": "seed-learner-v1.1",
+  "scenarioVersion": "seed-learner-scenario-v1",
+  "scenarioPath": "/home/iris/projects/LeetcodeCoach/evals/seed-learner/scenarios/v1.1-learner.json",
+  "dbPath": "/home/iris/projects/LeetcodeCoach/evals/tmp/memory-seed-v1.1.db",
+  "learnerId": "learner.synthetic.v1_1",
+  "userId": "seed_user_learner_synthetic_v1_1",
+  "humanReviewStatus": "approved",
+  "counts": {
+    "facts": 40,
+    "episodes": 23,
+    "staleOrSupersededFacts": 9,
+    "preferenceFacts": 4
+  },
+  "facts": [
+    {
+      "scenarioFactKey": "fact.hash_table.duplicate_key_order_weakness",
+      "factId": "seed_fact_fact_hash_table_duplicate_key_order_weakness",
+      "factType": "weakness",
+      "tag": "hash_table_duplicate_key_order",
+      "label": "Hash table update order is fragile when duplicate values appear",
+      "value": "Hash table update order is fragile when duplicate values appear",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "two-sum",
+        "valid-anagram",
+        "group-anagrams"
+      ],
+      "sourceEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_two_sum_duplicate_same_index_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.hash_table.counter_balance_missing",
+      "factId": "seed_fact_fact_hash_table_counter_balance_missing",
+      "factType": "mistake",
+      "tag": "hash_table_counter_balance",
+      "label": "Frequency-map checks may ignore count balance",
+      "value": "Frequency-map checks may ignore count balance",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "valid-anagram",
+        "group-anagrams"
+      ],
+      "sourceEpisodeKey": "episode.review.valid_anagram_counter_unbalanced_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_valid_anagram_counter_unbalanced_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_valid_anagram_counter_unbalanced_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.valid_anagram_counter_unbalanced_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_anagram_counter_unbalanced_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.rotated_half_selection",
+      "factId": "seed_fact_fact_binary_search_rotated_half_selection",
+      "factType": "mistake",
+      "tag": "binary_search_rotated_half_selection",
+      "label": "Rotated binary search loses the valid sorted half",
+      "value": "Rotated binary search loses the valid sorted half",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "search-in-rotated-sorted-array",
+        "search-insert-position"
+      ],
+      "sourceEpisodeKey": "episode.review.search_rotated_half_selection_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_search_rotated_half_selection_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_search_rotated_half_selection_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.search_rotated_half_selection_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_search_rotated_half_selection_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.boundary_goal_mismatch",
+      "factId": "seed_fact_fact_binary_search_boundary_goal_mismatch",
+      "factType": "mistake",
+      "tag": "binary_search_boundary_goal",
+      "label": "Binary search returns any match when the task asks for a boundary",
+      "value": "Binary search returns any match when the task asks for a boundary",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "find-first-and-last-position-of-element-in-sorted-array",
+        "search-insert-position"
+      ],
+      "sourceEpisodeKey": "episode.review.first_last_range_right_bias_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_first_last_range_right_bias_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_first_last_range_right_bias_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.first_last_range_right_bias_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_first_last_range_right_bias_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.sliding_window.left_boundary_regression",
+      "factId": "seed_fact_fact_sliding_window_left_boundary_regression",
+      "factType": "mistake",
+      "tag": "sliding_window_left_boundary_regression",
+      "label": "Sliding window left boundary can regress without max()",
+      "value": "Sliding window left boundary can regress without max()",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "longest-substring-without-repeating-characters",
+        "minimum-window-substring"
+      ],
+      "sourceEpisodeKey": "episode.review.longest_substring_abba_regression_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_longest_substring_abba_regression_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_longest_substring_abba_regression_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.longest_substring_abba_regression_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_longest_substring_abba_regression_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.sliding_window.have_need_distinct_count",
+      "factId": "seed_fact_fact_sliding_window_have_need_distinct_count",
+      "factType": "mistake",
+      "tag": "sliding_window_have_need_distinct_count",
+      "label": "Minimum-window validity mixes total matched chars with satisfied types",
+      "value": "Minimum-window validity mixes total matched chars with satisfied types",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "minimum-window-substring",
+        "longest-substring-without-repeating-characters"
+      ],
+      "sourceEpisodeKey": "episode.review.minimum_window_have_count_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_minimum_window_have_count_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_minimum_window_have_count_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.minimum_window_have_count_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_minimum_window_have_count_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.intervals.closed_boundary_overlap",
+      "factId": "seed_fact_fact_intervals_closed_boundary_overlap",
+      "factType": "mistake",
+      "tag": "intervals_closed_boundary_overlap",
+      "label": "Closed interval endpoints are sometimes treated as non-overlapping",
+      "value": "Closed interval endpoints are sometimes treated as non-overlapping",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "merge-intervals"
+      ],
+      "sourceEpisodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_merge_intervals_touching_boundary_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_merge_intervals_touching_boundary_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_merge_intervals_touching_boundary_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.stack.store_index_vs_value",
+      "factId": "seed_fact_fact_stack_store_index_vs_value",
+      "factType": "mistake",
+      "tag": "stack_store_index_vs_value",
+      "label": "Monotonic stack state stores values when indices are needed",
+      "value": "Monotonic stack state stores values when indices are needed",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "daily-temperatures",
+        "valid-parentheses"
+      ],
+      "sourceEpisodeKey": "episode.review.daily_temperatures_value_stack_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_daily_temperatures_value_stack_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_daily_temperatures_value_stack_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.daily_temperatures_value_stack_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_daily_temperatures_value_stack_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.queue.level_boundary_mixed",
+      "factId": "seed_fact_fact_queue_level_boundary_mixed",
+      "factType": "mistake",
+      "tag": "breadth_first_search_level_boundary",
+      "label": "BFS level traversal mixes depths without freezing queue length",
+      "value": "BFS level traversal mixes depths without freezing queue length",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "binary-tree-level-order-traversal"
+      ],
+      "sourceEpisodeKey": "episode.review.level_order_mixed_levels_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_level_order_mixed_levels_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_level_order_mixed_levels_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.level_order_mixed_levels_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_level_order_mixed_levels_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.graph.visited_marking_late",
+      "factId": "seed_fact_fact_graph_visited_marking_late",
+      "factType": "mistake",
+      "tag": "depth_first_search_visited_marking_late",
+      "label": "DFS/BFS visited marking happens too late",
+      "value": "DFS/BFS visited marking happens too late",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "number-of-islands"
+      ],
+      "sourceEpisodeKey": "episode.review.number_islands_visited_late_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_number_islands_visited_late_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_number_islands_visited_late_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.number_islands_visited_late_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_number_islands_visited_late_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.learning.state_update_order_weakness",
+      "factId": "seed_fact_fact_learning_state_update_order_weakness",
+      "factType": "weakness",
+      "tag": "sliding_window_state_update_order",
+      "label": "Often changes state variables before explaining why the update is safe",
+      "value": "Often changes state variables before explaining why the update is safe",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "minimum-window-substring",
+        "longest-substring-without-repeating-characters",
+        "search-in-rotated-sorted-array"
+      ],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "sourceEpisodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "source": "mock_interview_feedback",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "source": "mock_interview_feedback",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.learning.invariant_verbalization_weakness",
+      "factId": "seed_fact_fact_learning_invariant_verbalization_weakness",
+      "factType": "weakness",
+      "tag": "binary_search_invariant_verbalization",
+      "label": "Needs to verbalize the loop invariant before changing binary-search boundaries",
+      "value": "Needs to verbalize the loop invariant before changing binary-search boundaries",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "search-insert-position",
+        "search-in-rotated-sorted-array",
+        "find-first-and-last-position-of-element-in-sorted-array"
+      ],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "sourceEpisodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "source": "reflection",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "source": "reflection",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.hash_table_complement_lookup",
+      "factId": "seed_fact_fact_skill_hash_table_complement_lookup",
+      "factType": "skill",
+      "tag": "hash_table_complement_lookup",
+      "label": "Can use check-before-store complement lookup",
+      "value": "Can use check-before-store complement lookup",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.review.two_sum_complement_repair_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_two_sum_complement_repair_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_two_sum_complement_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_complement_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.hash_table_frequency_signature",
+      "factId": "seed_fact_fact_skill_hash_table_frequency_signature",
+      "factType": "skill",
+      "tag": "hash_table_frequency_signature",
+      "label": "Can group strings by a frequency tuple signature",
+      "value": "Can group strings by a frequency tuple signature",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "group-anagrams",
+        "valid-anagram"
+      ],
+      "sourceEpisodeKey": "episode.review.group_anagrams_signature_repair_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_group_anagrams_signature_repair_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_group_anagrams_signature_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.group_anagrams_signature_repair_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_group_anagrams_signature_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.binary_search_first_ge_invariant",
+      "factId": "seed_fact_fact_skill_binary_search_first_ge_invariant",
+      "factType": "skill",
+      "tag": "binary_search_first_ge_invariant",
+      "label": "Can use first >= target invariant after correction",
+      "value": "Can use first >= target invariant after correction",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "search-insert-position",
+        "find-first-and-last-position-of-element-in-sorted-array"
+      ],
+      "sourceEpisodeKey": "episode.review.search_insert_first_ge_repair_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_search_insert_first_ge_repair_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_search_insert_first_ge_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.search_insert_first_ge_repair_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_search_insert_first_ge_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.two_pointers_move_shorter_wall",
+      "factId": "seed_fact_fact_skill_two_pointers_move_shorter_wall",
+      "factType": "skill",
+      "tag": "two_pointers_move_shorter_wall",
+      "label": "Can move the shorter wall in Container after checking area",
+      "value": "Can move the shorter wall in Container after checking area",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "container-with-most-water"
+      ],
+      "sourceEpisodeKey": "episode.review.container_pointer_repair_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_container_pointer_repair_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_container_pointer_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.container_pointer_repair_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_container_pointer_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.stack_parentheses_matching",
+      "factId": "seed_fact_fact_skill_stack_parentheses_matching",
+      "factType": "skill",
+      "tag": "stack_parentheses_matching",
+      "label": "Can use stack matching with an empty-check guard",
+      "value": "Can use stack matching with an empty-check guard",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "valid-parentheses"
+      ],
+      "sourceEpisodeKey": "episode.review.valid_parentheses_repair_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_valid_parentheses_repair_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_valid_parentheses_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.valid_parentheses_repair_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_parentheses_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.skill.dynamic_programming_base_cases",
+      "factId": "seed_fact_fact_skill_dynamic_programming_base_cases",
+      "factType": "skill",
+      "tag": "dynamic_programming_base_cases",
+      "label": "Can repair simple one-dimensional DP by naming base cases",
+      "value": "Can repair simple one-dimensional DP by naming base cases",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "climbing-stairs",
+        "coin-change"
+      ],
+      "sourceEpisodeKey": "episode.review.climbing_stairs_repair_passed",
+      "sourceEpisodeId": "seed_episode_episode_review_climbing_stairs_repair_passed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_climbing_stairs_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.climbing_stairs_repair_passed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_climbing_stairs_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.two_sum.same_index_duplicate_return",
+      "factId": "seed_fact_fact_two_sum_same_index_duplicate_return",
+      "factType": "mistake",
+      "tag": "hash_table_same_index_duplicate",
+      "label": "Returned the same index twice on duplicate Two Sum values",
+      "value": "Returned the same index twice on duplicate Two Sum values",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_two_sum_duplicate_same_index_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis",
+        "seed_trace_episode_review_two_sum_complement_repair_passed_run_evidence"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_complement_repair_passed_run_evidence"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_complement_repair_passed_run_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.return_left_plus_one",
+      "factId": "seed_fact_fact_binary_search_return_left_plus_one",
+      "factType": "mistake",
+      "tag": "binary_search_return_left_plus_one",
+      "label": "Returned left + 1 after a correct insertion-point loop",
+      "value": "Returned left + 1 after a correct insertion-point loop",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "search-insert-position"
+      ],
+      "sourceEpisodeKey": "episode.review.search_insert_left_plus_one_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_search_insert_left_plus_one_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_search_insert_left_plus_one_failed_diagnosis",
+        "seed_trace_episode_review_search_insert_first_ge_repair_passed_run_evidence"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.search_insert_left_plus_one_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_search_insert_left_plus_one_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.search_insert_first_ge_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "reflection",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_search_insert_first_ge_repair_passed_run_evidence"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.search_insert_first_ge_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "reflection",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_search_insert_first_ge_repair_passed_run_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.two_pointers.move_taller_wall",
+      "factId": "seed_fact_fact_two_pointers_move_taller_wall",
+      "factType": "mistake",
+      "tag": "two_pointers_move_taller_wall",
+      "label": "Moved the taller wall in Container With Most Water",
+      "value": "Moved the taller wall in Container With Most Water",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "container-with-most-water"
+      ],
+      "sourceEpisodeKey": "episode.review.container_pointer_wrong_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_container_pointer_wrong_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_container_pointer_wrong_failed_diagnosis",
+        "seed_trace_episode_review_container_pointer_repair_passed_run_evidence"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.container_pointer_wrong_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_container_pointer_wrong_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.container_pointer_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_container_pointer_repair_passed_run_evidence"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.container_pointer_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_container_pointer_repair_passed_run_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.stack.empty_check_missing",
+      "factId": "seed_fact_fact_stack_empty_check_missing",
+      "factType": "mistake",
+      "tag": "stack_empty_check_missing",
+      "label": "Popped from an empty stack on closing-first parentheses",
+      "value": "Popped from an empty stack on closing-first parentheses",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "valid-parentheses"
+      ],
+      "sourceEpisodeKey": "episode.review.valid_parentheses_empty_stack_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_valid_parentheses_empty_stack_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_valid_parentheses_empty_stack_failed_diagnosis",
+        "seed_trace_episode_review_valid_parentheses_repair_passed_run_evidence"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.valid_parentheses_empty_stack_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_parentheses_empty_stack_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.valid_parentheses_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_parentheses_repair_passed_run_evidence"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.valid_parentheses_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_valid_parentheses_repair_passed_run_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.dynamic_programming.climbing_stairs_base_case_shift",
+      "factId": "seed_fact_fact_dynamic_programming_climbing_stairs_base_case_shift",
+      "factType": "mistake",
+      "tag": "dynamic_programming_base_case_shift",
+      "label": "Shifted Climbing Stairs base cases by one index",
+      "value": "Shifted Climbing Stairs base cases by one index",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "climbing-stairs"
+      ],
+      "sourceEpisodeKey": "episode.review.climbing_stairs_base_case_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_climbing_stairs_base_case_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_climbing_stairs_base_case_failed_diagnosis",
+        "seed_trace_episode_review_climbing_stairs_repair_passed_run_evidence"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.climbing_stairs_base_case_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_climbing_stairs_base_case_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.climbing_stairs_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_climbing_stairs_repair_passed_run_evidence"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.climbing_stairs_repair_passed",
+          "evidenceKind": "resolve",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_climbing_stairs_repair_passed_run_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.two_sum.check_before_store_confusion",
+      "factId": "seed_fact_fact_two_sum_check_before_store_confusion",
+      "factType": "mistake",
+      "tag": "two_sum_check_before_store_confusion",
+      "label": "Checks the Two Sum complement only after storing the current value",
+      "value": "Checks the Two Sum complement only after storing the current value",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "confidence": 0.25,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_two_sum_duplicate_same_index_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis",
+        "seed_trace_episode_review_two_sum_complement_repair_passed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.two_sum_complement_repair_passed",
+          "evidenceKind": "contradict",
+          "source": "reflection",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_two_sum_complement_repair_passed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.any_match_is_enough",
+      "factId": "seed_fact_fact_binary_search_any_match_is_enough",
+      "factType": "mistake",
+      "tag": "binary_search_any_match_return",
+      "label": "Thought returning any matched index is enough for boundary-search tasks",
+      "value": "Thought returning any matched index is enough for boundary-search tasks",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "confidence": 0.25,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "find-first-and-last-position-of-element-in-sorted-array"
+      ],
+      "sourceEpisodeKey": "episode.review.first_last_range_right_bias_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_first_last_range_right_bias_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_first_last_range_right_bias_failed_diagnosis",
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.first_last_range_right_bias_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_first_last_range_right_bias_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "contradict",
+          "source": "mock_interview_feedback",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.intervals.open_boundary_assumption",
+      "factId": "seed_fact_fact_intervals_open_boundary_assumption",
+      "factType": "mistake",
+      "tag": "intervals_open_boundary_assumption",
+      "label": "Assumed Merge Intervals uses open endpoint boundaries",
+      "value": "Assumed Merge Intervals uses open endpoint boundaries",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "confidence": 0.25,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "merge-intervals"
+      ],
+      "sourceEpisodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+      "sourceEpisodeId": "seed_episode_episode_review_merge_intervals_touching_boundary_failed",
+      "source": "review_diagnosis",
+      "evidenceTraceIds": [
+        "seed_trace_episode_review_merge_intervals_touching_boundary_failed_diagnosis"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+          "evidenceKind": "reinforce",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_merge_intervals_touching_boundary_failed_diagnosis"
+          ]
+        },
+        {
+          "episodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+          "evidenceKind": "contradict",
+          "source": "review_diagnosis",
+          "evidenceTraceIds": [
+            "seed_trace_episode_review_merge_intervals_touching_boundary_failed_diagnosis"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.coin_change.greedy_always_works",
+      "factId": "seed_fact_fact_coin_change_greedy_always_works",
+      "factType": "weakness",
+      "tag": "dynamic_programming_greedy_overgeneralization",
+      "label": "Overgeneralized that coin-change style problems can be solved greedily",
+      "value": "Overgeneralized that coin-change style problems can be solved greedily",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "confidence": 0.25,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "coin-change"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_coin_change_and_recursion",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0",
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "contradict",
+          "source": "reflection",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.recursion.low_confidence_fear",
+      "factId": "seed_fact_fact_recursion_low_confidence_fear",
+      "factType": "weakness",
+      "tag": "depth_first_search_recursion_anxiety",
+      "label": "May feel anxious about recursion, but evidence is thin",
+      "value": "May feel anxious about recursion, but evidence is thin",
+      "dbStatus": "active",
+      "scenarioStatus": "low_confidence",
+      "confidence": 0.38,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "number-of-islands",
+        "coin-change"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_coin_change_and_recursion",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "weaken",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.dp.coin_change_low_confidence_state_confusion",
+      "factId": "seed_fact_fact_dp_coin_change_low_confidence_state_confusion",
+      "factType": "weakness",
+      "tag": "dynamic_programming_coin_change_state_uncertain",
+      "label": "May confuse Coin Change state definition, but no code evidence yet",
+      "value": "May confuse Coin Change state definition, but no code evidence yet",
+      "dbStatus": "active",
+      "scenarioStatus": "low_confidence",
+      "confidence": 0.38,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "coin-change",
+        "climbing-stairs"
+      ],
+      "sourceEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "sourceEpisodeId": "seed_episode_episode_chat_low_confidence_coin_change_and_recursion",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+          ]
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+          "evidenceKind": "weaken",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.python.dict_get_membership_confusion",
+      "factId": "seed_fact_fact_python_dict_get_membership_confusion",
+      "factType": "unresolved_confusion",
+      "tag": "hash_table_python_dict_get_membership",
+      "label": "Confuses Python dict.get with key membership checks",
+      "value": "Confuses Python dict.get with key membership checks",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "two-sum",
+        "valid-anagram"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.cpp.unordered_map_operator_insert_confusion",
+      "factId": "seed_fact_fact_cpp_unordered_map_operator_insert_confusion",
+      "factType": "unresolved_confusion",
+      "tag": "hash_table_cpp_unordered_map_operator_insert",
+      "label": "Unsure that C++ unordered_map operator[] inserts default values",
+      "value": "Unsure that C++ unordered_map operator[] inserts default values",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "two-sum",
+        "top-k-frequent-elements"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.python.deque_popleft_vs_list_pop0",
+      "factId": "seed_fact_fact_python_deque_popleft_vs_list_pop0",
+      "factType": "unresolved_confusion",
+      "tag": "breadth_first_search_python_deque_popleft",
+      "label": "Confuses deque.popleft with list.pop(0) for queues",
+      "value": "Confuses deque.popleft with list.pop(0) for queues",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "binary-tree-level-order-traversal",
+        "number-of-islands"
+      ],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "sourceEpisodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.cpp.vector_bounds_confusion",
+      "factId": "seed_fact_fact_cpp_vector_bounds_confusion",
+      "factType": "unresolved_confusion",
+      "tag": "array_cpp_vector_bounds",
+      "label": "Unsure about C++ vector bounds access and empty checks",
+      "value": "Unsure about C++ vector bounds access and empty checks",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": true,
+      "relatedProblemSlugs": [
+        "search-insert-position",
+        "container-with-most-water"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "chat_consolidation",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "reinforce",
+          "source": "chat_consolidation",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.learning.boundary_case_self_check",
+      "factId": "seed_fact_fact_learning_boundary_case_self_check",
+      "factType": "weakness",
+      "tag": "boundary_condition_self_check",
+      "label": "Needs an explicit boundary-case self-check before trusting a solution",
+      "value": "Needs an explicit boundary-case self-check before trusting a solution",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "merge-intervals",
+        "valid-parentheses",
+        "climbing-stairs",
+        "search-insert-position"
+      ],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "sourceEpisodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "source": "mock_interview_feedback",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "source": "mock_interview_feedback",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.learning.trace_small_case_before_abstraction",
+      "factId": "seed_fact_fact_learning_trace_small_case_before_abstraction",
+      "factType": "weakness",
+      "tag": "learning_trace_small_case_before_abstraction",
+      "label": "Benefits from tracing one small failing case before abstract explanation",
+      "value": "Benefits from tracing one small failing case before abstract explanation",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "search-insert-position",
+        "search-in-rotated-sorted-array",
+        "minimum-window-substring"
+      ],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "sourceEpisodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "source": "mock_interview_feedback",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "source": "mock_interview_feedback",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.learning.template_overgeneralization",
+      "factId": "seed_fact_fact_learning_template_overgeneralization",
+      "factType": "weakness",
+      "tag": "learning_template_overgeneralization",
+      "label": "Sometimes overgeneralizes a familiar template before checking the problem goal",
+      "value": "Sometimes overgeneralizes a familiar template before checking the problem goal",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.5,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "coin-change",
+        "find-first-and-last-position-of-element-in-sorted-array",
+        "container-with-most-water"
+      ],
+      "sourceEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "sourceEpisodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "source": "reflection",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.mock_interview_feedback_state_updates",
+          "evidenceKind": "reinforce",
+          "source": "reflection",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.preference.short_hints",
+      "factId": "seed_fact_fact_preference_short_hints",
+      "factType": "preference",
+      "tag": "explanation_style_short",
+      "label": "User prefers short explanations.",
+      "value": "User prefers short explanations.",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.9,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "user_explicit",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "source": "user_explicit",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.preference.one_next_step",
+      "factId": "seed_fact_fact_preference_one_next_step",
+      "factType": "preference",
+      "tag": "next_step_style",
+      "label": "User prefers one concrete next step before broader explanation.",
+      "value": "User prefers one concrete next step before broader explanation.",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.9,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "user_explicit",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "source": "user_explicit",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.preference.default_python",
+      "factId": "seed_fact_fact_preference_default_python",
+      "factType": "preference",
+      "tag": "language_default_python",
+      "label": "User prefers Python as the default language.",
+      "value": "User prefers Python as the default language.",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.9,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "user_explicit",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "source": "user_explicit",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioFactKey": "fact.preference.no_full_solution_first",
+      "factId": "seed_fact_fact_preference_no_full_solution_first",
+      "factType": "preference",
+      "tag": "full_solution_opt_in",
+      "label": "User wants full solutions to be opt-in after a hint-first response.",
+      "value": "User wants full solutions to be opt-in after a hint-first response.",
+      "dbStatus": "active",
+      "scenarioStatus": "current",
+      "confidence": 0.9,
+      "expectedRetrievable": false,
+      "relatedProblemSlugs": [
+        "two-sum"
+      ],
+      "sourceEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "sourceEpisodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "source": "user_explicit",
+      "evidenceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+      ],
+      "arbitrationPath": [
+        {
+          "episodeKey": "episode.chat.preferences_and_api_confusions",
+          "evidenceKind": "preference_set",
+          "source": "user_explicit",
+          "evidenceTraceIds": [
+            "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+          ]
+        }
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "scenarioEpisodeKey": "episode.review.two_sum_duplicate_same_index_failed",
+      "episodeId": "seed_episode_episode_review_two_sum_duplicate_same_index_failed",
+      "kind": "review",
+      "problemSlug": "two-sum",
+      "problemPath": "/workbench?problem=two-sum",
+      "title": "Two Sum review: duplicate value same-index bug",
+      "summary": "The learner wrote a normal dict loop but stored the current number before checking the complement, so nums=[3,3], target=6 returned the same index twice. This is a realistic beginner HashMap update-order confusion.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_review_attempt",
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_run_evidence",
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_diagnosis",
+        "seed_trace_episode_review_two_sum_duplicate_same_index_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.two_sum_complement_repair_passed",
+      "episodeId": "seed_episode_episode_review_two_sum_complement_repair_passed",
+      "kind": "review",
+      "problemSlug": "two-sum",
+      "problemPath": "/workbench?problem=two-sum",
+      "title": "Two Sum review: check-before-store repair",
+      "summary": "The learner moved the complement check before storing the current value and passed visible duplicate-value cases. This supports a HashMap complement skill and resolves the same-index bug.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_two_sum_complement_repair_passed_review_attempt",
+        "seed_trace_episode_review_two_sum_complement_repair_passed_run_evidence",
+        "seed_trace_episode_review_two_sum_complement_repair_passed_diagnosis",
+        "seed_trace_episode_review_two_sum_complement_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.valid_anagram_counter_unbalanced_failed",
+      "episodeId": "seed_episode_episode_review_valid_anagram_counter_unbalanced_failed",
+      "kind": "review",
+      "problemSlug": "valid-anagram",
+      "problemPath": "/workbench?problem=valid-anagram",
+      "title": "Valid Anagram review: counter decrement missing",
+      "summary": "The learner built a frequency dict for s but forgot to decrement while scanning t, so unequal strings with shared letters looked valid. This shows basic HashMap familiarity but weak count-balance reasoning.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_valid_anagram_counter_unbalanced_failed_review_attempt",
+        "seed_trace_episode_review_valid_anagram_counter_unbalanced_failed_run_evidence",
+        "seed_trace_episode_review_valid_anagram_counter_unbalanced_failed_diagnosis",
+        "seed_trace_episode_review_valid_anagram_counter_unbalanced_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.group_anagrams_signature_repair_passed",
+      "episodeId": "seed_episode_episode_review_group_anagrams_signature_repair_passed",
+      "kind": "review",
+      "problemSlug": "group-anagrams",
+      "problemPath": "/workbench?problem=group-anagrams",
+      "title": "Group Anagrams review: frequency signature repair",
+      "summary": "After struggling with raw string sorting, the learner used a 26-count tuple as the group key and explained why it is stable for anagrams. This supports a reusable frequency-signature skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_group_anagrams_signature_repair_passed_review_attempt",
+        "seed_trace_episode_review_group_anagrams_signature_repair_passed_run_evidence",
+        "seed_trace_episode_review_group_anagrams_signature_repair_passed_diagnosis",
+        "seed_trace_episode_review_group_anagrams_signature_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.search_insert_left_plus_one_failed",
+      "episodeId": "seed_episode_episode_review_search_insert_left_plus_one_failed",
+      "kind": "review",
+      "problemSlug": "search-insert-position",
+      "problemPath": "/workbench?problem=search-insert-position",
+      "title": "Search Insert review: returned left + 1",
+      "summary": "The learner wrote a near-correct inclusive binary search but returned left + 1, making target=2 in [1,3,5,6] produce 2 instead of 1. The blocker is loop-exit invariant, not syntax.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_search_insert_left_plus_one_failed_review_attempt",
+        "seed_trace_episode_review_search_insert_left_plus_one_failed_run_evidence",
+        "seed_trace_episode_review_search_insert_left_plus_one_failed_diagnosis",
+        "seed_trace_episode_review_search_insert_left_plus_one_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.search_insert_first_ge_repair_passed",
+      "episodeId": "seed_episode_episode_review_search_insert_first_ge_repair_passed",
+      "kind": "review",
+      "problemSlug": "search-insert-position",
+      "problemPath": "/workbench?problem=search-insert-position",
+      "title": "Search Insert review: first >= target repair",
+      "summary": "The learner returned left directly and could say the loop finds the first position with value >= target. This resolves the old left + 1 mistake and supports a binary-search invariant skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_search_insert_first_ge_repair_passed_review_attempt",
+        "seed_trace_episode_review_search_insert_first_ge_repair_passed_run_evidence",
+        "seed_trace_episode_review_search_insert_first_ge_repair_passed_diagnosis",
+        "seed_trace_episode_review_search_insert_first_ge_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.search_rotated_half_selection_failed",
+      "episodeId": "seed_episode_episode_review_search_rotated_half_selection_failed",
+      "kind": "review",
+      "problemSlug": "search-in-rotated-sorted-array",
+      "problemPath": "/workbench?problem=search-in-rotated-sorted-array",
+      "title": "Search Rotated review: chose the wrong sorted half",
+      "summary": "The learner could write binary search mechanics but mixed up which half is sorted after rotation. nums=[4,5,6,7,0,1,2], target=0 failed because the branch discarded the valid half.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_search_rotated_half_selection_failed_review_attempt",
+        "seed_trace_episode_review_search_rotated_half_selection_failed_run_evidence",
+        "seed_trace_episode_review_search_rotated_half_selection_failed_diagnosis",
+        "seed_trace_episode_review_search_rotated_half_selection_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.first_last_range_right_bias_failed",
+      "episodeId": "seed_episode_episode_review_first_last_range_right_bias_failed",
+      "kind": "review",
+      "problemSlug": "find-first-and-last-position-of-element-in-sorted-array",
+      "problemPath": "/workbench?problem=find-first-and-last-position-of-element-in-sorted-array",
+      "title": "Search Range review: stopped at any match",
+      "summary": "For duplicates, the learner returned as soon as nums[mid] == target and missed that the task asks for both boundaries. This is a binary-search goal/invariant mismatch, not a generic array issue.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_first_last_range_right_bias_failed_review_attempt",
+        "seed_trace_episode_review_first_last_range_right_bias_failed_run_evidence",
+        "seed_trace_episode_review_first_last_range_right_bias_failed_diagnosis",
+        "seed_trace_episode_review_first_last_range_right_bias_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.longest_substring_abba_regression_failed",
+      "episodeId": "seed_episode_episode_review_longest_substring_abba_regression_failed",
+      "kind": "review",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "problemPath": "/workbench?problem=longest-substring-without-repeating-characters",
+      "title": "Longest Substring review: left boundary regressed",
+      "summary": "The learner used last_seen but set left = last_seen[ch] + 1 without max(), so s='abba' reopened a duplicate outside the current window and returned 3 instead of 2.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_longest_substring_abba_regression_failed_review_attempt",
+        "seed_trace_episode_review_longest_substring_abba_regression_failed_run_evidence",
+        "seed_trace_episode_review_longest_substring_abba_regression_failed_diagnosis",
+        "seed_trace_episode_review_longest_substring_abba_regression_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.minimum_window_have_count_failed",
+      "episodeId": "seed_episode_episode_review_minimum_window_have_count_failed",
+      "kind": "review",
+      "problemSlug": "minimum-window-substring",
+      "problemPath": "/workbench?problem=minimum-window-substring",
+      "title": "Minimum Window review: counted total chars instead of satisfied types",
+      "summary": "The learner had the window skeleton but used total matched characters as have, so repeated required characters made the window look valid too early. The issue is distinct satisfied counts versus raw counts.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_minimum_window_have_count_failed_review_attempt",
+        "seed_trace_episode_review_minimum_window_have_count_failed_run_evidence",
+        "seed_trace_episode_review_minimum_window_have_count_failed_diagnosis",
+        "seed_trace_episode_review_minimum_window_have_count_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.merge_intervals_touching_boundary_failed",
+      "episodeId": "seed_episode_episode_review_merge_intervals_touching_boundary_failed",
+      "kind": "review",
+      "problemSlug": "merge-intervals",
+      "problemPath": "/workbench?problem=merge-intervals",
+      "title": "Merge Intervals review: touching boundary misunderstood",
+      "summary": "The learner sorted intervals but used start < current_end instead of start <= current_end, so [1,4] and [4,5] were kept separate. The bug is closed-interval boundary interpretation.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_merge_intervals_touching_boundary_failed_review_attempt",
+        "seed_trace_episode_review_merge_intervals_touching_boundary_failed_run_evidence",
+        "seed_trace_episode_review_merge_intervals_touching_boundary_failed_diagnosis",
+        "seed_trace_episode_review_merge_intervals_touching_boundary_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.container_pointer_wrong_failed",
+      "episodeId": "seed_episode_episode_review_container_pointer_wrong_failed",
+      "kind": "review",
+      "problemSlug": "container-with-most-water",
+      "problemPath": "/workbench?problem=container-with-most-water",
+      "title": "Container review: moved the taller pointer",
+      "summary": "The learner computed area correctly but moved the taller pointer, which can discard the only chance to improve the shorter wall. This is a two-pointer reasoning error, not a formula error.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_container_pointer_wrong_failed_review_attempt",
+        "seed_trace_episode_review_container_pointer_wrong_failed_run_evidence",
+        "seed_trace_episode_review_container_pointer_wrong_failed_diagnosis",
+        "seed_trace_episode_review_container_pointer_wrong_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.container_pointer_repair_passed",
+      "episodeId": "seed_episode_episode_review_container_pointer_repair_passed",
+      "kind": "review",
+      "problemSlug": "container-with-most-water",
+      "problemPath": "/workbench?problem=container-with-most-water",
+      "title": "Container review: shorter wall repair",
+      "summary": "The learner moved the shorter pointer after each area check and passed visible examples. This resolves the earlier taller-pointer mistake and supports a two-pointer decision skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_container_pointer_repair_passed_review_attempt",
+        "seed_trace_episode_review_container_pointer_repair_passed_run_evidence",
+        "seed_trace_episode_review_container_pointer_repair_passed_diagnosis",
+        "seed_trace_episode_review_container_pointer_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.daily_temperatures_value_stack_failed",
+      "episodeId": "seed_episode_episode_review_daily_temperatures_value_stack_failed",
+      "kind": "review",
+      "problemSlug": "daily-temperatures",
+      "problemPath": "/workbench?problem=daily-temperatures",
+      "title": "Daily Temperatures review: stored values instead of indices",
+      "summary": "The learner used a monotonic stack but stored temperatures rather than indices, so they could compare values but could not compute day distance. This is a state representation mistake.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_daily_temperatures_value_stack_failed_review_attempt",
+        "seed_trace_episode_review_daily_temperatures_value_stack_failed_run_evidence",
+        "seed_trace_episode_review_daily_temperatures_value_stack_failed_diagnosis",
+        "seed_trace_episode_review_daily_temperatures_value_stack_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.valid_parentheses_empty_stack_failed",
+      "episodeId": "seed_episode_episode_review_valid_parentheses_empty_stack_failed",
+      "kind": "review",
+      "problemSlug": "valid-parentheses",
+      "problemPath": "/workbench?problem=valid-parentheses",
+      "title": "Valid Parentheses review: empty stack not checked",
+      "summary": "The learner used a stack and matching map but popped before checking whether the stack was empty. A closing bracket at the start produced a runtime error instead of false.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_valid_parentheses_empty_stack_failed_review_attempt",
+        "seed_trace_episode_review_valid_parentheses_empty_stack_failed_run_evidence",
+        "seed_trace_episode_review_valid_parentheses_empty_stack_failed_diagnosis",
+        "seed_trace_episode_review_valid_parentheses_empty_stack_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.valid_parentheses_repair_passed",
+      "episodeId": "seed_episode_episode_review_valid_parentheses_repair_passed",
+      "kind": "review",
+      "problemSlug": "valid-parentheses",
+      "problemPath": "/workbench?problem=valid-parentheses",
+      "title": "Valid Parentheses review: empty-check repair",
+      "summary": "The learner added an empty-stack guard before popping and passed closing-first cases. This resolves the stack empty-check mistake and supports a basic stack matching skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_valid_parentheses_repair_passed_review_attempt",
+        "seed_trace_episode_review_valid_parentheses_repair_passed_run_evidence",
+        "seed_trace_episode_review_valid_parentheses_repair_passed_diagnosis",
+        "seed_trace_episode_review_valid_parentheses_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.level_order_mixed_levels_failed",
+      "episodeId": "seed_episode_episode_review_level_order_mixed_levels_failed",
+      "kind": "review",
+      "problemSlug": "binary-tree-level-order-traversal",
+      "problemPath": "/workbench?problem=binary-tree-level-order-traversal",
+      "title": "Level Order review: mixed levels in one list",
+      "summary": "The learner used a queue but appended children into the same loop without freezing the current level size, so nodes from different depths leaked into the same result row.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_level_order_mixed_levels_failed_review_attempt",
+        "seed_trace_episode_review_level_order_mixed_levels_failed_run_evidence",
+        "seed_trace_episode_review_level_order_mixed_levels_failed_diagnosis",
+        "seed_trace_episode_review_level_order_mixed_levels_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.number_islands_visited_late_failed",
+      "episodeId": "seed_episode_episode_review_number_islands_visited_late_failed",
+      "kind": "review",
+      "problemSlug": "number-of-islands",
+      "problemPath": "/workbench?problem=number-of-islands",
+      "title": "Number of Islands review: marked visited too late",
+      "summary": "The learner wrote DFS but marked cells visited after recursive calls, causing repeated visits around cycles and occasional recursion blow-up. The issue is visited timing, not knowing DFS syntax.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_number_islands_visited_late_failed_review_attempt",
+        "seed_trace_episode_review_number_islands_visited_late_failed_run_evidence",
+        "seed_trace_episode_review_number_islands_visited_late_failed_diagnosis",
+        "seed_trace_episode_review_number_islands_visited_late_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.climbing_stairs_base_case_failed",
+      "episodeId": "seed_episode_episode_review_climbing_stairs_base_case_failed",
+      "kind": "review",
+      "problemSlug": "climbing-stairs",
+      "problemPath": "/workbench?problem=climbing-stairs",
+      "title": "Climbing Stairs review: base cases shifted",
+      "summary": "The learner knew the Fibonacci recurrence but initialized dp[0]=0, dp[1]=1 and returned 1 for n=2. This is a DP base-case indexing mistake.",
+      "outcome": "failed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_climbing_stairs_base_case_failed_review_attempt",
+        "seed_trace_episode_review_climbing_stairs_base_case_failed_run_evidence",
+        "seed_trace_episode_review_climbing_stairs_base_case_failed_diagnosis",
+        "seed_trace_episode_review_climbing_stairs_base_case_failed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.review.climbing_stairs_repair_passed",
+      "episodeId": "seed_episode_episode_review_climbing_stairs_repair_passed",
+      "kind": "review",
+      "problemSlug": "climbing-stairs",
+      "problemPath": "/workbench?problem=climbing-stairs",
+      "title": "Climbing Stairs review: base-case repair",
+      "summary": "The learner fixed dp[1]=1 and dp[2]=2, then passed small visible cases. This resolves the shifted base-case fact and supports a basic one-dimensional DP skill.",
+      "outcome": "passed",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_review_climbing_stairs_repair_passed_review_attempt",
+        "seed_trace_episode_review_climbing_stairs_repair_passed_run_evidence",
+        "seed_trace_episode_review_climbing_stairs_repair_passed_diagnosis",
+        "seed_trace_episode_review_climbing_stairs_repair_passed_coach_reply"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.preferences_and_api_confusions",
+      "episodeId": "seed_episode_episode_chat_preferences_and_api_confusions",
+      "kind": "chat_segment",
+      "problemSlug": "two-sum",
+      "problemPath": "/workbench?problem=two-sum",
+      "title": "Chat: explicit preferences and Python/C++ map confusion",
+      "summary": "The learner explicitly asked the coach to remember short hints, one next step, default Python, and no full solution on the first answer. The same chat included confusion about Python dict.get versus membership and C++ unordered_map operator[] insertion.",
+      "outcome": "unresolved",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_user_0",
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_user_1",
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_user_2",
+        "seed_trace_episode_chat_preferences_and_api_confusions_chat_reply_0",
+        "seed_trace_episode_chat_preferences_and_api_confusions_memory_note"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.low_confidence_coin_change_and_recursion",
+      "episodeId": "seed_episode_episode_chat_low_confidence_coin_change_and_recursion",
+      "kind": "chat_segment",
+      "problemSlug": "coin-change",
+      "problemPath": "/workbench?problem=coin-change",
+      "title": "Chat: uncertain recursion and greedy worry",
+      "summary": "The learner casually said recursion feels scary and wondered whether Coin Change might be greedy, but did not attempt enough code to prove a recurring weakness. These are intentionally low-confidence signals.",
+      "outcome": "unresolved",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_user_0",
+        "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_user_1",
+        "seed_trace_episode_chat_low_confidence_coin_change_and_recursion_chat_reply_0"
+      ]
+    },
+    {
+      "scenarioEpisodeKey": "episode.chat.mock_interview_feedback_state_updates",
+      "episodeId": "seed_episode_episode_chat_mock_interview_feedback_state_updates",
+      "kind": "chat_segment",
+      "problemSlug": "minimum-window-substring",
+      "problemPath": "/workbench?problem=minimum-window-substring",
+      "title": "Mock interview feedback: state updates need narration",
+      "summary": "A text mock-interview debrief noted that the learner can code basic data structures but often cannot narrate why a boundary or state variable is safe before changing it. This is used as synthetic mock_interview_feedback evidence.",
+      "outcome": "unresolved",
+      "expectedRetrievable": true,
+      "sourceTraceIds": [
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_0",
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_user_1",
+        "seed_trace_episode_chat_mock_interview_feedback_state_updates_chat_reply_0"
+      ]
+    }
+  ],
+  "staleFacts": [
+    {
+      "scenarioFactKey": "fact.two_sum.same_index_duplicate_return",
+      "factId": "seed_fact_fact_two_sum_same_index_duplicate_return",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "reason": "Later Two Sum repair passed duplicate-value visible tests with check-before-store."
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.return_left_plus_one",
+      "factId": "seed_fact_fact_binary_search_return_left_plus_one",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "reason": "Later Search Insert repair returned left directly and passed visible tests."
+    },
+    {
+      "scenarioFactKey": "fact.two_pointers.move_taller_wall",
+      "factId": "seed_fact_fact_two_pointers_move_taller_wall",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "reason": "Later Container repair used the shorter-wall rule and passed visible examples."
+    },
+    {
+      "scenarioFactKey": "fact.stack.empty_check_missing",
+      "factId": "seed_fact_fact_stack_empty_check_missing",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "reason": "Later Valid Parentheses repair added the empty-stack guard and passed visible tests."
+    },
+    {
+      "scenarioFactKey": "fact.dynamic_programming.climbing_stairs_base_case_shift",
+      "factId": "seed_fact_fact_dynamic_programming_climbing_stairs_base_case_shift",
+      "dbStatus": "resolved",
+      "scenarioStatus": "superseded",
+      "reason": "Later repair aligned the base cases with the state definition and passed visible tests."
+    },
+    {
+      "scenarioFactKey": "fact.two_sum.check_before_store_confusion",
+      "factId": "seed_fact_fact_two_sum_check_before_store_confusion",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "reason": "Later reflection contradicted the hardcode explanation; the actual issue was same-index duplicate handling."
+    },
+    {
+      "scenarioFactKey": "fact.binary_search.any_match_is_enough",
+      "factId": "seed_fact_fact_binary_search_any_match_is_enough",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "reason": "This fact is contradicted as a general strategy; boundary tasks require continuing search after a match."
+    },
+    {
+      "scenarioFactKey": "fact.intervals.open_boundary_assumption",
+      "factId": "seed_fact_fact_intervals_open_boundary_assumption",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "reason": "The open-boundary assumption was contradicted by the problem's closed-interval evidence."
+    },
+    {
+      "scenarioFactKey": "fact.coin_change.greedy_always_works",
+      "factId": "seed_fact_fact_coin_change_greedy_always_works",
+      "dbStatus": "contradicted",
+      "scenarioStatus": "superseded",
+      "reason": "This was contradicted as a general rule; it should not be retrieved as a current proven belief."
+    }
+  ],
+  "preferences": [
+    {
+      "scenarioFactKey": "fact.preference.short_hints",
+      "factId": "seed_fact_fact_preference_short_hints",
+      "tag": "explanation_style_short",
+      "label": "User prefers short explanations.",
+      "expectedRetrievable": false
+    },
+    {
+      "scenarioFactKey": "fact.preference.one_next_step",
+      "factId": "seed_fact_fact_preference_one_next_step",
+      "tag": "next_step_style",
+      "label": "User prefers one concrete next step before broader explanation.",
+      "expectedRetrievable": false
+    },
+    {
+      "scenarioFactKey": "fact.preference.default_python",
+      "factId": "seed_fact_fact_preference_default_python",
+      "tag": "language_default_python",
+      "label": "User prefers Python as the default language.",
+      "expectedRetrievable": false
+    },
+    {
+      "scenarioFactKey": "fact.preference.no_full_solution_first",
+      "factId": "seed_fact_fact_preference_no_full_solution_first",
+      "tag": "full_solution_opt_in",
+      "label": "User wants full solutions to be opt-in after a hint-first response.",
+      "expectedRetrievable": false
+    }
+  ],
+  "arbitration": {
+    "used": true,
+    "sources": [
+      "chat_consolidation",
+      "mock_interview_feedback",
+      "reflection",
+      "review_diagnosis",
+      "user_explicit"
+    ],
+    "rejectedCandidateCount": 0,
+    "deterministicIdUpdates": [
+      "fact.hash_table.duplicate_key_order_weakness->seed_fact_fact_hash_table_duplicate_key_order_weakness",
+      "fact.hash_table.counter_balance_missing->seed_fact_fact_hash_table_counter_balance_missing",
+      "fact.binary_search.rotated_half_selection->seed_fact_fact_binary_search_rotated_half_selection",
+      "fact.binary_search.boundary_goal_mismatch->seed_fact_fact_binary_search_boundary_goal_mismatch",
+      "fact.sliding_window.left_boundary_regression->seed_fact_fact_sliding_window_left_boundary_regression",
+      "fact.sliding_window.have_need_distinct_count->seed_fact_fact_sliding_window_have_need_distinct_count",
+      "fact.intervals.closed_boundary_overlap->seed_fact_fact_intervals_closed_boundary_overlap",
+      "fact.stack.store_index_vs_value->seed_fact_fact_stack_store_index_vs_value",
+      "fact.queue.level_boundary_mixed->seed_fact_fact_queue_level_boundary_mixed",
+      "fact.graph.visited_marking_late->seed_fact_fact_graph_visited_marking_late",
+      "fact.learning.state_update_order_weakness->seed_fact_fact_learning_state_update_order_weakness",
+      "fact.learning.invariant_verbalization_weakness->seed_fact_fact_learning_invariant_verbalization_weakness",
+      "fact.skill.hash_table_complement_lookup->seed_fact_fact_skill_hash_table_complement_lookup",
+      "fact.skill.hash_table_frequency_signature->seed_fact_fact_skill_hash_table_frequency_signature",
+      "fact.skill.binary_search_first_ge_invariant->seed_fact_fact_skill_binary_search_first_ge_invariant",
+      "fact.skill.two_pointers_move_shorter_wall->seed_fact_fact_skill_two_pointers_move_shorter_wall",
+      "fact.skill.stack_parentheses_matching->seed_fact_fact_skill_stack_parentheses_matching",
+      "fact.skill.dynamic_programming_base_cases->seed_fact_fact_skill_dynamic_programming_base_cases",
+      "fact.two_sum.same_index_duplicate_return->seed_fact_fact_two_sum_same_index_duplicate_return",
+      "fact.binary_search.return_left_plus_one->seed_fact_fact_binary_search_return_left_plus_one",
+      "fact.two_pointers.move_taller_wall->seed_fact_fact_two_pointers_move_taller_wall",
+      "fact.stack.empty_check_missing->seed_fact_fact_stack_empty_check_missing",
+      "fact.dynamic_programming.climbing_stairs_base_case_shift->seed_fact_fact_dynamic_programming_climbing_stairs_base_case_shift",
+      "fact.two_sum.check_before_store_confusion->seed_fact_fact_two_sum_check_before_store_confusion",
+      "fact.binary_search.any_match_is_enough->seed_fact_fact_binary_search_any_match_is_enough",
+      "fact.intervals.open_boundary_assumption->seed_fact_fact_intervals_open_boundary_assumption",
+      "fact.coin_change.greedy_always_works->seed_fact_fact_coin_change_greedy_always_works",
+      "fact.recursion.low_confidence_fear->seed_fact_fact_recursion_low_confidence_fear",
+      "fact.dp.coin_change_low_confidence_state_confusion->seed_fact_fact_dp_coin_change_low_confidence_state_confusion",
+      "fact.python.dict_get_membership_confusion->seed_fact_fact_python_dict_get_membership_confusion",
+      "fact.cpp.unordered_map_operator_insert_confusion->seed_fact_fact_cpp_unordered_map_operator_insert_confusion",
+      "fact.python.deque_popleft_vs_list_pop0->seed_fact_fact_python_deque_popleft_vs_list_pop0",
+      "fact.cpp.vector_bounds_confusion->seed_fact_fact_cpp_vector_bounds_confusion",
+      "fact.learning.boundary_case_self_check->seed_fact_fact_learning_boundary_case_self_check",
+      "fact.learning.trace_small_case_before_abstraction->seed_fact_fact_learning_trace_small_case_before_abstraction",
+      "fact.learning.template_overgeneralization->seed_fact_fact_learning_template_overgeneralization",
+      "fact.preference.short_hints->seed_fact_fact_preference_short_hints",
+      "fact.preference.one_next_step->seed_fact_fact_preference_one_next_step",
+      "fact.preference.default_python->seed_fact_fact_preference_default_python",
+      "fact.preference.no_full_solution_first->seed_fact_fact_preference_no_full_solution_first"
+    ],
+    "fixtureOnlyWrites": []
+  },
+  "realLlmCalls": false,
+  "notes": [
+    "Agent-drafted v1.1 seed learner; human review is required before final GT use.",
+    "The persona is intentionally a realistic undergraduate learner: can write basic Python/C++ code, but is not yet stable on invariants, boundaries, update order, or API semantics.",
+    "Facts are seeded through deterministic arbitration; no real LLM calls are made by the seed runner.",
+    "Synthetic mock interview and reflection sources are represented through chat_segment episodes because the v1 seed runner supports review/chat episodes only.",
+    "Human-approved after two audit rounds (see evals/audits/memory-v1.1-human-audit.md).",
+    "fact.learning.boundary_case_self_check / trace_small_case_before_abstraction / template_overgeneralization exist only to meet the plan 8.3.4 source-coverage minimums (mock_interview_feedback>=3, reflection>=2). They carry algorithm-agnostic learning_* tags that intentionally match no practiced-problem tag, so they are learner-snapshot background weaknesses (expectedRetrievable=false), not tag-retrieval positives, and are diagnostic-only per plan 8.3.4."
+  ],
+  "limitations": [
+    "The scenario is synthetic and still needs human audit for realism and label correctness.",
+    "Several non-demo Hot-150 problems are store-level histories and do not imply local Piston adapters exist.",
+    "Low-confidence facts are represented by scenarioStatus plus weaken evidence; the DB row may still have an active status because the v1 arbitration state machine has no dedicated low-confidence DB status.",
+    "Preference facts are valid L2 rows but expectedRetrievable=false because current retrieval profiles do not surface preference factType.",
+    "Cross-problem transfer cases intentionally include some retrieval-hard facts to expose current tag-match limitations rather than inflate the baseline."
+  ]
+}

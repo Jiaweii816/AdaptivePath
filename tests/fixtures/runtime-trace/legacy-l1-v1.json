@@ -1,0 +1,192 @@
+{
+  "fixtureVersion": "legacy-l1-v1",
+  "rows": [
+    {
+      "id": "l1-llm-normal",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "eventType": "llm_call",
+      "source": "review:diagnose",
+      "occurredAt": "2026-07-12T12:00:00.000Z",
+      "eventJson": {
+        "traceRunId": "run-normal",
+        "stepIndex": 1,
+        "stepId": "run-normal:1",
+        "spanKind": "llm",
+        "path": "review",
+        "task": "diagnose",
+        "status": "ok",
+        "latencyMs": 1200,
+        "model": "deepseek-chat",
+        "usage": {
+          "inputTokens": 100,
+          "outputTokens": 40,
+          "totalTokens": 140
+        },
+        "usageSource": "provider",
+        "usageMissingReason": null
+      }
+    },
+    {
+      "id": "l1-tool-missing-run",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "tool_call",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:01.000Z",
+      "eventJson": {
+        "stepIndex": 2,
+        "stepId": "legacy-step-2",
+        "spanKind": "tool",
+        "toolCallId": "call-1",
+        "toolName": "run_current_code",
+        "arguments": { "tests": ["visible-1"] }
+      }
+    },
+    {
+      "id": "l1-tool-result-error",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "tool_result",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:02.000Z",
+      "eventJson": {
+        "traceRunId": "run-chat",
+        "stepIndex": 3,
+        "stepId": "run-chat:3",
+        "spanKind": "tool",
+        "toolCallId": "call-1",
+        "toolName": "run_current_code",
+        "status": "error",
+        "latencyMs": 15,
+        "errorKind": "tool_execution_error"
+      }
+    },
+    {
+      "id": "l1-tool-result-reused",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "tool_result",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:02.100Z",
+      "eventJson": {
+        "traceRunId": "run-chat",
+        "toolCallId": "call-reused",
+        "toolName": "run_current_code",
+        "status": "reused",
+        "runtimeDisposition": "reused",
+        "latencyMs": 1
+      }
+    },
+    {
+      "id": "l1-tool-result-denied",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "tool_result",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:02.200Z",
+      "eventJson": {
+        "traceRunId": "run-chat",
+        "toolCallId": "call-denied",
+        "toolName": "save_knowledge_note",
+        "status": "denied",
+        "runtimeDisposition": "denied",
+        "runtimeReason": "not_authorized",
+        "latencyMs": 1
+      }
+    },
+    {
+      "id": "l1-retrieval-degraded",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "eventType": "retrieval_trace",
+      "source": "retrieve_memory",
+      "occurredAt": "2026-07-12T12:00:03.000Z",
+      "eventJson": {
+        "traceRunId": "run-review-2",
+        "path": "review",
+        "profileId": "review",
+        "factHits": [],
+        "episodeHits": [],
+        "kbHits": [],
+        "degraded": "embed_error"
+      }
+    },
+    {
+      "id": "l1-guard",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "reply_safety_replaced",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:04.000Z",
+      "eventJson": {
+        "traceRunId": "run-chat",
+        "stepIndex": 4,
+        "stepId": "run-chat:4",
+        "spanKind": "guard",
+        "reason": "product_invariant",
+        "originalReply": "unsafe",
+        "replacement": "safe"
+      }
+    },
+    {
+      "id": "l1-mock-llm",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "eventType": "llm_call",
+      "source": "mock_interview:respond",
+      "occurredAt": "2026-07-12T12:00:05.000Z",
+      "eventJson": {
+        "traceRunId": "run-mock",
+        "path": "mock_interview",
+        "status": "error",
+        "latencyMs": 50,
+        "model": "deepseek-chat",
+        "usage": null,
+        "usageSource": "missing",
+        "usageMissingReason": "error_response"
+      }
+    },
+    {
+      "id": "l1-semantic-chat-reply",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "chat_reply",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:06.000Z",
+      "eventJson": { "traceRunId": "run-chat", "sequence": 2 }
+    },
+    {
+      "id": "l1-semantic-mock-turn",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "eventType": "mock_interview_turn",
+      "source": "mock_interview",
+      "occurredAt": "2026-07-12T12:00:07.000Z",
+      "eventJson": { "traceRunId": "run-mock" }
+    },
+    {
+      "id": "l1-tool-missing-run",
+      "userId": "user-1",
+      "problemId": "problem-1",
+      "chatSessionId": "chat-1",
+      "eventType": "tool_call",
+      "source": "chat_reply",
+      "occurredAt": "2026-07-12T12:00:01.000Z",
+      "eventJson": {
+        "stepIndex": 2,
+        "stepId": "legacy-step-2",
+        "spanKind": "tool",
+        "toolCallId": "call-1",
+        "toolName": "run_current_code",
+        "arguments": { "tests": ["visible-1"] }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "CampaignGoal" ADD COLUMN "timezone" TEXT NOT NULL DEFAULT 'UTC';

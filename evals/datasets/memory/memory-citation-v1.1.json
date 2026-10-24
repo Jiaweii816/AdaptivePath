@@ -1,0 +1,218 @@
+{
+  "datasetVersion": "memory-citation-v1.1",
+  "name": "memory-citation-v1.1-expanded-undergraduate",
+  "status": "human_approved",
+  "description": "Personalized citation cases for the v1.1 synthetic undergraduate learner. Cases require structured memory citations and emphasize provenance, stale suppression, language/API separation, preferences, and no-evidence behavior.",
+  "humanReviewStatus": "approved",
+  "cases": [
+    {
+      "caseId": "pcite-v11-longest-abba-left-boundary",
+      "category": "mistake_memory",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "userQuestion": "你说我 left 会倒退，有哪次记录能证明？",
+      "expectedFactKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "fact.learning.state_update_order_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.longest_substring_abba_regression_failed",
+        "episode.chat.mock_interview_feedback_state_updates"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Chinese provenance question for an active sliding-window mistake and broader update-order weakness."
+    },
+    {
+      "caseId": "pcite-v11-min-window-have-need",
+      "category": "mistake_memory",
+      "problemSlug": "minimum-window-substring",
+      "userQuestion": "Why are you warning me about have/need instead of just left pointer movement?",
+      "expectedFactKeys": [
+        "fact.sliding_window.have_need_distinct_count",
+        "fact.learning.state_update_order_weakness"
+      ],
+      "expectedEpisodeKeys": ["episode.review.minimum_window_have_count_failed"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": ["fact.sliding_window.left_boundary_regression"],
+      "neutralEpisodeKeys": ["episode.review.longest_substring_abba_regression_failed"],
+      "citationRequirement": "required",
+      "notes": "Should ground the personalized warning in Minimum Window evidence, with Longest Substring only as optional historical context."
+    },
+    {
+      "caseId": "pcite-v11-binary-invariant-transfer",
+      "category": "mistake_memory",
+      "problemSlug": "search-in-rotated-sorted-array",
+      "userQuestion": "This rotated-array advice sounds personalized. What past evidence says I struggle with binary-search invariants?",
+      "expectedFactKeys": [
+        "fact.binary_search.rotated_half_selection",
+        "fact.learning.invariant_verbalization_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.search_rotated_half_selection_failed",
+        "episode.chat.mock_interview_feedback_state_updates"
+      ],
+      "forbiddenFactKeys": ["fact.binary_search.return_left_plus_one"],
+      "forbiddenEpisodeKeys": [],
+      "neutralEpisodeKeys": ["episode.review.search_insert_left_plus_one_failed"],
+      "citationRequirement": "required",
+      "notes": "Cross-problem citation should cite active invariant weakness and avoid the resolved left+1 fact as current evidence."
+    },
+    {
+      "caseId": "pcite-v11-hash-table-complement-skill",
+      "category": "skill_memory",
+      "problemSlug": "two-sum",
+      "userQuestion": "Have I already learned the complement lookup pattern, or are you guessing?",
+      "expectedFactKeys": ["fact.skill.hash_table_complement_lookup"],
+      "expectedEpisodeKeys": ["episode.review.two_sum_complement_repair_passed"],
+      "forbiddenFactKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Skill-memory case: cite repaired complement skill, not stale Two Sum mistakes."
+    },
+    {
+      "caseId": "pcite-v11-frequency-signature-skill",
+      "category": "skill_memory",
+      "problemSlug": "group-anagrams",
+      "userQuestion": "你为什么说我可以直接用 count signature，不用重新讲 HashMap 基础？",
+      "expectedFactKeys": ["fact.skill.hash_table_frequency_signature"],
+      "expectedEpisodeKeys": ["episode.review.group_anagrams_signature_repair_passed"],
+      "forbiddenFactKeys": ["fact.hash_table.counter_balance_missing"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Chinese skill-memory case. It should cite the mastered Group Anagrams skill rather than a different active HashMap mistake."
+    },
+    {
+      "caseId": "pcite-v11-stack-skill-vs-stale-empty-check",
+      "category": "stale_memory",
+      "problemSlug": "valid-parentheses",
+      "userQuestion": "Should you still cite my old empty-stack bug as a current weakness?",
+      "expectedFactKeys": ["fact.skill.stack_parentheses_matching"],
+      "expectedEpisodeKeys": [
+        "episode.review.valid_parentheses_empty_stack_failed",
+        "episode.review.valid_parentheses_repair_passed"
+      ],
+      "forbiddenFactKeys": ["fact.stack.empty_check_missing"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Stale citation case: the old episode can be cited as history, but the resolved fact must not be cited as current."
+    },
+    {
+      "caseId": "pcite-v11-container-stale-taller-pointer",
+      "category": "stale_memory",
+      "problemSlug": "container-with-most-water",
+      "userQuestion": "我以前移动高边那个错，现在还算我的当前 blocker 吗？请用记忆证据回答。",
+      "expectedFactKeys": ["fact.skill.two_pointers_move_shorter_wall"],
+      "expectedEpisodeKeys": [
+        "episode.review.container_pointer_wrong_failed",
+        "episode.review.container_pointer_repair_passed"
+      ],
+      "forbiddenFactKeys": ["fact.two_pointers.move_taller_wall"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Chinese stale citation case with repair evidence."
+    },
+    {
+      "caseId": "pcite-v11-interval-open-boundary-contradicted",
+      "category": "stale_memory",
+      "problemSlug": "merge-intervals",
+      "userQuestion": "Did I learn that touching intervals are separate, or was that contradicted?",
+      "expectedFactKeys": ["fact.intervals.closed_boundary_overlap"],
+      "expectedEpisodeKeys": ["episode.review.merge_intervals_touching_boundary_failed"],
+      "forbiddenFactKeys": ["fact.intervals.open_boundary_assumption"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Contradicted-fact citation case. The assistant should not cite open-boundary assumption as a valid memory."
+    },
+    {
+      "caseId": "pcite-v11-python-dict-api",
+      "category": "api_confusion_memory",
+      "problemSlug": "two-sum",
+      "userQuestion": "When did I ask about Python dict.get versus checking membership?",
+      "expectedFactKeys": ["fact.python.dict_get_membership_confusion"],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_api_confusions"],
+      "forbiddenFactKeys": ["fact.cpp.unordered_map_operator_insert_confusion"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Python API memory should not cite the C++ unordered_map fact."
+    },
+    {
+      "caseId": "pcite-v11-cpp-unordered-map-api",
+      "category": "api_confusion_memory",
+      "problemSlug": "top-k-frequent-elements",
+      "userQuestion": "If I ask for C++, what memory says I was confused about unordered_map operator[]?",
+      "expectedFactKeys": ["fact.cpp.unordered_map_operator_insert_confusion"],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_api_confusions"],
+      "forbiddenFactKeys": ["fact.python.dict_get_membership_confusion"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "C++ API memory should stay separated from Python dict memory."
+    },
+    {
+      "caseId": "pcite-v11-preference-short-next-step",
+      "category": "preference_memory",
+      "problemSlug": "minimum-window-substring",
+      "userQuestion": "按我的偏好，你应该怎么回答这一轮？请引用记忆，不要编。",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_api_confusions"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Chinese preference citation. Preference facts are diagnostic-only; the expected citation is the explicit preference chat episode."
+    },
+    {
+      "caseId": "pcite-v11-low-confidence-recursion",
+      "category": "no_memory_evidence",
+      "problemSlug": "number-of-islands",
+      "userQuestion": "Can you cite evidence that I have a recurring recursion weakness?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": ["fact.recursion.low_confidence_fear"],
+      "forbiddenEpisodeKeys": [],
+      "neutralEpisodeKeys": ["episode.chat.low_confidence_coin_change_and_recursion"],
+      "citationRequirement": "none_expected",
+      "notes": "Low-confidence no-evidence case. A single weak chat signal should not become a cited recurring weakness."
+    },
+    {
+      "caseId": "pcite-v11-topological-sort-no-evidence",
+      "category": "no_memory_evidence",
+      "problemSlug": "coin-change",
+      "userQuestion": "我之前有拓扑排序或者入度相关的练习记录吗？",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [
+        "fact.graph.visited_marking_late",
+        "fact.queue.level_boundary_mixed",
+        "fact.recursion.low_confidence_fear"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "none_expected",
+      "notes": "Chinese negative-control citation case. Graph/BFS memories are not topological-sort evidence."
+    },
+    {
+      "caseId": "pcite-v11-dp-base-case-repair",
+      "category": "skill_memory",
+      "problemSlug": "climbing-stairs",
+      "userQuestion": "What evidence says I repaired the simple DP base-case issue?",
+      "expectedFactKeys": ["fact.skill.dynamic_programming_base_cases"],
+      "expectedEpisodeKeys": [
+        "episode.review.climbing_stairs_base_case_failed",
+        "episode.review.climbing_stairs_repair_passed"
+      ],
+      "forbiddenFactKeys": ["fact.dynamic_programming.climbing_stairs_base_case_shift"],
+      "forbiddenEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Skill citation with before/after episodes; the resolved mistake fact should not be cited as current."
+    }
+  ],
+  "limitations": [
+    "Citation labels are agent-drafted and need human review.",
+    "Cases require structured citedFactIds/citedEpisodeIds; free-text memory claims remain unscorable for hallucinated-memory rate.",
+    "Preference cases expect explicit preference episodes rather than L2 preference facts because product retrieval does not currently surface preference facts.",
+    "Some cases intentionally stress known retrieval limits so a weak baseline is still informative."
+  ]
+}

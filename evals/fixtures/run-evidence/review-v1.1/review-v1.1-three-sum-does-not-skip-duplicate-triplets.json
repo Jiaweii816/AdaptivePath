@@ -1,0 +1,154 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-three-sum-does-not-skip-duplicate-triplets",
+    "problem": {
+      "leetcodeId": 15,
+      "slug": "3sum",
+      "title": "3Sum",
+      "methodName": "threeSum",
+      "tags": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The two-pointer search finds valid triplets, but never skips duplicate anchors or duplicate pointer values after a hit.",
+    "bugPattern": "duplicate_or_frequency_count_error",
+    "userCode": "class Solution:\n    def threeSum(self, nums: list[int]) -> list[list[int]]:\n        nums.sort()\n        ans = []\n        for i in range(len(nums) - 2):\n            left, right = i + 1, len(nums) - 1\n            while left < right:\n                total = nums[i] + nums[left] + nums[right]\n                if total == 0:\n                    ans.append([nums[i], nums[left], nums[right]])\n                    left += 1\n                    right -= 1\n                elif total < 0:\n                    left += 1\n                else:\n                    right -= 1\n        return ans\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Acknowledge the two-pointer direction is working.",
+      "Focus on skipping duplicate i/left/right values so the answer set stays unique."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "[[-1,-1,2],[-1,0,1],[-1,0,1]]",
+    "expectedOutput": "[[-1,-1,2],[-1,0,1]]",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "sample produces duplicate triplet",
+      "input": {
+        "nums": [
+          -1,
+          0,
+          1,
+          2,
+          -1,
+          -4
+        ]
+      },
+      "expected": [
+        [
+          -1,
+          -1,
+          2
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ],
+      "actual": [
+        [
+          -1,
+          -1,
+          2
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ]
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "sample produces duplicate triplet",
+        "input": {
+          "nums": [
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            -4
+          ]
+        },
+        "expected": [
+          [
+            -1,
+            -1,
+            2
+          ],
+          [
+            -1,
+            0,
+            1
+          ]
+        ],
+        "actual": [
+          [
+            -1,
+            -1,
+            2
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            1
+          ]
+        ],
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-three-sum-does-not-skip-duplicate-triplets",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

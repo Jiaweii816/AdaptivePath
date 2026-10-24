@@ -1,0 +1,88 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-min-window-shrinks-only-once-after-valid",
+    "problem": {
+      "leetcodeId": 76,
+      "slug": "minimum-window-substring",
+      "title": "Minimum Window Substring",
+      "methodName": "minWindow",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code detects a valid minimum-window state but shrinks only one character, so it keeps an early long window.",
+    "bugPattern": "sliding_window_boundary_error",
+    "userCode": "class Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        need = {}\n        for ch in t:\n            need[ch] = need.get(ch, 0) + 1\n        window = {}\n        have = 0\n        left = 0\n        best = (float(\"inf\"), 0, 0)\n\n        for right, ch in enumerate(s):\n            window[ch] = window.get(ch, 0) + 1\n            if ch in need and window[ch] == need[ch]:\n                have += 1\n            if have == len(need):\n                if right - left + 1 < best[0]:\n                    best = (right - left + 1, left, right)\n                left_ch = s[left]\n                window[left_ch] -= 1\n                if left_ch in need and window[left_ch] < need[left_ch]:\n                    have -= 1\n                left += 1\n\n        return \"\" if best[0] == float(\"inf\") else s[best[1]:best[2] + 1]\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Show that after a valid window appears, non-needed and surplus chars must be removed repeatedly.",
+      "Suggest replacing the single if block with a while have == len(need) shrink loop."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "ADOBEC",
+    "expectedOutput": "BANC",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "sample needs repeated shrink while valid",
+      "input": {
+        "s": "ADOBECODEBANC",
+        "t": "ABC"
+      },
+      "expected": "BANC",
+      "actual": "ADOBEC"
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "sample needs repeated shrink while valid",
+        "input": {
+          "s": "ADOBECODEBANC",
+          "t": "ABC"
+        },
+        "expected": "BANC",
+        "actual": "ADOBEC",
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-min-window-shrinks-only-once-after-valid",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

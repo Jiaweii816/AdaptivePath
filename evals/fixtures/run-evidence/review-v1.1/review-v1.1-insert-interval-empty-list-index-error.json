@@ -1,0 +1,113 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-insert-interval-empty-list-index-error",
+    "problem": {
+      "leetcodeId": 57,
+      "slug": "insert-interval",
+      "title": "Insert Interval",
+      "methodName": "insert",
+      "tags": [
+        "Array"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code assumes intervals[0] exists before handling the empty input case.",
+    "bugPattern": "boundary_condition_error",
+    "userCode": "class Solution:\n    def insert(self, intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:\n        merged = [intervals[0]]\n        for start, end in intervals[1:]:\n            if start <= merged[-1][1]:\n                merged[-1][1] = max(merged[-1][1], end)\n            else:\n                merged.append([start, end])\n        merged.append(newInterval)\n        return merged\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Start with the empty-list boundary before interval merge logic.",
+      "Suggest returning [newInterval] when intervals is empty or using a phase-based insert."
+    ]
+  },
+  "codeRunResult": {
+    "status": "runtime_error",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "IndexError: list index out of range",
+    "durationMs": 25,
+    "actualOutput": "IndexError: list index out of range",
+    "expectedOutput": "[[5,7]]",
+    "errorDetail": {
+      "kind": "index_out_of_range",
+      "title": "IndexError",
+      "summary": "IndexError: list index out of range",
+      "likelyCauses": [
+        "The code reads from a list before checking whether it is empty."
+      ],
+      "nextStep": "Handle the empty input before indexing intervals[0].",
+      "rawMessage": "IndexError: list index out of range"
+    },
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "empty intervals should return the new interval",
+      "input": {
+        "intervals": [],
+        "newInterval": [
+          5,
+          7
+        ]
+      },
+      "expected": [
+        [
+          5,
+          7
+        ]
+      ],
+      "error": "IndexError: list index out of range"
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "empty intervals should return the new interval",
+        "input": {
+          "intervals": [],
+          "newInterval": [
+            5,
+            7
+          ]
+        },
+        "expected": [
+          [
+            5,
+            7
+          ]
+        ],
+        "error": "IndexError: list index out of range",
+        "stderr": "IndexError: list index out of range",
+        "stderrCaptured": true,
+        "status": "runtime_error",
+        "passed": false,
+        "stdoutCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-insert-interval-empty-list-index-error",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "runtime_error",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "datasetVersion": "memory-retrieval-v1",
+  "name": "memory-retrieval-v1-seed",
+  "status": "agent_drafted_needs_human_review",
+  "description": "Seed query set for Week3 Task3B. It evaluates focused memory retrieval over the Task3A synthetic learner DB and manifest.",
+  "defaultK": 5,
+  "humanReviewStatus": "pending",
+  "cases": [
+    {
+      "queryId": "mem-v1-longest-substring-left-regression-review",
+      "category": "mistake_recall",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "entry": { "kind": "review" },
+      "userQuestion": "My Longest Substring code still fails on abba; have I made a left-boundary mistake like this before?",
+      "expectedFactKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "fact.sliding_window.shrink_condition_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.longest_substring_abba_left_regression"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Direct same-problem review-debug query; should retrieve the active sliding-window mistake/weakness and failed review episode.",
+      "limitations": ["Agent-drafted labels pending human review."]
+    },
+    {
+      "queryId": "mem-v1-sliding-window-pattern-history",
+      "category": "mistake_recall",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "entry": { "kind": "chat", "intent": "past_mistake_recall_request" },
+      "userQuestion": "When I use a sliding window with last_seen, what past window-shrink mistake should I watch for?",
+      "expectedFactKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "fact.sliding_window.shrink_condition_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.longest_substring_abba_left_regression"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "History/practice profile should recall active sliding-window mistakes.",
+      "limitations": ["Only one sliding-window problem exists in v1."]
+    },
+    {
+      "queryId": "mem-v1-two-sum-complement-skill",
+      "category": "skill_recall",
+      "problemSlug": "two-sum",
+      "entry": { "kind": "chat", "intent": "concept_question" },
+      "userQuestion": "For Two Sum, do I have a useful complement lookup pattern from previous practice?",
+      "expectedFactKeys": ["fact.skill.hashmap_complement_lookup"],
+      "expectedEpisodeKeys": ["episode.review.two_sum_hashmap_repair"],
+      "forbiddenFactKeys": ["fact.two_sum.same_index_reuse"],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Concept profile includes skill facts; the superseded same-index reuse fact should not surface as current.",
+      "limitations": ["Episode retrieval depends on FTS token overlap with the repair summary."]
+    },
+    {
+      "queryId": "mem-v1-two-sum-same-index-stale-suppression",
+      "category": "stale_suppression",
+      "problemSlug": "two-sum",
+      "entry": { "kind": "review" },
+      "userQuestion": "If I am solving Two Sum again, should my old same-index reuse mistake still count as my current blocker?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.review.two_sum_same_index_reuse"],
+      "forbiddenFactKeys": ["fact.two_sum.same_index_reuse"],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "The old episode can be relevant as history, but the contradicted fact should not be surfaced as current.",
+      "limitations": ["Fact recall denominator excludes this query because expectedFactKeys is empty."]
+    },
+    {
+      "queryId": "mem-v1-binary-first-ge-skill",
+      "category": "skill_recall",
+      "problemSlug": "search-insert-position",
+      "entry": { "kind": "chat", "intent": "concept_question" },
+      "userQuestion": "What binary-search invariant did I learn for insertion point, especially first >= target?",
+      "expectedFactKeys": ["fact.skill.binary_search_first_ge_invariant"],
+      "expectedEpisodeKeys": ["episode.review.search_insert_boundary_repair"],
+      "forbiddenFactKeys": [
+        "fact.binary_search.return_left_plus_one",
+        "fact.binary_search.insertion_point_boundary",
+        "fact.binary_search.loop_invariant_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Should prefer the current skill over resolved/contradicted binary-search facts.",
+      "limitations": ["Current concept_chat profile can retrieve skill facts but only one episode."]
+    },
+    {
+      "queryId": "mem-v1-binary-stale-history-risk",
+      "category": "mistake_recall",
+      "problemSlug": "search-insert-position",
+      "entry": { "kind": "chat", "intent": "past_mistake_recall_request" },
+      "userQuestion": "Have I previously returned left + 1 or misunderstood what left means after binary search?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.review.search_insert_return_shift",
+        "episode.review.search_insert_boundary_repair"
+      ],
+      "forbiddenFactKeys": [],
+      "neutralFactKeys": [
+        "fact.binary_search.return_left_plus_one",
+        "fact.binary_search.insertion_point_boundary",
+        "fact.binary_search.loop_invariant_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "History profile may include resolved facts as historical context; these stale facts are neutral here rather than forbidden.",
+      "limitations": ["Expected facts are intentionally empty because all binary-search mistake facts in v1 are non-current."]
+    },
+    {
+      "queryId": "mem-v1-python-dict-api-confusion",
+      "category": "api_confusion",
+      "problemSlug": "two-sum",
+      "entry": { "kind": "chat", "intent": "api_reference_question" },
+      "userQuestion": "I am confused again: when did I ask about Python dict.get versus checking if a key is in the dict?",
+      "expectedFactKeys": ["fact.python.dict_get_confusion"],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_python_dict"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "This is expected to expose the current tag-match limitation: python_dict_get does not match Two Sum problem tags.",
+      "limitations": ["The fact is current in manifest but may be structurally hard to recall through current problem-tag scoring."]
+    },
+    {
+      "queryId": "mem-v1-preference-short-hints",
+      "category": "preference",
+      "problemSlug": "two-sum",
+      "entry": { "kind": "chat", "intent": "general_followup" },
+      "userQuestion": "How do I prefer explanations: short hints or long full solutions?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_python_dict"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": ["One next step", "No full solution"],
+      "k": 5,
+      "notes": "L2 preference facts are not expected positives because current retrieval profiles do not include factType=preference; profile output preferences are tracked diagnostically.",
+      "limitations": ["Preference fact recall is not counted in planted-fact recall for v1."]
+    },
+    {
+      "queryId": "mem-v1-preference-next-step",
+      "category": "preference",
+      "problemSlug": "search-insert-position",
+      "entry": { "kind": "chat", "intent": "general_followup" },
+      "userQuestion": "Before giving a long binary-search explanation, do I prefer one concrete next step first?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_python_dict"],
+      "forbiddenFactKeys": [],
+      "neutralFactKeys": [
+        "fact.binary_search.insertion_point_boundary",
+        "fact.binary_search.loop_invariant_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": ["One next step"],
+      "k": 5,
+      "notes": "Preference is represented through profile output preferences and the chat episode, not L2 preference retrieval.",
+      "limitations": ["The chat episode is tied to Two Sum, so FTS may or may not retrieve it from a binary-search prompt."]
+    },
+    {
+      "queryId": "mem-v1-hashmap-cross-pattern-from-string",
+      "category": "skill_recall",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "entry": { "kind": "chat", "intent": "concept_question" },
+      "userQuestion": "Can I reuse my HashMap habit from Two Sum when thinking about last_seen in a string problem?",
+      "expectedFactKeys": ["fact.skill.hashmap_complement_lookup"],
+      "expectedEpisodeKeys": ["episode.review.two_sum_hashmap_repair"],
+      "forbiddenFactKeys": ["fact.two_sum.same_index_reuse"],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Cross-problem skill recall should expose whether the HashMap complement skill can transfer to last_seen style string work.",
+      "limitations": ["Only three problems exist in v1, so cross-pattern coverage is thin; current tag matching may miss this expected fact."]
+    },
+    {
+      "queryId": "mem-v1-review-debug-suppresses-binary-resolved",
+      "category": "stale_suppression",
+      "problemSlug": "search-insert-position",
+      "entry": { "kind": "review" },
+      "userQuestion": "Review this Search Insert attempt: should resolved binary-search confusion still appear in focused review memory?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.review.search_insert_return_shift"],
+      "forbiddenFactKeys": [
+        "fact.binary_search.insertion_point_boundary",
+        "fact.binary_search.loop_invariant_confusion",
+        "fact.binary_search.return_left_plus_one"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Review profile excludes resolved and contradicted facts; this should be a clean stale-suppression case.",
+      "limitations": ["Expected facts are empty by design."]
+    },
+    {
+      "queryId": "mem-v1-general-dict-confusion-recall-tool",
+      "category": "api_confusion",
+      "problemSlug": "two-sum",
+      "entry": { "kind": "recall_tool" },
+      "userQuestion": "Recall my memory about Python dict.get, key membership, and Two Sum.",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.chat.preferences_and_python_dict"],
+      "forbiddenFactKeys": ["fact.two_sum.same_index_reuse"],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Recall-tool profile does not include unresolved_confusion, so this is an episode-focused query.",
+      "limitations": ["This documents a profile limitation rather than treating python_dict_get as expected fact recall."]
+    }
+  ],
+  "limitations": [
+    "V1 has 12 agent-drafted queries, below the Task3.2 suggested >=30 human-reviewed query set.",
+    "Some queries intentionally expose known retrieval limitations and may score poorly in the baseline.",
+    "V1 covers five user-intent buckets; low_confidence_suppression is not covered because Task3A v1 has no low-confidence fact."
+  ]
+}

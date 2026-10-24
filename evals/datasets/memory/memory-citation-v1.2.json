@@ -1,0 +1,117 @@
+{
+  "datasetVersion": "memory-citation-v1.2",
+  "name": "Memory citation held-out v1.2 draft",
+  "status": "agent_drafted_needs_human_review",
+  "description": "Held-out citation cases paired with seed learner v1.2. Includes normal provenance, low-confidence no-evidence, stale forbidden citation, preference marker provenance, and negative control.",
+  "humanReviewStatus": "pending",
+  "cases": [
+    {
+      "caseId": "pcite-v12-contains-duplicate-membership",
+      "category": "mistake_memory",
+      "problemSlug": "contains-duplicate",
+      "userQuestion": "你说我 Contains Duplicate 是先 add 再查 membership，有哪次记录能证明？",
+      "expectedFactKeys": ["fact.hash.contains_duplicate_membership_order"],
+      "expectedEpisodeKeys": ["episode.review.contains_duplicate_add_before_check_failed"],
+      "forbiddenFactKeys": ["fact.hash.only_sorting_for_duplicates_contradicted"],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [
+        "episode.review.contains_duplicate_set_repair_passed",
+        "episode.chat.contains_duplicate_sorting_assumption"
+      ],
+      "citationRequirement": "required",
+      "notes": "Normal active mistake provenance in Chinese; contradicted sorting-only fact must not be cited.",
+      "limitations": []
+    },
+    {
+      "caseId": "pcite-v12-rpn-division-api",
+      "category": "api_confusion_memory",
+      "problemSlug": "evaluate-reverse-polish-notation",
+      "userQuestion": "For Evaluate RPN, cite the memory that I asked about Python // versus C++ / truncating negative division.",
+      "expectedFactKeys": ["fact.stack.rpn_division_truncation_confusion"],
+      "expectedEpisodeKeys": ["episode.chat.rpn_division_truncation_confusion"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "New API confusion point; should cite unresolved division-truncation memory, not unrelated stack state.",
+      "limitations": []
+    },
+    {
+      "caseId": "pcite-v12-preference-micro-step",
+      "category": "preference_memory",
+      "problemSlug": "subsets",
+      "userQuestion": "我之前是不是说过先给一个能马上跑的小步骤？如果有记录，请引用。",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": ["episode.chat.preference_micro_step_first"],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": ["fact.preference.micro_step_first"],
+      "neutralEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Preference should be supported by the explicit memory-note episode; the preference fact itself is neutral because profile markers are the main retrieval path.",
+      "limitations": []
+    },
+    {
+      "caseId": "pcite-v12-low-confidence-dp-no-evidence",
+      "category": "no_memory_evidence",
+      "problemSlug": "house-robber",
+      "userQuestion": "Can you cite proof that I have a real habit of forcing DP into greedy? If it was only a one-off aside, say there is no grounded evidence.",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": ["fact.dynamic_programming.low_confidence_greedy_guess"],
+      "forbiddenEpisodeKeys": ["episode.chat.low_confidence_dp_greedy_aside"],
+      "neutralFactKeys": [
+        "fact.dynamic_programming.house_robber_state_order",
+        "fact.dynamic_programming.word_break_prefix_reachability"
+      ],
+      "neutralEpisodeKeys": [
+        "episode.review.house_robber_state_order_failed",
+        "episode.review.word_break_prefix_reachability_failed"
+      ],
+      "citationRequirement": "none_expected",
+      "notes": "Low-confidence no-evidence case: the thin DP greedy aside must not be cited as proof.",
+      "limitations": [
+        "Current DP mistake memories may be provided as neutral context; they do not support the specific greedy-overgeneralization claim."
+      ]
+    },
+    {
+      "caseId": "pcite-v12-stale-return-mid-forbidden",
+      "category": "stale_memory",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "userQuestion": "For Find Minimum, cite the current discard-mid evidence, but do not cite the old return-mid issue as if it still applies.",
+      "expectedFactKeys": ["fact.binary_search.find_min_discards_mid"],
+      "expectedEpisodeKeys": ["episode.review.find_min_discards_mid_failed"],
+      "forbiddenFactKeys": ["fact.binary_search.return_mid_after_loop_resolved"],
+      "forbiddenEpisodeKeys": [
+        "episode.review.find_min_return_mid_after_loop_failed",
+        "episode.review.find_min_return_left_repair_passed"
+      ],
+      "neutralFactKeys": ["fact.binary_search.koko_answer_bounds"],
+      "neutralEpisodeKeys": [],
+      "citationRequirement": "required",
+      "notes": "Stale forbidden citation case: the resolved return-mid trail can be retrieved in history mode but must not be cited as current evidence.",
+      "limitations": []
+    },
+    {
+      "caseId": "pcite-v12-negative-control-backtracking",
+      "category": "no_memory_evidence",
+      "problemSlug": "subsets",
+      "userQuestion": "Have I left any personal memory evidence about Subsets/backtracking that you can cite?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "citationRequirement": "none_expected",
+      "notes": "Negative control: Subsets exists as a practiced problem anchor but has no facts or episodes.",
+      "limitations": []
+    }
+  ],
+  "limitations": [
+    "Agent-drafted labels require human review before formal citation gate use.",
+    "Citation scoring depends on the LLM producing the structured citation sentinel block; no-evidence cases should be inspected per case."
+  ]
+}

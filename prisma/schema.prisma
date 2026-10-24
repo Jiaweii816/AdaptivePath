@@ -1,0 +1,1541 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// JSON-like MVP payloads are stored as serialized strings to keep SQLite simple.
+// The initial migration enables WAL for the local database file.
+
+model User {
+  id        String   @id @default(cuid())
+  handle    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile                  UserProfile?
+  problemTestCases         ProblemTestCase[]
+  codeDrafts               CodeDraft[]
+  reviewAttempts           ReviewAttempt[]
+  practiceRunLogs          PracticeRunLog[]
+  chatSessions             ChatSession[]
+  problemHistories         ProblemHistory[]
+  l1MemoryEvents           L1MemoryEvent[]
+  l2MemoryFacts            L2MemoryFact[]
+  hintProgresses           AlgorithmHintProgress[]
+  memoryEpisodes           MemoryEpisode[]
+  memoryActivityClusters   MemoryActivityCluster[]
+  memoryClaimObservations  MemoryClaimObservation[]
+  synthesisSlots           SynthesisSlot[]
+  knowledgeNotes           KnowledgeNote[]
+  mistakeBookEntries       MistakeBookEntry[]
+  readinessGoals           ReadinessGoal[]
+  plannerPlanItems         PlannerPlanItem[]
+  plannerOutcomes          PlannerOutcome[]
+  plannerDailyDoseItems    PlannerDailyDoseItem[]
+  reviewSchedules          ReviewSchedule[]
+  plannerProposals         PlannerProposal[]
+  mockInterviewSessions    MockInterviewSession[]
+  problemWorkspaceSessions ProblemWorkspaceSession[]
+  agentTraceRuns           AgentTraceRun[]
+  campaigns                Campaign[]
+}
+
+model UserProfile {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  displayName        String
+  interviewGoal      String?
+  preferredLanguages String   @default("[]")
+  strongPatterns     String   @default("[]")
+  weakPatterns       String   @default("[]")
+  explanationStyle   String   @default("[]")
+  outputPreferences  String   @default("[]")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Problem {
+  id                    String    @id @default(cuid())
+  leetcodeNumber        Int?      @unique
+  slug                  String    @unique
+  title                 String
+  difficulty            String?
+  hot150Order           Int?
+  hot150Section         String?
+  officialUrl           String?
+  statementMarkdown     String    @default("")
+  examplesJson          String    @default("[]")
+  constraintsJson       String    @default("[]")
+  tags                  String    @default("[]")
+  starterCodePython     String?
+  starterCodeCpp        String?
+  methodName            String
+  inputContractJson     String    @default("{}")
+  outputContractJson    String    @default("{}")
+  isDemoSupported       Boolean   @default(true)
+  localRunStatus        String    @default("not_ready")
+  localRunStatusMessage String?
+  localRunValidatedAt   DateTime?
+  comparisonStrategy    String    @default("exact")
+  comparisonConfigJson  String    @default("{}")
+  contractKind          String    @default("pure_function")
+  referenceSolutionHash String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  testCases                   ProblemTestCase[]
+  codeDrafts                  CodeDraft[]
+  reviewAttempts              ReviewAttempt[]
+  practiceRunLogs             PracticeRunLog[]
+  chatSessions                ChatSession[]
+  problemHistories            ProblemHistory[]
+  l1MemoryEvents              L1MemoryEvent[]
+  l2MemoryFacts               L2MemoryFact[]
+  hintProgresses              AlgorithmHintProgress[]
+  memoryEpisodes              MemoryEpisode[]
+  memoryActivityClusters      MemoryActivityCluster[]
+  memoryClaimObservations     MemoryClaimObservation[]
+  memoryEvidenceContributions MemoryEvidenceContribution[]
+  mistakeBookEntries          MistakeBookEntry[]
+  plannerPlanItems            PlannerPlanItem[]
+  plannerOutcomes             PlannerOutcome[]
+  plannerDailyDoseItems       PlannerDailyDoseItem[]
+  reviewSchedules             ReviewSchedule[]
+  mockInterviewSessions       MockInterviewSession[]
+  mockInterviewCodeSnapshots  MockInterviewCodeSnapshot[]
+  mockInterviewRunEvidences   MockInterviewRunEvidence[]
+  problemWorkspaceSessions    ProblemWorkspaceSession[]
+  agentTraceRuns              AgentTraceRun[]
+}
+
+model ProblemTestCase {
+  id               String   @id @default(cuid())
+  problemId        String
+  userId           String?
+  label            String
+  inputJson        String
+  expectedJson     String
+  source           String   @default("sample")
+  expectedSource   String   @default("seed")
+  gtProvenance     String?
+  validationStatus String   @default("unchecked")
+  metadataJson     String   @default("{}")
+  isVisible        Boolean  @default(true)
+  sortOrder        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([problemId])
+  @@index([userId])
+}
+
+model CodeDraft {
+  id                  String   @id @default(cuid())
+  userId              String
+  problemId           String
+  language            String
+  content             String   @default("")
+  selectedTestCaseIds String   @default("[]")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem         Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  reviewAttempts  ReviewAttempt[]
+  practiceRunLogs PracticeRunLog[]
+
+  @@unique([userId, problemId, language])
+  @@index([problemId])
+}
+
+model PracticeRunLog {
+  id                   String   @id @default(cuid())
+  userId               String
+  problemId            String
+  codeDraftId          String?
+  language             String
+  codeSnapshot         String?
+  codeHash             String?
+  executionFingerprint String?
+  runOrdinal           Int
+  selectedTestCaseIds  String   @default("[]")
+  status               String
+  passedCount          Int      @default(0)
+  totalCount           Int      @default(0)
+  summary              String
+  provider             String   @default("unknown")
+  rawResultJson        String   @default("{}")
+  durationMs           Int?
+  createdAt            DateTime @default(now())
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem   Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  codeDraft CodeDraft? @relation(fields: [codeDraftId], references: [id], onDelete: SetNull)
+
+  @@index([userId, problemId])
+  @@index([codeDraftId])
+  @@index([codeHash])
+  @@index([executionFingerprint])
+  @@index([createdAt])
+}
+
+model ReviewAttempt {
+  id                  String   @id @default(cuid())
+  userId              String
+  problemId           String
+  chatSessionId       String
+  codeDraftId         String?
+  language            String
+  userState           String?
+  userQuestion        String?
+  codeSnapshot        String   @default("")
+  selectedTestCaseIds String   @default("[]")
+  selectedTestsJson   String   @default("[]")
+  coachReplyMarkdown  String?
+  memoryOrigin        String   @default("legacy_unknown")
+  createdAt           DateTime @default(now())
+
+  user                        User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem                     Problem                      @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  chatSession                 ChatSession                  @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  codeDraft                   CodeDraft?                   @relation(fields: [codeDraftId], references: [id], onDelete: SetNull)
+  runEvidences                RunEvidence[]
+  diagnosisResult             DiagnosisResult?
+  chatMessages                ChatMessage[]
+  problemHistories            ProblemHistory[]
+  l1MemoryEvents              L1MemoryEvent[]
+  l2MemoryFacts               L2MemoryFact[]
+  mistakeBookEntries          MistakeBookEntry[]
+  plannerOutcome              PlannerOutcome?
+  memoryActivityCluster       MemoryActivityCluster?
+  memoryEvidenceContributions MemoryEvidenceContribution[]
+  campaignTaskItemAttempts    CampaignTaskItemAttempt[]
+
+  @@index([userId, problemId])
+  @@index([chatSessionId])
+  @@index([codeDraftId])
+  @@index([createdAt])
+  @@index([memoryOrigin, createdAt])
+}
+
+model RunEvidence {
+  id                   String   @id @default(cuid())
+  reviewAttemptId      String?
+  chatSessionId        String?
+  source               String   @default("review")
+  toolCallId           String?
+  codeHash             String?
+  executionFingerprint String?
+  status               String
+  passedCount          Int      @default(0)
+  failedCount          Int      @default(0)
+  durationMs           Int?
+  stdout               String?
+  stderr               String?
+  actualOutput         String?
+  expectedOutput       String?
+  firstFailedCaseJson  String?
+  rawResultJson        String   @default("{}")
+  memoryOrigin         String   @default("legacy_unknown")
+  createdAt            DateTime @default(now())
+
+  reviewAttempt ReviewAttempt? @relation(fields: [reviewAttemptId], references: [id], onDelete: Cascade)
+  chatSession   ChatSession?   @relation(fields: [chatSessionId], references: [id], onDelete: SetNull)
+
+  @@index([reviewAttemptId])
+  @@index([chatSessionId])
+  @@index([codeHash])
+  @@index([executionFingerprint])
+  @@index([source])
+  @@index([memoryOrigin, createdAt])
+}
+
+model DiagnosisResult {
+  id                        String   @id @default(cuid())
+  reviewAttemptId           String   @unique
+  diagnosisJson             String   @default("{}")
+  memoryUpdateCandidateJson String   @default("{}")
+  mistakeTags               String   @default("[]")
+  skillTags                 String   @default("[]")
+  userIssueSummary          String?
+  coachSummary              String?
+  selfCheckQuestion         String?
+  selfCheckAnswer           String?
+  createdAt                 DateTime @default(now())
+
+  reviewAttempt ReviewAttempt @relation(fields: [reviewAttemptId], references: [id], onDelete: Cascade)
+}
+
+model ChatSession {
+  id                        String    @id @default(cuid())
+  userId                    String
+  problemId                 String
+  title                     String?
+  primaryLanguage           String?
+  isActive                  Boolean   @default(true)
+  rollingSummary            String?
+  lastConsolidatedMessageId String?
+  sessionPlanJson           String?
+  clearedBeforeSequence     Int       @default(0)
+  clearedAt                 DateTime?
+  memoryOrigin              String    @default("legacy_unknown")
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+
+  user                   User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem                Problem                 @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  reviewAttempts         ReviewAttempt[]
+  messages               ChatMessage[]
+  problemHistories       ProblemHistory[]
+  l1MemoryEvents         L1MemoryEvent[]
+  runEvidences           RunEvidence[]
+  memoryEpisodes         MemoryEpisode[]
+  memoryActivityClusters MemoryActivityCluster[]
+  mistakeBookEntries     MistakeBookEntry[]
+
+  @@unique([userId, problemId, memoryOrigin])
+  @@index([problemId])
+  @@index([memoryOrigin, updatedAt])
+}
+
+model ChatMessage {
+  id              String   @id @default(cuid())
+  sessionId       String
+  reviewAttemptId String?
+  role            String
+  contentMarkdown String
+  metadataJson    String   @default("{}")
+  sequence        Int
+  memoryOrigin    String   @default("legacy_unknown")
+  createdAt       DateTime @default(now())
+
+  session       ChatSession    @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  reviewAttempt ReviewAttempt? @relation(fields: [reviewAttemptId], references: [id], onDelete: SetNull)
+
+  @@unique([sessionId, sequence])
+  @@index([reviewAttemptId])
+  @@index([memoryOrigin, createdAt])
+}
+
+model ProblemHistory {
+  id                  String   @id @default(cuid())
+  userId              String
+  problemId           String
+  reviewAttemptId     String   @unique
+  chatSessionId       String
+  language            String
+  userState           String?
+  problemTags         String   @default("[]")
+  runStatus           String
+  failedCaseSummary   String?
+  userIssueSummary    String?
+  coachSummary        String?
+  memoryUpdateSummary String?
+  nextRecommendation  String?
+  durationSeconds     Int?
+  memoryOrigin        String   @default("legacy_unknown")
+  createdAt           DateTime @default(now())
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem        Problem         @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  reviewAttempt  ReviewAttempt   @relation(fields: [reviewAttemptId], references: [id], onDelete: Cascade)
+  chatSession    ChatSession     @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  plannerOutcome PlannerOutcome?
+
+  @@index([userId, problemId])
+  @@index([chatSessionId])
+  @@index([createdAt])
+  @@index([memoryOrigin, createdAt])
+}
+
+model L1MemoryEvent {
+  id              String   @id @default(cuid())
+  userId          String
+  problemId       String?
+  chatSessionId   String?
+  reviewAttemptId String?
+  eventType       String
+  eventJson       String   @default("{}")
+  content         String?
+  source          String?
+  memoryOrigin    String   @default("legacy_unknown")
+  traceRunId      String?
+  occurredAt      DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem       Problem?       @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  chatSession   ChatSession?   @relation(fields: [chatSessionId], references: [id], onDelete: SetNull)
+  reviewAttempt ReviewAttempt? @relation(fields: [reviewAttemptId], references: [id], onDelete: SetNull)
+
+  @@index([userId, occurredAt])
+  @@index([problemId])
+  @@index([chatSessionId])
+  @@index([reviewAttemptId])
+  @@index([memoryOrigin, occurredAt])
+  @@index([traceRunId])
+}
+
+model ProblemWorkspaceSession {
+  id                String    @id @default(cuid())
+  userId            String
+  problemId         String
+  browserInstanceId String
+  activeIdentityKey String?   @unique
+  startTrigger      String
+  captureLevel      String
+  memoryOrigin      String    @default("legacy_unknown")
+  foregroundStatus  String    @default("active")
+  backgroundStatus  String    @default("idle")
+  startedAt         DateTime  @default(now())
+  lastActivityAt    DateTime  @default(now())
+  foregroundEndedAt DateTime?
+  endReason         String?
+  settledAt         DateTime?
+  nextSeq           Int       @default(1)
+  nextTurnOrdinal   Int       @default(1)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user                     User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem                  Problem                   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  traceRuns                AgentTraceRun[]
+  traceEvents              AgentTraceEvent[]
+  backgroundJobs           BackgroundJob[]
+  campaignTaskItemAttempts CampaignTaskItemAttempt[]
+
+  @@index([userId, problemId, foregroundStatus])
+  @@index([userId, startedAt])
+  @@index([memoryOrigin, startedAt])
+}
+
+model AgentTraceRun {
+  id                      String    @id
+  userId                  String
+  problemId               String?
+  workspaceSessionId      String?
+  parentTraceRunId        String?
+  originatingTraceRunId   String?
+  turnOrdinal             Int?
+  originatingTurnOrdinal  Int?
+  path                    String
+  actionKind              String?
+  memoryOrigin            String    @default("legacy_unknown")
+  status                  String    @default("running")
+  processInstanceId       String
+  startedAt               DateTime  @default(now())
+  endedAt                 DateTime?
+  durationMs              Int?
+  providerInputTokens     Int?
+  providerOutputTokens    Int?
+  providerTotalTokens     Int?
+  providerReasoningTokens Int?
+  providerCachedTokens    Int?
+  estimatedCostUsd        Float?
+  pricingVersion          String?
+  pricingStatus           String    @default("not_applicable")
+  unpricedLlmCallCount    Int       @default(0)
+  llmCallCount            Int       @default(0)
+  toolCallCount           Int       @default(0)
+  errorCount              Int       @default(0)
+  traceOverheadMs         Int?
+  traceCompleteness       String    @default("open")
+  finalFlushAt            DateTime?
+  reviewAttemptId         String?
+  chatSessionId           String?
+  runId                   String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  user                     User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem                  Problem?                 @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  workspaceSession         ProblemWorkspaceSession? @relation(fields: [workspaceSessionId], references: [id], onDelete: Cascade)
+  parentTraceRun           AgentTraceRun?           @relation("AgentTraceRunParent", fields: [parentTraceRunId], references: [id], onDelete: SetNull)
+  childTraceRuns           AgentTraceRun[]          @relation("AgentTraceRunParent")
+  originatingTraceRun      AgentTraceRun?           @relation("AgentTraceRunOrigin", fields: [originatingTraceRunId], references: [id], onDelete: SetNull)
+  originatedTraceRuns      AgentTraceRun[]          @relation("AgentTraceRunOrigin")
+  traceEvents              AgentTraceEvent[]        @relation("AgentTraceEventRun")
+  parentTraceEvents        AgentTraceEvent[]        @relation("AgentTraceEventParentRun")
+  originatedBackgroundJobs BackgroundJob[]          @relation("BackgroundJobOrigin")
+  childBackgroundJob       BackgroundJob?           @relation("BackgroundJobChild")
+
+  @@unique([workspaceSessionId, turnOrdinal])
+  @@index([workspaceSessionId, startedAt])
+  @@index([userId, startedAt])
+  @@index([problemId])
+  @@index([parentTraceRunId])
+  @@index([originatingTraceRunId])
+  @@index([memoryOrigin, startedAt])
+}
+
+model BackgroundJob {
+  id                    String    @id @default(cuid())
+  dedupeKey             String?   @unique
+  workspaceSessionId    String?
+  originatingTraceRunId String
+  parentTraceRunId      String?
+  traceRunId            String?   @unique
+  processInstanceId     String
+  kind                  String
+  memoryOrigin          String    @default("legacy_unknown")
+  status                String    @default("pending")
+  enqueuedAt            DateTime  @default(now())
+  startedAt             DateTime?
+  endedAt               DateTime?
+  failureReason         String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  workspaceSession    ProblemWorkspaceSession? @relation(fields: [workspaceSessionId], references: [id], onDelete: Cascade)
+  originatingTraceRun AgentTraceRun            @relation("BackgroundJobOrigin", fields: [originatingTraceRunId], references: [id], onDelete: Cascade)
+  traceRun            AgentTraceRun?           @relation("BackgroundJobChild", fields: [traceRunId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceSessionId, status])
+  @@index([processInstanceId, status, enqueuedAt])
+  @@index([originatingTraceRunId])
+  @@index([parentTraceRunId])
+  @@index([memoryOrigin, status])
+}
+
+model AgentTraceEvent {
+  id                      String    @id @default(cuid())
+  eventId                 String    @unique
+  eventDigest             String
+  seq                     Int?
+  workspaceSessionId      String?
+  traceRunId              String
+  parentTraceRunId        String?
+  turnOrdinal             Int?
+  stepId                  String?
+  parentStepId            String?
+  stepIndex               Int?
+  agentIteration          Int?
+  path                    String
+  stage                   String
+  kind                    String
+  title                   String
+  status                  String
+  occurredAt              DateTime  @default(now())
+  clientOccurredAt        DateTime?
+  startedAt               DateTime?
+  endedAt                 DateTime?
+  durationMs              Int?
+  model                   String?
+  responseModel           String?
+  providerInputTokens     Int?
+  providerOutputTokens    Int?
+  providerTotalTokens     Int?
+  providerReasoningTokens Int?
+  providerCachedTokens    Int?
+  usageSource             String?
+  usageMissingReason      String?
+  estimatedTokens         Int?
+  estimatedCostUsd        Float?
+  pricingVersion          String?
+  pricingStatus           String?
+  memoryRssBytes          Int?
+  memoryHeapUsedBytes     Int?
+  resourceScope           String?
+  detailLevel             String    @default("summary")
+  payloadState            String    @default("unavailable")
+  redactedFieldsJson      String?
+  truncatedFieldsJson     String?
+  unavailableFieldsJson   String?
+  metadataJson            String?
+  createdAt               DateTime  @default(now())
+
+  workspaceSession ProblemWorkspaceSession? @relation(fields: [workspaceSessionId], references: [id], onDelete: Cascade)
+  traceRun         AgentTraceRun            @relation("AgentTraceEventRun", fields: [traceRunId], references: [id], onDelete: Cascade)
+  parentTraceRun   AgentTraceRun?           @relation("AgentTraceEventParentRun", fields: [parentTraceRunId], references: [id], onDelete: SetNull)
+  payload          AgentTracePayload?
+
+  @@unique([workspaceSessionId, seq])
+  @@index([traceRunId, stepIndex])
+  @@index([parentTraceRunId])
+}
+
+model AgentTracePayload {
+  id                 String   @id @default(cuid())
+  traceEventId       String   @unique
+  workspaceSessionId String?
+  promptJson         String?
+  inputJson          String?
+  outputJson         String?
+  retrievalJson      String?
+  stateDeltaJson     String?
+  memoryDeltaJson    String?
+  detailMetadataJson String?
+  stdout             String?
+  stderr             String?
+  byteSize           Int      @default(0)
+  createdAt          DateTime @default(now())
+
+  traceEvent AgentTraceEvent @relation(fields: [traceEventId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceSessionId])
+}
+
+model L2MemoryFact {
+  id                    String   @id @default(cuid())
+  userId                String
+  problemId             String?
+  sourceReviewAttemptId String?
+  factType              String
+  tag                   String
+  label                 String?
+  value                 String?
+  confidence            Float    @default(0.5)
+  evidenceCount         Int      @default(1)
+  lastEvidenceSummary   String?
+  lastSeenAt            DateTime @default(now())
+  status                String   @default("active")
+  source                String   @default("review_diagnosis")
+  memoryOrigin          String   @default("legacy_unknown")
+  evidenceTraceIds      String   @default("[]")
+  contradictionSummary  String?
+  validationJson        String   @default("{}")
+  clusterKey            String?
+  claimText             String?
+  polarity              String?
+  scopeJson             String   @default("{}")
+  mechanismKeysJson     String   @default("[]")
+  integrityVersion      Int      @default(1)
+  retrievalText         String?
+  retrievalTextVersion  Int      @default(0)
+  retrievalInputHash    String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  user                  User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem               Problem?                     @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  sourceReviewAttempt   ReviewAttempt?               @relation(fields: [sourceReviewAttemptId], references: [id], onDelete: SetNull)
+  claimRelations        MemoryClaimRelation[]
+  evidenceContributions MemoryEvidenceContribution[]
+
+  @@unique([userId, factType, tag, memoryOrigin])
+  @@unique([userId, clusterKey, memoryOrigin])
+  @@index([problemId])
+  @@index([sourceReviewAttemptId])
+  @@index([lastSeenAt])
+  @@index([memoryOrigin, status, lastSeenAt])
+}
+
+model AlgorithmHintProgress {
+  id           String   @id @default(cuid())
+  userId       String
+  problemId    String
+  currentLevel Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemId])
+  @@index([problemId])
+}
+
+model MemoryEpisode {
+  id                String    @id @default(cuid())
+  userId            String
+  problemId         String?
+  chatSessionId     String?
+  activityClusterId String?
+  kind              String
+  title             String
+  summary           String
+  outcome           String
+  tags              String    @default("[]")
+  salience          Float     @default(0.5)
+  sourceTraceIds    String    @default("[]")
+  memoryOrigin      String    @default("legacy_unknown")
+  retrievalText     String?
+  retrievalTextVersion Int   @default(0)
+  retrievalInputHash String?
+  createdAt         DateTime  @default(now())
+
+  user              User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem           Problem?                 @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  chatSession       ChatSession?             @relation(fields: [chatSessionId], references: [id], onDelete: SetNull)
+  activityCluster   MemoryActivityCluster?   @relation(fields: [activityClusterId], references: [id], onDelete: SetNull)
+  claimObservations MemoryClaimObservation[]
+
+  @@index([userId, createdAt])
+  @@index([userId, kind])
+  @@index([memoryOrigin, createdAt])
+  @@index([activityClusterId])
+}
+
+model MemoryActivityCluster {
+  id                  String    @id @default(cuid())
+  userId              String
+  problemId           String?
+  chatSessionId       String?
+  rootReviewAttemptId String?   @unique
+  clusterKind         String
+  status              String    @default("open")
+  sourceKey           String
+  memoryOrigin        String    @default("legacy_unknown")
+  startedAt           DateTime
+  endedAt             DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  user                  User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem               Problem?                     @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  chatSession           ChatSession?                 @relation(fields: [chatSessionId], references: [id], onDelete: SetNull)
+  rootReviewAttempt     ReviewAttempt?               @relation(fields: [rootReviewAttemptId], references: [id], onDelete: SetNull)
+  items                 MemoryActivityItem[]
+  extractionReceipts    MemoryExtractionReceipt[]
+  episodes              MemoryEpisode[]
+  claimObservations     MemoryClaimObservation[]
+  evidenceContributions MemoryEvidenceContribution[]
+
+  @@unique([userId, sourceKey, memoryOrigin])
+  @@index([userId, startedAt])
+  @@index([problemId])
+  @@index([chatSessionId])
+  @@index([memoryOrigin, status, startedAt])
+}
+
+model MemoryActivityItem {
+  id                String   @id @default(cuid())
+  activityClusterId String
+  sourceType        String
+  sourceId          String
+  ordinal           Int
+  role              String?
+  occurredAt        DateTime
+  messageSequence   Int?
+  contentHash       String?
+  metadataJson      String   @default("{}")
+  createdAt         DateTime @default(now())
+
+  activityCluster MemoryActivityCluster @relation(fields: [activityClusterId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceType, sourceId])
+  @@unique([activityClusterId, ordinal])
+  @@index([activityClusterId, occurredAt])
+}
+
+model MemoryExtractionReceipt {
+  id                String    @id @default(cuid())
+  activityClusterId String
+  extractorVersion  String
+  status            String    @default("queued")
+  inputHash         String?
+  outputHash        String?
+  noSemanticReason  String?
+  errorMessage      String?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  activityCluster MemoryActivityCluster @relation(fields: [activityClusterId], references: [id], onDelete: Cascade)
+
+  @@unique([activityClusterId, extractorVersion])
+  @@index([status, createdAt])
+}
+
+model MemoryClaimObservation {
+  id                String   @id @default(cuid())
+  userId            String
+  activityClusterId String
+  problemId         String?
+  episodeId         String?
+  claimType         String
+  claimText         String
+  polarity          String
+  scopeJson         String   @default("{}")
+  mechanismKeysJson String   @default("[]")
+  source            String
+  memoryOrigin      String   @default("legacy_unknown")
+  status            String   @default("proposed")
+  claimFingerprint  String
+  evidenceStrength  String   @default("observed")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user                  User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activityCluster       MemoryActivityCluster        @relation(fields: [activityClusterId], references: [id], onDelete: Cascade)
+  problem               Problem?                     @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  episode               MemoryEpisode?               @relation(fields: [episodeId], references: [id], onDelete: SetNull)
+  relations             MemoryClaimRelation[]
+  evidenceContributions MemoryEvidenceContribution[]
+
+  @@unique([activityClusterId, claimFingerprint])
+  @@index([userId, status, createdAt])
+  @@index([problemId])
+  @@index([memoryOrigin, status, createdAt])
+}
+
+model MemoryClaimRelation {
+  id                  String   @id @default(cuid())
+  observationId       String
+  targetClusterFactId String
+  relation            String
+  modelConfidence     Float?
+  rationale           String?
+  status              String   @default("proposed")
+  guardReason         String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  observation       MemoryClaimObservation @relation(fields: [observationId], references: [id], onDelete: Cascade)
+  targetClusterFact L2MemoryFact           @relation(fields: [targetClusterFactId], references: [id], onDelete: Cascade)
+
+  @@unique([observationId, targetClusterFactId])
+  @@index([targetClusterFactId, relation])
+}
+
+model MemoryEvidenceContribution {
+  id                  String   @id @default(cuid())
+  observationId       String
+  targetClusterFactId String
+  activityClusterId   String
+  problemId           String?
+  reviewAttemptId     String?
+  contributionKey     String   @unique
+  evidenceRole        String
+  transition          String
+  authority           String
+  revisionKey         String
+  evidenceTraceIds    String   @default("[]")
+  countsAsIndependent Boolean  @default(true)
+  memoryOrigin        String   @default("legacy_unknown")
+  createdAt           DateTime @default(now())
+
+  observation       MemoryClaimObservation @relation(fields: [observationId], references: [id], onDelete: Cascade)
+  targetClusterFact L2MemoryFact           @relation(fields: [targetClusterFactId], references: [id], onDelete: Cascade)
+  activityCluster   MemoryActivityCluster  @relation(fields: [activityClusterId], references: [id], onDelete: Cascade)
+  problem           Problem?               @relation(fields: [problemId], references: [id], onDelete: SetNull)
+  reviewAttempt     ReviewAttempt?         @relation(fields: [reviewAttemptId], references: [id], onDelete: SetNull)
+
+  @@index([targetClusterFactId, activityClusterId])
+  @@index([observationId])
+  @@index([problemId])
+  @@index([memoryOrigin, createdAt])
+}
+
+model SynthesisSlot {
+  id              String   @id @default(cuid())
+  userId          String
+  slot            String
+  synthesisKey    String
+  text            String
+  evidenceFactIds String   @default("[]")
+  confidence      Float    @default(0.5)
+  status          String   @default("active")
+  memoryOrigin    String   @default("legacy_unknown")
+  retrievalText   String?
+  retrievalTextVersion Int @default(0)
+  retrievalInputHash String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, slot, synthesisKey, memoryOrigin])
+  @@index([userId, status, updatedAt])
+  @@index([memoryOrigin, status, updatedAt])
+}
+
+model KnowledgeNote {
+  id             String   @id @default(cuid())
+  userId         String
+  conceptKey     String
+  title          String
+  snippet        String
+  whenToUse      String
+  category       String
+  lookupCount    Int      @default(1)
+  firstNeededAt  DateTime @default(now())
+  lastNeededAt   DateTime @default(now())
+  status         String   @default("active")
+  source         String   @default("coach")
+  userEdited     Boolean  @default(false)
+  sourceTraceIds String   @default("[]")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conceptKey])
+  @@index([userId, status, lastNeededAt])
+}
+
+model MistakeBookEntry {
+  id                String   @id @default(cuid())
+  userId            String
+  problemId         String
+  chatSessionId     String?
+  reviewAttemptId   String?
+  title             String
+  guideMarkdown     String
+  selfCheckQuestion String?
+  selfCheckAnswer   String?
+  tags              String   @default("[]")
+  saveCount         Int      @default(1)
+  sourceTraceIds    String   @default("[]")
+  memoryOrigin      String   @default("legacy_unknown")
+  firstSavedAt      DateTime @default(now())
+  lastSavedAt       DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem       Problem        @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  chatSession   ChatSession?   @relation(fields: [chatSessionId], references: [id], onDelete: SetNull)
+  reviewAttempt ReviewAttempt? @relation(fields: [reviewAttemptId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, problemId])
+  @@index([userId, memoryOrigin, lastSavedAt])
+  @@index([problemId])
+  @@index([chatSessionId])
+  @@index([reviewAttemptId])
+}
+
+model ReadinessGoal {
+  id              String   @id @default(cuid())
+  userId          String
+  targetLabel     String
+  interviewDate   DateTime
+  weeklyHours     Float
+  dailyDoseTarget Int      @default(1)
+  planVersion     Int      @default(1)
+  status          String   @default("active")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user             User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planItems        PlannerPlanItem[]
+  outcomes         PlannerOutcome[]
+  dailyDoseItems   PlannerDailyDoseItem[]
+  reviewSchedules  ReviewSchedule[]
+  plannerProposals PlannerProposal[]
+
+  @@index([userId, status])
+  @@index([interviewDate])
+}
+
+model PlannerPlanItem {
+  id               String    @id @default(cuid())
+  userId           String
+  goalId           String
+  problemId        String
+  source           String    @default("plan")
+  status           String    @default("pending")
+  scheduledDate    DateTime?
+  sortOrder        Int
+  whyJson          String    @default("[]")
+  startedAt        DateTime?
+  lastOpenedAt     DateTime?
+  deferredFromDate DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user           User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal           ReadinessGoal          @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  problem        Problem                @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  outcomes       PlannerOutcome[]
+  dailyDoseItems PlannerDailyDoseItem[]
+
+  @@unique([goalId, problemId])
+  @@index([userId, status, scheduledDate])
+  @@index([userId, goalId, deferredFromDate])
+  @@index([goalId, sortOrder])
+  @@index([problemId])
+}
+
+model PlannerDailyDoseItem {
+  id         String   @id @default(cuid())
+  userId     String
+  goalId     String
+  doseDate   DateTime
+  problemId  String
+  planItemId String?
+  source     String   @default("plan")
+  sortOrder  Int
+  whyJson    String   @default("[]")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal     ReadinessGoal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  problem  Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  planItem PlannerPlanItem? @relation(fields: [planItemId], references: [id], onDelete: SetNull)
+
+  @@unique([goalId, doseDate, problemId])
+  @@index([userId, goalId, doseDate])
+  @@index([planItemId])
+  @@index([problemId])
+}
+
+model PlannerOutcome {
+  id               String   @id @default(cuid())
+  userId           String
+  goalId           String?
+  planItemId       String?
+  problemId        String
+  reviewAttemptId  String   @unique
+  problemHistoryId String   @unique
+  selfRating       String
+  patternTagsJson  String   @default("[]")
+  createdAt        DateTime @default(now())
+
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal           ReadinessGoal?   @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  planItem       PlannerPlanItem? @relation(fields: [planItemId], references: [id], onDelete: SetNull)
+  problem        Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  reviewAttempt  ReviewAttempt    @relation(fields: [reviewAttemptId], references: [id], onDelete: Cascade)
+  problemHistory ProblemHistory   @relation(fields: [problemHistoryId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([goalId])
+  @@index([planItemId])
+  @@index([problemId])
+}
+
+model ReviewSchedule {
+  id            String   @id @default(cuid())
+  userId        String
+  goalId        String
+  problemId     String
+  patternTag    String?
+  dueDate       DateTime
+  intervalDays  Int      @default(1)
+  ease          Float    @default(2.5)
+  repetitions   Int      @default(0)
+  lastRating    String
+  lastOutcomeId String?
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal    ReadinessGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  problem Problem       @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, goalId, problemId])
+  @@index([userId, dueDate])
+  @@index([goalId, status, dueDate])
+  @@index([patternTag])
+}
+
+model PlannerProposal {
+  id                   String    @id @default(cuid())
+  userId               String
+  goalId               String
+  type                 String
+  patternTag           String
+  status               String    @default("pending")
+  reason               String
+  proposedChangeJson   String    @default("{}")
+  targetProblemSlug    String?
+  targetProblemTitle   String?
+  targetLeetcodeNumber Int?
+  decidedAt            DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  user User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal ReadinessGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status, createdAt])
+  @@index([goalId, status])
+  @@index([type, patternTag])
+}
+
+model Campaign {
+  id                    String   @id @default(cuid())
+  userId                String
+  status                String   @default("active")
+  activeOwnerKey        String?  @unique
+  creationKey           String?  @unique
+  activeSkeletonVersion Int      @default(1)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  user              User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal              CampaignGoal?
+  skeletons         CampaignSkeleton[]
+  learnerNodeStates CampaignLearnerNodeState[]
+  dailyTasks        CampaignDailyTask[]
+  taskReceipts      CampaignTaskReceipt[]
+  repairQueueItems  CampaignRepairQueueItem[]
+  skeletonPatches   CampaignSkeletonPatch[]
+  skeletonDecisions CampaignSkeletonDecisionLog[]
+  strategistRuns    CampaignStrategistRun[]
+  dailyBudgetOverrides CampaignDailyBudgetOverride[]
+
+  @@index([userId, status])
+  @@index([createdAt])
+}
+
+model CampaignGoal {
+  id                        String   @id @default(cuid())
+  campaignId                String   @unique
+  endDate                   DateTime
+  dailyQuestionBudget       Int
+  language                  String
+  timezone                  String   @default("UTC")
+  selfReportedWeakNodesJson String   @default("[]")
+  preferredNodesJson        String   @default("[]")
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([endDate])
+}
+
+model CampaignSkeleton {
+  id              String   @id @default(cuid())
+  campaignId      String
+  version         Int
+  mixedWindowDays Int      @default(7)
+  createdAt       DateTime @default(now())
+
+  campaign  Campaign                   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  nodePlans CampaignSkeletonNodePlan[]
+
+  @@unique([campaignId, version])
+  @@index([campaignId, createdAt])
+}
+
+model CampaignSkeletonNodePlan {
+  id         String  @id @default(cuid())
+  skeletonId String
+  nodeId     String
+  included   Boolean @default(true)
+  sortOrder  Int
+  targetWeek Int
+  targetByDate String?
+  goalDepth    String  @default("mastery")
+  priority   Int
+  rationale  String
+
+  skeleton CampaignSkeleton @relation(fields: [skeletonId], references: [id], onDelete: Cascade)
+
+  @@unique([skeletonId, nodeId])
+  @@unique([skeletonId, sortOrder])
+  @@index([nodeId])
+}
+
+model CampaignLearnerNodeState {
+  id                      String    @id @default(cuid())
+  campaignId              String
+  nodeId                  String
+  exposureState           String    @default("unknown")
+  masteryState            String    @default("learning")
+  masteryHealth           String    @default("stable")
+  unlockedAt              DateTime?
+  startedAt               DateTime?
+  masteredAt              DateTime?
+  masteredBySettlementId  String?
+  latestPositiveStreak    Int       @default(0)
+  latestSettlementIdsJson String    @default("[]")
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, nodeId])
+  @@index([campaignId, masteryState, masteryHealth])
+  @@index([nodeId])
+}
+
+model CampaignDailyTask {
+  id                    String   @id @default(cuid())
+  campaignId            String
+  campaignDate          String
+  budget                Int
+  primaryNodeId         String?
+  status                String   @default("active")
+  selectionMetadataJson String   @default("{}")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  campaign Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  items    CampaignTaskItem[]
+  receipt  CampaignTaskReceipt?
+
+  @@unique([campaignId, campaignDate])
+  @@index([campaignId, status, campaignDate])
+  @@index([primaryNodeId])
+}
+
+model CampaignTaskItem {
+  id           String   @id @default(cuid())
+  dailyTaskId  String
+  carryoverFromTaskItemId String?
+  problemSlug  String
+  nodeId       String
+  slotRole     String
+  exposureType String
+  sortOrder    Int
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  dailyTask            CampaignDailyTask           @relation(fields: [dailyTaskId], references: [id], onDelete: Cascade)
+  attempts             CampaignTaskItemAttempt[]
+  settlement           CampaignTaskItemSettlement?
+  triggeredRepairItems CampaignRepairQueueItem[]
+
+  @@unique([dailyTaskId, problemSlug])
+  @@unique([dailyTaskId, sortOrder])
+  @@index([nodeId, status])
+  @@index([carryoverFromTaskItemId])
+  @@index([problemSlug])
+}
+
+model CampaignTaskItemAttempt {
+  id                       String    @id @default(cuid())
+  taskItemId               String
+  workspaceSessionId       String?
+  reviewAttemptId          String?   @unique
+  codeRevision             String?
+  executionFingerprint     String?
+  selectedSuiteFingerprint String?
+  evidenceProblemSlug      String?
+  evidenceSubject          String?
+  evidenceScope            String?
+  evidenceClass            String?
+  evidenceAuthority        String?
+  evidenceCanVerdict       Boolean?
+  verdict                  String?
+  startedAt                DateTime
+  completedAt              DateTime?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  taskItem         CampaignTaskItem            @relation(fields: [taskItemId], references: [id], onDelete: Cascade)
+  workspaceSession ProblemWorkspaceSession?    @relation(fields: [workspaceSessionId], references: [id], onDelete: SetNull)
+  reviewAttempt    ReviewAttempt?              @relation(fields: [reviewAttemptId], references: [id], onDelete: SetNull)
+  settlement       CampaignTaskItemSettlement?
+
+  @@unique([taskItemId, workspaceSessionId])
+  @@index([taskItemId, startedAt])
+  @@index([workspaceSessionId])
+}
+
+model CampaignTaskItemSettlement {
+  id                 String   @id @default(cuid())
+  taskItemId         String   @unique
+  attemptId          String   @unique
+  reviewCompleted    Boolean
+  passed             Boolean
+  selfRating         String?
+  positiveForMastery Boolean
+  negativeOutcome    Boolean
+  settledAt          DateTime
+  settlementVersion  Int      @default(1)
+  evidenceSource     String?
+  evidenceReferenceId String?
+  evidenceClass      String?
+  evidenceAuthority  String?
+  evidenceScope      String?
+  evidenceSubject    String?
+  createdAt          DateTime @default(now())
+
+  taskItem CampaignTaskItem        @relation(fields: [taskItemId], references: [id], onDelete: Cascade)
+  attempt  CampaignTaskItemAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@index([settledAt])
+}
+
+model CampaignTaskReceipt {
+  id           String   @id @default(cuid())
+  taskId       String   @unique
+  campaignId   String
+  campaignDate String
+  status       String
+  plannedCount Int
+  settledCount Int
+  itemsJson    String   @default("[]")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  task     CampaignDailyTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  campaign Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, campaignDate])
+  @@index([campaignId, status])
+}
+
+model CampaignRepairQueueItem {
+  id                String   @id @default(cuid())
+  campaignId        String
+  nodeId            String
+  triggerTaskItemId String
+  reason            String
+  priority          Int
+  status            String   @default("pending")
+  suspendedAt       DateTime?
+  expiredAt         DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  campaign        Campaign         @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  triggerTaskItem CampaignTaskItem @relation(fields: [triggerTaskItemId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, nodeId, triggerTaskItemId, reason])
+  @@index([campaignId, status, priority, createdAt])
+  @@index([nodeId])
+}
+
+model CampaignSkeletonPatch {
+  id                        String    @id @default(cuid())
+  campaignId                String
+  baseVersion               Int
+  trigger                   String
+  rationale                 String
+  status                    String    @default("pending")
+  patchSchemaVersion        Int       @default(1)
+  operationsJson            String
+  proposalFingerprint       String
+  dailyBudgetSuggestionJson String?
+  validatorSummaryJson      String
+  decidedAt                 DateTime?
+  appliedSkeletonVersion    Int?
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+
+  campaign Campaign                      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  decision CampaignSkeletonDecisionLog?
+  strategistRuns CampaignStrategistRun[]
+  dailyBudgetOverrides CampaignDailyBudgetOverride[]
+
+  @@unique([campaignId, proposalFingerprint])
+  @@index([campaignId, status, createdAt])
+  @@index([campaignId, baseVersion])
+}
+
+model CampaignDailyBudgetOverride {
+  id           String    @id @default(cuid())
+  campaignId   String
+  campaignDate String
+  maxQuestions Int
+  source       String
+  status       String    @default("accepted")
+  approvedAt   DateTime
+  expiresAt    DateTime?
+  patchId      String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  campaign Campaign               @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  patch    CampaignSkeletonPatch? @relation(fields: [patchId], references: [id], onDelete: SetNull)
+
+  @@unique([campaignId, campaignDate])
+  @@index([campaignId, status, campaignDate])
+  @@index([patchId])
+}
+
+model CampaignStrategistRun {
+  id                    String    @id @default(cuid())
+  campaignId            String
+  activeSkeletonVersion Int
+  trigger               String
+  triggerFingerprint    String    @unique
+  inputDigest           String
+  wakeSnapshotJson      String
+  promptVersion         String
+  evaluatorVersion      String
+  provider              String
+  modelAlias            String
+  status                String    @default("queued")
+  proposalPatchId       String?
+  backgroundJobId       String?   @unique
+  traceRunId            String?
+  rationaleSummary      String?
+  startedAt             DateTime?
+  completedAt           DateTime?
+  latencyMs             Int?
+  inputTokens           Int?
+  outputTokens          Int?
+  totalTokens           Int?
+  attemptCount          Int       @default(0)
+  errorClass            String?
+  outputDigest          String?
+  runtimeStateJson      String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  campaign      Campaign                 @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  proposalPatch CampaignSkeletonPatch?   @relation(fields: [proposalPatchId], references: [id], onDelete: SetNull)
+
+  @@index([campaignId, status, createdAt])
+  @@index([campaignId, completedAt])
+  @@index([proposalPatchId])
+}
+
+model CampaignSkeletonDecisionLog {
+  id                       String   @id @default(cuid())
+  campaignId               String
+  patchId                  String   @unique
+  action                   String
+  actorType                String
+  baseVersion              Int
+  resultingVersion         Int?
+  acceptedOperationIdsJson String   @default("[]")
+  rejectedOperationIdsJson String   @default("[]")
+  dailyBudgetDecision      String   @default("not_present")
+  rationale                String?
+  createdAt                DateTime @default(now())
+
+  campaign Campaign              @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  patch    CampaignSkeletonPatch @relation(fields: [patchId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, createdAt])
+  @@index([action, actorType])
+}
+
+model MockInterviewSession {
+  id              String    @id @default(cuid())
+  userId          String
+  problemId       String
+  status          String    @default("in_progress")
+  mode            String    @default("coding")
+  targetLabel     String?
+  focusTagsJson   String    @default("[]")
+  currentPhase    String    @default("intro")
+  language        String
+  questionCount   Int       @default(0)
+  maxQuestions    Int       @default(10)
+  durationMinutes Int       @default(25)
+  planItemId      String?
+  startedAt       DateTime  @default(now())
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user          User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem       Problem                     @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  turns         MockInterviewTurn[]
+  codeSnapshots MockInterviewCodeSnapshot[]
+  runEvidences  MockInterviewRunEvidence[]
+  feedback      MockInterviewFeedback?
+
+  @@index([userId, status, createdAt])
+  @@index([problemId])
+  @@index([planItemId])
+}
+
+model MockInterviewTurn {
+  id              String   @id @default(cuid())
+  sessionId       String
+  role            String
+  contentMarkdown String
+  phase           String
+  sequence        Int
+  metadataJson    String   @default("{}")
+  createdAt       DateTime @default(now())
+
+  session MockInterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, sequence])
+  @@index([sessionId, createdAt])
+}
+
+model MockInterviewCodeSnapshot {
+  id        String   @id @default(cuid())
+  sessionId String
+  problemId String
+  language  String
+  code      String   @default("")
+  createdAt DateTime @default(now())
+
+  session      MockInterviewSession       @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  problem      Problem                    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  runEvidences MockInterviewRunEvidence[]
+
+  @@index([sessionId, createdAt])
+  @@index([problemId])
+}
+
+model MockInterviewRunEvidence {
+  id                  String   @id @default(cuid())
+  sessionId           String
+  codeSnapshotId      String?
+  problemId           String
+  status              String
+  passedCount         Int      @default(0)
+  failedCount         Int      @default(0)
+  durationMs          Int?
+  stdout              String?
+  stderr              String?
+  actualOutput        String?
+  expectedOutput      String?
+  firstFailedCaseJson String?
+  rawResultJson       String   @default("{}")
+  createdAt           DateTime @default(now())
+
+  session      MockInterviewSession       @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  codeSnapshot MockInterviewCodeSnapshot? @relation(fields: [codeSnapshotId], references: [id], onDelete: SetNull)
+  problem      Problem                    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@index([codeSnapshotId])
+  @@index([problemId])
+  @@index([status])
+}
+
+model MockInterviewFeedback {
+  id                        String   @id @default(cuid())
+  sessionId                 String   @unique
+  verdict                   String
+  overallSignal             String
+  scoreJson                 String   @default("{}")
+  strengthsJson             String   @default("[]")
+  concernsJson              String   @default("[]")
+  missedFollowUpsJson       String   @default("[]")
+  codeNotesJson             String   @default("[]")
+  recommendationsJson       String   @default("[]")
+  memoryUpdateCandidateJson String   @default("{}")
+  reportMarkdown            String
+  createdAt                 DateTime @default(now())
+
+  session MockInterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+/// Versioned, aggregate-only operating experience for an execution tool.
+/// It intentionally has no user relation: it describes runtime behavior for a
+/// memory origin, never a learner fact or a product claim.
+model OperationalNote {
+  id                      String   @id @default(cuid())
+  memoryOrigin            String
+  kind                    String
+  scopeKind               String
+  scopeKey                String
+  signalKey               String
+  preconditionJson        String   @default("{}")
+  preconditionHash        String
+  contractVersion         String
+  status                  String   @default("candidate")
+  supportCount            Int      @default(0)
+  counterCount            Int      @default(0)
+  distinctProblemCount    Int      @default(0)
+  distinctSessionCount    Int      @default(0)
+  evidenceEventIdsJson    String   @default("[]")
+  validatedAt             DateTime?
+  invalidAt               DateTime?
+  lastEvidenceAt          DateTime
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@unique([memoryOrigin, kind, scopeKind, scopeKey, signalKey, preconditionHash, contractVersion])
+  @@index([memoryOrigin, status, scopeKind, scopeKey, contractVersion])
+  @@index([invalidAt])
+}

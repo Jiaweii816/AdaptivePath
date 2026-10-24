@@ -1,0 +1,115 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-product-except-self-prefix-suffix-include-self",
+    "problem": {
+      "leetcodeId": 238,
+      "slug": "product-of-array-except-self",
+      "title": "Product of Array Except Self",
+      "methodName": "productExceptSelf",
+      "tags": [
+        "Array",
+        "Prefix Sum"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code builds prefix and suffix products, but multiplies by nums[i] before writing res[i], so each answer includes itself.",
+    "bugPattern": "state_update_order_error",
+    "userCode": "class Solution:\n    def productExceptSelf(self, nums: list[int]) -> list[int]:\n        res = [1] * len(nums)\n\n        prefix = 1\n        for i in range(len(nums)):\n            prefix *= nums[i]\n            res[i] = prefix\n\n        suffix = 1\n        for i in range(len(nums) - 1, -1, -1):\n            suffix *= nums[i]\n            res[i] *= suffix\n\n        return res\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Show that res[1] becomes 2 * suffix 24 instead of excluding nums[1].",
+      "Suggest writing res[i] before updating prefix/suffix with nums[i]."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "[24,48,72,96]",
+    "expectedOutput": "[24,12,8,6]",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "sample with self included in each product",
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": [
+        24,
+        12,
+        8,
+        6
+      ],
+      "actual": [
+        24,
+        48,
+        72,
+        96
+      ]
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "sample with self included in each product",
+        "input": {
+          "nums": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "expected": [
+          24,
+          12,
+          8,
+          6
+        ],
+        "actual": [
+          24,
+          48,
+          72,
+          96
+        ],
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-product-except-self-prefix-suffix-include-self",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-search-insert-left-right-mixed-closed-half-open",
+    "problem": {
+      "leetcodeId": 35,
+      "slug": "search-insert-position",
+      "title": "Search Insert Position",
+      "methodName": "searchInsert",
+      "tags": [
+        "Array",
+        "Binary Search"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The loop condition looks half-open, but right is updated like an inclusive boundary, so the insertion slot can be skipped.",
+    "bugPattern": "binary_search_boundary_invariant_error",
+    "userCode": "class Solution:\n    def searchInsert(self, nums: list[int], target: int) -> int:\n        left, right = 0, len(nums) - 1\n        while left < right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return left\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Explain the mismatch between while left < right and right = mid - 1.",
+      "Ask the learner to choose one invariant and keep the updates consistent."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "0",
+    "expectedOutput": "1",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "mixed interval semantics skip the insertion boundary",
+      "input": {
+        "nums": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "target": 2
+      },
+      "expected": 1,
+      "actual": 0
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "mixed interval semantics skip the insertion boundary",
+        "input": {
+          "nums": [
+            1,
+            3,
+            5,
+            6
+          ],
+          "target": 2
+        },
+        "expected": 1,
+        "actual": 0,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-search-insert-left-right-mixed-closed-half-open",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

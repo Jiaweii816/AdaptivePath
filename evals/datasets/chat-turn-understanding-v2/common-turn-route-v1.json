@@ -1,0 +1,227 @@
+{
+  "datasetVersion": "turn-understanding-v2-common-v1",
+  "status": "agent_curated_pending_product_owner_review",
+  "description": "Decision-routing labels for the deterministic Turn Compiler. Punctuation, clause count, discourse markers, ordinary negation, and response referents never justify an online classifier call.",
+  "cases": [
+    {
+      "caseId": "easy-hint-zh",
+      "slice": "easy",
+      "message": "这个题目我没有什么思路，请你给我一点暗示",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:solve:active_problem:hint:explanation"]
+    },
+    {
+      "caseId": "easy-diagnose-hint-zh",
+      "slice": "easy",
+      "message": "提示我代码错在哪里",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:diagnose:current_user_code:hint:explanation"]
+    },
+    {
+      "caseId": "easy-full-code-en",
+      "slice": "easy",
+      "message": "Give me the full Python code",
+      "workspace": { "hasCurrentCode": false, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:solve:active_problem:direct:full_implementation"]
+    },
+    {
+      "caseId": "easy-explain-referent-en",
+      "slice": "referent",
+      "message": "Can you explain that again?",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:explain:conversation_referent:direct:explanation"]
+    },
+    {
+      "caseId": "easy-show-full-code-again-en",
+      "slice": "referent",
+      "message": "Show me the full code again",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": true },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:solve:conversation_referent:direct:full_implementation"]
+    },
+    {
+      "caseId": "easy-debug-still-en",
+      "slice": "easy",
+      "message": "Why is this bug still happening?",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:diagnose:current_user_code:direct:explanation"]
+    },
+    {
+      "caseId": "easy-optimize-current-en",
+      "slice": "easy",
+      "message": "Can you optimize my current code?",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:optimize:current_user_code:direct:explanation"]
+    },
+    {
+      "caseId": "easy-run-again-en",
+      "slice": "referent",
+      "message": "Run it again",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["execute:current_user_code:explicit_grant"]
+    },
+    {
+      "caseId": "easy-api-python-zh",
+      "slice": "easy",
+      "message": "Python 堆默认是小根吧？最大堆怎么临时写？",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:explain:api_object:direct:explanation"]
+    },
+    {
+      "caseId": "easy-practice-zh",
+      "slice": "easy",
+      "message": "二分边界再给我两题巩固下",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:recommend:practice_problem:direct:explanation"]
+    },
+    {
+      "caseId": "easy-history-mistake-zh",
+      "slice": "easy",
+      "message": "left 回退这个，是不是我之前那个滑窗毛病？",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:recall:learner_history.past_mistake:direct:explanation"]
+    },
+    {
+      "caseId": "easy-history-problem-zh",
+      "slice": "easy",
+      "message": "我以前做过和这道滑窗类似的题吗？",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:recall:learner_history.past_problem:direct:explanation"]
+    },
+    {
+      "caseId": "negated-run-explain-en",
+      "slice": "negation",
+      "message": "Don't run it; just explain why this boundary works.",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:explain:concept:direct:explanation"]
+    },
+    {
+      "caseId": "negated-full-code-hint-zh",
+      "slice": "negation",
+      "message": "先别给完整代码，只给我一点提示",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:solve:active_problem:hint:explanation"]
+    },
+    {
+      "caseId": "punctuation-does-not-upgrade-zh",
+      "slice": "easy",
+      "message": "我有点绕。能再解释一次吗？谢谢！",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["respond:explain:conversation_referent:direct:explanation"]
+    },
+    {
+      "caseId": "compound-run-then-diagnose-zh",
+      "slice": "compound",
+      "message": "先运行当前代码，再解释为什么失败",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": [
+        "execute:current_user_code:explicit_grant",
+        "respond:diagnose:current_user_code:direct:explanation"
+      ],
+      "expectedDependencies": ["req1->req0"]
+    },
+    {
+      "caseId": "compound-same-clause-evidence-order-zh",
+      "slice": "compound",
+      "message": "验证一下现在输出并解释为什么失败",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": [
+        "execute:current_user_code:explicit_grant",
+        "respond:diagnose:current_user_code:direct:explanation"
+      ]
+    },
+    {
+      "caseId": "compound-api-and-run-zh",
+      "slice": "compound",
+      "message": "BFS 队列写法想不起来；顺手也看下 abba 现在跑多少。",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": [
+        "respond:explain:api_object:direct:explanation",
+        "execute:current_user_code:explicit_grant"
+      ]
+    },
+    {
+      "caseId": "compound-recall-and-run-zh",
+      "slice": "compound",
+      "message": "我以前做过哪些类似滑窗题、又常犯过什么错？再确认下 abba 当前输出。",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": [
+        "respond:recall:learner_history.past_problem:direct:explanation",
+        "respond:recall:learner_history.past_mistake:direct:explanation",
+        "execute:current_user_code:explicit_grant"
+      ]
+    },
+    {
+      "caseId": "persist-ledger-granted",
+      "slice": "effect",
+      "message": "以后先给我一个下一步，解释短点。",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "ledger": [{ "toolName": "note_memory", "decision": "granted" }],
+      "expectedRoute": "fast_path",
+      "expectedRequests": ["persist:preference:ledger_granted"]
+    },
+    {
+      "caseId": "persist-ledger-unresolved",
+      "slice": "effect",
+      "message": "把这个记一下",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "ledger": [{ "toolName": "note_memory", "decision": "needs_confirmation" }],
+      "expectedRoute": "clarify",
+      "expectedRequests": [],
+      "expectedClarificationReason": "effect_authorization_unresolved"
+    },
+    {
+      "caseId": "execute-target-missing",
+      "slice": "effect",
+      "message": "运行当前代码",
+      "workspace": { "hasCurrentCode": false, "hasAssistantCandidate": false },
+      "expectedRoute": "clarify",
+      "expectedRequests": [],
+      "expectedClarificationReason": "backend_target_missing"
+    },
+    {
+      "caseId": "execute-candidate-missing",
+      "slice": "effect",
+      "message": "运行你刚才写的候选代码",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "clarify",
+      "expectedRequests": [],
+      "expectedClarificationReason": "backend_target_missing"
+    },
+    {
+      "caseId": "execute-target-ambiguous",
+      "slice": "effect",
+      "message": "把那份跑一下",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": true },
+      "expectedRoute": "semantic_slow_path",
+      "expectedRequests": [],
+      "expectedClarificationReason": "effect_target_ambiguous"
+    },
+    {
+      "caseId": "execute-denial-scope-conflict",
+      "slice": "effect",
+      "message": "不要运行它；但还是运行一下",
+      "workspace": { "hasCurrentCode": true, "hasAssistantCandidate": false },
+      "expectedRoute": "fast_path",
+      "expectedRequests": []
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "fixtureVersion": "review-v1",
+  "case": {
+    "id": "review-v1-longest-substring-duplicate-window-bug",
+    "problem": {
+      "leetcodeId": 3,
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters",
+      "tags": ["Hash Table", "String", "Sliding Window"]
+    },
+    "language": "Python",
+    "scenario": "The solution stores last seen positions, but moves left backward when a duplicate is outside the current window.",
+    "bugPattern": "sliding_window_left_regression",
+    "userCode": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last_seen = {}\n        left = 0\n        best = 0\n\n        for right, ch in enumerate(s):\n            if ch in last_seen:\n                left = last_seen[ch] + 1\n            last_seen[ch] = right\n            best = max(best, right - left + 1)\n\n        return best\n",
+    "selectedTestIds": [
+      "case-abcabcbb",
+      "case-bbbbb",
+      "case-abba",
+      "case-tmmzuxt"
+    ],
+    "expectedCoachFocus": [
+      "Use the first failed case s='abba' to show left moving from 2 back to 1.",
+      "Keep the user's last_seen dict approach.",
+      "Suggest left = max(left, last_seen[ch] + 1) as the minimal repair."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 2,
+    "failedCount": 2,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 31,
+    "actualOutput": "3",
+    "expectedOutput": "2",
+    "firstFailedCase": {
+      "id": "case-abba",
+      "label": "duplicate before current window",
+      "input": {
+        "s": "abba"
+      },
+      "expected": 2,
+      "actual": 3
+    },
+    "testResults": [
+      {
+        "id": "case-abcabcbb",
+        "label": "sample with repeated cycle",
+        "input": {
+          "s": "abcabcbb"
+        },
+        "expected": 3,
+        "actual": 3,
+        "passed": true,
+        "status": "passed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      },
+      {
+        "id": "case-bbbbb",
+        "label": "single repeated character",
+        "input": {
+          "s": "bbbbb"
+        },
+        "expected": 1,
+        "actual": 1,
+        "passed": true,
+        "status": "passed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      },
+      {
+        "id": "case-abba",
+        "label": "duplicate before current window",
+        "input": {
+          "s": "abba"
+        },
+        "expected": 2,
+        "actual": 3,
+        "passed": false,
+        "status": "failed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      },
+      {
+        "id": "case-tmmzuxt",
+        "label": "old duplicate should not shrink current window",
+        "input": {
+          "s": "tmmzuxt"
+        },
+        "expected": 5,
+        "actual": 6,
+        "passed": false,
+        "status": "failed",
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "piston_fallback",
+      "executionKind": "review",
+      "fixtureId": "review-v1-longest-substring-duplicate-window-bug",
+      "normalizedFrom": "replay_fixture"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "piston_fallback",
+    "scopeLabel": "execution evidence",
+    "modelInstruction": "You may reason from this execution evidence, without claiming hidden-test acceptance."
+  }
+}

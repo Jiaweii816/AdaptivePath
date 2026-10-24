@@ -1,0 +1,1057 @@
+{
+  "datasetVersion": "review-coachbench-v1.1",
+  "name": "review-v1.1-python-hot150-diagnostic",
+  "status": "human_approved",
+  "description": "Python-only Review CoachBench v1.1 with 30 replay-backed, human-plausible Hot-150 diagnostic cases across six transferable mistake categories. All humanReviewStatus values are approved after human audit.",
+  "labelTaxonomy": [
+    {
+      "bugCategory": "state_update_order_error",
+      "goldenMistakeTags": [
+        "state_update_order_error"
+      ],
+      "notes": "The intended state exists, but the code mutates it before the old value has been used safely."
+    },
+    {
+      "bugCategory": "binary_search_boundary_invariant_error",
+      "goldenMistakeTags": [
+        "binary_search_boundary_invariant_error"
+      ],
+      "notes": "The binary-search interval, boundary update, or returned index does not match the intended invariant."
+    },
+    {
+      "bugCategory": "sliding_window_boundary_error",
+      "goldenMistakeTags": [
+        "sliding_window_boundary_error"
+      ],
+      "notes": "The active window boundary or shrink condition stops representing the current valid window."
+    },
+    {
+      "bugCategory": "duplicate_or_frequency_count_error",
+      "goldenMistakeTags": [
+        "duplicate_or_frequency_count_error"
+      ],
+      "notes": "The code treats repeated values, repeated characters, or required counts as if uniqueness were enough."
+    },
+    {
+      "bugCategory": "boundary_condition_error",
+      "goldenMistakeTags": [
+        "boundary_condition_error"
+      ],
+      "notes": "The main idea is plausible, but empty, first/last, single-row, or exact-boundary inputs are not covered."
+    },
+    {
+      "bugCategory": "dp_transition_error",
+      "goldenMistakeTags": [
+        "dp_transition_error"
+      ],
+      "notes": "The DP state is mostly recognizable, but initialization, recurrence, or iteration order is wrong."
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "review-v1.1-two-sum-store-before-check-same-index",
+      "fixtureId": "review-v1.1-two-sum-store-before-check-same-index",
+      "problem": {
+        "slug": "two-sum",
+        "title": "Two Sum",
+        "leetcodeNumber": 1
+      },
+      "language": "Python",
+      "bugCategory": "state_update_order_error",
+      "goldenMistakeTags": [
+        "state_update_order_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[3,2,4], target=6",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "[0,0]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "Real learners often remember 'put numbers in a dict' but miss the check-before-store invariant.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-climbing-stairs-overwrites-prev-before-sum",
+      "fixtureId": "review-v1.1-climbing-stairs-overwrites-prev-before-sum",
+      "problem": {
+        "slug": "climbing-stairs",
+        "title": "Climbing Stairs",
+        "leetcodeNumber": 70
+      },
+      "language": "Python",
+      "bugCategory": "state_update_order_error",
+      "goldenMistakeTags": [
+        "state_update_order_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "n=3",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "4",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a realistic rolling-state update-order slip rather than a missing DP solution.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-product-except-self-prefix-suffix-include-self",
+      "fixtureId": "review-v1.1-product-except-self-prefix-suffix-include-self",
+      "problem": {
+        "slug": "product-of-array-except-self",
+        "title": "Product of Array Except Self",
+        "leetcodeNumber": 238
+      },
+      "language": "Python",
+      "bugCategory": "state_update_order_error",
+      "goldenMistakeTags": [
+        "state_update_order_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[1,2,3,4]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "[24,48,72,96]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The algorithm choice is right; the bug is the order in which state is consumed and updated.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-rotate-array-overwrites-source-slots-in-place",
+      "fixtureId": "review-v1.1-rotate-array-overwrites-source-slots-in-place",
+      "problem": {
+        "slug": "rotate-array",
+        "title": "Rotate Array",
+        "leetcodeNumber": 189
+      },
+      "language": "Python",
+      "bugCategory": "state_update_order_error",
+      "goldenMistakeTags": [
+        "state_update_order_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[1,2,3,4,5,6,7], k=3",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "[5,6,7,4,5,6,7]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a human-plausible in-place mutation order bug, not a hardcoded fixture.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-remove-element-increments-write-before-assignment",
+      "fixtureId": "review-v1.1-remove-element-increments-write-before-assignment",
+      "problem": {
+        "slug": "remove-element",
+        "title": "Remove Element",
+        "leetcodeNumber": 27
+      },
+      "language": "Python",
+      "bugCategory": "state_update_order_error",
+      "goldenMistakeTags": [
+        "state_update_order_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[3,2,2,3], val=3",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual prefix",
+          "value": "prefix=[3,2]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "Off-by-one appears here as a state update order error around the write pointer.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-search-insert-return-left-plus-one-shifts-boundary",
+      "fixtureId": "review-v1.1-search-insert-return-left-plus-one-shifts-boundary",
+      "problem": {
+        "slug": "search-insert-position",
+        "title": "Search Insert Position",
+        "leetcodeNumber": 35
+      },
+      "language": "Python",
+      "bugCategory": "binary_search_boundary_invariant_error",
+      "goldenMistakeTags": [
+        "binary_search_boundary_invariant_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[1,3,5,6], target=2",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "2",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This replaces the old fixture-specific off-by-one label with the transferable binary-search invariant label.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-search-insert-left-right-mixed-closed-half-open",
+      "fixtureId": "review-v1.1-search-insert-left-right-mixed-closed-half-open",
+      "problem": {
+        "slug": "search-insert-position",
+        "title": "Search Insert Position",
+        "leetcodeNumber": 35
+      },
+      "language": "Python",
+      "bugCategory": "binary_search_boundary_invariant_error",
+      "goldenMistakeTags": [
+        "binary_search_boundary_invariant_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[1,3,5,6], target=2",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "0",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The code is not a stub; it is a plausible invariant-mixing binary search mistake.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-search-range-any-hit-not-left-right-boundaries",
+      "fixtureId": "review-v1.1-search-range-any-hit-not-left-right-boundaries",
+      "problem": {
+        "slug": "find-first-and-last-position-of-element-in-sorted-array",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "leetcodeNumber": 34
+      },
+      "language": "Python",
+      "bugCategory": "binary_search_boundary_invariant_error",
+      "goldenMistakeTags": [
+        "binary_search_boundary_invariant_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[5,7,7,8,8,10], target=8",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "[4,4]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a transferable boundary-search mistake on a different Hot-150 binary-search problem.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-rotated-search-uses-plain-sorted-invariant",
+      "fixtureId": "review-v1.1-rotated-search-uses-plain-sorted-invariant",
+      "problem": {
+        "slug": "search-in-rotated-sorted-array",
+        "title": "Search in Rotated Sorted Array",
+        "leetcodeNumber": 33
+      },
+      "language": "Python",
+      "bugCategory": "binary_search_boundary_invariant_error",
+      "goldenMistakeTags": [
+        "binary_search_boundary_invariant_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[4,5,6,7,0,1,2], target=0",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "-1",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The failure is still about maintaining the correct binary-search invariant under a rotated ordering.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-find-min-rotated-discards-mid-containing-min",
+      "fixtureId": "review-v1.1-find-min-rotated-discards-mid-containing-min",
+      "problem": {
+        "slug": "find-minimum-in-rotated-sorted-array",
+        "title": "Find Minimum in Rotated Sorted Array",
+        "leetcodeNumber": 153
+      },
+      "language": "Python",
+      "bugCategory": "binary_search_boundary_invariant_error",
+      "goldenMistakeTags": [
+        "binary_search_boundary_invariant_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[4,5,1,2,3]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "4",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a common inclusive-boundary binary-search error on rotated arrays.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-longest-substring-left-regresses-on-stale-duplicate",
+      "fixtureId": "review-v1.1-longest-substring-left-regresses-on-stale-duplicate",
+      "problem": {
+        "slug": "longest-substring-without-repeating-characters",
+        "title": "Longest Substring Without Repeating Characters",
+        "leetcodeNumber": 3
+      },
+      "language": "Python",
+      "bugCategory": "sliding_window_boundary_error",
+      "goldenMistakeTags": [
+        "sliding_window_boundary_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"tmmzuxt\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "expected output",
+          "value": "5",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "6",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This keeps the realistic sliding-window bug from v1 but maps it to the portable taxonomy.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-longest-substring-best-updated-before-shrink",
+      "fixtureId": "review-v1.1-longest-substring-best-updated-before-shrink",
+      "problem": {
+        "slug": "longest-substring-without-repeating-characters",
+        "title": "Longest Substring Without Repeating Characters",
+        "leetcodeNumber": 3
+      },
+      "language": "Python",
+      "bugCategory": "sliding_window_boundary_error",
+      "goldenMistakeTags": [
+        "sliding_window_boundary_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"abba\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "3",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A realistic order-of-operations bug inside a sliding-window boundary invariant.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-min-subarray-shrinks-once-instead-of-while-valid",
+      "fixtureId": "review-v1.1-min-subarray-shrinks-once-instead-of-while-valid",
+      "problem": {
+        "slug": "minimum-size-subarray-sum",
+        "title": "Minimum Size Subarray Sum",
+        "leetcodeNumber": 209
+      },
+      "language": "Python",
+      "bugCategory": "sliding_window_boundary_error",
+      "goldenMistakeTags": [
+        "sliding_window_boundary_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "target=7, nums=[2,3,1,2,4,3]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "4",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is the classic variable-size window shrink-condition mistake.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-min-subarray-strict-greater-misses-exact-target",
+      "fixtureId": "review-v1.1-min-subarray-strict-greater-misses-exact-target",
+      "problem": {
+        "slug": "minimum-size-subarray-sum",
+        "title": "Minimum Size Subarray Sum",
+        "leetcodeNumber": 209
+      },
+      "language": "Python",
+      "bugCategory": "sliding_window_boundary_error",
+      "goldenMistakeTags": [
+        "sliding_window_boundary_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "target=7, nums=[2,3,1,2,4,3]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "3",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A boundary variant of the same sliding-window invariant, useful for checking category consistency.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-min-window-shrinks-only-once-after-valid",
+      "fixtureId": "review-v1.1-min-window-shrinks-only-once-after-valid",
+      "problem": {
+        "slug": "minimum-window-substring",
+        "title": "Minimum Window Substring",
+        "leetcodeNumber": 76
+      },
+      "language": "Python",
+      "bugCategory": "sliding_window_boundary_error",
+      "goldenMistakeTags": [
+        "sliding_window_boundary_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"ADOBECODEBANC\", t=\"ABC\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "ADOBEC",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a realistic Minimum Window shrink-loop bug, not a solution-style mismatch.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-valid-anagram-uses-set-and-loses-counts",
+      "fixtureId": "review-v1.1-valid-anagram-uses-set-and-loses-counts",
+      "problem": {
+        "slug": "valid-anagram",
+        "title": "Valid Anagram",
+        "leetcodeNumber": 242
+      },
+      "language": "Python",
+      "bugCategory": "duplicate_or_frequency_count_error",
+      "goldenMistakeTags": [
+        "duplicate_or_frequency_count_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"aacc\", t=\"ccac\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "true",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a very common beginner frequency-count bug.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-remove-duplicates-ii-keeps-only-one-copy",
+      "fixtureId": "review-v1.1-remove-duplicates-ii-keeps-only-one-copy",
+      "problem": {
+        "slug": "remove-duplicates-from-sorted-array-ii",
+        "title": "Remove Duplicates from Sorted Array II",
+        "leetcodeNumber": 80
+      },
+      "language": "Python",
+      "bugCategory": "duplicate_or_frequency_count_error",
+      "goldenMistakeTags": [
+        "duplicate_or_frequency_count_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[1,1,1,2,2,3]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual prefix",
+          "value": "prefix=[1,2,3]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The mistake is duplicate-count policy, not pointer mechanics alone.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-three-sum-does-not-skip-duplicate-triplets",
+      "fixtureId": "review-v1.1-three-sum-does-not-skip-duplicate-triplets",
+      "problem": {
+        "slug": "3sum",
+        "title": "3Sum",
+        "leetcodeNumber": 15
+      },
+      "language": "Python",
+      "bugCategory": "duplicate_or_frequency_count_error",
+      "goldenMistakeTags": [
+        "duplicate_or_frequency_count_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[-1,0,1,2,-1,-4]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "duplicate triplet value",
+          "value": "[-1,0,1]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "duplicate wording",
+          "value": "重复",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A realistic duplicate-handling error for a classic Hot-150 problem.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-min-window-uses-set-and-ignores-required-duplicates",
+      "fixtureId": "review-v1.1-min-window-uses-set-and-ignores-required-duplicates",
+      "problem": {
+        "slug": "minimum-window-substring",
+        "title": "Minimum Window Substring",
+        "leetcodeNumber": 76
+      },
+      "language": "Python",
+      "bugCategory": "duplicate_or_frequency_count_error",
+      "goldenMistakeTags": [
+        "duplicate_or_frequency_count_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"AAABBC\", t=\"AABC\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "ABBC",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This tests frequency-count reasoning inside a sliding-window problem without labeling it as a boundary bug.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-word-pattern-missing-reverse-word-mapping",
+      "fixtureId": "review-v1.1-word-pattern-missing-reverse-word-mapping",
+      "problem": {
+        "slug": "word-pattern",
+        "title": "Word Pattern",
+        "leetcodeNumber": 290
+      },
+      "language": "Python",
+      "bugCategory": "duplicate_or_frequency_count_error",
+      "goldenMistakeTags": [
+        "duplicate_or_frequency_count_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "pattern=\"abba\", s=\"dog dog dog dog\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "true",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is a duplicate/collision mistake in a mapping problem, not a syntax issue.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-merge-sorted-array-forgets-leftover-nums2",
+      "fixtureId": "review-v1.1-merge-sorted-array-forgets-leftover-nums2",
+      "problem": {
+        "slug": "merge-sorted-array",
+        "title": "Merge Sorted Array",
+        "leetcodeNumber": 88
+      },
+      "language": "Python",
+      "bugCategory": "boundary_condition_error",
+      "goldenMistakeTags": [
+        "boundary_condition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums1=[0], m=0, nums2=[1], n=1",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "[0]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A realistic edge-case miss around one exhausted side of a merge.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-summary-ranges-forgets-final-open-range",
+      "fixtureId": "review-v1.1-summary-ranges-forgets-final-open-range",
+      "problem": {
+        "slug": "summary-ranges",
+        "title": "Summary Ranges",
+        "leetcodeNumber": 228
+      },
+      "language": "Python",
+      "bugCategory": "boundary_condition_error",
+      "goldenMistakeTags": [
+        "boundary_condition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[0,1,2,4,5,7]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual first range",
+          "value": "0->2",
+          "match": "case_insensitive_substring"
+        },
+        {
+          "label": "actual second range",
+          "value": "4->5",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A common final-segment boundary miss in array scanning.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-insert-interval-empty-list-index-error",
+      "fixtureId": "review-v1.1-insert-interval-empty-list-index-error",
+      "problem": {
+        "slug": "insert-interval",
+        "title": "Insert Interval",
+        "leetcodeNumber": 57
+      },
+      "language": "Python",
+      "bugCategory": "boundary_condition_error",
+      "goldenMistakeTags": [
+        "boundary_condition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "intervals=[], newInterval=[5,7]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "runtime error",
+          "value": "IndexError",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The algorithm is incomplete only for a realistic boundary case, not a placeholder.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-length-last-word-stops-at-trailing-space",
+      "fixtureId": "review-v1.1-length-last-word-stops-at-trailing-space",
+      "problem": {
+        "slug": "length-of-last-word",
+        "title": "Length of Last Word",
+        "leetcodeNumber": 58
+      },
+      "language": "Python",
+      "bugCategory": "boundary_condition_error",
+      "goldenMistakeTags": [
+        "boundary_condition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"Hello World   \"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "0",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A small but real boundary-condition bug from a common string scan.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-spiral-matrix-single-row-double-counts-bottom",
+      "fixtureId": "review-v1.1-spiral-matrix-single-row-double-counts-bottom",
+      "problem": {
+        "slug": "spiral-matrix",
+        "title": "Spiral Matrix",
+        "leetcodeNumber": 54
+      },
+      "language": "Python",
+      "bugCategory": "boundary_condition_error",
+      "goldenMistakeTags": [
+        "boundary_condition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "matrix=[[1,2,3]]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "[1,2,3,2,1]",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The normal spiral skeleton is present; the missing boundary guard is the point.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-coin-change-descending-amount-prevents-reusing-coin",
+      "fixtureId": "review-v1.1-coin-change-descending-amount-prevents-reusing-coin",
+      "problem": {
+        "slug": "coin-change",
+        "title": "Coin Change",
+        "leetcodeNumber": 322
+      },
+      "language": "Python",
+      "bugCategory": "dp_transition_error",
+      "goldenMistakeTags": [
+        "dp_transition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "coins=[1,2,5], amount=11",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "-1",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A realistic DP loop-order bug, not a missing DP table.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-unique-paths-ii-initializes-through-obstacle",
+      "fixtureId": "review-v1.1-unique-paths-ii-initializes-through-obstacle",
+      "problem": {
+        "slug": "unique-paths-ii",
+        "title": "Unique Paths II",
+        "leetcodeNumber": 63
+      },
+      "language": "Python",
+      "bugCategory": "dp_transition_error",
+      "goldenMistakeTags": [
+        "dp_transition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "obstacleGrid=[[0,1],[0,0]]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "2",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "The bug is DP initialization under blocked boundary states.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-word-break-ignores-prefix-reachability",
+      "fixtureId": "review-v1.1-word-break-ignores-prefix-reachability",
+      "problem": {
+        "slug": "word-break",
+        "title": "Word Break",
+        "leetcodeNumber": 139
+      },
+      "language": "Python",
+      "bugCategory": "dp_transition_error",
+      "goldenMistakeTags": [
+        "dp_transition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "s=\"catsandog\"",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "true",
+          "match": "case_insensitive_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A real DP transition-contract mistake: the state means segmentable prefix, not word suffix match.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-lis-compares-only-adjacent-elements",
+      "fixtureId": "review-v1.1-lis-compares-only-adjacent-elements",
+      "problem": {
+        "slug": "longest-increasing-subsequence",
+        "title": "Longest Increasing Subsequence",
+        "leetcodeNumber": 300
+      },
+      "language": "Python",
+      "bugCategory": "dp_transition_error",
+      "goldenMistakeTags": [
+        "dp_transition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "nums=[10,9,2,5,3,7,101,18]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "3",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "A common DP recurrence error from confusing subsequence with subarray.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    },
+    {
+      "caseId": "review-v1.1-min-path-sum-first-row-col-not-cumulative",
+      "fixtureId": "review-v1.1-min-path-sum-first-row-col-not-cumulative",
+      "problem": {
+        "slug": "minimum-path-sum",
+        "title": "Minimum Path Sum",
+        "leetcodeNumber": 64
+      },
+      "language": "Python",
+      "bugCategory": "dp_transition_error",
+      "goldenMistakeTags": [
+        "dp_transition_error"
+      ],
+      "expectedEvidenceMarkers": [
+        {
+          "label": "failed input",
+          "value": "grid=[[1,2,3],[4,5,6]]",
+          "match": "compact_substring"
+        },
+        {
+          "label": "actual output",
+          "value": "9",
+          "match": "compact_substring"
+        }
+      ],
+      "source": "synthetic",
+      "notes": "This is an initialization/transition bug that real DP learners often make.",
+      "limitations": [
+        "Synthetic replay evidence, not a live LeetCode submit.",
+        "One visible failing case is enough for diagnosis evidence but does not prove hidden-test acceptance."
+      ],
+      "humanReviewStatus": "approved"
+    }
+  ]
+}

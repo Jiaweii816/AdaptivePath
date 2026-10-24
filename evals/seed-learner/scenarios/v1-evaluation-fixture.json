@@ -1,0 +1,46 @@
+{
+  "scenarioVersion": "seed-learner-scenario-v1",
+  "scenarioId": "evaluation-fixture-v1",
+  "name": "Evaluation fixture without earned memory",
+  "status": "active",
+  "description": "An isolated evaluation identity and problem fixture used to test database lifecycle without creating learner history or durable memory.",
+  "humanReviewStatus": "approved",
+  "learnerProfile": {
+    "learnerId": "evaluation-fixture-learner",
+    "userId": "evaluation-fixture-user",
+    "handle": "PatternCoachEvaluationFixture",
+    "displayName": "Evaluation Fixture",
+    "interviewGoal": "Exercise evaluation database lifecycle only",
+    "preferredLanguages": ["Python"],
+    "strongPatterns": [],
+    "weakPatterns": [],
+    "explanationStyle": [],
+    "outputPreferences": []
+  },
+  "practicedProblems": [
+    {
+      "key": "problem.two_sum",
+      "problemId": "evaluation_problem_two_sum",
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "leetcodeNumber": 1,
+      "difficulty": "Easy",
+      "tags": ["Array", "Hash Table"],
+      "methodName": "twoSum",
+      "isDemoSupported": true
+    }
+  ],
+  "episodes": [],
+  "facts": [],
+  "expected": {
+    "currentFactKeys": [],
+    "staleFactKeys": [],
+    "episodeKeys": []
+  },
+  "notes": [
+    "This fixture intentionally contains no earned learner history or durable facts."
+  ],
+  "limitations": [
+    "It validates evaluation database isolation and lifecycle only; it is not a memory-quality benchmark."
+  ]
+}

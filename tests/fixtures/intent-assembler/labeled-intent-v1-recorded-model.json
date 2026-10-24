@@ -1,0 +1,34 @@
+{
+  "fixtureVersion": "labeled-intent-v1-recorded-model-v1",
+  "recordingScope": "offline unit-test fixture; not a live-model evaluation",
+  "cases": [
+    {
+      "caseId": "real-014",
+      "output": {
+        "requests": [{ "id": "model-014", "sourceClauseIds": ["c0"], "dependsOn": [], "kind": "respond", "deliverable": "understand", "target": "api", "basis": ["current_evidence", "api_kb"], "delivery": { "depth": "normal", "form": "prose" } }],
+        "denials": [], "certainty": { "status": "confident", "confidence": 0.95 }
+      }
+    },
+    {
+      "caseId": "real-081",
+      "output": {
+        "requests": [{ "id": "model-081", "sourceClauseIds": ["c0"], "dependsOn": [], "kind": "respond", "deliverable": "solve", "target": "current", "basis": ["current_evidence"], "delivery": { "depth": "hint", "form": "prose" } }],
+        "denials": [], "certainty": { "status": "confident", "confidence": 0.95 }
+      }
+    },
+    {
+      "caseId": "real-104",
+      "output": {
+        "requests": [{ "id": "model-104", "sourceClauseIds": ["c0"], "dependsOn": [], "kind": "respond", "deliverable": "recall", "target": "current", "basis": ["current_evidence", "past_problems"], "delivery": { "depth": "normal", "form": "prose" } }],
+        "denials": [], "certainty": { "status": "confident", "confidence": 0.95 }
+      }
+    },
+    {
+      "caseId": "real-007",
+      "output": {
+        "requests": [{ "id": "model-007", "sourceClauseIds": ["c0"], "dependsOn": [], "kind": "respond", "deliverable": "solve", "target": "current", "basis": ["current_evidence", "past_mistakes"], "delivery": { "depth": "normal", "form": "patch" } }],
+        "denials": [], "certainty": { "status": "confident", "confidence": 0.95 }
+      }
+    }
+  ]
+}

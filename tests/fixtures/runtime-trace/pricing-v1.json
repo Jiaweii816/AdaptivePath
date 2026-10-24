@@ -1,0 +1,119 @@
+{
+  "fixtureVersion": "runtime-trace-pricing-fixture-v1",
+  "pricingVersion": "fixture-pricing-2026-07-12-v1",
+  "entries": [
+    {
+      "provider": "fixture",
+      "modelIds": ["fixture-priced"],
+      "mode": "standard",
+      "uncachedInputUsdPerMillion": 1,
+      "cachedInputUsdPerMillion": 0.25,
+      "nonReasoningOutputUsdPerMillion": 2,
+      "reasoningOutputUsdPerMillion": 3,
+      "assumptions": "Synthetic rates for deterministic contract tests."
+    },
+    {
+      "provider": "fixture",
+      "modelIds": ["fixture-partial"],
+      "mode": "thinking",
+      "uncachedInputUsdPerMillion": 1,
+      "cachedInputUsdPerMillion": 0.25,
+      "nonReasoningOutputUsdPerMillion": 2,
+      "assumptions": "Reasoning output is intentionally unpriced."
+    },
+    {
+      "provider": "fixture",
+      "modelIds": ["fixture-standard-only"],
+      "mode": "standard",
+      "uncachedInputUsdPerMillion": 1,
+      "nonReasoningOutputUsdPerMillion": 2,
+      "assumptions": "Thinking mode must not reuse this standard-only entry."
+    }
+  ],
+  "cases": [
+    {
+      "id": "priced-with-subsets",
+      "input": {
+        "provider": "fixture",
+        "modelId": "fixture-priced",
+        "mode": "standard",
+        "providerInputTokens": 1000,
+        "providerOutputTokens": 500,
+        "providerTotalTokens": 1500,
+        "providerCachedTokens": 200,
+        "providerReasoningTokens": 100
+      },
+      "expected": {
+        "pricingStatus": "priced",
+        "estimatedCostUsd": 0.00195,
+        "uncachedInputTokens": 800,
+        "cachedInputTokens": 200,
+        "nonReasoningOutputTokens": 400,
+        "reasoningOutputTokens": 100,
+        "providerTotalTokens": 1500,
+        "unpricedComponents": []
+      }
+    },
+    {
+      "id": "partial-reasoning-rate",
+      "input": {
+        "provider": "fixture",
+        "modelId": "fixture-partial",
+        "mode": "thinking",
+        "providerInputTokens": 100,
+        "providerOutputTokens": 200,
+        "providerTotalTokens": 300,
+        "providerCachedTokens": 0,
+        "providerReasoningTokens": 50
+      },
+      "expected": {
+        "pricingStatus": "partial",
+        "estimatedCostUsd": 0.0004,
+        "uncachedInputTokens": 100,
+        "cachedInputTokens": 0,
+        "nonReasoningOutputTokens": 150,
+        "reasoningOutputTokens": 50,
+        "providerTotalTokens": 300,
+        "unpricedComponents": ["reasoning_output"]
+      }
+    },
+    {
+      "id": "unknown-model",
+      "input": {
+        "provider": "fixture",
+        "modelId": "fixture-unknown",
+        "mode": "standard",
+        "providerInputTokens": 100,
+        "providerOutputTokens": 20,
+        "providerTotalTokens": 120,
+        "providerCachedTokens": 0,
+        "providerReasoningTokens": 0
+      },
+      "expected": {
+        "pricingStatus": "unpriced",
+        "estimatedCostUsd": null,
+        "providerTotalTokens": 120,
+        "unpricedComponents": ["pricing_entry"]
+      }
+    },
+    {
+      "id": "thinking-does-not-use-standard-price",
+      "input": {
+        "provider": "fixture",
+        "modelId": "fixture-standard-only",
+        "mode": "thinking",
+        "providerInputTokens": 100,
+        "providerOutputTokens": 20,
+        "providerTotalTokens": 120,
+        "providerCachedTokens": 0,
+        "providerReasoningTokens": 20
+      },
+      "expected": {
+        "pricingStatus": "unpriced",
+        "estimatedCostUsd": null,
+        "providerTotalTokens": 120,
+        "unpricedComponents": ["pricing_entry"]
+      }
+    }
+  ]
+}

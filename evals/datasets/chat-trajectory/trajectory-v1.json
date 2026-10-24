@@ -1,0 +1,366 @@
+{
+  "datasetVersion": "chat-trajectory-v1",
+  "name": "trajectory-v1-seed",
+  "status": "agent_drafted_needs_human_review",
+  "description": "Small seed set for Task 2B Chat trajectory scoring. It uses real Chat LLM calls with isolated eval DB state and a replay code runner for run_code.",
+  "cases": [
+    {
+      "caseId": "traj-v1-concept-no-tool-binary-search",
+      "category": "concept_question_no_tool",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "search-insert-position",
+        "title": "Search Insert Position",
+        "leetcodeNumber": 35,
+        "tags": ["Array", "Binary Search"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def searchInsert(self, nums: list[int], target: int) -> int:\n        left, right = 0, len(nums) - 1\n        while left <= right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return left\n",
+      "selectedTests": [
+        {
+          "id": "case-insert-middle",
+          "label": "insert in middle",
+          "input": { "nums": [1, 3, 5, 6], "target": 2 },
+          "expected": 1
+        }
+      ],
+      "userMessage": "为什么二分里 nums[mid] < target 时要移动 left = mid + 1？只解释这个概念，不用跑代码。",
+      "expectedTools": [],
+      "forbiddenTools": [
+        "run_code",
+        "past_mistake_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "lookup_api_reference",
+        "past_problem_recall",
+        "note_memory",
+        "save_knowledge_note"
+      ],
+      "orderedSubsequence": [],
+      "integrationMarkers": [],
+      "notes": "Concept-only question should normally be answerable from context without tools.",
+      "limitations": ["Agent-drafted trajectory truth; requires human audit."],
+      "humanReviewStatus": "pending"
+    },
+    {
+      "caseId": "traj-v1-run-code-abba",
+      "category": "run_case_requires_run_code",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "longest-substring-without-repeating-characters",
+        "title": "Longest Substring Without Repeating Characters",
+        "leetcodeNumber": 3,
+        "tags": ["Hash Table", "String", "Sliding Window"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last_seen = {}\n        left = 0\n        best = 0\n        for right, ch in enumerate(s):\n            if ch in last_seen:\n                left = last_seen[ch] + 1\n            last_seen[ch] = right\n            best = max(best, right - left + 1)\n        return best\n",
+      "selectedTests": [
+        {
+          "id": "case-abba",
+          "label": "duplicate before current window",
+          "input": { "s": "abba" },
+          "expected": 2
+        }
+      ],
+      "userMessage": "请用当前代码跑一下 s='abba' 这个 case，并告诉我结果。",
+      "expectedTools": ["run_code"],
+      "forbiddenTools": [
+        "past_mistake_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "lookup_api_reference",
+        "past_problem_recall",
+        "note_memory",
+        "save_knowledge_note"
+      ],
+      "orderedSubsequence": ["run_code"],
+      "integrationMarkers": [
+        {
+          "label": "actual output 3",
+          "value": "(actual|实际|输出|得到)[^0-9]{0,16}3|3[^0-9]{0,16}(actual|实际|输出|得到)",
+          "match": "regex",
+          "source": "run_code replay result"
+        }
+      ],
+      "notes": "run_code should use the replay code runner, not Piston.",
+      "limitations": ["Replay run result is fixed to the existing Longest Substring fixture."],
+      "humanReviewStatus": "pending",
+      "runCodeReplayFixtureId": "review-v1-longest-substring-duplicate-window-bug"
+    },
+    {
+      "caseId": "traj-v1-history-mistake",
+      "category": "history_question_requires_memory_tool",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "search-insert-position",
+        "title": "Search Insert Position",
+        "leetcodeNumber": 35,
+        "tags": ["Array", "Binary Search"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def searchInsert(self, nums: list[int], target: int) -> int:\n        return 0\n",
+      "selectedTests": [],
+      "memorySeed": {
+        "mistakeFacts": [
+          {
+            "tag": "binary_search_return_off_by_one",
+            "label": "Binary search return off by one",
+            "value": "Previously returned left + 1 after a correct binary-search loop.",
+            "lastEvidenceSummary": "Search Insert: loop was correct, final return shifted answer by one."
+          }
+        ]
+      },
+      "userMessage": "我以前是不是也犯过二分返回位置 off-by-one？请查我的错误历史再回答。",
+      "expectedTools": ["past_mistake_recall"],
+      "expectedToolGroups": [],
+      "forbiddenTools": [
+        "run_code",
+        "past_problem_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "lookup_api_reference",
+        "note_memory",
+        "save_knowledge_note"
+      ],
+      "orderedSubsequence": ["past_mistake_recall"],
+      "integrationMarkers": [
+        {
+          "label": "seeded mistake tag",
+          "value": "binary_search_return_off_by_one",
+          "match": "case_insensitive_substring",
+          "source": "seeded L2 mistake fact"
+        },
+        {
+          "label": "seeded evidence summary",
+          "value": "left + 1",
+          "match": "case_insensitive_substring",
+          "source": "seeded L2 mistake fact"
+        }
+      ],
+      "notes": "The wording asks for mistake history explicitly, so only past_mistake_recall is valid.",
+      "limitations": ["Seeded memory is synthetic and requires human audit."],
+      "humanReviewStatus": "pending"
+    },
+    {
+      "caseId": "traj-v1-api-deque",
+      "category": "api_question_requires_lookup_api_reference",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "two-sum",
+        "title": "Two Sum",
+        "leetcodeNumber": 1,
+        "tags": ["Array", "Hash Table"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        return [0, 1]\n",
+      "selectedTests": [],
+      "userMessage": "Python 里 deque 队列怎么写？请查 API reference，别跑代码。",
+      "expectedTools": ["lookup_api_reference"],
+      "optionalTools": ["save_knowledge_note"],
+      "forbiddenTools": [
+        "run_code",
+        "past_mistake_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "past_problem_recall",
+        "note_memory"
+      ],
+      "orderedSubsequence": ["lookup_api_reference"],
+      "integrationMarkers": [
+        {
+          "label": "handbook saved",
+          "value": "复习手册",
+          "match": "case_insensitive_substring",
+          "source": "save_knowledge_note result"
+        }
+      ],
+      "notes": "The user explicitly asks for API reference. save_knowledge_note is acceptable because the product policy may capture reusable API knowledge, but it is not required ground truth for this case.",
+      "limitations": ["API reference tool result is local KB, not web search."],
+      "humanReviewStatus": "pending"
+    },
+    {
+      "caseId": "traj-v1-preference-note-memory",
+      "category": "preference_requires_note_memory",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "two-sum",
+        "title": "Two Sum",
+        "leetcodeNumber": 1,
+        "tags": ["Array", "Hash Table"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        return [0, 1]\n",
+      "selectedTests": [],
+      "userMessage": "记住：以后解释尽量短一点，先给我一个下一步。",
+      "expectedTools": ["note_memory"],
+      "forbiddenTools": [
+        "run_code",
+        "past_mistake_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "lookup_api_reference",
+        "past_problem_recall",
+        "save_knowledge_note"
+      ],
+      "orderedSubsequence": ["note_memory"],
+      "integrationMarkers": [
+        {
+          "label": "saved preference",
+          "value": "Preference saved",
+          "match": "case_insensitive_substring",
+          "source": "note_memory result"
+        }
+      ],
+      "notes": "User explicitly asks to remember a preference.",
+      "limitations": ["The English tool-result marker may not appear verbatim in every Chinese final reply."],
+      "humanReviewStatus": "pending"
+    },
+    {
+      "caseId": "traj-v1-multistep-api-save-note",
+      "category": "multi_step_tool_chain",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "two-sum",
+        "title": "Two Sum",
+        "leetcodeNumber": 1,
+        "tags": ["Array", "Hash Table"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        return [0, 1]\n",
+      "selectedTests": [],
+      "userMessage": "我忘了 Python deque 的最小写法，请查一下 API reference，并把 deque 用法存到手册。",
+      "expectedTools": ["lookup_api_reference", "save_knowledge_note"],
+      "forbiddenTools": [
+        "run_code",
+        "past_mistake_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "past_problem_recall",
+        "note_memory"
+      ],
+      "orderedSubsequence": ["lookup_api_reference", "save_knowledge_note"],
+      "integrationMarkers": [
+        {
+          "label": "handbook saved",
+          "value": "复习手册",
+          "match": "case_insensitive_substring",
+          "source": "save_knowledge_note result"
+        }
+      ],
+      "notes": "Multi-step path should first retrieve API reference, then save a reusable note.",
+      "limitations": ["Final reply may summarize the saved note without repeating the exact tool message."],
+      "humanReviewStatus": "pending"
+    },
+    {
+      "caseId": "traj-v1-multistep-api-run",
+      "category": "multi_step_tool_chain",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "longest-substring-without-repeating-characters",
+        "title": "Longest Substring Without Repeating Characters",
+        "leetcodeNumber": 3,
+        "tags": ["Hash Table", "String", "Sliding Window"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last_seen = {}\n        left = 0\n        best = 0\n        for right, ch in enumerate(s):\n            if ch in last_seen:\n                left = last_seen[ch] + 1\n            last_seen[ch] = right\n            best = max(best, right - left + 1)\n        return best\n",
+      "selectedTests": [
+        {
+          "id": "case-abba",
+          "label": "duplicate before current window",
+          "input": { "s": "abba" },
+          "expected": 2
+        }
+      ],
+      "userMessage": "先查一下 Python deque 的 API reference，然后用当前代码跑 s='abba'。",
+      "expectedTools": ["lookup_api_reference", "run_code"],
+      "optionalTools": ["save_knowledge_note"],
+      "forbiddenTools": [
+        "past_mistake_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "past_problem_recall",
+        "note_memory"
+      ],
+      "orderedSubsequence": ["lookup_api_reference", "run_code"],
+      "integrationMarkers": [
+        {
+          "label": "actual output 3",
+          "value": "(actual|实际|输出|得到)[^0-9]{0,16}3|3[^0-9]{0,16}(actual|实际|输出|得到)",
+          "match": "regex",
+          "source": "run_code replay result"
+        },
+        {
+          "label": "deque distinctive pitfall",
+          "value": "0-1 BFS",
+          "match": "case_insensitive_substring",
+          "source": "lookup_api_reference result"
+        }
+      ],
+      "notes": "Multi-step path combines local API KB and replayed run_code.",
+      "limitations": ["save_knowledge_note is not forbidden because API usage wording may trigger forced capture."],
+      "humanReviewStatus": "pending",
+      "runCodeReplayFixtureId": "review-v1-longest-substring-duplicate-window-bug"
+    },
+    {
+      "caseId": "traj-v1-multistep-memory-run",
+      "category": "multi_step_tool_chain",
+      "intentStyle": "explicit_instruction",
+      "problem": {
+        "slug": "longest-substring-without-repeating-characters",
+        "title": "Longest Substring Without Repeating Characters",
+        "leetcodeNumber": 3,
+        "tags": ["Hash Table", "String", "Sliding Window"]
+      },
+      "language": "Python",
+      "code": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last_seen = {}\n        left = 0\n        best = 0\n        for right, ch in enumerate(s):\n            if ch in last_seen:\n                left = last_seen[ch] + 1\n            last_seen[ch] = right\n            best = max(best, right - left + 1)\n        return best\n",
+      "selectedTests": [
+        {
+          "id": "case-abba",
+          "label": "duplicate before current window",
+          "input": { "s": "abba" },
+          "expected": 2
+        }
+      ],
+      "memorySeed": {
+        "mistakeFacts": [
+          {
+            "tag": "stale_duplicate_boundary",
+            "label": "Stale duplicate boundary",
+            "value": "Previously moved left backward when a duplicate was outside the current window.",
+            "lastEvidenceSummary": "Longest Substring: abba showed left boundary regression."
+          }
+        ]
+      },
+      "userMessage": "先查我的滑动窗口历史错误，再用当前代码跑 s='abba' 看是否还是这个问题。",
+      "expectedTools": ["past_mistake_recall", "run_code"],
+      "expectedToolGroups": [],
+      "forbiddenTools": [
+        "past_problem_recall",
+        "find_practice_problem",
+        "get_algorithm_hint",
+        "lookup_api_reference",
+        "note_memory",
+        "save_knowledge_note"
+      ],
+      "orderedSubsequence": ["past_mistake_recall", "run_code"],
+      "integrationMarkers": [
+        {
+          "label": "seeded memory",
+          "value": "stale_duplicate_boundary",
+          "match": "case_insensitive_substring",
+          "source": "seeded L2 mistake fact"
+        },
+        {
+          "label": "actual output 3",
+          "value": "(actual|实际|输出|得到)[^0-9]{0,16}3|3[^0-9]{0,16}(actual|实际|输出|得到)",
+          "match": "regex",
+          "source": "run_code replay result"
+        }
+      ],
+      "notes": "Multi-step path combines memory lookup with a replayed code run.",
+      "limitations": ["Synthetic memory fact needs human audit."],
+      "humanReviewStatus": "pending",
+      "runCodeReplayFixtureId": "review-v1-longest-substring-duplicate-window-bug"
+    }
+  ]
+}

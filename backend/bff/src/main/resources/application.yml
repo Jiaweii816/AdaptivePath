@@ -1,0 +1,111 @@
+server:
+  port: ${BFF_PORT:8080}
+spring:
+  application:
+    name: patterncoach-bff
+  datasource:
+    url: ${BFF_JDBC_URL}
+    username: ${BFF_DB_USER}
+    password: ${BFF_DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 4
+      connection-timeout: 2000
+      connection-init-sql: SET statement_timeout = 2000
+  flyway:
+    schemas: bff
+    default-schema: bff
+    clean-disabled: true
+bff:
+  redis-address: ${BFF_REDIS_ADDRESS:redis://redis:6379}
+  environment: ${BFF_ENVIRONMENT:test}
+  learner: ${BFF_LEARNER:round1-test}
+  next-base-url: ${NEXT_BASE_URL:http://next:3000}
+  request-bytes: ${BFF_REQUEST_BYTES:4194304}
+  json-bytes: ${BFF_JSON_BYTES:16777216}
+  line-bytes: ${BFF_LINE_BYTES:16777216}
+  stream-bytes: ${BFF_STREAM_BYTES:33554432}
+  circuit-window: ${BFF_CIRCUIT_WINDOW:20}
+  circuit-minimum-calls: ${BFF_CIRCUIT_MINIMUM_CALLS:10}
+  circuit-failure-percent: ${BFF_CIRCUIT_FAILURE_PERCENT:50}
+  circuit-open-seconds: ${BFF_CIRCUIT_OPEN_SECONDS:30}
+  circuit-half-open-calls: ${BFF_CIRCUIT_HALF_OPEN_CALLS:2}
+  internal-token: ${BFF_INTERNAL_TOKEN:}
+  routes:
+    review:
+      deadline-seconds: ${BFF_REVIEW_DEADLINE_SECONDS:180}
+      group: review
+      capacity: ${BFF_REVIEW_CAPACITY:2}
+      rate-group: ai
+      quota: ${BFF_AI_QUOTA:10}
+      lock: true
+    chat:
+      deadline-seconds: ${BFF_CHAT_DEADLINE_SECONDS:120}
+      group: chat
+      capacity: ${BFF_CHAT_CAPACITY:1}
+      rate-group: ai
+      quota: ${BFF_AI_QUOTA:10}
+      lock: true
+    clear:
+      deadline-seconds: ${BFF_CLEAR_DEADLINE_SECONDS:15}
+      group: clear
+      capacity: ${BFF_CLEAR_CAPACITY:1}
+      rate-group: clear
+      quota: ${BFF_CLEAR_QUOTA:30}
+      lock: true
+    run:
+      deadline-seconds: ${BFF_RUN_DEADLINE_SECONDS:60}
+      group: runner
+      capacity: ${BFF_RUNNER_CAPACITY:2}
+      rate-group: runner
+      quota: ${BFF_RUNNER_QUOTA:30}
+      lock: false
+    start:
+      deadline-seconds: ${BFF_START_DEADLINE_SECONDS:120}
+      group: interview
+      capacity: ${BFF_INTERVIEW_CAPACITY:1}
+      rate-group: ai
+      quota: ${BFF_AI_QUOTA:10}
+      lock: true
+    respond:
+      deadline-seconds: ${BFF_RESPOND_DEADLINE_SECONDS:120}
+      group: interview
+      capacity: ${BFF_INTERVIEW_CAPACITY:1}
+      rate-group: ai
+      quota: ${BFF_AI_QUOTA:10}
+      lock: true
+    send-code:
+      deadline-seconds: ${BFF_SEND_CODE_DEADLINE_SECONDS:120}
+      group: interview
+      capacity: ${BFF_INTERVIEW_CAPACITY:1}
+      rate-group: ai
+      quota: ${BFF_AI_QUOTA:10}
+      lock: true
+    run-code:
+      deadline-seconds: ${BFF_RUN_CODE_DEADLINE_SECONDS:60}
+      group: runner
+      capacity: ${BFF_RUNNER_CAPACITY:2}
+      rate-group: runner
+      quota: ${BFF_RUNNER_QUOTA:30}
+      lock: false
+    complete:
+      deadline-seconds: ${BFF_COMPLETE_DEADLINE_SECONDS:180}
+      group: interview
+      capacity: ${BFF_INTERVIEW_CAPACITY:1}
+      rate-group: ai
+      quota: ${BFF_AI_QUOTA:10}
+      lock: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState,bffReadiness
+      show-details: never

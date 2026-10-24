@@ -1,0 +1,22 @@
+# Next build inputs only. Learner stores, environment and unrelated work never enter context.
+**
+!app/
+!app/**
+!src/
+!src/**
+!prisma/
+!prisma/**
+!public/
+!public/**
+!package.json
+!package-lock.json
+!tsconfig.json
+!next-env.d.ts
+!next.config.ts
+!proxy.ts
+!prisma.config.ts
+!postcss.config.mjs
+!Dockerfile
+**/*.db*
+**/*.sqlite*
+**/.env*

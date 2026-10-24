@@ -1,0 +1,14 @@
+services:
+  api:
+    image: ghcr.io/engineer-man/piston:latest
+    container_name: patterncoach_piston_api
+    restart: unless-stopped
+    privileged: true
+    environment:
+      PISTON_OUTPUT_MAX_SIZE: ${PISTON_OUTPUT_MAX_SIZE:-16777216}
+    ports:
+      - "2000:2000"
+    volumes:
+      - ./data/packages:/piston/packages
+    tmpfs:
+      - /tmp:exec

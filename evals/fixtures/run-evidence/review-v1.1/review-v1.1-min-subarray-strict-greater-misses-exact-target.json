@@ -1,0 +1,103 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-min-subarray-strict-greater-misses-exact-target",
+    "problem": {
+      "leetcodeId": 209,
+      "slug": "minimum-size-subarray-sum",
+      "title": "Minimum Size Subarray Sum",
+      "methodName": "minSubArrayLen",
+      "tags": [
+        "Array",
+        "Binary Search",
+        "Sliding Window",
+        "Prefix Sum"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The shrink condition uses > target instead of >= target, so exact-sum windows are never considered minimal.",
+    "bugPattern": "sliding_window_boundary_error",
+    "userCode": "class Solution:\n    def minSubArrayLen(self, target: int, nums: list[int]) -> int:\n        left = 0\n        total = 0\n        best = float(\"inf\")\n        for right, num in enumerate(nums):\n            total += num\n            while total > target:\n                best = min(best, right - left + 1)\n                total -= nums[left]\n                left += 1\n        return 0 if best == float(\"inf\") else best\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Explain that sum == target is already a valid window and must be scored.",
+      "Suggest while total >= target."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "3",
+    "expectedOutput": "2",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "exact target window [4,3] should count",
+      "input": {
+        "target": 7,
+        "nums": [
+          2,
+          3,
+          1,
+          2,
+          4,
+          3
+        ]
+      },
+      "expected": 2,
+      "actual": 3
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "exact target window [4,3] should count",
+        "input": {
+          "target": 7,
+          "nums": [
+            2,
+            3,
+            1,
+            2,
+            4,
+            3
+          ]
+        },
+        "expected": 2,
+        "actual": 3,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-min-subarray-strict-greater-misses-exact-target",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

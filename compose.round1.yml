@@ -1,0 +1,97 @@
+name: round1-bff
+services:
+  nginx:
+    image: nginx:1.28-alpine
+    ports: ["127.0.0.1:${ROUND1_PORT:-8088}:80"]
+    volumes:
+      - ./deploy/nginx/round1.conf:/etc/nginx/nginx.conf:ro
+    depends_on: [next, bff]
+    networks: [periphery]
+  next:
+    build: .
+    environment:
+      DATABASE_URL: file:/data/round1-test.db
+      PATTERNCOACH_MEMORY_ORIGIN: test
+      PATTERNCOACH_LOCAL_USER_HANDLE: round1-test
+      BFF_PROXY_ENABLED: "true"
+      BFF_INTERNAL_TOKEN: ${BFF_INTERNAL_TOKEN:?required}
+      NEXT_ALLOWED_HOSTS: next:3000
+      # Production builds hide the runtime trace drawer unless explicitly enabled.
+      TRACE_UI_ENABLED: ${TRACE_UI_ENABLED:-true}
+      PISTON_URL: ${PISTON_URL:-http://host.docker.internal:2000}
+      CODE_RUNNER_PROVIDER: piston
+      LLM_REVIEW_API_KEY: ${LLM_REVIEW_API_KEY:-}
+      LLM_REVIEW_BASE_URL: ${LLM_REVIEW_BASE_URL:-}
+      LLM_REVIEW_MODEL: ${LLM_REVIEW_MODEL:-}
+      LLM_CHAT_API_KEY: ${LLM_CHAT_API_KEY:-}
+      LLM_CHAT_BASE_URL: ${LLM_CHAT_BASE_URL:-}
+      LLM_CHAT_MODEL: ${LLM_CHAT_MODEL:-}
+      LLM_INTERVIEW_API_KEY: ${LLM_INTERVIEW_API_KEY:-}
+      LLM_INTERVIEW_BASE_URL: ${LLM_INTERVIEW_BASE_URL:-}
+      LLM_INTERVIEW_MODEL: ${LLM_INTERVIEW_MODEL:-}
+      LLM_MEMORY_API_KEY: ${LLM_MEMORY_API_KEY:-}
+      LLM_MEMORY_BASE_URL: ${LLM_MEMORY_BASE_URL:-}
+      LLM_MEMORY_MODEL: ${LLM_MEMORY_MODEL:-}
+      CHAT_CONSOLIDATION_PROVIDER: ${CHAT_CONSOLIDATION_PROVIDER:-}
+      INTERVIEWER_PROVIDER: ${INTERVIEWER_PROVIDER:-}
+      REFLECTION_PROVIDER: ${REFLECTION_PROVIDER:-}
+    volumes:
+      - type: bind
+        source: ${ROUND1_DATA_DIR:?isolated external directory required}
+        target: /data
+        bind:
+          create_host_path: false
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    networks: [periphery]
+  bff:
+    build: backend/bff
+    environment:
+      BFF_JDBC_URL: jdbc:postgresql://postgres:5432/round1
+      BFF_DB_USER: round1
+      BFF_DB_PASSWORD: ${BFF_DB_PASSWORD:?required}
+      BFF_INTERNAL_TOKEN: ${BFF_INTERNAL_TOKEN:?required}
+      NEXT_BASE_URL: http://next:3000
+      BFF_REDIS_ADDRESS: redis://redis:6379
+      BFF_ENVIRONMENT: test
+      BFF_LEARNER: round1-test
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    networks: [periphery]
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: round1
+      POSTGRES_USER: round1
+      POSTGRES_PASSWORD: ${BFF_DB_PASSWORD:?required}
+    volumes: ["round1-pg:/var/lib/postgresql/data"]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U round1 -d round1"]
+      interval: 5s
+      timeout: 2s
+      retries: 12
+    networks: [periphery]
+  redis:
+    image: redis:7-alpine
+    command: [redis-server, --save, "", --appendonly, "no"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 2s
+      retries: 12
+    networks: [periphery]
+  prometheus:
+    image: prom/prometheus:v3.5.1
+    volumes: ["./deploy/prometheus/round1.yml:/etc/prometheus/prometheus.yml:ro"]
+    networks: [periphery]
+  piston:
+    image: ghcr.io/engineer-man/piston:latest
+    profiles: [piston]
+    privileged: true
+    volumes: ["round1-piston:/piston/packages"]
+    networks: [periphery]
+networks:
+  periphery: {}
+volumes:
+  round1-pg: {}
+  round1-piston: {}

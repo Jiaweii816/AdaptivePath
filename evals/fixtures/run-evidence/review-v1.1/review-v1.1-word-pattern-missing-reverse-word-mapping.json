@@ -1,0 +1,87 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-word-pattern-missing-reverse-word-mapping",
+    "problem": {
+      "leetcodeId": 290,
+      "slug": "word-pattern",
+      "title": "Word Pattern",
+      "methodName": "wordPattern",
+      "tags": [
+        "Hash Table",
+        "String"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code maps pattern characters to words, but never prevents two different pattern characters from sharing the same word.",
+    "bugPattern": "duplicate_or_frequency_count_error",
+    "userCode": "class Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        words = s.split()\n        if len(pattern) != len(words):\n            return False\n        mapping = {}\n        for ch, word in zip(pattern, words):\n            if ch in mapping and mapping[ch] != word:\n                return False\n            mapping[ch] = word\n        return True\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Point out that a and b both map to dog.",
+      "Suggest checking a reverse word-to-character map or comparing set sizes."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "true",
+    "expectedOutput": "false",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "two pattern letters reuse one word",
+      "input": {
+        "pattern": "abba",
+        "s": "dog dog dog dog"
+      },
+      "expected": false,
+      "actual": true
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "two pattern letters reuse one word",
+        "input": {
+          "pattern": "abba",
+          "s": "dog dog dog dog"
+        },
+        "expected": false,
+        "actual": true,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-word-pattern-missing-reverse-word-mapping",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

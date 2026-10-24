@@ -1,0 +1,1626 @@
+{
+  "scenarioVersion": "seed-learner-scenario-v1",
+  "scenarioId": "seed-learner-v1.2",
+  "name": "Seed learner v1.2 held-out memory retrieval gate draft",
+  "status": "agent_drafted_needs_human_review",
+  "description": "Independent held-out synthetic learner for memory retrieval gate v1.2. It uses new learner identity, new problem slugs, and low-confidence active facts designed to surface when MEMORY_MIN_RETRIEVAL_CONFIDENCE is disabled.",
+  "humanReviewStatus": "pending",
+  "learnerProfile": {
+    "learnerId": "learner.synthetic.v1_2",
+    "userId": "seed_user_learner_synthetic_v1_2",
+    "handle": "EvalLearnerV12",
+    "displayName": "Eval Learner V1.2",
+    "interviewGoal": "New-grad coding interview prep with short, evidence-grounded coaching",
+    "preferredLanguages": ["Python", "C++"],
+    "strongPatterns": [
+      "Python loops",
+      "Set membership checks",
+      "Tracing small visible examples"
+    ],
+    "weakPatterns": [
+      "Binary search answer-space bounds",
+      "Sliding window count invariants",
+      "DP recurrence naming",
+      "Graph BFS timing"
+    ],
+    "explanationStyle": [
+      "Concrete failing case first",
+      "Short hint before template",
+      "Name the invariant in plain words"
+    ],
+    "outputPreferences": [
+      "Give one runnable micro-step before theory",
+      "Default to Python examples unless I ask for C++",
+      "Keep the first reply concise and do not paste a full solution",
+      "Use Chinese for casual coaching questions"
+    ]
+  },
+  "practicedProblems": [
+    {
+      "key": "problem.contains_duplicate",
+      "problemId": "seed_problem_v12_contains_duplicate",
+      "slug": "contains-duplicate",
+      "title": "Contains Duplicate",
+      "leetcodeNumber": 217,
+      "difficulty": "Easy",
+      "tags": ["Hash Table", "Set"],
+      "methodName": "containsDuplicate",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.product_except_self",
+      "problemId": "seed_problem_v12_product_except_self",
+      "slug": "product-of-array-except-self",
+      "title": "Product of Array Except Self",
+      "leetcodeNumber": 238,
+      "difficulty": "Medium",
+      "tags": ["prefix_suffix", "Product Accumulation"],
+      "methodName": "productExceptSelf",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.longest_consecutive",
+      "problemId": "seed_problem_v12_longest_consecutive",
+      "slug": "longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence",
+      "leetcodeNumber": 128,
+      "difficulty": "Medium",
+      "tags": ["Hash Table", "Set"],
+      "methodName": "longestConsecutive",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.find_min_rotated",
+      "problemId": "seed_problem_v12_find_min_rotated",
+      "slug": "find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum in Rotated Sorted Array",
+      "leetcodeNumber": 153,
+      "difficulty": "Medium",
+      "tags": ["Binary Search", "Rotated Array"],
+      "methodName": "findMin",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.koko_bananas",
+      "problemId": "seed_problem_v12_koko_bananas",
+      "slug": "koko-eating-bananas",
+      "title": "Koko Eating Bananas",
+      "leetcodeNumber": 875,
+      "difficulty": "Medium",
+      "tags": ["Binary Search", "Answer Search"],
+      "methodName": "minEatingSpeed",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.permutation_in_string",
+      "problemId": "seed_problem_v12_permutation_in_string",
+      "slug": "permutation-in-string",
+      "title": "Permutation in String",
+      "leetcodeNumber": 567,
+      "difficulty": "Medium",
+      "tags": ["Sliding Window", "String Counts"],
+      "methodName": "checkInclusion",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.longest_repeating_replacement",
+      "problemId": "seed_problem_v12_longest_repeating_replacement",
+      "slug": "longest-repeating-character-replacement",
+      "title": "Longest Repeating Character Replacement",
+      "leetcodeNumber": 424,
+      "difficulty": "Medium",
+      "tags": ["Sliding Window", "String Counts"],
+      "methodName": "characterReplacement",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.valid_palindrome",
+      "problemId": "seed_problem_v12_valid_palindrome",
+      "slug": "valid-palindrome",
+      "title": "Valid Palindrome",
+      "leetcodeNumber": 125,
+      "difficulty": "Easy",
+      "tags": ["Two Pointers", "String"],
+      "methodName": "isPalindrome",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.threesum",
+      "problemId": "seed_problem_v12_threesum",
+      "slug": "3sum",
+      "title": "3Sum",
+      "leetcodeNumber": 15,
+      "difficulty": "Medium",
+      "tags": ["Two Pointers", "Sorting"],
+      "methodName": "threeSum",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.min_stack",
+      "problemId": "seed_problem_v12_min_stack",
+      "slug": "min-stack",
+      "title": "Min Stack",
+      "leetcodeNumber": 155,
+      "difficulty": "Medium",
+      "tags": ["Stack", "Design"],
+      "methodName": "MinStack",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.evaluate_rpn",
+      "problemId": "seed_problem_v12_evaluate_rpn",
+      "slug": "evaluate-reverse-polish-notation",
+      "title": "Evaluate Reverse Polish Notation",
+      "leetcodeNumber": 150,
+      "difficulty": "Medium",
+      "tags": ["Stack", "Math"],
+      "methodName": "evalRPN",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.validate_bst",
+      "problemId": "seed_problem_v12_validate_bst",
+      "slug": "validate-binary-search-tree",
+      "title": "Validate Binary Search Tree",
+      "leetcodeNumber": 98,
+      "difficulty": "Medium",
+      "tags": ["Tree", "Depth-First Search", "BST"],
+      "methodName": "isValidBST",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.course_schedule",
+      "problemId": "seed_problem_v12_course_schedule",
+      "slug": "course-schedule",
+      "title": "Course Schedule",
+      "leetcodeNumber": 207,
+      "difficulty": "Medium",
+      "tags": ["Graph", "Topological Sort"],
+      "methodName": "canFinish",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.rotting_oranges",
+      "problemId": "seed_problem_v12_rotting_oranges",
+      "slug": "rotting-oranges",
+      "title": "Rotting Oranges",
+      "leetcodeNumber": 994,
+      "difficulty": "Medium",
+      "tags": ["Graph", "Breadth-First Search", "Matrix"],
+      "methodName": "orangesRotting",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.house_robber",
+      "problemId": "seed_problem_v12_house_robber",
+      "slug": "house-robber",
+      "title": "House Robber",
+      "leetcodeNumber": 198,
+      "difficulty": "Medium",
+      "tags": ["Dynamic Programming", "Rolling State"],
+      "methodName": "rob",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.word_break",
+      "problemId": "seed_problem_v12_word_break",
+      "slug": "word-break",
+      "title": "Word Break",
+      "leetcodeNumber": 139,
+      "difficulty": "Medium",
+      "tags": ["Dynamic Programming", "String"],
+      "methodName": "wordBreak",
+      "isDemoSupported": false
+    },
+    {
+      "key": "problem.subsets",
+      "problemId": "seed_problem_v12_subsets",
+      "slug": "subsets",
+      "title": "Subsets",
+      "leetcodeNumber": 78,
+      "difficulty": "Medium",
+      "tags": ["Backtracking"],
+      "methodName": "subsets",
+      "isDemoSupported": false
+    }
+  ],
+  "episodes": [
+    {
+      "key": "episode.review.contains_duplicate_add_before_check_failed",
+      "kind": "review",
+      "problemSlug": "contains-duplicate",
+      "title": "Contains Duplicate review: membership check after add",
+      "summary": "The learner added the current number into seen before checking membership, so Contains Duplicate returned true immediately on a unique list. The blocker was hash table membership order, not lack of a set idea.",
+      "outcome": "failed",
+      "tags": ["hash_table", "contains_duplicate", "membership_order"],
+      "salience": 0.92,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-20T14:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know a set should help, but my result is always true.",
+        "userQuestion": "Why does Contains Duplicate say [1,2,3] has a duplicate?",
+        "codeSnapshot": "class Solution:\n    def containsDuplicate(self, nums):\n        seen = set()\n        for x in nums:\n            seen.add(x)\n            if x in seen:\n                return True\n        return False\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "true",
+          "expectedOutput": "false",
+          "firstFailedCase": {
+            "id": "cd-unique",
+            "label": "unique list",
+            "input": {"nums": [1, 2, 3]},
+            "expected": false,
+            "actual": true
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["hash_table_membership_order"],
+          "skillTags": ["set_membership"],
+          "userIssueSummary": "The code inserts x before asking whether x was already present.",
+          "coachSummary": "Keep the set approach and move the membership check before seen.add(x)."
+        },
+        "coachReplyMarkdown": "根因是顺序反了：你先 `seen.add(x)`，再问 `x in seen`，所以第一个数也会被当成重复。下一步只改顺序：先查、再加入。"
+      }
+    },
+    {
+      "key": "episode.review.contains_duplicate_set_repair_passed",
+      "kind": "review",
+      "problemSlug": "contains-duplicate",
+      "title": "Contains Duplicate repair: check before add",
+      "summary": "The learner repaired Contains Duplicate by checking x in seen before adding x, and the visible unique and duplicate cases passed. This contradicted the earlier casual belief that sorting was the only workable route.",
+      "outcome": "passed",
+      "tags": ["hash_table", "contains_duplicate", "repair"],
+      "salience": 0.78,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-20T14:20:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I moved the check before add.",
+        "userQuestion": "Does this set version look okay on the visible cases?",
+        "codeSnapshot": "class Solution:\n    def containsDuplicate(self, nums):\n        seen = set()\n        for x in nums:\n            if x in seen:\n                return True\n            seen.add(x)\n        return False\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 3,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["hash_table_membership_order"],
+          "userIssueSummary": "The set membership order is now correct on visible cases.",
+          "coachSummary": "The visible evidence supports the check-before-add pattern."
+        },
+        "coachReplyMarkdown": "这次可见用例过了：`if x in seen` 放在 `seen.add(x)` 前面，避免把当前数误判成旧数。仍然只代表当前可见用例，不等于 hidden-test AC。"
+      }
+    },
+    {
+      "key": "episode.review.longest_consecutive_start_points_passed",
+      "kind": "review",
+      "problemSlug": "longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence review: start only at x-1 gaps",
+      "summary": "The learner used a set and only started counting when x-1 was absent, avoiding repeated sequence scans. This is a reusable hash table sequence-start skill.",
+      "outcome": "passed",
+      "tags": ["hash_table", "longest_consecutive", "sequence_start"],
+      "salience": 0.84,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-21T10:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I tried the set start-point trick.",
+        "userQuestion": "Can I reuse this set trick for sequence problems?",
+        "codeSnapshot": "class Solution:\n    def longestConsecutive(self, nums):\n        s = set(nums)\n        best = 0\n        for x in s:\n            if x - 1 not in s:\n                y = x\n                while y in s:\n                    y += 1\n                best = max(best, y - x)\n        return best\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 3,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["hash_table_sequence_start_points"],
+          "userIssueSummary": "The learner correctly used set membership to avoid duplicate scans.",
+          "coachSummary": "This start-point invariant can transfer to other hash-table sequence tasks."
+        },
+        "coachReplyMarkdown": "这个 set 思路是可复用的：只从 `x - 1` 不存在的位置开跑，就不会重复扫同一段连续序列。"
+      }
+    },
+    {
+      "key": "episode.review.product_except_self_include_self_failed",
+      "kind": "review",
+      "problemSlug": "product-of-array-except-self",
+      "title": "Product Except Self review: prefix and suffix include self",
+      "summary": "The learner multiplied nums[i] into both prefix and suffix before writing answer[i], so Product Except Self included the current element in its own product.",
+      "outcome": "failed",
+      "tags": ["prefix_suffix", "product_except_self", "include_self"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-22T09:30:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "The prefix/suffix idea feels right but the numbers are off.",
+        "userQuestion": "Why does [1,2,3,4] give products that are too large?",
+        "codeSnapshot": "class Solution:\n    def productExceptSelf(self, nums):\n        n = len(nums)\n        ans = [1] * n\n        left = 1\n        for i in range(n):\n            left *= nums[i]\n            ans[i] *= left\n        right = 1\n        for i in range(n - 1, -1, -1):\n            right *= nums[i]\n            ans[i] *= right\n        return ans\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 0,
+          "failedCount": 1,
+          "actualOutput": "[1, 4, 18, 96]",
+          "expectedOutput": "[24, 12, 8, 6]",
+          "firstFailedCase": {
+            "id": "pes-basic",
+            "label": "basic product",
+            "input": {"nums": [1, 2, 3, 4]},
+            "expected": [24, 12, 8, 6],
+            "actual": [1, 4, 18, 96]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["prefix_suffix_include_self"],
+          "skillTags": [],
+          "userIssueSummary": "prefix and suffix are updated before answer[i], so nums[i] is included.",
+          "coachSummary": "Write the current outside product first, then multiply the running product by nums[i]."
+        },
+        "coachReplyMarkdown": "问题是 `ans[i]` 写得太晚：你先把 `nums[i]` 乘进 left/right，再写答案，所以它把自己也算进去了。下一步把“写 ans”放在更新 running product 之前。"
+      }
+    },
+    {
+      "key": "episode.review.find_min_return_mid_after_loop_failed",
+      "kind": "review",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum repair history: returned mid after loop",
+      "summary": "The learner once returned mid after the rotated-array binary-search loop, which picked a stale midpoint rather than the converged left boundary.",
+      "outcome": "failed",
+      "tags": ["binary_search", "find_min", "return_mid"],
+      "salience": 0.62,
+      "expectedRetrievable": false,
+      "scriptedAt": "2026-06-23T13:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I think mid points at the minimum when the loop ends.",
+        "userQuestion": "Why is return mid wrong here?",
+        "codeSnapshot": "class Solution:\n    def findMin(self, nums):\n        l, r = 0, len(nums) - 1\n        while l < r:\n            mid = (l + r) // 2\n            if nums[mid] > nums[r]:\n                l = mid + 1\n            else:\n                r = mid\n        return nums[mid]\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "4",
+          "expectedOutput": "0",
+          "firstFailedCase": {
+            "id": "fm-rotated",
+            "label": "stale mid after convergence",
+            "input": {"nums": [4, 5, 6, 7, 0, 1, 2]},
+            "expected": 0,
+            "actual": 4
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_return_mid_after_loop"],
+          "skillTags": [],
+          "userIssueSummary": "mid is stale after the loop and does not represent the final boundary.",
+          "coachSummary": "Return nums[left] after convergence, not nums[mid]."
+        },
+        "coachReplyMarkdown": "`mid` 是循环里某一轮的临时值，循环结束后真正收敛的是 `left/right`。这类写法要返回 `nums[left]`。"
+      }
+    },
+    {
+      "key": "episode.review.find_min_return_left_repair_passed",
+      "kind": "review",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum repair: return left after convergence",
+      "summary": "The learner repaired the old return-mid mistake by returning nums[left] after the loop, and visible rotated cases passed.",
+      "outcome": "passed",
+      "tags": ["binary_search", "find_min", "return_left"],
+      "salience": 0.68,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-23T13:25:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I changed the final return to left.",
+        "userQuestion": "Does returning left fix the old mid issue?",
+        "codeSnapshot": "class Solution:\n    def findMin(self, nums):\n        l, r = 0, len(nums) - 1\n        while l < r:\n            mid = (l + r) // 2\n            if nums[mid] > nums[r]:\n                l = mid + 1\n            else:\n                r = mid\n        return nums[l]\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 3,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["binary_search_converged_boundary"],
+          "userIssueSummary": "The final answer now uses the converged boundary.",
+          "coachSummary": "The old return-mid blocker is resolved on visible cases."
+        },
+        "coachReplyMarkdown": "这次修的是旧问题：循环收敛到 `l`，所以 `return nums[l]`。当前可见用例支持这个边界写法。"
+      }
+    },
+    {
+      "key": "episode.review.find_min_discards_mid_failed",
+      "kind": "review",
+      "problemSlug": "find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum review: discarded mid that could be minimum",
+      "summary": "In a later Find Minimum attempt, the learner used r = mid - 1 when nums[mid] <= nums[r], discarding mid even though mid could still be the minimum.",
+      "outcome": "failed",
+      "tags": ["binary_search", "find_min", "discard_mid"],
+      "salience": 0.94,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-24T12:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "The return is left now, but one rotated case still fails.",
+        "userQuestion": "Why does r = mid - 1 lose the minimum?",
+        "codeSnapshot": "class Solution:\n    def findMin(self, nums):\n        l, r = 0, len(nums) - 1\n        while l < r:\n            mid = (l + r) // 2\n            if nums[mid] > nums[r]:\n                l = mid + 1\n            else:\n                r = mid - 1\n        return nums[l]\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "1",
+          "expectedOutput": "0",
+          "firstFailedCase": {
+            "id": "fm-mid-min",
+            "label": "mid can be min",
+            "input": {"nums": [3, 4, 5, 0, 1, 2]},
+            "expected": 0,
+            "actual": 1
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_discards_mid"],
+          "skillTags": [],
+          "userIssueSummary": "When nums[mid] <= nums[r], mid remains a valid minimum candidate.",
+          "coachSummary": "Use r = mid, not r = mid - 1, in the sorted-right branch."
+        },
+        "coachReplyMarkdown": "这次不是旧的 `return mid`，而是你在右半边有序时把 `mid` 本身丢掉了。`nums[mid]` 可能就是最小值，所以这一支要 `r = mid`。"
+      }
+    },
+    {
+      "key": "episode.review.koko_answer_bounds_failed",
+      "kind": "review",
+      "problemSlug": "koko-eating-bananas",
+      "title": "Koko Eating Bananas review: answer-space lower bound starts at zero",
+      "summary": "The learner started Koko's binary search speed at 0, which made the feasibility check divide by zero. The blocker was answer-space bounds for binary search.",
+      "outcome": "failed",
+      "tags": ["binary_search", "koko", "answer_bounds"],
+      "salience": 0.88,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-25T09:15:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know binary search on answer, but the first run crashes.",
+        "userQuestion": "Why does Koko crash when speed starts at 0?",
+        "codeSnapshot": "class Solution:\n    def minEatingSpeed(self, piles, h):\n        lo, hi = 0, max(piles)\n        def ok(k):\n            return sum((p + k - 1) // k for p in piles) <= h\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if ok(mid):\n                hi = mid\n            else:\n                lo = mid + 1\n        return lo\n",
+        "run": {
+          "status": "runtime_error",
+          "passedCount": 0,
+          "failedCount": 1,
+          "actualOutput": "ZeroDivisionError",
+          "expectedOutput": "4",
+          "firstFailedCase": {
+            "id": "koko-basic",
+            "label": "zero speed",
+            "input": {"piles": [3, 6, 7, 11], "h": 8},
+            "expected": 4,
+            "error": "integer division or modulo by zero"
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_answer_bounds"],
+          "skillTags": [],
+          "userIssueSummary": "The answer-space lower bound allows an invalid speed of zero.",
+          "coachSummary": "Set lo = 1 because speed must be at least one banana per hour."
+        },
+        "coachReplyMarkdown": "二分答案前先给答案域定合法范围：Koko 的速度不能是 0，所以 `lo` 要从 1 开始。否则 `ok(0)` 会直接除零。"
+      }
+    },
+    {
+      "key": "episode.review.permutation_in_string_count_balance_failed",
+      "kind": "review",
+      "problemSlug": "permutation-in-string",
+      "title": "Permutation in String review: counts not balanced when window slides",
+      "summary": "The learner added the incoming character but forgot to decrement the outgoing character, so the sliding-window counts drifted away from the fixed window.",
+      "outcome": "failed",
+      "tags": ["sliding_window", "permutation_in_string", "count_balance"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-26T11:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I made a fixed-size window, but the counts don't match.",
+        "userQuestion": "Permutation in String: why does eidbaooo miss ba?",
+        "codeSnapshot": "class Solution:\n    def checkInclusion(self, s1, s2):\n        need = Counter(s1)\n        window = Counter()\n        k = len(s1)\n        for i, ch in enumerate(s2):\n            window[ch] += 1\n            if i >= k:\n                pass\n            if window == need:\n                return True\n        return False\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "false",
+          "expectedOutput": "true",
+          "firstFailedCase": {
+            "id": "perm-basic",
+            "label": "contains ba",
+            "input": {"s1": "ab", "s2": "eidbaooo"},
+            "expected": true,
+            "actual": false
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["sliding_window_count_balance"],
+          "skillTags": [],
+          "userIssueSummary": "The outgoing character is not removed when the fixed window advances.",
+          "coachSummary": "For each right step after size k, decrement s2[i-k] before comparing counts."
+        },
+        "coachReplyMarkdown": "固定窗口不是只加右边字符，也要把左边滑出去的字符减掉。下一步只补 `out = s2[i-k]` 的 decrement，再比较两个 Counter。"
+      }
+    },
+    {
+      "key": "episode.review.character_replacement_maxfreq_failed",
+      "kind": "review",
+      "problemSlug": "longest-repeating-character-replacement",
+      "title": "Character Replacement review: recomputed max frequency as exact window state",
+      "summary": "The learner tried to recompute max frequency after every shrink and tied it to the exact current window, making the shrink condition unstable. The stable-window invariant was the blocker.",
+      "outcome": "failed",
+      "tags": ["sliding_window", "character_replacement", "max_frequency"],
+      "salience": 0.82,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-27T10:30:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I keep recalculating the max count and the window jumps around.",
+        "userQuestion": "Why is my Character Replacement window shrinking too much?",
+        "codeSnapshot": "class Solution:\n    def characterReplacement(self, s, k):\n        counts = {}\n        left = best = 0\n        for right, ch in enumerate(s):\n            counts[ch] = counts.get(ch, 0) + 1\n            while right - left + 1 - max(counts.values()) > k:\n                counts[s[left]] -= 1\n                left += 1\n                best = max(best, right - left + 1)\n        return best\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "3",
+          "expectedOutput": "4",
+          "firstFailedCase": {
+            "id": "cr-abab",
+            "label": "ABAB k=2",
+            "input": {"s": "ABAB", "k": 2},
+            "expected": 4,
+            "actual": 3
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["sliding_window_max_frequency"],
+          "skillTags": [],
+          "userIssueSummary": "The best length is updated only inside shrink and the max-frequency invariant is unstable.",
+          "coachSummary": "Track max frequency monotonically and update best after the shrink loop."
+        },
+        "coachReplyMarkdown": "`best` 不该只在收缩时更新；这题要先保证窗口合法，再在每轮右扩后更新答案。`max_freq` 可以作为历史最大值维护，不必每次缩窗后倒算。"
+      }
+    },
+    {
+      "key": "episode.review.valid_palindrome_cleanup_passed",
+      "kind": "review",
+      "problemSlug": "valid-palindrome",
+      "title": "Valid Palindrome review: alphanumeric cleanup with two pointers",
+      "summary": "The learner correctly skipped non-alphanumeric characters and compared lowercase characters from both ends. This is a reliable two-pointers cleanup skill.",
+      "outcome": "passed",
+      "tags": ["two_pointers", "valid_palindrome", "alphanumeric_cleanup"],
+      "salience": 0.86,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-28T10:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I tried to skip punctuation before comparing.",
+        "userQuestion": "Can I trust this two-pointer cleanup pattern?",
+        "codeSnapshot": "class Solution:\n    def isPalindrome(self, s):\n        l, r = 0, len(s) - 1\n        while l < r:\n            while l < r and not s[l].isalnum():\n                l += 1\n            while l < r and not s[r].isalnum():\n                r -= 1\n            if s[l].lower() != s[r].lower():\n                return False\n            l += 1\n            r -= 1\n        return True\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 3,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["two_pointers_alphanumeric_cleanup", "two_pointers_boundary_trace"],
+          "userIssueSummary": "The learner correctly traced both pointer skips before comparison.",
+          "coachSummary": "This boundary-trace skill is reusable for two-pointer string scans."
+        },
+        "coachReplyMarkdown": "这个小步骤是可靠的：先各自跳过非字母数字，再统一 lowercase 比较。你已经能把双指针边界按顺序走清楚。"
+      }
+    },
+    {
+      "key": "episode.review.threesum_duplicate_skip_failed",
+      "kind": "review",
+      "problemSlug": "3sum",
+      "title": "3Sum review: duplicate triplets not skipped",
+      "summary": "The learner sorted the array and used two pointers, but did not skip duplicate anchors or duplicate left/right values, so 3Sum returned repeated triplets.",
+      "outcome": "failed",
+      "tags": ["two_pointers", "3sum", "duplicate_skip"],
+      "salience": 0.91,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-29T09:45:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I can find sums, but duplicates keep appearing.",
+        "userQuestion": "Why does my 3Sum return [-1,-1,2] twice?",
+        "codeSnapshot": "class Solution:\n    def threeSum(self, nums):\n        nums.sort()\n        ans = []\n        for i in range(len(nums)):\n            l, r = i + 1, len(nums) - 1\n            while l < r:\n                total = nums[i] + nums[l] + nums[r]\n                if total == 0:\n                    ans.append([nums[i], nums[l], nums[r]])\n                    l += 1\n                    r -= 1\n                elif total < 0:\n                    l += 1\n                else:\n                    r -= 1\n        return ans\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 0,
+          "failedCount": 1,
+          "actualOutput": "[[-1,-1,2],[-1,0,1],[-1,0,1]]",
+          "expectedOutput": "[[-1,-1,2],[-1,0,1]]",
+          "firstFailedCase": {
+            "id": "3sum-dup",
+            "label": "duplicate triplets",
+            "input": {"nums": [-1, 0, 1, 2, -1, -4]},
+            "expected": [[-1, -1, 2], [-1, 0, 1]],
+            "actual": [[-1, -1, 2], [-1, 0, 1], [-1, 0, 1]]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["two_pointers_duplicate_skip"],
+          "skillTags": [],
+          "userIssueSummary": "Duplicate anchors and pointer values are not skipped after recording a triplet.",
+          "coachSummary": "Skip equal nums[i] anchors and move l/r past repeated values after each hit."
+        },
+        "coachReplyMarkdown": "你的双指针找和没错，重复来自“命中后没有跳过相同值”。下一步只加两处去重：跳过重复 `i`，命中后把 `l/r` 移到下一个不同值。"
+      }
+    },
+    {
+      "key": "episode.review.min_stack_duplicate_min_failed",
+      "kind": "review",
+      "problemSlug": "min-stack",
+      "title": "Min Stack review: duplicate minimum pop loses min state",
+      "summary": "The learner only pushed to min_stack when x was strictly smaller than the current min, so duplicate minimum values were not tracked and pop lost the correct min.",
+      "outcome": "failed",
+      "tags": ["stack", "min_stack", "duplicate_minimum"],
+      "salience": 0.89,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-30T16:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "My MinStack fails when the minimum appears twice.",
+        "userQuestion": "Why does getMin change after popping one duplicate min?",
+        "codeSnapshot": "class MinStack:\n    def __init__(self):\n        self.stack = []\n        self.mins = []\n    def push(self, val):\n        self.stack.append(val)\n        if not self.mins or val < self.mins[-1]:\n            self.mins.append(val)\n    def pop(self):\n        x = self.stack.pop()\n        if x == self.mins[-1]:\n            self.mins.pop()\n    def top(self):\n        return self.stack[-1]\n    def getMin(self):\n        return self.mins[-1]\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "2",
+          "expectedOutput": "1",
+          "firstFailedCase": {
+            "id": "ms-dup-min",
+            "label": "duplicate minimum",
+            "input": {"ops": ["push", "push", "push", "pop", "getMin"], "values": [2, 1, 1, null, null]},
+            "expected": 1,
+            "actual": 2
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["stack_duplicate_minimum"],
+          "skillTags": [],
+          "userIssueSummary": "Equal minimum values are not recorded in the auxiliary stack.",
+          "coachSummary": "Use <= when pushing to min_stack, or store min counts."
+        },
+        "coachReplyMarkdown": "你只在 `val < current_min` 时记录最小值，第二个 1 没进 `mins`。pop 掉一个 1 后，系统以为最小值回到 2。最小改法：push 时用 `<=`。"
+      }
+    },
+    {
+      "key": "episode.chat.rpn_division_truncation_confusion",
+      "kind": "chat_segment",
+      "problemSlug": "evaluate-reverse-polish-notation",
+      "title": "Evaluate RPN chat: integer division truncates toward zero",
+      "summary": "The learner asked whether Python // and C++ / behave the same for negative Reverse Polish Notation division. The unresolved API confusion is that LeetCode expects integer division truncated toward zero.",
+      "outcome": "unresolved",
+      "tags": ["stack", "rpn", "integer_division", "python_cpp"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-01T09:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "Evaluate RPN 里如果是 -3 / 2，Python // 和 C++ / 是不是一样？LeetCode 到底要怎么截断？"
+        ],
+        "assistantMessages": [
+          "这题要向 0 截断：C++ int 除法天然符合；Python 不能直接用 // 处理负数，可以用 int(a / b) 或显式符号处理。"
+        ]
+      }
+    },
+    {
+      "key": "episode.review.validate_bst_parent_only_failed",
+      "kind": "review",
+      "problemSlug": "validate-binary-search-tree",
+      "title": "Validate BST review: compared only with direct parent",
+      "summary": "The learner checked each node only against its direct parent, so a deep right-subtree value that violated the root bound was accepted.",
+      "outcome": "failed",
+      "tags": ["tree", "bst", "bounds"],
+      "salience": 0.86,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-01T12:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "My recursion compares child with parent, but one tree slips through.",
+        "userQuestion": "Why does [5,1,4,null,null,3,6] pass?",
+        "codeSnapshot": "class Solution:\n    def isValidBST(self, root):\n        def dfs(node):\n            if not node:\n                return True\n            if node.left and node.left.val >= node.val:\n                return False\n            if node.right and node.right.val <= node.val:\n                return False\n            return dfs(node.left) and dfs(node.right)\n        return dfs(root)\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "true",
+          "expectedOutput": "false",
+          "firstFailedCase": {
+            "id": "bst-global-bound",
+            "label": "right subtree violates root bound",
+            "input": {"tree": [5, 1, 4, null, null, 3, 6]},
+            "expected": false,
+            "actual": true
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["tree_bst_bounds"],
+          "skillTags": [],
+          "userIssueSummary": "The check does not carry ancestor lower/upper bounds.",
+          "coachSummary": "Pass a low/high range through DFS instead of comparing only parent-child."
+        },
+        "coachReplyMarkdown": "BST 的限制来自所有祖先，不只是父节点。`3` 在 `5` 的右子树里，虽然小于父节点 4，却违反了根节点的下界。下一步给 DFS 带 `low/high`。"
+      }
+    },
+    {
+      "key": "episode.review.course_schedule_indegree_passed",
+      "kind": "review",
+      "problemSlug": "course-schedule",
+      "title": "Course Schedule review: indegree queue skill",
+      "summary": "The learner correctly modeled prerequisites with indegree counts and a queue of zero-indegree courses. This is a reusable graph topological-sort skill.",
+      "outcome": "passed",
+      "tags": ["graph", "topological_sort", "indegree"],
+      "salience": 0.92,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-02T10:15:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I used indegree and a queue.",
+        "userQuestion": "Is this topological sort pattern reusable?",
+        "codeSnapshot": "class Solution:\n    def canFinish(self, numCourses, prerequisites):\n        graph = [[] for _ in range(numCourses)]\n        indeg = [0] * numCourses\n        for a, b in prerequisites:\n            graph[b].append(a)\n            indeg[a] += 1\n        q = deque(i for i, d in enumerate(indeg) if d == 0)\n        seen = 0\n        while q:\n            cur = q.popleft()\n            seen += 1\n            for nxt in graph[cur]:\n                indeg[nxt] -= 1\n                if indeg[nxt] == 0:\n                    q.append(nxt)\n        return seen == numCourses\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 3,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["graph_topological_indegree"],
+          "userIssueSummary": "The learner used a correct indegree queue invariant.",
+          "coachSummary": "This pattern transfers to graph prerequisite scheduling tasks."
+        },
+        "coachReplyMarkdown": "这个拓扑排序模式可以复用：`indegree == 0` 的课先进队，弹出后再减少邻居入度。关键是不把 DFS visited 和入度队列混成一个状态。"
+      }
+    },
+    {
+      "key": "episode.review.rotting_oranges_level_time_failed",
+      "kind": "review",
+      "problemSlug": "rotting-oranges",
+      "title": "Rotting Oranges review: minutes increment per cell instead of per layer",
+      "summary": "The learner incremented minutes for every rotten orange popped from the queue, so the BFS time counted cells rather than layers.",
+      "outcome": "failed",
+      "tags": ["graph", "bfs", "rotting_oranges", "level_time"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-02T14:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "My BFS rots all oranges but the minutes are too large.",
+        "userQuestion": "Why does Rotting Oranges count 6 minutes instead of 4?",
+        "codeSnapshot": "class Solution:\n    def orangesRotting(self, grid):\n        q = deque()\n        fresh = 0\n        for r,row in enumerate(grid):\n            for c,v in enumerate(row):\n                if v == 2: q.append((r,c))\n                if v == 1: fresh += 1\n        minutes = 0\n        while q:\n            r,c = q.popleft()\n            minutes += 1\n            for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:\n                nr,nc = r+dr,c+dc\n                if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]) and grid[nr][nc] == 1:\n                    grid[nr][nc] = 2\n                    fresh -= 1\n                    q.append((nr,nc))\n        return minutes if fresh == 0 else -1\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 0,
+          "failedCount": 1,
+          "actualOutput": "7",
+          "expectedOutput": "4",
+          "firstFailedCase": {
+            "id": "orange-basic",
+            "label": "minutes per layer",
+            "input": {"grid": [[2,1,1],[1,1,0],[0,1,1]]},
+            "expected": 4,
+            "actual": 7
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["graph_bfs_level_time"],
+          "skillTags": [],
+          "userIssueSummary": "The BFS increments time per popped cell instead of per level.",
+          "coachSummary": "Process one queue layer per minute and increment after the layer spreads."
+        },
+        "coachReplyMarkdown": "BFS 的分钟数是一层一层扩散，不是每弹出一个橘子加 1。下一步固定当前队列长度，处理完这一层后再 `minutes += 1`。"
+      }
+    },
+    {
+      "key": "episode.review.house_robber_state_order_failed",
+      "kind": "review",
+      "problemSlug": "house-robber",
+      "title": "House Robber review: rolling state overwritten before using previous best",
+      "summary": "The learner updated prev1 before computing the new House Robber state, so the recurrence reused the current-house value as if it were the previous best.",
+      "outcome": "failed",
+      "tags": ["dynamic_programming", "house_robber", "rolling_state"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-03T09:30:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I tried rolling variables but the result is too high.",
+        "userQuestion": "House Robber: why does [2,7,9,3,1] give an impossible total?",
+        "codeSnapshot": "class Solution:\n    def rob(self, nums):\n        prev2 = prev1 = 0\n        for x in nums:\n            prev1 = max(prev1, prev2 + x)\n            prev2 = prev1\n        return prev1\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 0,
+          "failedCount": 1,
+          "actualOutput": "22",
+          "expectedOutput": "12",
+          "firstFailedCase": {
+            "id": "hr-basic",
+            "label": "rolling overwrite",
+            "input": {"nums": [2, 7, 9, 3, 1]},
+            "expected": 12,
+            "actual": 22
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["dynamic_programming_rolling_state"],
+          "skillTags": [],
+          "userIssueSummary": "prev2 is overwritten with the newly computed prev1 instead of the old prev1.",
+          "coachSummary": "Compute new_best first, then shift prev2 = old prev1 and prev1 = new_best."
+        },
+        "coachReplyMarkdown": "滚动 DP 要先保存“旧状态”。你先改了 `prev1`，再让 `prev2 = prev1`，两个变量就变成同一个新值。下一步用临时变量 `new_best` 再整体平移。"
+      }
+    },
+    {
+      "key": "episode.review.word_break_prefix_reachability_failed",
+      "kind": "review",
+      "problemSlug": "word-break",
+      "title": "Word Break review: ignores prefix reachability",
+      "summary": "The learner marked dp[i] true whenever s[j:i] was in the dictionary, without checking that dp[j] was reachable, so unreachable suffix matches leaked into the answer.",
+      "outcome": "failed",
+      "tags": ["dynamic_programming", "word_break", "prefix_reachability"],
+      "salience": 0.88,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-03T14:30:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I check every dictionary word ending at i, but a false case passes.",
+        "userQuestion": "Why does catsandog become true?",
+        "codeSnapshot": "class Solution:\n    def wordBreak(self, s, wordDict):\n        words = set(wordDict)\n        dp = [False] * (len(s) + 1)\n        dp[0] = True\n        for i in range(1, len(s) + 1):\n            for j in range(i):\n                if s[j:i] in words:\n                    dp[i] = True\n        return dp[-1]\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "true",
+          "expectedOutput": "false",
+          "firstFailedCase": {
+            "id": "wb-unreachable",
+            "label": "unreachable suffix",
+            "input": {"s": "catsandog", "wordDict": ["cats", "dog", "sand", "and", "cat"]},
+            "expected": false,
+            "actual": true
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["dynamic_programming_prefix_reachability"],
+          "skillTags": [],
+          "userIssueSummary": "The transition ignores whether the prefix before j is reachable.",
+          "coachSummary": "Require dp[j] and s[j:i] in words before setting dp[i]."
+        },
+        "coachReplyMarkdown": "`s[j:i]` 是词还不够，前半段 `s[:j]` 也必须已经能拆。下一步把条件改成 `if dp[j] and s[j:i] in words`。"
+      }
+    },
+    {
+      "key": "episode.chat.low_confidence_dp_greedy_aside",
+      "kind": "chat_segment",
+      "problemSlug": "word-break",
+      "title": "Low-confidence DP aside: wondered whether DP can be greedy",
+      "summary": "The learner casually asked once whether dynamic programming problems can usually be solved greedily, without submitting code or repeating the behavior. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "tags": ["dynamic_programming", "low_confidence", "greedy_aside"],
+      "salience": 0.4,
+      "expectedRetrievable": false,
+      "scriptedAt": "2026-07-04T09:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "我只是随口问一下，DP 题是不是很多都能先贪心试试？我还没写代码。"
+        ],
+        "assistantMessages": [
+          "可以先把这个当成问题，不要马上当成你的固定弱点；等有代码证据再判断。"
+        ]
+      }
+    },
+    {
+      "key": "episode.chat.low_confidence_two_pointers_sorted_only",
+      "kind": "chat_segment",
+      "problemSlug": "3sum",
+      "title": "Low-confidence two-pointers aside: wondered if pointers require sorted arrays",
+      "summary": "The learner casually asked once whether two pointers only works on sorted arrays, but there was no repeated mistake or code evidence. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "tags": ["two_pointers", "low_confidence", "sorted_only"],
+      "salience": 0.4,
+      "expectedRetrievable": false,
+      "scriptedAt": "2026-07-04T09:20:00.000Z",
+      "chat": {
+        "userMessages": [
+          "双指针是不是只能用于有序数组？我只是有点不确定，还没开始写。"
+        ],
+        "assistantMessages": [
+          "先记成一个待澄清问题，不把它当成稳定错误；看具体题的 invariant。"
+        ]
+      }
+    },
+    {
+      "key": "episode.chat.low_confidence_graph_recursion_depth",
+      "kind": "chat_segment",
+      "problemSlug": "rotting-oranges",
+      "title": "Low-confidence graph aside: recursion depth fear",
+      "summary": "The learner casually said deep recursion feels scary in graph problems, but there was no code evidence of recursion-depth failure. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "tags": ["graph", "low_confidence", "recursion_depth"],
+      "salience": 0.4,
+      "expectedRetrievable": false,
+      "scriptedAt": "2026-07-04T09:40:00.000Z",
+      "chat": {
+        "userMessages": [
+          "图题一递归深我就有点怕，但这次还没写，不知道是不是问题。"
+        ],
+        "assistantMessages": [
+          "这个先不升级成弱点；等有具体 DFS/BFS 代码证据再判断。"
+        ]
+      }
+    },
+    {
+      "key": "episode.chat.low_confidence_sliding_fixed_size",
+      "kind": "chat_segment",
+      "problemSlug": "permutation-in-string",
+      "title": "Low-confidence sliding-window aside: wondered if windows are always fixed size",
+      "summary": "The learner casually wondered once whether sliding-window problems are always fixed size, without repeated examples or code evidence. This is intentionally thin evidence.",
+      "outcome": "unresolved",
+      "tags": ["sliding_window", "low_confidence", "fixed_size"],
+      "salience": 0.4,
+      "expectedRetrievable": false,
+      "scriptedAt": "2026-07-04T10:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "滑窗是不是都固定长度？我就是随口问问，不确定要不要这么记。"
+        ],
+        "assistantMessages": [
+          "先当成概念问题，不当成当前 blocker；有 fixed/variable window 代码证据后再沉淀。"
+        ]
+      }
+    },
+    {
+      "key": "episode.chat.preference_micro_step_first",
+      "kind": "chat_segment",
+      "problemSlug": "contains-duplicate",
+      "title": "Preference note: one runnable micro-step before theory",
+      "summary": "The learner explicitly asked the coach to give one runnable micro-step before theory and to avoid pasting a full solution on the first reply.",
+      "outcome": "resolved",
+      "tags": ["preference", "micro_step", "no_full_solution"],
+      "salience": 0.7,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-07-04T11:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "记住：以后先给我一个能马上跑的小步骤，再讲理论；第一轮别直接贴完整解。"
+        ],
+        "assistantMessages": [
+          "记住了：先给 one runnable micro-step，再补理论；首轮不直接贴完整解。"
+        ],
+        "memoryNote": {
+          "tag": "output_style_micro_step",
+          "value": "Give one runnable micro-step before theory; no full solution on the first reply."
+        }
+      }
+    },
+    {
+      "key": "episode.chat.contains_duplicate_sorting_assumption",
+      "kind": "chat_segment",
+      "problemSlug": "contains-duplicate",
+      "title": "Contradicted hash-table aside: thought only sorting works for duplicates",
+      "summary": "Before the set repair, the learner casually thought duplicate detection had to use sorting because hash set membership felt unreliable. Later visible evidence contradicted this.",
+      "outcome": "unresolved",
+      "tags": ["hash_table", "contains_duplicate", "sorting_assumption"],
+      "salience": 0.52,
+      "expectedRetrievable": false,
+      "scriptedAt": "2026-06-20T13:30:00.000Z",
+      "chat": {
+        "userMessages": [
+          "Contains Duplicate 我是不是只能 sort？set 感觉很容易误判。"
+        ],
+        "assistantMessages": [
+          "可以先保留这个疑问，等你试一次 set membership 的顺序再判断。"
+        ]
+      }
+    }
+  ],
+  "facts": [
+    {
+      "key": "fact.hash.contains_duplicate_membership_order",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Checks hash-set membership after adding the current value",
+      "tag": "hash_table_membership_order",
+      "confidence": 0.5,
+      "evidenceSummary": "Contains Duplicate returned true on a unique list because x was added before checking x in seen.",
+      "relatedProblemSlugs": ["contains-duplicate"],
+      "sourceEpisodeKey": "episode.review.contains_duplicate_add_before_check_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.contains_duplicate_add_before_check_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Added x to seen before checking membership, causing every first occurrence to look duplicated."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.hash_sequence_start_points",
+      "factType": "skill",
+      "status": "current",
+      "label": "Uses hash-set sequence start points to avoid repeated scans",
+      "tag": "hash_table_sequence_start_points",
+      "confidence": 0.5,
+      "evidenceSummary": "Longest Consecutive counted only from values with x-1 absent.",
+      "relatedProblemSlugs": ["longest-consecutive-sequence", "contains-duplicate"],
+      "sourceEpisodeKey": "episode.review.longest_consecutive_start_points_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.longest_consecutive_start_points_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Used a set and started sequences only where x - 1 was absent."
+        }
+      ]
+    },
+    {
+      "key": "fact.prefix.product_except_self_include_self",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Includes nums[i] in Product Except Self prefix/suffix products",
+      "tag": "prefix_suffix_include_self",
+      "confidence": 0.5,
+      "evidenceSummary": "Product Except Self multiplied nums[i] into the running product before writing ans[i].",
+      "relatedProblemSlugs": ["product-of-array-except-self"],
+      "sourceEpisodeKey": "episode.review.product_except_self_include_self_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.product_except_self_include_self_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Updated prefix/suffix before writing answer, so the current element was included."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.find_min_discards_mid",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Discards mid when mid could still be the minimum",
+      "tag": "binary_search_discards_mid",
+      "confidence": 0.5,
+      "evidenceSummary": "Find Minimum used r = mid - 1 in the sorted-right branch and skipped the minimum candidate.",
+      "relatedProblemSlugs": ["find-minimum-in-rotated-sorted-array", "koko-eating-bananas"],
+      "sourceEpisodeKey": "episode.review.find_min_discards_mid_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.find_min_discards_mid_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Used r = mid - 1 even though nums[mid] could be the minimum."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.koko_answer_bounds",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Starts binary-search answer space from an invalid lower bound",
+      "tag": "binary_search_answer_bounds",
+      "confidence": 0.5,
+      "evidenceSummary": "Koko binary search allowed speed 0 and triggered division by zero.",
+      "relatedProblemSlugs": ["koko-eating-bananas", "find-minimum-in-rotated-sorted-array"],
+      "sourceEpisodeKey": "episode.review.koko_answer_bounds_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.koko_answer_bounds_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Set lo = 0 for a positive answer-space binary search and hit division by zero."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.permutation_count_balance",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Does not decrement outgoing character in fixed-size sliding-window counts",
+      "tag": "sliding_window_count_balance",
+      "confidence": 0.5,
+      "evidenceSummary": "Permutation in String added incoming chars but did not remove outgoing chars.",
+      "relatedProblemSlugs": ["permutation-in-string", "longest-repeating-character-replacement"],
+      "sourceEpisodeKey": "episode.review.permutation_in_string_count_balance_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.permutation_in_string_count_balance_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Window counts drifted because the outgoing character was never decremented."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.character_replacement_max_frequency",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Updates sliding-window best length at the wrong point around max frequency",
+      "tag": "sliding_window_max_frequency",
+      "confidence": 0.5,
+      "evidenceSummary": "Character Replacement updated best only inside shrink and made max-frequency reasoning unstable.",
+      "relatedProblemSlugs": ["longest-repeating-character-replacement", "permutation-in-string"],
+      "sourceEpisodeKey": "episode.review.character_replacement_maxfreq_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.character_replacement_maxfreq_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Updated best inside the shrink loop and treated max frequency as an exact recomputed state."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.two_pointers_alphanumeric_cleanup",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can skip non-alphanumeric characters before two-pointer comparison",
+      "tag": "two_pointers_alphanumeric_cleanup",
+      "confidence": 0.5,
+      "evidenceSummary": "Valid Palindrome visible cases passed with punctuation skipping and lowercase comparison.",
+      "relatedProblemSlugs": ["valid-palindrome", "3sum"],
+      "sourceEpisodeKey": "episode.review.valid_palindrome_cleanup_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.valid_palindrome_cleanup_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Skipped non-alphanumeric characters on both sides before comparing lowercase characters."
+        }
+      ]
+    },
+    {
+      "key": "fact.two_pointers.threesum_duplicate_skip",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Does not skip duplicate anchors and pointer values in 3Sum",
+      "tag": "two_pointers_duplicate_skip",
+      "confidence": 0.5,
+      "evidenceSummary": "3Sum returned duplicate triplets because duplicate values were not skipped.",
+      "relatedProblemSlugs": ["3sum", "valid-palindrome"],
+      "sourceEpisodeKey": "episode.review.threesum_duplicate_skip_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.threesum_duplicate_skip_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned repeated triplets after finding a zero sum because duplicates were not skipped."
+        }
+      ]
+    },
+    {
+      "key": "fact.stack.min_stack_duplicate_minimum",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Loses duplicate minimum values in Min Stack",
+      "tag": "stack_duplicate_minimum",
+      "confidence": 0.5,
+      "evidenceSummary": "Min Stack used strict less-than for min_stack push and lost the second copy of the minimum.",
+      "relatedProblemSlugs": ["min-stack", "evaluate-reverse-polish-notation"],
+      "sourceEpisodeKey": "episode.review.min_stack_duplicate_min_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.min_stack_duplicate_min_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Used val < current_min instead of val <= current_min, so duplicate minima were not tracked."
+        }
+      ]
+    },
+    {
+      "key": "fact.stack.rpn_division_truncation_confusion",
+      "factType": "unresolved_confusion",
+      "status": "current",
+      "label": "Unsure how Python and C++ integer division should truncate in Evaluate RPN",
+      "tag": "stack_division_truncation",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner asked whether Python // and C++ / both match LeetCode's RPN truncation rule.",
+      "relatedProblemSlugs": ["evaluate-reverse-polish-notation", "min-stack"],
+      "sourceEpisodeKey": "episode.chat.rpn_division_truncation_confusion",
+      "source": "chat_consolidation",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.rpn_division_truncation_confusion",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked whether negative integer division in Python and C++ truncates the way Evaluate RPN expects."
+        }
+      ]
+    },
+    {
+      "key": "fact.tree.validate_bst_bounds_parent_only",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Validates BST nodes only against their direct parent",
+      "tag": "tree_bst_bounds",
+      "confidence": 0.5,
+      "evidenceSummary": "Validate BST accepted a right-subtree node below the root because ancestor bounds were not carried.",
+      "relatedProblemSlugs": ["validate-binary-search-tree"],
+      "sourceEpisodeKey": "episode.review.validate_bst_parent_only_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.validate_bst_parent_only_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Compared each node only to direct children and missed an ancestor-bound violation."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.graph_topological_indegree",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can use indegree queue for Course Schedule topological sort",
+      "tag": "graph_topological_indegree",
+      "confidence": 0.5,
+      "evidenceSummary": "Course Schedule passed visible cases with indegree counts and zero-indegree queue.",
+      "relatedProblemSlugs": ["course-schedule", "rotting-oranges"],
+      "sourceEpisodeKey": "episode.review.course_schedule_indegree_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.course_schedule_indegree_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Modeled prerequisites with indegree and processed zero-indegree courses in a queue."
+        }
+      ]
+    },
+    {
+      "key": "fact.graph.rotting_oranges_level_time",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Increments BFS time per cell rather than per layer",
+      "tag": "graph_bfs_level_time",
+      "confidence": 0.5,
+      "evidenceSummary": "Rotting Oranges counted minutes for every queue pop, producing too-large time.",
+      "relatedProblemSlugs": ["rotting-oranges", "course-schedule"],
+      "sourceEpisodeKey": "episode.review.rotting_oranges_level_time_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.rotting_oranges_level_time_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Incremented minutes for every popped orange instead of once per BFS layer."
+        }
+      ]
+    },
+    {
+      "key": "fact.dynamic_programming.house_robber_state_order",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Overwrites rolling DP state before using the old previous best",
+      "tag": "dynamic_programming_rolling_state",
+      "confidence": 0.5,
+      "evidenceSummary": "House Robber set prev2 = prev1 after prev1 had already been updated.",
+      "relatedProblemSlugs": ["house-robber", "word-break"],
+      "sourceEpisodeKey": "episode.review.house_robber_state_order_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.house_robber_state_order_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Overwrote prev1 before shifting prev2, causing both rolling variables to hold the new value."
+        }
+      ]
+    },
+    {
+      "key": "fact.dynamic_programming.word_break_prefix_reachability",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Sets Word Break dp[i] without requiring the prefix dp[j] to be reachable",
+      "tag": "dynamic_programming_prefix_reachability",
+      "confidence": 0.5,
+      "evidenceSummary": "Word Break marked suffix dictionary hits true without checking dp[j].",
+      "relatedProblemSlugs": ["word-break", "house-robber"],
+      "sourceEpisodeKey": "episode.review.word_break_prefix_reachability_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.word_break_prefix_reachability_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Set dp[i] from s[j:i] in words without requiring dp[j]."
+        }
+      ]
+    },
+    {
+      "key": "fact.dynamic_programming.low_confidence_greedy_guess",
+      "factType": "weakness",
+      "status": "low_confidence",
+      "label": "May overgeneralize DP problems into greedy guesses",
+      "tag": "dynamic_programming_greedy_guess",
+      "confidence": 0.38,
+      "evidenceSummary": "The learner casually asked once whether DP can usually be solved greedily, with no repeated code evidence.",
+      "relatedProblemSlugs": ["house-robber", "word-break"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "Thin single chat aside only; keep below retrieval floor and do not treat as a current blocker.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Casually wondered whether DP problems can usually be solved greedily."
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_dp_greedy_aside",
+          "evidenceKind": "weaken",
+          "observedBehavior": "No code attempt or repeated evidence supports making greedy-over-DP a current weakness."
+        }
+      ]
+    },
+    {
+      "key": "fact.two_pointers.low_confidence_sorted_only",
+      "factType": "weakness",
+      "status": "low_confidence",
+      "label": "May think two pointers only applies to sorted arrays",
+      "tag": "two_pointers_sorted_only",
+      "confidence": 0.38,
+      "evidenceSummary": "The learner casually asked once whether two pointers only works on sorted arrays.",
+      "relatedProblemSlugs": ["3sum", "valid-palindrome"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "Thin single chat aside only; no repeated code evidence.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Casually asked if two pointers only works on sorted arrays."
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_two_pointers_sorted_only",
+          "evidenceKind": "weaken",
+          "observedBehavior": "No attempted solution or recurring behavior proves this as a current blocker."
+        }
+      ]
+    },
+    {
+      "key": "fact.graph.low_confidence_recursion_depth_fear",
+      "factType": "weakness",
+      "status": "low_confidence",
+      "label": "May avoid graph recursion because deep calls feel scary",
+      "tag": "graph_recursion_depth_fear",
+      "confidence": 0.38,
+      "evidenceSummary": "The learner casually said graph recursion depth feels scary, without code evidence.",
+      "relatedProblemSlugs": ["rotting-oranges", "course-schedule"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "Thin single chat aside only; no recursion-depth failure was observed.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Casually said deep recursion in graph problems feels scary."
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_graph_recursion_depth",
+          "evidenceKind": "weaken",
+          "observedBehavior": "No graph recursion code failed due to depth, so evidence remains below current-blocker level."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.low_confidence_fixed_size_only",
+      "factType": "weakness",
+      "status": "low_confidence",
+      "label": "May think all sliding windows have fixed length",
+      "tag": "sliding_window_fixed_size_only",
+      "confidence": 0.38,
+      "evidenceSummary": "The learner casually asked once whether sliding-window problems are always fixed size.",
+      "relatedProblemSlugs": ["permutation-in-string", "longest-repeating-character-replacement"],
+      "sourceEpisodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "Thin single chat aside only; no repeated window-design evidence.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Casually wondered whether sliding windows are always fixed length."
+        },
+        {
+          "episodeKey": "episode.chat.low_confidence_sliding_fixed_size",
+          "evidenceKind": "weaken",
+          "observedBehavior": "No code evidence supports treating fixed-size overgeneralization as a current blocker."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.return_mid_after_loop_resolved",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Returned stale mid after binary-search convergence",
+      "tag": "binary_search_return_mid_after_loop",
+      "confidence": 0.5,
+      "evidenceSummary": "Find Minimum once returned nums[mid] after the loop, then later repaired it by returning nums[left].",
+      "relatedProblemSlugs": ["find-minimum-in-rotated-sorted-array"],
+      "sourceEpisodeKey": "episode.review.find_min_return_mid_after_loop_failed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later passed visible cases after returning nums[left]; should not be current blocker.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.find_min_return_mid_after_loop_failed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Returned nums[mid] after convergence even though mid was stale."
+        },
+        {
+          "episodeKey": "episode.review.find_min_return_left_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Changed final return to nums[left] and passed rotated visible cases."
+        },
+        {
+          "episodeKey": "episode.review.find_min_return_left_repair_passed",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Repeated strong passed evidence marks the return-mid blocker resolved."
+        }
+      ]
+    },
+    {
+      "key": "fact.hash.only_sorting_for_duplicates_contradicted",
+      "factType": "weakness",
+      "status": "superseded",
+      "label": "Believed duplicate detection had to be solved by sorting",
+      "tag": "hash_table_only_sorting",
+      "confidence": 0.25,
+      "evidenceSummary": "The learner once said Contains Duplicate might require sorting, but later used a set successfully.",
+      "relatedProblemSlugs": ["contains-duplicate"],
+      "sourceEpisodeKey": "episode.chat.contains_duplicate_sorting_assumption",
+      "source": "chat_consolidation",
+      "expectedRetrievable": false,
+      "staleReason": "Later set-based visible evidence contradicted the sorting-only assumption.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.contains_duplicate_sorting_assumption",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Casually claimed sorting might be the only reliable duplicate-detection approach."
+        },
+        {
+          "episodeKey": "episode.review.contains_duplicate_set_repair_passed",
+          "evidenceKind": "contradict",
+          "observedBehavior": "Later used a set membership approach successfully.",
+          "value": "Set membership repair contradicted the sorting-only assumption.",
+          "source": "review_diagnosis"
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.micro_step_first",
+      "factType": "preference",
+      "status": "current",
+      "label": "Give one runnable micro-step before theory",
+      "tag": "output_style_micro_step",
+      "confidence": 0.9,
+      "evidenceSummary": "The learner explicitly asked for one runnable micro-step before theory and no first-turn full solution.",
+      "relatedProblemSlugs": ["contains-duplicate"],
+      "sourceEpisodeKey": "episode.chat.preference_micro_step_first",
+      "source": "user_explicit",
+      "expectedRetrievable": false,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preference_micro_step_first",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "Explicitly asked to receive one runnable micro-step before theory.",
+          "value": "Give one runnable micro-step before theory; no full solution on the first reply.",
+          "source": "user_explicit"
+        }
+      ]
+    },
+    {
+      "key": "fact.strength.two_pointers_boundary_trace",
+      "factType": "strength",
+      "status": "current",
+      "label": "Can trace two-pointer boundary skips in small string examples",
+      "tag": "two_pointers_boundary_trace",
+      "confidence": 0.5,
+      "evidenceSummary": "Valid Palindrome passed after correctly skipping punctuation on both sides before comparison.",
+      "relatedProblemSlugs": ["valid-palindrome", "3sum"],
+      "sourceEpisodeKey": "episode.review.valid_palindrome_cleanup_passed",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.valid_palindrome_cleanup_passed",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Traced left/right cleanup steps correctly before comparing characters."
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "currentFactKeys": [
+      "fact.hash.contains_duplicate_membership_order",
+      "fact.skill.hash_sequence_start_points",
+      "fact.prefix.product_except_self_include_self",
+      "fact.binary_search.find_min_discards_mid",
+      "fact.binary_search.koko_answer_bounds",
+      "fact.sliding_window.permutation_count_balance",
+      "fact.sliding_window.character_replacement_max_frequency",
+      "fact.skill.two_pointers_alphanumeric_cleanup",
+      "fact.two_pointers.threesum_duplicate_skip",
+      "fact.stack.min_stack_duplicate_minimum",
+      "fact.stack.rpn_division_truncation_confusion",
+      "fact.tree.validate_bst_bounds_parent_only",
+      "fact.skill.graph_topological_indegree",
+      "fact.graph.rotting_oranges_level_time",
+      "fact.dynamic_programming.house_robber_state_order",
+      "fact.dynamic_programming.word_break_prefix_reachability",
+      "fact.preference.micro_step_first",
+      "fact.strength.two_pointers_boundary_trace"
+    ],
+    "staleFactKeys": [
+      "fact.dynamic_programming.low_confidence_greedy_guess",
+      "fact.two_pointers.low_confidence_sorted_only",
+      "fact.graph.low_confidence_recursion_depth_fear",
+      "fact.sliding_window.low_confidence_fixed_size_only",
+      "fact.binary_search.return_mid_after_loop_resolved",
+      "fact.hash.only_sorting_for_duplicates_contradicted"
+    ],
+    "episodeKeys": [
+      "episode.review.contains_duplicate_add_before_check_failed",
+      "episode.review.contains_duplicate_set_repair_passed",
+      "episode.review.longest_consecutive_start_points_passed",
+      "episode.review.product_except_self_include_self_failed",
+      "episode.review.find_min_return_mid_after_loop_failed",
+      "episode.review.find_min_return_left_repair_passed",
+      "episode.review.find_min_discards_mid_failed",
+      "episode.review.koko_answer_bounds_failed",
+      "episode.review.permutation_in_string_count_balance_failed",
+      "episode.review.character_replacement_maxfreq_failed",
+      "episode.review.valid_palindrome_cleanup_passed",
+      "episode.review.threesum_duplicate_skip_failed",
+      "episode.review.min_stack_duplicate_min_failed",
+      "episode.chat.rpn_division_truncation_confusion",
+      "episode.review.validate_bst_parent_only_failed",
+      "episode.review.course_schedule_indegree_passed",
+      "episode.review.rotting_oranges_level_time_failed",
+      "episode.review.house_robber_state_order_failed",
+      "episode.review.word_break_prefix_reachability_failed",
+      "episode.chat.low_confidence_dp_greedy_aside",
+      "episode.chat.low_confidence_two_pointers_sorted_only",
+      "episode.chat.low_confidence_graph_recursion_depth",
+      "episode.chat.low_confidence_sliding_fixed_size",
+      "episode.chat.preference_micro_step_first",
+      "episode.chat.contains_duplicate_sorting_assumption"
+    ]
+  },
+  "notes": [
+    "Agent-drafted held-out set; humanReviewStatus stays pending until manual audit.",
+    "All practiced problem slugs are distinct from memory retrieval v1.1's practiced problem list.",
+    "Low-confidence facts are active DB rows after reinforce+weaken arbitration and settle at confidence 0.38, below the default 0.45 retrieval floor.",
+    "The low-confidence tags deliberately use algorithm prefixes that match current problem tags so disabling the floor can surface them.",
+    "Preference memory is evaluated through learnerProfile output preference markers, not as expected L2 fact retrieval."
+  ],
+  "limitations": [
+    "This is a synthetic closed-book held-out draft and should not be treated as approved gate ground truth until human review.",
+    "Episode retrieval remains lexical FTS-only in the eval runner unless embeddings are configured elsewhere; queries include explicit English anchors for target episodes.",
+    "No real LLM calls are used by the seed step; all memory writes are fixture-only arbitration paths."
+  ]
+}

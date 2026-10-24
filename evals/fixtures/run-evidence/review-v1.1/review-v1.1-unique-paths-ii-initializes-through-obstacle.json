@@ -1,0 +1,104 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-unique-paths-ii-initializes-through-obstacle",
+    "problem": {
+      "leetcodeId": 63,
+      "slug": "unique-paths-ii",
+      "title": "Unique Paths II",
+      "methodName": "uniquePathsWithObstacles",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Matrix"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The first row and column are initialized to one even after an obstacle blocks all paths past that point.",
+    "bugPattern": "dp_transition_error",
+    "userCode": "class Solution:\n    def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:\n        m, n = len(obstacleGrid), len(obstacleGrid[0])\n        dp = [[0] * n for _ in range(m)]\n        for row in range(m):\n            dp[row][0] = 1\n        for col in range(n):\n            dp[0][col] = 1\n\n        for row in range(1, m):\n            for col in range(1, n):\n                if obstacleGrid[row][col] == 1:\n                    dp[row][col] = 0\n                else:\n                    dp[row][col] = dp[row - 1][col] + dp[row][col - 1]\n        return dp[-1][-1]\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Show that dp[0][1] is set to 1 despite an obstacle.",
+      "Suggest initializing first row/column with obstacle-aware carry."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "2",
+    "expectedOutput": "1",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "first row obstacle should block paths to its right",
+      "input": {
+        "obstacleGrid": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "expected": 1,
+      "actual": 2
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "first row obstacle should block paths to its right",
+        "input": {
+          "obstacleGrid": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": 1,
+        "actual": 2,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-unique-paths-ii-initializes-through-obstacle",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

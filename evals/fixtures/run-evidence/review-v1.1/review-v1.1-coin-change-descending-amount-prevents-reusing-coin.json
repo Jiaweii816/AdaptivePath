@@ -1,0 +1,96 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-coin-change-descending-amount-prevents-reusing-coin",
+    "problem": {
+      "leetcodeId": 322,
+      "slug": "coin-change",
+      "title": "Coin Change",
+      "methodName": "coinChange",
+      "tags": [
+        "Array",
+        "Dynamic Programming",
+        "Breadth-First Search"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The DP table is recognizable, but iterating amounts downward turns the unbounded coin problem into a 0/1-style update.",
+    "bugPattern": "dp_transition_error",
+    "userCode": "class Solution:\n    def coinChange(self, coins: list[int], amount: int) -> int:\n        dp = [float(\"inf\")] * (amount + 1)\n        dp[0] = 0\n        for coin in coins:\n            for total in range(amount, coin - 1, -1):\n                dp[total] = min(dp[total], dp[total - coin] + 1)\n        return -1 if dp[amount] == float(\"inf\") else dp[amount]\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Explain why descending total prevents using coin 5 twice or coin 1 repeatedly.",
+      "Suggest iterating total from coin up to amount for unbounded coin change."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "-1",
+    "expectedOutput": "3",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "unbounded coins need reuse within the same coin iteration",
+      "input": {
+        "coins": [
+          1,
+          2,
+          5
+        ],
+        "amount": 11
+      },
+      "expected": 3,
+      "actual": -1
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "unbounded coins need reuse within the same coin iteration",
+        "input": {
+          "coins": [
+            1,
+            2,
+            5
+          ],
+          "amount": 11
+        },
+        "expected": 3,
+        "actual": -1,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-coin-change-descending-amount-prevents-reusing-coin",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

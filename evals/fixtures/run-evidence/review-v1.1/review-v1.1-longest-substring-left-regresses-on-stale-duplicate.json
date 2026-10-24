@@ -1,0 +1,86 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-longest-substring-left-regresses-on-stale-duplicate",
+    "problem": {
+      "leetcodeId": 3,
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters",
+      "methodName": "lengthOfLongestSubstring",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The last_seen dictionary is right, but left can move backward when the duplicate is outside the active window.",
+    "bugPattern": "sliding_window_boundary_error",
+    "userCode": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last_seen = {}\n        left = 0\n        best = 0\n        for right, ch in enumerate(s):\n            if ch in last_seen:\n                left = last_seen[ch] + 1\n            last_seen[ch] = right\n            best = max(best, right - left + 1)\n        return best\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Walk through the old t at index 0 pulling left backward after the current window has moved on.",
+      "Suggest left = max(left, last_seen[ch] + 1)."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "6",
+    "expectedOutput": "5",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "old duplicate should not move left backward",
+      "input": {
+        "s": "tmmzuxt"
+      },
+      "expected": 5,
+      "actual": 6
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "old duplicate should not move left backward",
+        "input": {
+          "s": "tmmzuxt"
+        },
+        "expected": 5,
+        "actual": 6,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-longest-substring-left-regresses-on-stale-duplicate",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

@@ -1,0 +1,2 @@
+ALTER TABLE "ChatSession" ADD COLUMN "clearedBeforeSequence" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "ChatSession" ADD COLUMN "clearedAt" DATETIME;

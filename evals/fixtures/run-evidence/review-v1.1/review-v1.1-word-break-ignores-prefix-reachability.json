@@ -1,0 +1,101 @@
+{
+  "fixtureVersion": "review-v1.1",
+  "case": {
+    "id": "review-v1.1-word-break-ignores-prefix-reachability",
+    "problem": {
+      "leetcodeId": 139,
+      "slug": "word-break",
+      "title": "Word Break",
+      "methodName": "wordBreak",
+      "tags": [
+        "Hash Table",
+        "String",
+        "Dynamic Programming",
+        "Trie"
+      ]
+    },
+    "language": "Python",
+    "scenario": "The code marks dp[i] true whenever a dictionary word ends at i, without checking whether the prefix before that word is segmentable.",
+    "bugPattern": "dp_transition_error",
+    "userCode": "class Solution:\n    def wordBreak(self, s: str, wordDict: list[str]) -> bool:\n        dp = [False] * (len(s) + 1)\n        dp[0] = True\n        for i in range(1, len(s) + 1):\n            for word in wordDict:\n                if i >= len(word) and s[i - len(word):i] == word:\n                    dp[i] = True\n        return dp[-1]\n",
+    "selectedTestIds": [
+      "case-main"
+    ],
+    "expectedCoachFocus": [
+      "Point out that dog exists at the end, but catsan is not a valid prefix segmentation.",
+      "Suggest requiring dp[i - len(word)] before setting dp[i]."
+    ]
+  },
+  "codeRunResult": {
+    "status": "failed",
+    "failureProvenance": "user_code",
+    "passedCount": 0,
+    "failedCount": 1,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 25,
+    "actualOutput": "true",
+    "expectedOutput": "false",
+    "firstFailedCase": {
+      "id": "case-main",
+      "label": "suffix word exists but prefix is not segmentable",
+      "input": {
+        "s": "catsandog",
+        "wordDict": [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      },
+      "expected": false,
+      "actual": true
+    },
+    "testResults": [
+      {
+        "id": "case-main",
+        "label": "suffix word exists but prefix is not segmentable",
+        "input": {
+          "s": "catsandog",
+          "wordDict": [
+            "cats",
+            "dog",
+            "sand",
+            "and",
+            "cat"
+          ]
+        },
+        "expected": false,
+        "actual": true,
+        "status": "failed",
+        "passed": false,
+        "stdoutCaptured": false,
+        "stderrCaptured": false
+      }
+    ],
+    "rawResult": {
+      "providerUsed": "replay_fixture",
+      "executionKind": "review",
+      "fixtureId": "review-v1.1-word-break-ignores-prefix-reachability",
+      "normalizedFrom": "review-v1.1-static-replay",
+      "generatedAt": "2026-07-06"
+    }
+  },
+  "evidenceVerdict": {
+    "evidenceClass": "verdict_bearing",
+    "replyMode": "diagnostic",
+    "capabilities": {
+      "canVerdict": true,
+      "canWriteMistakeMemory": true,
+      "canWriteEpisode": true,
+      "canSignalPlanner": true,
+      "canUseFailureSalience": true
+    },
+    "status": "failed",
+    "provenance": "user_code",
+    "providerUsed": "replay_fixture",
+    "scopeLabel": "synthetic replay execution evidence",
+    "modelInstruction": "You may reason from this replayed visible-test evidence, without claiming hidden-test acceptance or LeetCode Accepted."
+  }
+}

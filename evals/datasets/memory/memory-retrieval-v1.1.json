@@ -1,0 +1,1289 @@
+{
+  "datasetVersion": "memory-retrieval-v1.1",
+  "name": "memory-retrieval-v1.1-expanded-undergraduate",
+  "status": "human_approved",
+  "description": "Expanded P4 retrieval query set for the v1.1 synthetic undergraduate learner. It covers active blockers, cross-problem transfer, skills, stale suppression, API confusion, explicit preferences, low-confidence suppression, Chinese phrasing, and distractor memories.",
+  "defaultK": 5,
+  "humanReviewStatus": "approved",
+  "cases": [
+    {
+      "queryId": "mem-v11-two-sum-duplicate-current-review",
+      "category": "mistake_recall",
+      "problemSlug": "two-sum",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Review this Two Sum attempt on nums=[3,3]. Is this the same duplicate-index issue I had before?",
+      "expectedFactKeys": [
+        "fact.hash_table.duplicate_key_order_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.two_sum_duplicate_same_index_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.two_sum.check_before_store_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "neutralEpisodeKeys": [
+        "episode.review.two_sum_complement_repair_passed"
+      ],
+      "k": 5,
+      "notes": "Same-problem active blocker. The resolved same-index fact can be historical, but the superseded check-before-store confusion should not surface as current.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return",
+        "episode.review.two_sum_complement_repair_passed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-valid-anagram-counter-balance",
+      "category": "mistake_recall",
+      "problemSlug": "valid-anagram",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "My Valid Anagram code builds a count dict but still accepts aacc vs ccac. What old count mistake matters?",
+      "expectedFactKeys": [
+        "fact.hash_table.counter_balance_missing"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.valid_anagram_counter_unbalanced_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.hash_table.duplicate_key_order_weakness"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Same-algorithm but different mechanism: count balance is expected; Two Sum update order is a distractor.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.hash_table.duplicate_key_order_weakness"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-longest-abba-left-boundary",
+      "category": "mistake_recall",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "我这次 abba 又错了，是不是上次那个 left 边界会倒退的问题？",
+      "expectedFactKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "fact.learning.state_update_order_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.longest_substring_abba_regression_failed"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese same-problem debug query. It should retrieve the concrete left-boundary fact and the broader state-update weakness.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-min-window-have-need",
+      "category": "mistake_recall",
+      "problemSlug": "minimum-window-substring",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Minimum Window 里 have/need 又乱了，我以前是不是也把窗口状态更新顺序搞错过？",
+      "expectedFactKeys": [
+        "fact.sliding_window.have_need_distinct_count",
+        "fact.learning.state_update_order_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.minimum_window_have_count_failed",
+        "episode.chat.mock_interview_feedback_state_updates"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [
+        "fact.sliding_window.left_boundary_regression"
+      ],
+      "neutralEpisodeKeys": [
+        "episode.review.longest_substring_abba_regression_failed"
+      ],
+      "k": 5,
+      "notes": "Chinese current debug query. Longest Substring may be historical context, but the specific expected blocker is have/need distinct count.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.sliding_window.left_boundary_regression",
+        "episode.review.longest_substring_abba_regression_failed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-daily-temperatures-stack-state",
+      "category": "mistake_recall",
+      "problemSlug": "daily-temperatures",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "For Daily Temperatures, I keep losing the distance answer. What stack state mistake should I remember?",
+      "expectedFactKeys": [
+        "fact.stack.store_index_vs_value"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.daily_temperatures_value_stack_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.stack.empty_check_missing"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Same data structure, different mechanism. The Valid Parentheses empty-stack repair is a stale/distractor fact.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.stack.empty_check_missing"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-graph-visited-timing",
+      "category": "mistake_recall",
+      "problemSlug": "number-of-islands",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Number of Islands 递归爆了，我以前有没有 visited 标记太晚的老毛病？",
+      "expectedFactKeys": [
+        "fact.graph.visited_marking_late"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.number_islands_visited_late_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.recursion.low_confidence_fear"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese DFS debug query. A real visited-timing bug is expected; the low-confidence recursion anxiety should not be treated as the blocker.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.recursion.low_confidence_fear"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-group-anagrams-frequency-skill",
+      "category": "skill_recall",
+      "problemSlug": "group-anagrams",
+      "entry": {
+        "kind": "chat",
+        "intent": "concept_question"
+      },
+      "userQuestion": "For grouping strings, have I already learned a count-signature pattern that avoids comparing every word pair?",
+      "expectedFactKeys": [
+        "fact.skill.hash_table_frequency_signature"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.group_anagrams_signature_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.hash_table.counter_balance_missing"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Skill recall should use concept_chat and retrieve the mastered frequency-signature skill rather than active mistake facts.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.hash_table.counter_balance_missing"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-search-rotated-invariant-transfer",
+      "category": "mistake_recall",
+      "problemSlug": "search-in-rotated-sorted-array",
+      "entry": {
+        "kind": "chat",
+        "intent": "past_mistake_recall_request"
+      },
+      "userQuestion": "This rotated-array branch feels like the same binary-search invariant issue as before. What should I watch for?",
+      "expectedFactKeys": [
+        "fact.binary_search.rotated_half_selection",
+        "fact.learning.invariant_verbalization_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.search_rotated_half_selection_failed",
+        "episode.chat.mock_interview_feedback_state_updates"
+      ],
+      "forbiddenFactKeys": [
+        "fact.binary_search.return_left_plus_one"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [
+        "episode.review.search_insert_left_plus_one_failed"
+      ],
+      "k": 5,
+      "notes": "Cross-problem binary-search transfer. The old return-left-plus-one fact is stale, but its episode can be historical context.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.binary_search.return_left_plus_one",
+        "episode.review.search_insert_left_plus_one_failed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-search-range-boundary-goal",
+      "category": "mistake_recall",
+      "problemSlug": "find-first-and-last-position-of-element-in-sorted-array",
+      "entry": {
+        "kind": "chat",
+        "intent": "past_mistake_recall_request"
+      },
+      "userQuestion": "找 first/last position 时，我是不是又把普通 search 和 boundary search 混了？",
+      "expectedFactKeys": [
+        "fact.binary_search.boundary_goal_mismatch",
+        "fact.learning.invariant_verbalization_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.first_last_range_right_bias_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.binary_search.any_match_is_enough"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese cross-problem boundary-search query. The contradicted any-match strategy should not be surfaced as a current fact.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.binary_search.any_match_is_enough"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-min-window-from-longest-transfer",
+      "category": "mistake_recall",
+      "problemSlug": "minimum-window-substring",
+      "entry": {
+        "kind": "chat",
+        "intent": "past_mistake_recall_request"
+      },
+      "userQuestion": "Minimum Window 这个窗口更新，和我 Longest Substring 里 left 倒退的问题有同一种模式吗？",
+      "expectedFactKeys": [
+        "fact.learning.state_update_order_weakness",
+        "fact.sliding_window.have_need_distinct_count"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.minimum_window_have_count_failed",
+        "episode.review.longest_substring_abba_regression_failed"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [
+        "fact.sliding_window.left_boundary_regression"
+      ],
+      "neutralEpisodeKeys": [],
+      "k": 5,
+      "notes": "Cross-problem sliding-window transfer. The old left-boundary fact is neutral if framed as history; state-update weakness is the expected active pattern.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.sliding_window.left_boundary_regression"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-merge-interval-boundary",
+      "category": "mistake_recall",
+      "problemSlug": "merge-intervals",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Intervals 里 [1,4] 和 [4,5] 到底要不要合并？我是不是又卡在边界含义？",
+      "expectedFactKeys": [
+        "fact.intervals.closed_boundary_overlap"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.merge_intervals_touching_boundary_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.intervals.open_boundary_assumption"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese boundary query. It should retrieve the active closed-boundary mistake and suppress the contradicted open-boundary assumption.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.intervals.open_boundary_assumption"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-bfs-level-size",
+      "category": "mistake_recall",
+      "problemSlug": "binary-tree-level-order-traversal",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "我的 level order 结果都挤在一层了，之前是不是也忘了固定 level_size？",
+      "expectedFactKeys": [
+        "fact.queue.level_boundary_mixed"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.level_order_mixed_levels_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.python.deque_popleft_vs_list_pop0"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese BFS state query. API confusion about deque is not the current blocker.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.python.deque_popleft_vs_list_pop0"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-two-sum-complement-skill",
+      "category": "skill_recall",
+      "problemSlug": "two-sum",
+      "entry": {
+        "kind": "chat",
+        "intent": "concept_question"
+      },
+      "userQuestion": "Do I already have a reliable Two Sum complement lookup pattern, or should we reteach it from scratch?",
+      "expectedFactKeys": [
+        "fact.skill.hash_table_complement_lookup"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.two_sum_complement_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Skill recall should acknowledge the mastered complement pattern and avoid stale Two Sum mistake facts as current blockers.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-search-insert-first-ge-skill",
+      "category": "skill_recall",
+      "problemSlug": "search-insert-position",
+      "entry": {
+        "kind": "chat",
+        "intent": "concept_question"
+      },
+      "userQuestion": "我是不是已经学过 first >= target 这个 invariant？这次二分能直接用吗？",
+      "expectedFactKeys": [
+        "fact.skill.binary_search_first_ge_invariant"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.search_insert_first_ge_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.binary_search.return_left_plus_one"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese skill recall; the resolved return-left-plus-one fact should not be treated as current.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.binary_search.return_left_plus_one"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-container-shorter-wall-skill",
+      "category": "skill_recall",
+      "problemSlug": "container-with-most-water",
+      "entry": {
+        "kind": "chat",
+        "intent": "concept_question"
+      },
+      "userQuestion": "For Container, did I already fix which pointer to move?",
+      "expectedFactKeys": [
+        "fact.skill.two_pointers_move_shorter_wall"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.container_pointer_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.two_pointers.move_taller_wall"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Skill recall should cite the repaired shorter-wall rule, not the stale taller-wall mistake.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.two_pointers.move_taller_wall"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-stack-parentheses-skill",
+      "category": "skill_recall",
+      "problemSlug": "valid-parentheses",
+      "entry": {
+        "kind": "chat",
+        "intent": "concept_question"
+      },
+      "userQuestion": "Can we skip the basic stack matching explanation for parentheses? Have I repaired that already?",
+      "expectedFactKeys": [
+        "fact.skill.stack_parentheses_matching"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.valid_parentheses_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.stack.empty_check_missing"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Skill recall should prevent reteaching a repaired basic stack concept.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.stack.empty_check_missing"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-dp-base-case-skill",
+      "category": "skill_recall",
+      "problemSlug": "climbing-stairs",
+      "entry": {
+        "kind": "chat",
+        "intent": "concept_question"
+      },
+      "userQuestion": "I already fixed Climbing Stairs by naming dp[i], right? What DP skill can I reuse?",
+      "expectedFactKeys": [
+        "fact.skill.dynamic_programming_base_cases"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.climbing_stairs_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.dynamic_programming.climbing_stairs_base_case_shift"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "DP skill recall should retrieve the base-case repair skill and suppress the resolved shifted-base-case fact.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.dynamic_programming.climbing_stairs_base_case_shift"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-two-sum-hardcode-stale",
+      "category": "stale_suppression",
+      "problemSlug": "two-sum",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "If this Two Sum code is failing, should my old check-before-store mistake count as the current blocker?",
+      "expectedFactKeys": [
+        "fact.hash_table.duplicate_key_order_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.two_sum_duplicate_same_index_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Stale suppression: contradicted hardcoding and resolved same-index facts must not be current positives.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Suppress resolved or contradicted facts as current blockers; failed historical episodes may be neutral or expected when the user asks about history.",
+      "distractorKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-search-insert-left-plus-one-stale",
+      "category": "stale_suppression",
+      "problemSlug": "search-insert-position",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Review this Search Insert attempt: should left+1 still be flagged as my current issue after I repaired it?",
+      "expectedFactKeys": [
+        "fact.learning.invariant_verbalization_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.search_insert_left_plus_one_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.binary_search.return_left_plus_one"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [
+        "episode.review.search_insert_first_ge_repair_passed"
+      ],
+      "k": 5,
+      "notes": "The stale mistake fact should be suppressed, while historical episodes can still explain the repair path.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Suppress resolved or contradicted facts as current blockers; failed historical episodes may be neutral or expected when the user asks about history.",
+      "distractorKeys": [
+        "fact.binary_search.return_left_plus_one",
+        "episode.review.search_insert_first_ge_repair_passed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-container-taller-wall-stale",
+      "category": "stale_suppression",
+      "problemSlug": "container-with-most-water",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "我现在做 Container，还要把以前移动高边那条当成当前错误吗？",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.review.container_pointer_wrong_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.two_pointers.move_taller_wall"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [
+        "episode.review.container_pointer_repair_passed"
+      ],
+      "k": 5,
+      "notes": "Chinese stale-suppression query. The old episode may be retrievable as history, but the resolved fact should not be a current blocker.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Suppress resolved or contradicted facts as current blockers; failed historical episodes may be neutral or expected when the user asks about history.",
+      "distractorKeys": [
+        "fact.two_pointers.move_taller_wall",
+        "episode.review.container_pointer_repair_passed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-valid-parentheses-empty-check-stale",
+      "category": "stale_suppression",
+      "problemSlug": "valid-parentheses",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "I fixed the closing-first case before. Should empty-stack check still be listed as my active weakness?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.review.valid_parentheses_empty_stack_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.stack.empty_check_missing"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralEpisodeKeys": [
+        "episode.review.valid_parentheses_repair_passed"
+      ],
+      "k": 5,
+      "notes": "Resolved stack fact should be suppressed from active current memory.",
+      "neutralFactKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Suppress resolved or contradicted facts as current blockers; failed historical episodes may be neutral or expected when the user asks about history.",
+      "distractorKeys": [
+        "fact.stack.empty_check_missing",
+        "episode.review.valid_parentheses_repair_passed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-climbing-base-case-stale",
+      "category": "stale_suppression",
+      "problemSlug": "climbing-stairs",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Climbing Stairs 这题我后来修过 base case，对吧？不要还说我当前卡在那个旧错上。",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.review.climbing_stairs_base_case_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.dynamic_programming.climbing_stairs_base_case_shift"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese stale-suppression query for a repaired DP mistake.",
+      "neutralEpisodeKeys": [
+        "episode.review.climbing_stairs_repair_passed"
+      ],
+      "neutralFactKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Suppress resolved or contradicted facts as current blockers; failed historical episodes may be neutral or expected when the user asks about history.",
+      "distractorKeys": [
+        "fact.dynamic_programming.climbing_stairs_base_case_shift",
+        "episode.review.climbing_stairs_repair_passed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-interval-open-boundary-stale",
+      "category": "stale_suppression",
+      "problemSlug": "merge-intervals",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Is my old open-boundary assumption still valid for Merge Intervals?",
+      "expectedFactKeys": [
+        "fact.intervals.closed_boundary_overlap"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.merge_intervals_touching_boundary_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.intervals.open_boundary_assumption"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Contradicted interval assumption should not survive as current guidance.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Suppress resolved or contradicted facts as current blockers; failed historical episodes may be neutral or expected when the user asks about history.",
+      "distractorKeys": [
+        "fact.intervals.open_boundary_assumption"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-python-dict-api",
+      "category": "api_confusion",
+      "problemSlug": "two-sum",
+      "entry": {
+        "kind": "chat",
+        "intent": "api_reference_question"
+      },
+      "userQuestion": "Python 里我是不是老把 dict.get 和 if key in dict 混在一起？Two Sum 该用哪个？",
+      "expectedFactKeys": [
+        "fact.python.dict_get_membership_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "forbiddenFactKeys": [
+        "fact.cpp.unordered_map_operator_insert_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese Python API query. C++ unordered_map confusion is a language distractor.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.cpp.unordered_map_operator_insert_confusion"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-cpp-unordered-map-api",
+      "category": "api_confusion",
+      "problemSlug": "top-k-frequent-elements",
+      "entry": {
+        "kind": "chat",
+        "intent": "api_reference_question"
+      },
+      "userQuestion": "If I switch Top K to C++, did I ask before whether unordered_map[key] inserts a default value?",
+      "expectedFactKeys": [
+        "fact.cpp.unordered_map_operator_insert_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "forbiddenFactKeys": [
+        "fact.python.dict_get_membership_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "C++ API query. Python dict confusion is related but should not be the expected fact.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.python.dict_get_membership_confusion"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-python-deque-api",
+      "category": "api_confusion",
+      "problemSlug": "binary-tree-level-order-traversal",
+      "entry": {
+        "kind": "chat",
+        "intent": "api_reference_question"
+      },
+      "userQuestion": "BFS 用 Python queue 时，我之前是不是问过 deque.popleft 和 list.pop(0) 的区别？",
+      "expectedFactKeys": [
+        "fact.python.deque_popleft_vs_list_pop0"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.chat.mock_interview_feedback_state_updates"
+      ],
+      "forbiddenFactKeys": [
+        "fact.queue.level_boundary_mixed"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese API query. The BFS level-boundary bug is not the API memory being asked for.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.queue.level_boundary_mixed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-cpp-vector-bounds-api",
+      "category": "api_confusion",
+      "problemSlug": "container-with-most-water",
+      "entry": {
+        "kind": "chat",
+        "intent": "api_reference_question"
+      },
+      "userQuestion": "For C++ arrays, have I asked whether vector[i] checks bounds or whether I need at()?",
+      "expectedFactKeys": [
+        "fact.cpp.vector_bounds_confusion"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "forbiddenFactKeys": [
+        "fact.python.dict_get_membership_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "C++ vector API memory should not retrieve unrelated Python dict confusion as the expected fact.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.python.dict_get_membership_confusion"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-preference-short-next-step-zh",
+      "category": "preference",
+      "problemSlug": "minimum-window-substring",
+      "entry": {
+        "kind": "chat",
+        "intent": "general_followup"
+      },
+      "userQuestion": "按我之前说的风格，先别展开，给我一个下一步就好。",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [
+        "One next step",
+        "No full solution"
+      ],
+      "k": 5,
+      "notes": "Preference should be reflected through profile markers or the preference episode, not L2 preference positives.",
+      "neutralEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "neutralFactKeys": [],
+      "queryLanguage": "zh",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Preference should be checked through output preference markers; L2 preference facts are diagnostic-only.",
+      "distractorKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-preference-default-python",
+      "category": "preference",
+      "problemSlug": "two-sum",
+      "entry": {
+        "kind": "chat",
+        "intent": "general_followup"
+      },
+      "userQuestion": "Unless I ask otherwise, which language do I prefer you to use?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [
+        "Default to Python"
+      ],
+      "k": 5,
+      "notes": "Language preference should come from profile/episode channel; L2 preference facts remain diagnostic-only.",
+      "neutralEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "neutralFactKeys": [],
+      "queryLanguage": "en",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Preference should be checked through output preference markers; L2 preference facts are diagnostic-only.",
+      "distractorKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-preference-no-full-solution",
+      "category": "preference",
+      "problemSlug": "search-insert-position",
+      "entry": {
+        "kind": "chat",
+        "intent": "general_followup"
+      },
+      "userQuestion": "我之前是不是说过第一轮不要直接给完整解？",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [
+        "No full solution"
+      ],
+      "k": 5,
+      "notes": "Chinese explicit preference recall.",
+      "neutralEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "neutralFactKeys": [],
+      "queryLanguage": "zh",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Preference should be checked through output preference markers; L2 preference facts are diagnostic-only.",
+      "distractorKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-preference-short-hints-en",
+      "category": "preference",
+      "problemSlug": "daily-temperatures",
+      "entry": {
+        "kind": "chat",
+        "intent": "general_followup"
+      },
+      "userQuestion": "Do I prefer short hints first, or a long explanation right away?",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [
+        "Short hint"
+      ],
+      "k": 5,
+      "notes": "Preference marker coverage in English.",
+      "neutralEpisodeKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "neutralFactKeys": [],
+      "queryLanguage": "en",
+      "difficulty": "direct",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Preference should be checked through output preference markers; L2 preference facts are diagnostic-only.",
+      "distractorKeys": [
+        "episode.chat.preferences_and_api_confusions"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    },
+    {
+      "queryId": "mem-v11-low-confidence-recursion",
+      "category": "low_confidence_suppression",
+      "problemSlug": "number-of-islands",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "我是不是一直不擅长递归？这次 Number of Islands 可以直接按这个结论教我吗？",
+      "expectedFactKeys": [
+        "fact.graph.visited_marking_late"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.number_islands_visited_late_failed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.recursion.low_confidence_fear"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralEpisodeKeys": [
+        "episode.chat.low_confidence_coin_change_and_recursion"
+      ],
+      "k": 5,
+      "notes": "Chinese low-confidence suppression. The real code evidence is visited timing; recursion anxiety is too weak to be the blocker.",
+      "neutralFactKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Do not promote low-confidence or contradicted signals into strong current memory.",
+      "distractorKeys": [
+        "fact.recursion.low_confidence_fear",
+        "episode.chat.low_confidence_coin_change_and_recursion"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-low-confidence-coin-change-state",
+      "category": "low_confidence_suppression",
+      "problemSlug": "coin-change",
+      "entry": {
+        "kind": "review"
+      },
+      "userQuestion": "Coin Change 我还没写代码，只是问过贪心。现在能不能说我已经有 DP 状态定义弱点？",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [
+        "episode.chat.low_confidence_coin_change_and_recursion"
+      ],
+      "forbiddenFactKeys": [
+        "fact.dp.coin_change_low_confidence_state_confusion",
+        "fact.coin_change.greedy_always_works"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Low-confidence and contradicted Coin Change facts should not be promoted into current diagnosis.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "mixed",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Do not promote low-confidence or contradicted signals into strong current memory.",
+      "distractorKeys": [
+        "fact.dp.coin_change_low_confidence_state_confusion",
+        "fact.coin_change.greedy_always_works"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-low-confidence-topological-negative-control",
+      "category": "low_confidence_suppression",
+      "problemSlug": "coin-change",
+      "entry": {
+        "kind": "chat",
+        "intent": "past_mistake_recall_request"
+      },
+      "userQuestion": "我以前练过拓扑排序或者入度这种模式吗？",
+      "expectedFactKeys": [],
+      "expectedEpisodeKeys": [],
+      "forbiddenFactKeys": [
+        "fact.graph.visited_marking_late",
+        "fact.queue.level_boundary_mixed",
+        "fact.recursion.low_confidence_fear"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Chinese negative-control query. Similar graph/BFS memories should not be treated as topological-sort evidence.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "zh",
+      "difficulty": "adversarial",
+      "memoryNeed": "must_not_retrieve",
+      "statusExpectation": "Do not promote low-confidence or contradicted signals into strong current memory.",
+      "distractorKeys": [
+        "fact.graph.visited_marking_late",
+        "fact.queue.level_boundary_mixed",
+        "fact.recursion.low_confidence_fear"
+      ],
+      "whyExpected": "No positive memory is required; the case mainly checks that irrelevant or weak memories are not overused.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-recall-tool-binary-history",
+      "category": "mistake_recall",
+      "problemSlug": "search-in-rotated-sorted-array",
+      "entry": {
+        "kind": "recall_tool"
+      },
+      "userQuestion": "Recall my history with binary search boundaries, rotated arrays, and first >= target.",
+      "expectedFactKeys": [
+        "fact.binary_search.rotated_half_selection",
+        "fact.binary_search.boundary_goal_mismatch",
+        "fact.learning.invariant_verbalization_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.search_rotated_half_selection_failed",
+        "episode.review.search_insert_first_ge_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.binary_search.any_match_is_enough"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [
+        "fact.binary_search.return_left_plus_one"
+      ],
+      "neutralEpisodeKeys": [
+        "episode.review.search_insert_left_plus_one_failed"
+      ],
+      "k": 5,
+      "notes": "Recall-tool broad history query over binary-search memories.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.binary_search.any_match_is_enough",
+        "fact.binary_search.return_left_plus_one",
+        "episode.review.search_insert_left_plus_one_failed"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-recall-tool-hash-table-history",
+      "category": "mistake_recall",
+      "problemSlug": "two-sum",
+      "entry": {
+        "kind": "recall_tool"
+      },
+      "userQuestion": "Recall my HashMap history: duplicate handling, count balance, and complement lookup.",
+      "expectedFactKeys": [
+        "fact.hash_table.duplicate_key_order_weakness",
+        "fact.hash_table.counter_balance_missing"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.two_sum_duplicate_same_index_failed",
+        "episode.review.valid_anagram_counter_unbalanced_failed",
+        "episode.review.two_sum_complement_repair_passed"
+      ],
+      "forbiddenFactKeys": [
+        "fact.two_sum.check_before_store_confusion"
+      ],
+      "forbiddenEpisodeKeys": [],
+      "neutralFactKeys": [
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "neutralEpisodeKeys": [],
+      "k": 5,
+      "notes": "Recall-tool query that mixes active mistakes, skill episodes, and stale suppressions.",
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [
+        "fact.two_sum.check_before_store_confusion",
+        "fact.two_sum.same_index_duplicate_return"
+      ],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "Forbidden keys would mislead the coach by surfacing stale, contradicted, low-confidence, wrong-language, or wrong-mechanism memory."
+    },
+    {
+      "queryId": "mem-v11-kickoff-watch-for-sliding-window",
+      "category": "mistake_recall",
+      "problemSlug": "minimum-window-substring",
+      "entry": {
+        "kind": "kickoff"
+      },
+      "userQuestion": "Before I start Minimum Window, what should the session plan watch for from my history?",
+      "expectedFactKeys": [
+        "fact.sliding_window.have_need_distinct_count",
+        "fact.learning.state_update_order_weakness"
+      ],
+      "expectedEpisodeKeys": [
+        "episode.review.minimum_window_have_count_failed"
+      ],
+      "forbiddenFactKeys": [],
+      "forbiddenEpisodeKeys": [],
+      "k": 5,
+      "notes": "Kickoff/review-debug style memory should focus on active sliding-window blockers before code is written.",
+      "neutralFactKeys": [],
+      "neutralEpisodeKeys": [],
+      "expectedProfilePreferenceMarkers": [],
+      "queryLanguage": "en",
+      "difficulty": "paraphrase",
+      "memoryNeed": "must_retrieve",
+      "statusExpectation": "Prefer active facts that directly affect the current coaching turn.",
+      "distractorKeys": [],
+      "whyExpected": "Expected keys/markers are the minimal memory evidence needed to personalize this turn without inventing learner history.",
+      "whyForbidden": "No specific forbidden key is required beyond normal precision checks."
+    }
+  ],
+  "limitations": [
+    "Labels are agent-drafted and require human review before final GT use.",
+    "The dataset intentionally includes retrieval-hard transfer cases to expose current tag-match limitations.",
+    "Preference cases expect profile/episode markers; L2 preference facts remain diagnostic-only.",
+    "Some Chinese queries are colloquial to test realistic learner phrasing, not literal manifest-key matching."
+  ]
+}

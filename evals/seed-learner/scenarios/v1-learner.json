@@ -1,0 +1,554 @@
+{
+  "scenarioVersion": "seed-learner-scenario-v1",
+  "scenarioId": "seed-learner-v1",
+  "name": "v1 synthetic learner baseline",
+  "status": "agent_drafted_needs_human_review",
+  "description": "Small reproducible learner history for Week3 memory retrieval ground truth. It seeds review/chat episodes, current facts, preference facts, and superseded facts into an isolated eval DB.",
+  "humanReviewStatus": "pending",
+  "learnerProfile": {
+    "learnerId": "learner.synthetic.v1",
+    "userId": "seed_user_learner_synthetic_v1",
+    "handle": "EvalLearnerV1",
+    "displayName": "Eval Learner V1",
+    "interviewGoal": "Full-time coding interview practice",
+    "preferredLanguages": ["Python"],
+    "strongPatterns": ["HashMap", "Dict", "Array traversal"],
+    "weakPatterns": ["Binary Search boundaries", "Sliding Window shrink condition"],
+    "explanationStyle": ["Short answer", "Concrete example first"],
+    "outputPreferences": ["One next step", "No full solution unless asked"]
+  },
+  "practicedProblems": [
+    {
+      "key": "problem.two_sum",
+      "problemId": "seed_problem_two_sum",
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "leetcodeNumber": 1,
+      "difficulty": "Easy",
+      "tags": ["Array", "Hash Table", "HashMap"],
+      "methodName": "twoSum",
+      "isDemoSupported": true
+    },
+    {
+      "key": "problem.search_insert",
+      "problemId": "seed_problem_search_insert_position",
+      "slug": "search-insert-position",
+      "title": "Search Insert Position",
+      "leetcodeNumber": 35,
+      "difficulty": "Easy",
+      "tags": ["Array", "Binary Search"],
+      "methodName": "searchInsert",
+      "isDemoSupported": true
+    },
+    {
+      "key": "problem.longest_substring",
+      "problemId": "seed_problem_longest_substring_without_repeating_characters",
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters",
+      "leetcodeNumber": 3,
+      "difficulty": "Medium",
+      "tags": ["Hash Table", "String", "Sliding Window"],
+      "methodName": "lengthOfLongestSubstring",
+      "isDemoSupported": true
+    }
+  ],
+  "episodes": [
+    {
+      "key": "episode.review.two_sum_same_index_reuse",
+      "kind": "review",
+      "problemSlug": "two-sum",
+      "title": "Two Sum review: current index reused",
+      "summary": "The learner stored the current number before checking its complement, so nums=[3,3], target=6 reused index 0 instead of returning two different indices.",
+      "outcome": "failed",
+      "tags": ["hash_map", "two_sum", "check_before_store"],
+      "salience": 0.9,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-20T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I know the dict idea, but duplicate values break my code",
+        "userQuestion": "Why does [3,3] return the same index twice?",
+        "codeSnapshot": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        seen = {}\n        for i, x in enumerate(nums):\n            seen[x] = i\n            need = target - x\n            if need in seen:\n                return [seen[need], i]\n        return []\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "[0,0]",
+          "expectedOutput": "[0,1]",
+          "firstFailedCase": {
+            "id": "two-sum-duplicate-values",
+            "label": "duplicate values require different indices",
+            "input": { "nums": [3, 3], "target": 6 },
+            "expected": [0, 1],
+            "actual": [0, 0]
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["two_sum_reuses_current_index", "hashmap_check_before_store"],
+          "skillTags": ["hash_map"],
+          "userIssueSummary": "Storing the current value before the lookup lets the same array position satisfy both sides of the pair.",
+          "coachSummary": "Keep the HashMap plan, but check the complement before storing the current value."
+        },
+        "coachReplyMarkdown": "根因：你先把当前的 3 放进 dict，紧接着查 complement 时就命中了同一个索引。下一步只调换顺序：先查 need，未命中再存当前值。"
+      }
+    },
+    {
+      "key": "episode.review.two_sum_hashmap_repair",
+      "kind": "review",
+      "problemSlug": "two-sum",
+      "title": "Two Sum review: complement lookup repair",
+      "summary": "The learner moved complement lookup before storing the current value and passed the visible examples, including duplicate values.",
+      "outcome": "passed",
+      "tags": ["hash_map", "two_sum", "complement_lookup"],
+      "salience": 0.75,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-21T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I made the small change you suggested",
+        "codeSnapshot": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        seen = {}\n        for i, x in enumerate(nums):\n            need = target - x\n            if need in seen:\n                return [seen[need], i]\n            seen[x] = i\n        return []\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 3,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["hash_map", "complement_lookup"],
+          "userIssueSummary": "The complement lookup now happens before the current value is stored, preventing same-index reuse.",
+          "coachSummary": "The learner can use a HashMap to connect value to index for Two Sum."
+        },
+        "coachReplyMarkdown": "这次可见用例都过了。你现在先查 complement，再存当前值，所以不会复用同一个索引。下一步把这个 check-before-store 顺序记成 Two Sum 模板。"
+      }
+    },
+    {
+      "key": "episode.review.search_insert_return_shift",
+      "kind": "review",
+      "problemSlug": "search-insert-position",
+      "title": "Search Insert review: return shifted right",
+      "summary": "The learner used a near-correct binary search but returned left + 1, making target=2 produce index 2 instead of 1.",
+      "outcome": "failed",
+      "tags": ["binary_search", "insertion_point", "off_by_one"],
+      "salience": 0.95,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-22T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "My binary search feels right but the answer is off by one",
+        "userQuestion": "Should I return left or left + 1?",
+        "codeSnapshot": "class Solution:\n    def searchInsert(self, nums: list[int], target: int) -> int:\n        left, right = 0, len(nums) - 1\n        while left <= right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return left + 1\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "2",
+          "expectedOutput": "1",
+          "firstFailedCase": {
+            "id": "search-insert-middle",
+            "label": "insert in the middle",
+            "input": { "nums": [1, 3, 5, 6], "target": 2 },
+            "expected": 1,
+            "actual": 2
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["binary_search_return_left_plus_one", "binary_search_insertion_point_boundary"],
+          "skillTags": ["array"],
+          "userIssueSummary": "The loop already leaves left at the first index >= target, so adding 1 shifts the insertion point right.",
+          "coachSummary": "Anchor the invariant as first index where nums[i] >= target, then return left directly."
+        },
+        "coachReplyMarkdown": "根因：循环结束时 left 已经是第一个 >= target 的位置，再 +1 会右移。用 nums=[1,3,5,6], target=2 走一遍，left 会停在 1；下一步只把 return left + 1 改成 return left。"
+      }
+    },
+    {
+      "key": "episode.review.longest_substring_abba_left_regression",
+      "kind": "review",
+      "problemSlug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring review: left boundary regressed",
+      "summary": "The learner updated left to last_seen[ch] + 1 without max(), so s='abba' reopened an old duplicate and returned 3 instead of 2.",
+      "outcome": "failed",
+      "tags": ["sliding_window", "left_boundary", "last_seen"],
+      "salience": 0.95,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-23T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "My sliding window code passes simple strings but fails abba",
+        "userQuestion": "Why does left move the wrong way?",
+        "codeSnapshot": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        last_seen = {}\n        left = 0\n        best = 0\n        for right, ch in enumerate(s):\n            if ch in last_seen:\n                left = last_seen[ch] + 1\n            last_seen[ch] = right\n            best = max(best, right - left + 1)\n        return best\n",
+        "run": {
+          "status": "failed",
+          "passedCount": 1,
+          "failedCount": 1,
+          "actualOutput": "3",
+          "expectedOutput": "2",
+          "firstFailedCase": {
+            "id": "longest-substring-abba",
+            "label": "old duplicate before current window",
+            "input": { "s": "abba" },
+            "expected": 2,
+            "actual": 3
+          }
+        },
+        "diagnosis": {
+          "mistakeTags": ["sliding_window_left_boundary_regression", "shrink_condition_confusion"],
+          "skillTags": ["hash_map", "sliding_window"],
+          "userIssueSummary": "left can move backward when the repeated character is outside the current window.",
+          "coachSummary": "Use left = max(left, last_seen[ch] + 1) to keep the window monotonic."
+        },
+        "coachReplyMarkdown": "根因：遇到第二个 a 时，旧 a 已经在窗口外，但 left 被 last_seen[a]+1 拉回去了。下一步把更新改成 left = max(left, last_seen[ch] + 1)，保证 left 只能向右走。"
+      }
+    },
+    {
+      "key": "episode.chat.preferences_and_python_dict",
+      "kind": "chat_segment",
+      "problemSlug": "two-sum",
+      "title": "Chat: short hints and Python dict confusion",
+      "summary": "The learner explicitly asked for short explanations with one next step, and also asked how Python dict.get differs from checking key membership.",
+      "outcome": "unresolved",
+      "tags": ["preference", "python_dict", "api_confusion"],
+      "salience": 0.8,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-24T15:00:00.000Z",
+      "chat": {
+        "userMessages": [
+          "记住：以后解释尽量短一点，先给我一个下一步。",
+          "Python dict.get 和 if key in dict 到底什么时候用？我写 Two Sum 时会混。"
+        ],
+        "assistantMessages": [
+          "记住了：之后优先短提示，并先给一个可执行 next step。dict.get 适合有默认值的读取；Two Sum 里更直接的是先用 if need in seen 判断。"
+        ],
+        "memoryNote": {
+          "tag": "explanation_style_short",
+          "value": "User prefers short explanations and one concrete next step first."
+        }
+      }
+    },
+    {
+      "key": "episode.review.search_insert_boundary_repair",
+      "kind": "review",
+      "problemSlug": "search-insert-position",
+      "title": "Search Insert review: first >= target repair",
+      "summary": "The learner returned left directly and explained the first >= target invariant, resolving the earlier left + 1 return mistake.",
+      "outcome": "passed",
+      "tags": ["binary_search", "insertion_point", "first_ge_invariant"],
+      "salience": 0.75,
+      "expectedRetrievable": true,
+      "scriptedAt": "2026-06-25T15:00:00.000Z",
+      "review": {
+        "language": "Python",
+        "userState": "I changed only the return line",
+        "codeSnapshot": "class Solution:\n    def searchInsert(self, nums: list[int], target: int) -> int:\n        left, right = 0, len(nums) - 1\n        while left <= right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return left\n",
+        "run": {
+          "status": "passed_visible_tests",
+          "passedCount": 4,
+          "failedCount": 0
+        },
+        "diagnosis": {
+          "mistakeTags": [],
+          "skillTags": ["binary_search_first_ge_invariant"],
+          "userIssueSummary": "The insertion point return is now aligned with the first >= target invariant.",
+          "coachSummary": "The learner can apply the first >= target binary-search invariant after a small correction."
+        },
+        "coachReplyMarkdown": "这版可见用例通过了。你现在的循环含义是找第一个 >= target 的位置，所以 return left 正好对齐。下一步把这个 invariant 记到二分模板里。"
+      }
+    }
+  ],
+  "facts": [
+    {
+      "key": "fact.two_sum.same_index_reuse",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Checks the complement after storing the current value and can reuse one index",
+      "tag": "two_sum_same_index_reuse",
+      "confidence": 0.25,
+      "evidenceSummary": "For nums=[3,3], target=6, the lookup reused index 0 and returned [0,0].",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.review.two_sum_same_index_reuse",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Two Sum repair used complement lookup, so this should not be treated as a current blocker.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.two_sum_same_index_reuse",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Review showed that storing x before checking target - x allowed the current index to match itself."
+        },
+        {
+          "episodeKey": "episode.review.two_sum_hashmap_repair",
+          "evidenceKind": "contradict",
+          "observedBehavior": "Later review passed visible tests with complement lookup before storing the current value.",
+          "value": "Superseded: learner repaired the same-index reuse by checking the complement before storing the current value."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.hashmap_complement_lookup",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can apply HashMap complement lookup for Two Sum",
+      "tag": "hashmap_complement_lookup",
+      "confidence": 0.5,
+      "evidenceSummary": "Repaired Two Sum by checking target - x in seen before storing x.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.review.two_sum_hashmap_repair",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.two_sum_hashmap_repair",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Passed visible Two Sum cases with check-before-store complement lookup."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.return_left_plus_one",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Returned left + 1 after a correct insertion-point loop",
+      "tag": "binary_search_return_left_plus_one",
+      "confidence": 0.25,
+      "evidenceSummary": "Search Insert returned 2 instead of 1 for target=2 because the final return shifted left rightward.",
+      "relatedProblemSlugs": ["search-insert-position"],
+      "sourceEpisodeKey": "episode.review.search_insert_return_shift",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Search Insert repair returned left directly and passed visible tests.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_insert_return_shift",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Review showed return left + 1 after a loop that already positioned left correctly."
+        },
+        {
+          "episodeKey": "episode.review.search_insert_boundary_repair",
+          "evidenceKind": "contradict",
+          "observedBehavior": "Later review returned left directly and passed visible tests.",
+          "value": "Superseded: learner repaired the left + 1 return mistake."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.insertion_point_boundary",
+      "factType": "mistake",
+      "status": "superseded",
+      "label": "Binary search insertion point is vulnerable to off-by-one boundary shifts",
+      "tag": "binary_search_insertion_point_boundary",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner needed a trace to see why target=2 belongs at index 1.",
+      "relatedProblemSlugs": ["search-insert-position"],
+      "sourceEpisodeKey": "episode.review.search_insert_return_shift",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later Search Insert repair passed visible tests and demonstrated the first >= target invariant.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_insert_return_shift",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked whether to return left or left + 1 and missed the insertion point by one."
+        },
+        {
+          "episodeKey": "episode.review.search_insert_boundary_repair",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Repair review passed visible tests after returning left directly."
+        },
+        {
+          "episodeKey": "episode.review.search_insert_boundary_repair",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second resolving evidence: learner could state the first >= target invariant."
+        }
+      ]
+    },
+    {
+      "key": "fact.binary_search.loop_invariant_confusion",
+      "factType": "weakness",
+      "status": "superseded",
+      "label": "Needs the first >= target invariant stated explicitly",
+      "tag": "binary_search_loop_invariant",
+      "confidence": 0.5,
+      "evidenceSummary": "The binary-search loop was near-correct, but the learner was unsure what left represented after the loop.",
+      "relatedProblemSlugs": ["search-insert-position"],
+      "sourceEpisodeKey": "episode.review.search_insert_return_shift",
+      "source": "review_diagnosis",
+      "expectedRetrievable": false,
+      "staleReason": "Later repair episode says the learner can explain the first >= target invariant.",
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_insert_return_shift",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "The learner asked what left means at loop exit."
+        },
+        {
+          "episodeKey": "episode.review.search_insert_boundary_repair",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Repair review passed visible tests after aligning return left with the loop invariant."
+        },
+        {
+          "episodeKey": "episode.review.search_insert_boundary_repair",
+          "evidenceKind": "resolve",
+          "observedBehavior": "Second resolving evidence: learner explicitly named first >= target as the invariant."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.left_boundary_regression",
+      "factType": "mistake",
+      "status": "current",
+      "label": "Sliding window left boundary can regress without max()",
+      "tag": "sliding_window_left_boundary_regression",
+      "confidence": 0.5,
+      "evidenceSummary": "On s='abba', left moved backward to an old duplicate and inflated the answer to 3.",
+      "relatedProblemSlugs": ["longest-substring-without-repeating-characters"],
+      "sourceEpisodeKey": "episode.review.longest_substring_abba_left_regression",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.longest_substring_abba_left_regression",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Review showed left = last_seen[ch] + 1 reopening an old duplicate in abba."
+        }
+      ]
+    },
+    {
+      "key": "fact.sliding_window.shrink_condition_confusion",
+      "factType": "weakness",
+      "status": "current",
+      "label": "Needs monotonic-window shrink condition for sliding window",
+      "tag": "sliding_window_shrink_condition",
+      "confidence": 0.5,
+      "evidenceSummary": "The learner understood last_seen dict but not why left must be monotonic.",
+      "relatedProblemSlugs": ["longest-substring-without-repeating-characters"],
+      "sourceEpisodeKey": "episode.review.longest_substring_abba_left_regression",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.longest_substring_abba_left_regression",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Asked why left moves the wrong way when an old duplicate appears."
+        }
+      ]
+    },
+    {
+      "key": "fact.python.dict_get_confusion",
+      "factType": "unresolved_confusion",
+      "status": "current",
+      "label": "Confused about dict.get versus key membership in Python",
+      "tag": "python_dict_get",
+      "confidence": 0.5,
+      "evidenceSummary": "Asked when to use dict.get and when to use if key in dict while writing Two Sum.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_python_dict",
+      "source": "chat_consolidation",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_python_dict",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Chat segment included a concrete question about dict.get versus membership checks."
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.short_hints",
+      "factType": "preference",
+      "status": "current",
+      "label": "Prefers short explanations",
+      "tag": "explanation_style_short",
+      "confidence": 0.9,
+      "evidenceSummary": "Explicitly asked: remember that future explanations should be shorter.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_python_dict",
+      "source": "user_explicit",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_python_dict",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "User explicitly asked to remember shorter explanations."
+        }
+      ]
+    },
+    {
+      "key": "fact.preference.one_next_step",
+      "factType": "preference",
+      "status": "current",
+      "label": "Prefers one concrete next step first",
+      "tag": "next_step_style",
+      "confidence": 0.9,
+      "evidenceSummary": "Explicitly asked to get one next step first.",
+      "relatedProblemSlugs": ["two-sum"],
+      "sourceEpisodeKey": "episode.chat.preferences_and_python_dict",
+      "source": "user_explicit",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.chat.preferences_and_python_dict",
+          "evidenceKind": "preference_set",
+          "observedBehavior": "User explicitly asked to receive one concrete next step first.",
+          "value": "User prefers one concrete next step before broader explanation."
+        }
+      ]
+    },
+    {
+      "key": "fact.skill.binary_search_first_ge_invariant",
+      "factType": "skill",
+      "status": "current",
+      "label": "Can use the first >= target invariant after correction",
+      "tag": "binary_search_first_ge_invariant",
+      "confidence": 0.5,
+      "evidenceSummary": "After changing return left + 1 to return left, the learner could explain the first >= target invariant.",
+      "relatedProblemSlugs": ["search-insert-position"],
+      "sourceEpisodeKey": "episode.review.search_insert_boundary_repair",
+      "source": "review_diagnosis",
+      "expectedRetrievable": true,
+      "arbitration": [
+        {
+          "episodeKey": "episode.review.search_insert_boundary_repair",
+          "evidenceKind": "reinforce",
+          "observedBehavior": "Passed visible Search Insert cases and named the first >= target invariant."
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "currentFactKeys": [
+      "fact.skill.hashmap_complement_lookup",
+      "fact.sliding_window.left_boundary_regression",
+      "fact.sliding_window.shrink_condition_confusion",
+      "fact.python.dict_get_confusion",
+      "fact.preference.short_hints",
+      "fact.preference.one_next_step",
+      "fact.skill.binary_search_first_ge_invariant"
+    ],
+    "staleFactKeys": [
+      "fact.two_sum.same_index_reuse",
+      "fact.binary_search.return_left_plus_one",
+      "fact.binary_search.insertion_point_boundary",
+      "fact.binary_search.loop_invariant_confusion"
+    ],
+    "episodeKeys": [
+      "episode.review.two_sum_same_index_reuse",
+      "episode.review.two_sum_hashmap_repair",
+      "episode.review.search_insert_return_shift",
+      "episode.review.longest_substring_abba_left_regression",
+      "episode.chat.preferences_and_python_dict",
+      "episode.review.search_insert_boundary_repair"
+    ]
+  },
+  "notes": [
+    "Agent-drafted v1 seed baseline; all ground-truth labels require human audit before being treated as final evaluation truth.",
+    "The scenario intentionally keeps scale small: 5 review practice episodes, 1 chat segment, and 11 L2 facts.",
+    "Non-current facts use product arbitration opcodes: contradict for directly superseded mistakes and resolve for repaired weakness/mistake facts."
+  ],
+  "limitations": [
+    "This v1 baseline is intentionally below the Task3.1 suggested scale of >=15 problems and >=30 facts; it should be treated as a seed baseline, not as a statistically representative learner distribution.",
+    "No real LLM calls are used; the runner seeds deterministic store-level facts and episodes.",
+    "Trusted preference facts are projected through CoachMemoryBrief.outputPreferences and are expectedRetrievable=true.",
+    "The chat_consolidation fact is store-level seeded from a short chat segment; the runner does not execute production chat consolidation trigger logic.",
+    "The runner aligns fact lastSeenAt with scriptedAt, but the v1 timeline is only six days long and does not exercise long-horizon fact-state changes.",
+    "Manifest expectedRetrievable flags are agent-drafted and pending manual review."
+  ]
+}
