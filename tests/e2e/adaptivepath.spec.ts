@@ -12,6 +12,18 @@ test("AdaptivePath three columns, profile, and evidence-driven D1 branching", as
   mkdirSync("test-results", { recursive: true });
   await page.screenshot({ path: "test-results/adaptivepath-workspace.png", fullPage: true });
 
+  // Textbook excerpts can be expanded, collapsed and reopened. Access is
+  // still recorded as assisted after closing or refreshing the page.
+  await page.getByRole("button", { name: "Reveal reference (assisted)" }).click();
+  await expect(page.getByText("An organism’s underlying genetic makeup", { exact: false })).toBeVisible();
+  await page.getByRole("button", { name: "Hide reference" }).click();
+  await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
+  await page.getByRole("button", { name: "Show reference" }).click();
+  await expect(page.getByText("An organism’s underlying genetic makeup", { exact: false })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Show reference" })).toBeVisible();
+  await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
+
   // Incorrect reasoning should trigger the misconception confirmation question.
   await page.getByRole("radio", { name: "Yes, both must be RR" }).check();
   await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill(
