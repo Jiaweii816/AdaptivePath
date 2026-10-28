@@ -6,7 +6,7 @@ import { OPENSTAX_URL,TEXTBOOK_CHUNKS,type BiologyQuestion } from "./content";
 import type { AttemptEvidence,LearnerProfile } from "./profile";
 type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{role:"student"|"tutor";content:string}>;
   profile:LearnerProfile;question:BiologyQuestion|null;completed:boolean;questionCount:number;feedback?:AttemptEvidence["evaluation"];
-  reply?:string;provider?:"offline_rules"|"live_llm";error?:string};
+  reply?:string;provider?:"offline_rules"|"live_llm";modelReady:boolean;error?:string};
 const storageKey="adaptivepath.demo.session.v1";
 const human=(s:string)=>s.replaceAll("_"," ").replace(/\b\w/g,c=>c.toUpperCase());
 export function AdaptivePathClient(){
@@ -71,7 +71,7 @@ export function AdaptivePathClient(){
       <div><h1 className="text-lg font-bold tracking-tight">AdaptivePath</h1>
       <p className="text-xs text-slate-500">Biology 2e · Section 12.2 · Characteristics and Traits</p></div></div>
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800">Model-ready demo · verified provider required</span>
+        <span className="rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800">{view?.modelReady?"Live model configured":"Offline mode · model key not configured"}</span>
         <button onClick={()=>setProfileOpen(true)} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold hover:bg-slate-50">Learner Profile</button>
         <button onClick={reset} className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50"><RotateCcw size={14}/> Reset</button>
       </div>
