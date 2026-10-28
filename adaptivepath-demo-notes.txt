@@ -1,0 +1,65 @@
+AdaptivePath Biology 12.2 — Cloud demo notes
+
+Branch: feature/biology-demo
+Route: /adaptivepath
+Current status: source implementation committed, NOT YET runtime-verified.
+This version is an explicitly labeled offline deterministic tutoring baseline, not a live AI Agent integration.
+
+Existing application preserved:
+- Original /workbench and LeetCode/Coach endpoints remain available.
+- Existing Next.js layout, CoachMarkdown, Prisma singleton, SQLite adapter and navigation are reused.
+- Demo route has an isolated adaptivepath_sessions table in the same SQLite database.
+- sqlite-path.ts now uses PATTERNCOACH_DATA_ROOT or .patterncoach-data below the repository by default.
+- Avoid running or migrating the iris profile database; use the try development profile only.
+
+Cloud run in GitHub Codespaces (from this feature branch):
+  npm ci
+  npm run db:generate
+  npm run db:migrate:try
+  npm run db:seed:try
+  npm run dev:try
+Open the forwarded port 3000 and navigate to /adaptivepath.
+
+Current demo:
+- D1-D4 diagnostic questions, G1/G2 guided questions, T1-T3 transfer questions.
+- Printed pages 316, 317, 319 and 320 quoted from user-provided OpenStax excerpt.
+- Choose an option AND type reasoning, then Submit.
+- Learner profile button shows evidence counts, mastery and misconception signals.
+- Same response-dependent navigation regardless of account: D1 weak -> D4 probe, D1 strong -> D2.
+- Hints and opening textbook references are logged as assistance for the current question.
+- Two distinct successful independent transfer attempts are required to label a topic Stable.
+- A session is stored server-side; session identifier is retained for the current browser tab only.
+
+Important limitations and verification needs:
+- Live LLM classification, real Agent tool selection, and reuse of the existing multi-tool Coach orchestration ARE NOT integrated yet. The current tutor replies through a transparent offline rule-based service.
+- CER scoring is a limited heuristic, NOT validated biological NLP grading; needs live AI with deterministic policy guards.
+- Current source records contain selected exact extracts, not all paragraph-level chunks from 12.2. Fill content ingestion before describing complete textbook coverage.
+- The session is accessed by opaque UUID without production authentication. This is suitable only for a trusted local or private Codespaces demo, not an openly deployed multi-user service.
+- SQLite session state is stored as a JSON payload per session; concurrency and production auth are not addressed.
+- Automated unit tests have been added, but not run in a Node/Prisma runtime by ChatGPT; run npm run typecheck, npm run lint, npm run test:unit and npm run build in Codespaces.
+- Source excerpts are for on-screen reference only. They are not sent to an LLM. Keep OpenStax attribution and check current AI-use restrictions before any API integration.
+- Tests of database migrations and local-profile isolation should be reviewed in Codespaces before using this app.
+
+Demo stories:
+A) For D1 select Yes and explain that both must be RR because the dominant allele eliminates recessive. Next is D4 probe; further misconceptions lead to guided practice after diagnostics.
+B) Reset; for D1 select No and explain that RR and Rr both express round phenotype. Next is D2. Complete diagnostics well; independent transfers follow without guided practice.
+Neither path should award Stable after only a single transfer. Check the Profile drawer.
+
+This is an incremental adaptation of the fork Jiaweii816/AdaptivePath.
+The original repository Iriss0904/personalized-leetcode-coach was not edited.
+
+
+2026-10-28 ADDENDUM — Live Biology tutor support
+The latest feature branch now supports optional live model grading (CER) and guided-practice tutoring using PatternCoach's existing createChatClient() and getChatModel() providers. This integration is code-complete but NOT live-credential-verified. Without credentials it deliberately falls back to clearly labeled offline rules. Diagnostic and independent-transfer tutoring are restricted to safe non-answer-revealing messages even if live mode is enabled.
+
+Secure GitHub Codespaces configuration (do not share keys in ChatGPT):
+1. Open GitHub account Settings > Codespaces > New secret; grant this repository access.
+2. Set LLM_CHAT_API_KEY to your provider key.
+3. Set LLM_CHAT_MODEL to a valid model name supported by that provider.
+4. For a non-OpenAI default API, set LLM_CHAT_BASE_URL to its official OpenAI-compatible endpoint.
+5. Set ADAPTIVEPATH_TUTOR_PROVIDER to live.
+6. Restart/recreate your Codespace and run npm run dev:try. GitHub Actions does not automatically receive Codespaces secrets.
+7. Check the submission's evaluator field: live_llm vs offline_rules. Live chat replies are available on guided-practice questions; independent diagnostic/transfer chat stays guarded.
+Your ChatGPT subscription or GitHub login alone does not provide these credentials.
+The full original LeetCode-specific Coach tool loop is NOT reused in the Biology demo, because code-running tools and code evidence policies are not appropriate to genetics tutoring.
+A new HTTP smoke script validates startup, persisted evidence and divergent learning paths without external model credentials.

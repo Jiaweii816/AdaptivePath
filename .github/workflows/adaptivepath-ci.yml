@@ -1,0 +1,78 @@
+name: AdaptivePath demo checks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/adaptivepath-ci.yml"
+      - "app/adaptivepath/**"
+      - "app/api/adaptivepath/**"
+      - "src/features/adaptivepath/**"
+      - "src/server/adaptivepath/**"
+      - "src/server/db/sqlite-path.ts"
+      - "src/components/layout/sidebar-nav.ts"
+      - "tests/unit/adaptivepath-profile.test.ts"
+      - "tests/e2e/adaptivepath.spec.ts"
+      - "tests/adaptivepath.playwright.config.ts"
+      - "scripts/adaptivepath-http-smoke.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-adaptivepath:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PATTERNCOACH_DATA_ROOT: ${{ github.workspace }}/.patterncoach-data
+      DATABASE_URL: file:${{ github.workspace }}/.patterncoach-data/try/try.db
+      PATTERNCOACH_DATABASE_PROFILE: try
+      PATTERNCOACH_MEMORY_ORIGIN: development
+      PATTERNCOACH_LOCAL_USER_HANDLE: try
+    steps:
+      - name: Check out feature code
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Prepare isolated demo data directory
+        run: mkdir -p .patterncoach-data/try
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate Prisma client
+        run: npm run db:generate
+      - name: Apply safe try-database migrations
+        run: npm run db:migrate:try
+      - name: Seed safe try-database
+        run: npm run db:seed:try
+      - name: TypeScript checking
+        run: npm run typecheck
+      - name: Focused AdaptivePath unit tests
+        run: npx vitest run tests/unit/adaptivepath-profile.test.ts
+      - name: ESLint
+        run: npm run lint
+      - name: Next.js production build
+        run: npm run build
+      - name: Install Chromium for browser verification
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke of Biology workspace
+        run: npx playwright test tests/e2e/adaptivepath.spec.ts --config=tests/adaptivepath.playwright.config.ts
+      - name: Upload Biology workspace screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: adaptivepath-browser-evidence
+          path: |
+            test-results/adaptivepath-workspace.png
+            test-results/adaptivepath-profile.png
+            test-results/**/trace.zip
+          if-no-files-found: ignore
+      - name: Live HTTP smoke for both learner paths
+        run: |
+          npm run dev:try > /tmp/adaptivepath-next.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          npx tsx scripts/adaptivepath-http-smoke.ts || { cat /tmp/adaptivepath-next.log; exit 1; }
