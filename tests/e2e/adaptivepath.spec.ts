@@ -1,0 +1,37 @@
+import { mkdirSync } from "node:fs";
+import { expect, test } from "@playwright/test";
+
+test("AdaptivePath three columns, profile, and evidence-driven D1 branching", async ({ page }) => {
+  await page.goto("/adaptivepath");
+  await expect(page.getByRole("heading", { name: "AdaptivePath" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
+  await expect(page.getByText("Textbook Reference", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
+  await expect(page.getByText("Two round-seed plants look the same.", { exact: false })).toBeVisible();
+
+  mkdirSync("test-results", { recursive: true });
+  await page.screenshot({ path: "test-results/adaptivepath-workspace.png", fullPage: true });
+
+  // Incorrect reasoning should trigger the misconception confirmation question.
+  await page.getByRole("radio", { name: "Yes, both must be RR" }).check();
+  await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill(
+    "Both plants must be RR because the dominant allele makes the recessive allele disappear.",
+  );
+  await page.getByRole("button", { name: "Submit Answer" }).click();
+  await expect(page.getByText("The dominant allele wins", { exact: false })).toBeVisible();
+
+  await page.getByRole("button", { name: "Learner Profile" }).click();
+  await expect(page.getByRole("heading", { name: "Dynamic Learner Profile" })).toBeVisible();
+  await expect(page.getByText("Emerging", { exact: false })).toBeVisible();
+  await page.getByRole("button", { name: "Close" }).click();
+
+  // A fresh session with correct reasoning should go to D2, not D4.
+  await page.getByRole("button", { name: "Reset" }).click();
+  await expect(page.getByText("Two round-seed plants look the same.", { exact: false })).toBeVisible();
+  await page.getByRole("radio", { name: "No, they could be RR or Rr" }).check();
+  await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill(
+    "The two round plants could be RR or Rr. Both have a round phenotype because the dominant R allele is expressed. The recessive r allele can still be inherited.",
+  );
+  await page.getByRole("button", { name: "Submit Answer" }).click();
+  await expect(page.getByText("For Rr × rr, list the possible gametes", { exact: false })).toBeVisible();
+});
