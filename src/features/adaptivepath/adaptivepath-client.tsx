@@ -10,6 +10,7 @@ import { AssistantBubble, UserBubble } from "@/components/workbench/coach-bubble
 import { ProblemStatement } from "@/components/workbench/problem-statement";
 import { OPENSTAX_URL,TEXTBOOK_CHUNKS,type BiologyQuestion } from "./content";
 import type { AttemptEvidence,LearnerProfile } from "./profile";
+import { TextbookViewer } from "./textbook-viewer";
 type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{role:"student"|"tutor";content:string}>;
   profile:LearnerProfile;question:BiologyQuestion|null;completed:boolean;questionCount:number;feedback?:AttemptEvidence["evaluation"];
   reply?:string;provider?:"offline_rules"|"live_llm";tool?:string;modelReady:boolean;referenceUsed?:string[];error?:string};
@@ -128,10 +129,13 @@ export function AdaptivePathClient(){
           {current?.mode!=="guided_practice"&&referencePreviouslyAccessed&&<p className="mb-3 text-xs font-medium text-amber-700">
             Reference accessed — this attempt is marked assisted, even if you hide the passage.
           </p>}
+          {current && <TextbookViewer key={current.id} referenceIds={current.referenceIds}/> }
+          <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-teal-700">Read reference text</summary>
           {refs.map(ref=><article key={ref.id} className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
             <p className="mb-2 text-xs font-semibold text-teal-700">{ref.subtitle} · Printed p. {ref.page} · PDF p. {ref.pdfPage}</p>
             <p className="text-sm leading-6 text-slate-700">{ref.original}</p>
           </article>)}
+          </details>
           </>}
         </div>
         <p className="mt-3 text-xs text-slate-500">Source: OpenStax Biology 2e, Section 12.2. Access for free at <a href={OPENSTAX_URL} target="_blank" rel="noreferrer" className="text-teal-700 underline">openstax.org</a>. CC BY-NC-SA 4.0.</p>

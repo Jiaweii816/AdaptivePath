@@ -15,11 +15,11 @@ test("AdaptivePath three columns, profile, and evidence-driven D1 branching", as
   // Textbook excerpts can be expanded, collapsed and reopened. Access is
   // still recorded as assisted after closing or refreshing the page.
   await page.getByRole("button", { name: "Reveal reference (assisted)" }).click();
-  await expect(page.getByText("An organism’s underlying genetic makeup", { exact: false })).toBeVisible();
+  await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
   await page.getByRole("button", { name: "Hide reference" }).click();
   await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Show reference" }).click();
-  await expect(page.getByText("An organism’s underlying genetic makeup", { exact: false })).toBeVisible();
+  await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
   await page.reload();
   await expect(page.getByRole("button", { name: "Show reference" })).toBeVisible();
   await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
