@@ -18,3 +18,5 @@ export async function buildCoachMemoryContext(
 ): Promise<CoachMemoryAssembly> {
   return assembleCoachMemory(prisma, args);
 }
+
+export { buildBiologyMemoryContext } from "./biology-memory-context";
