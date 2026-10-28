@@ -12,7 +12,7 @@ import { OPENSTAX_URL,TEXTBOOK_CHUNKS,type BiologyQuestion } from "./content";
 import type { AttemptEvidence,LearnerProfile } from "./profile";
 type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{role:"student"|"tutor";content:string}>;
   profile:LearnerProfile;question:BiologyQuestion|null;completed:boolean;questionCount:number;feedback?:AttemptEvidence["evaluation"];
-  reply?:string;provider?:"offline_rules"|"live_llm";modelReady:boolean;referenceUsed?:string[];error?:string};
+  reply?:string;provider?:"offline_rules"|"live_llm";tool?:string;modelReady:boolean;referenceUsed?:string[];error?:string};
 const storageKey="adaptivepath.demo.session.v1";
 export function AdaptivePathClient(){
   const [view,setView]=useState<SessionView|null>(null);
@@ -24,6 +24,7 @@ export function AdaptivePathClient(){
   const [error,setError]=useState("");
   const [lastFeedback,setLastFeedback]=useState<AttemptEvidence["evaluation"]|null>(null);
   const [providerStatus,setProviderStatus]=useState<"offline_rules"|"live_llm">("offline_rules");
+  const [selectedTeachingTool,setSelectedTeachingTool]=useState("");
   const request=useCallback(async(payload:Record<string,unknown>):Promise<SessionView>=>{
     const response=await fetch("/api/adaptivepath",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const result=await response.json() as SessionView;
@@ -53,7 +54,7 @@ export function AdaptivePathClient(){
   async function ask(){
     if(!view||!chat.trim()||pending)return;
     setPending(true);setError("");
-    try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setProviderStatus(result.provider??"offline_rules");setChat("");}
+    try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setProviderStatus(result.provider??"offline_rules");setSelectedTeachingTool(result.tool??"");setChat("");}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
   async function toggleReference(){
@@ -75,7 +76,7 @@ export function AdaptivePathClient(){
   async function reset(){
     if(pending)return;setPending(true);setError("");
     try{const result=await request({action:"start"});setView(result);window.sessionStorage.setItem(storageKey,result.sessionId);
-      setLastFeedback(null);setOption("");setReasoning("");setChat("");setReferenceOverride(null);}
+      setLastFeedback(null);setOption("");setReasoning("");setChat("");setSelectedTeachingTool("");setReferenceOverride(null);}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
   const refs=current?.referenceIds.map(id=>TEXTBOOK_CHUNKS.find(chunk=>chunk.id===id)).filter(chunk=>chunk!==undefined)??[];
@@ -161,7 +162,7 @@ export function AdaptivePathClient(){
       <section aria-label="Coach Panel" className="flex min-h-[560px] min-w-0 flex-col overflow-hidden rounded-md border border-border bg-card lg:min-h-0">
         <div className="border-b border-slate-200 p-5"><div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-teal-700"><MessageCircle size={16}/> AI Tutor Workspace</div>
           <h2 className="mt-2 text-lg font-semibold">Adaptive guidance</h2>
-          <p className="mt-1 text-xs text-slate-500">Provider: {providerStatus==="live_llm"?"Live model":"Offline rules"} · independent-mode answer guard</p></div>
+          <p className="mt-1 text-xs text-slate-500">Provider: {providerStatus==="live_llm"?"Live model":"Offline rules"} · Teaching tool: {selectedTeachingTool?selectedTeachingTool.replaceAll("_"," "):"evidence-based selection pending"}</p></div>
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           <div className="rounded-lg bg-slate-100 p-3 text-sm leading-6">Hi! Explain how you reached your answer. For independent questions, I can clarify instructions but will not reveal the solution.</div>
           {view?.messages.map((m,i)=>m.role==="student"?
