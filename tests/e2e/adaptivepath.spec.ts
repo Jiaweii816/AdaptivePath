@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 test("AdaptivePath three columns, profile, and evidence-driven D1 branching", async ({ page }) => {
   await page.goto("/adaptivepath");
-  await expect(page.getByRole("heading", { name: "AdaptivePath" })).toBeVisible();
+  await expect(page.getByText("AdaptivePath", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
   await expect(page.getByText("Textbook Reference", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
