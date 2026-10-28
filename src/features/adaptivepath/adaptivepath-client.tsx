@@ -6,7 +6,7 @@ import { OPENSTAX_URL,TEXTBOOK_CHUNKS,type BiologyQuestion } from "./content";
 import type { AttemptEvidence,LearnerProfile } from "./profile";
 type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{role:"student"|"tutor";content:string}>;
   profile:LearnerProfile;question:BiologyQuestion|null;completed:boolean;questionCount:number;feedback?:AttemptEvidence["evaluation"];
-  reply?:string;error?:string};
+  reply?:string;provider?:"offline_rules"|"live_llm";error?:string};
 const storageKey="adaptivepath.demo.session.v1";
 const human=(s:string)=>s.replaceAll("_"," ").replace(/\b\w/g,c=>c.toUpperCase());
 export function AdaptivePathClient(){
@@ -19,6 +19,7 @@ export function AdaptivePathClient(){
   const [pending,setPending]=useState(false);
   const [error,setError]=useState("");
   const [lastFeedback,setLastFeedback]=useState<AttemptEvidence["evaluation"]|null>(null);
+  const [providerStatus,setProviderStatus]=useState<"offline_rules"|"live_llm">("offline_rules");
   const request=useCallback(async(payload:Record<string,unknown>):Promise<SessionView>=>{
     const response=await fetch("/api/adaptivepath",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const result=await response.json() as SessionView;
@@ -48,7 +49,7 @@ export function AdaptivePathClient(){
   async function ask(){
     if(!view||!chat.trim()||pending)return;
     setPending(true);setError("");
-    try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setChat("");}
+    try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setProviderStatus(result.provider??"offline_rules");setChat("");}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
   async function revealReference(){
@@ -70,7 +71,7 @@ export function AdaptivePathClient(){
       <div><h1 className="text-lg font-bold tracking-tight">AdaptivePath</h1>
       <p className="text-xs text-slate-500">Biology 2e · Section 12.2 · Characteristics and Traits</p></div></div>
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800">Offline rules demo · not live AI</span>
+        <span className="rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800">Model-ready demo · verified provider required</span>
         <button onClick={()=>setProfileOpen(true)} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold hover:bg-slate-50">Learner Profile</button>
         <button onClick={reset} className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50"><RotateCcw size={14}/> Reset</button>
       </div>
@@ -110,14 +111,14 @@ export function AdaptivePathClient(){
             <button onClick={submit} disabled={!option||reasoning.trim().length<12||pending}
               className="flex w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
               Submit Answer <ChevronRight size={17}/></button></>:<div className="rounded-xl bg-teal-50 p-5 text-teal-900"><h3 className="font-semibold">Learning session completed</h3><p className="mt-2 text-sm">Open Learner Profile to inspect the independent transfer evidence.</p></div>}
-          {lastFeedback&&<div className="rounded-lg border border-teal-200 bg-teal-50 p-4 text-sm"><p className="font-semibold">Previous evaluation · CER {lastFeedback.reasoningScore}/4</p><p className="mt-2">{lastFeedback.feedback}</p><p className="mt-2 text-xs text-slate-500">Evaluator: transparent offline rules. Not an AI assessment.</p></div>}
+          {lastFeedback&&<div className="rounded-lg border border-teal-200 bg-teal-50 p-4 text-sm"><p className="font-semibold">Previous evaluation · CER {lastFeedback.reasoningScore}/4</p><p className="mt-2">{lastFeedback.feedback}</p><p className="mt-2 text-xs text-slate-500">Evaluator: {lastFeedback.evaluator==="live_llm"?"Live model with deterministic guards":"Offline rules (not an AI assessment)"}</p></div>}
           {last&&<p className="text-xs text-slate-500">Latest submission: {last.questionId} · {last.assisted?"Assisted":"Independent"} · {last.evaluation.successful?"Reasoning supported":"Needs follow-up"}</p>}
         </div>
       </section>
       <section className="flex min-h-[480px] flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-200 p-5"><div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-teal-700"><MessageCircle size={16}/> AI Tutor Workspace</div>
           <h2 className="mt-2 text-lg font-semibold">Adaptive guidance</h2>
-          <p className="mt-1 text-xs text-slate-500">Rule-based offline tutor · live model integration not configured</p></div>
+          <p className="mt-1 text-xs text-slate-500">Provider: {providerStatus==="live_llm"?"Live model":"Offline rules"} · independent-mode answer guard</p></div>
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           <div className="rounded-lg bg-slate-100 p-3 text-sm leading-6">Hi! Explain how you reached your answer. For independent questions, I can clarify instructions but will not reveal the solution.</div>
           {view?.messages.map((m,i)=><div key={i} className={"rounded-lg p-3 text-sm "+(m.role==="student"?"ml-6 bg-teal-100":"mr-6 bg-slate-100")}>
