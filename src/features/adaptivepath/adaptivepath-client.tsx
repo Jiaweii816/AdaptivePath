@@ -6,7 +6,7 @@ import { OPENSTAX_URL,TEXTBOOK_CHUNKS,type BiologyQuestion } from "./content";
 import type { AttemptEvidence,LearnerProfile } from "./profile";
 type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{role:"student"|"tutor";content:string}>;
   profile:LearnerProfile;question:BiologyQuestion|null;completed:boolean;questionCount:number;feedback?:AttemptEvidence["evaluation"];
-  reply?:string;provider?:"offline_rules"|"live_llm";modelReady:boolean;error?:string};
+  reply?:string;provider?:"offline_rules"|"live_llm";modelReady:boolean;referenceUsed?:string[];error?:string};
 const storageKey="adaptivepath.demo.session.v1";
 const human=(s:string)=>s.replaceAll("_"," ").replace(/\b\w/g,c=>c.toUpperCase());
 export function AdaptivePathClient(){
@@ -15,7 +15,7 @@ export function AdaptivePathClient(){
   const [reasoning,setReasoning]=useState("");
   const [chat,setChat]=useState("");
   const [profileOpen,setProfileOpen]=useState(false);
-  const [referenceOpen,setReferenceOpen]=useState(false);
+  const [referenceOverride,setReferenceOverride]=useState<boolean|null>(null);
   const [pending,setPending]=useState(false);
   const [error,setError]=useState("");
   const [lastFeedback,setLastFeedback]=useState<AttemptEvidence["evaluation"]|null>(null);
@@ -43,7 +43,7 @@ export function AdaptivePathClient(){
       const attemptId=crypto.randomUUID();
       const result=await request({action:"submit",sessionId:view.sessionId,questionId:current.id,
         selectedOption:option,studentReasoning:reasoning,attemptId});
-      setView(result);setLastFeedback(result.feedback??null);setOption("");setReasoning("");setReferenceOpen(false);
+      setView(result);setLastFeedback(result.feedback??null);setOption("");setReasoning("");setReferenceOverride(null);
     }catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
   async function ask(){
@@ -52,19 +52,31 @@ export function AdaptivePathClient(){
     try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setProviderStatus(result.provider??"offline_rules");setChat("");}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
-  async function revealReference(){
-    if(!view||!current||pending)return;setPending(true);setError("");
-    try{const result=await request({action:"reference",sessionId:view.sessionId,questionId:current.id});setView(result);setReferenceOpen(true);}
-    catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
+  async function toggleReference(){
+    if(!view||!current||pending)return;
+    if(referenceVisible){setReferenceOverride(false);return;}
+    // The reference was already accessed for this activity (possibly before
+    // a refresh). Visibility is purely UI state; assistance remains recorded.
+    if(current.mode==="guided_practice" || view.referenceUsed?.includes(current.id)){
+      setReferenceOverride(true);
+      return;
+    }
+    setPending(true);setError("");
+    try{
+      const result=await request({action:"reference",sessionId:view.sessionId,questionId:current.id});
+      setView(result);setReferenceOverride(true);
+    }catch(e){setError(e instanceof Error?e.message:String(e));}
+    finally{setPending(false);}
   }
   async function reset(){
     if(pending)return;setPending(true);setError("");
     try{const result=await request({action:"start"});setView(result);window.sessionStorage.setItem(storageKey,result.sessionId);
-      setLastFeedback(null);setOption("");setReasoning("");setChat("");setReferenceOpen(false);}
+      setLastFeedback(null);setOption("");setReasoning("");setChat("");setReferenceOverride(null);}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
   const refs=current?.referenceIds.map(id=>TEXTBOOK_CHUNKS.find(chunk=>chunk.id===id)).filter(chunk=>chunk!==undefined)??[];
-  const diagnosticLocked=current?.mode!=="guided_practice"&&!referenceOpen;
+  const referenceVisible=referenceOverride??(current?.mode==="guided_practice");
+  const referencePreviouslyAccessed=Boolean(current && view?.referenceUsed?.includes(current.id));
   return <main className="min-h-screen bg-[#f6f8fa] text-slate-900">
     <header className="flex min-h-16 flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3 lg:px-7">
       <div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center rounded-xl bg-teal-700 text-white"><Brain size={22}/></div>
@@ -86,13 +98,28 @@ export function AdaptivePathClient(){
         </div>
         <div className="flex-1 overflow-y-auto p-5"><div className="mb-3 flex items-center justify-between gap-2">
           <h3 className="text-sm font-bold">Textbook Reference</h3>
-          {diagnosticLocked&&<button onClick={()=>void revealReference()} className="text-xs font-semibold text-teal-700 underline">Reveal reference (assisted)</button>}
+          {current&&<button type="button" onClick={()=>void toggleReference()} disabled={pending}
+            aria-expanded={referenceVisible} aria-controls="adaptivepath-reference-content"
+            className="text-xs font-semibold text-teal-700 underline disabled:opacity-50">
+            {referenceVisible?"Hide reference":current.mode==="guided_practice" || referencePreviouslyAccessed?"Show reference":"Reveal reference (assisted)"}
+          </button>}
         </div>
-        {diagnosticLocked?<p className="rounded-lg bg-slate-50 p-4 text-sm text-slate-600">Reference hidden for independent assessment. You may reveal it, but this will mark the attempt as assisted.</p>:
-          refs.map(ref=><article key={ref.id} className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div id="adaptivepath-reference-content">
+        {!referenceVisible?<p className="rounded-lg bg-slate-50 p-4 text-sm text-slate-600">
+          {referencePreviouslyAccessed
+            ?"Reference hidden. It was already revealed for this question, so the attempt remains assisted."
+            :"Reference hidden for independent assessment. Revealing it will mark this attempt as assisted."}
+        </p>:
+          <>
+          {current?.mode!=="guided_practice"&&referencePreviouslyAccessed&&<p className="mb-3 text-xs font-medium text-amber-700">
+            Reference accessed — this attempt is marked assisted, even if you hide the passage.
+          </p>}
+          {refs.map(ref=><article key={ref.id} className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
             <p className="mb-2 text-xs font-semibold text-teal-700">{ref.subtitle} · Printed p. {ref.page} · PDF p. {ref.pdfPage}</p>
             <p className="text-sm leading-6 text-slate-700">{ref.original}</p>
           </article>)}
+          </>}
+        </div>
         <p className="mt-3 text-xs text-slate-500">Source: OpenStax Biology 2e, Section 12.2. Access for free at <a href={OPENSTAX_URL} target="_blank" rel="noreferrer" className="text-teal-700 underline">openstax.org</a>. CC BY-NC-SA 4.0.</p>
         </div>
       </section>
