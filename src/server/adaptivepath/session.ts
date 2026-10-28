@@ -9,7 +9,8 @@ export type BiologySession = {
   id: string;
   attempts: AttemptEvidence[];
   messages: Array<{ role: "student" | "tutor"; content: string }>;
-  hintsUsed: string[];\n  referenceUsed: string[];
+  hintsUsed: string[];
+  referenceUsed: string[];
 };
 let setup: Promise<unknown> | undefined;
 function ensureTable() {
@@ -58,7 +59,16 @@ export async function submitBiology(args:{
   await saveSession(session);
   return {session,profile:deriveProfile(session.attempts),nextQuestionId:nextQuestionId(session.attempts)};
 }
-export async function recordReferenceAccess(id:string,questionId:string) {\n  const session=await loadSession(id);\n  if(!session) throw new Error("Session not found");\n  if(nextQuestionId(session.attempts)!==questionId) throw new Error("This is not the current activity");\n  session.referenceUsed ??= [];\n  if(!session.referenceUsed.includes(questionId)) session.referenceUsed.push(questionId);\n  await saveSession(session);\n  return session;\n}\nexport async function recordTutorTurn(id:string,message:string) {
+export async function recordReferenceAccess(id:string,questionId:string) {
+  const session=await loadSession(id);
+  if(!session) throw new Error("Session not found");
+  if(nextQuestionId(session.attempts)!==questionId) throw new Error("This is not the current activity");
+  session.referenceUsed ??= [];
+  if(!session.referenceUsed.includes(questionId)) session.referenceUsed.push(questionId);
+  await saveSession(session);
+  return session;
+}
+export async function recordTutorTurn(id:string,message:string) {
   const session=await loadSession(id);
   if(!session) throw new Error("Session not found");
   const current=nextQuestionId(session.attempts);
