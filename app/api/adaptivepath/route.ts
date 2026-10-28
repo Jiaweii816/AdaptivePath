@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createSession, loadSession, recordTutorTurn, recordReferenceAccess, submitBiology } from "@/server/adaptivepath/session";
 import { deriveProfile, nextQuestionId } from "@/features/adaptivepath/profile";
 import { BIOLOGY_QUESTIONS, getQuestion } from "@/features/adaptivepath/content";
+import { isLiveBiologyTutorEnabled } from "@/server/adaptivepath/tutor-provider";
 export const runtime="nodejs";
 const bodySchema=z.discriminatedUnion("action",[
   z.object({action:z.literal("start")}),
@@ -15,7 +16,7 @@ function view(session:NonNullable<Awaited<ReturnType<typeof loadSession>>>) {
   const nextId=nextQuestionId(session.attempts);
   return { sessionId:session.id, attempts:session.attempts, messages:session.messages,
     profile:deriveProfile(session.attempts), question:nextId?getQuestion(nextId):null,
-    completed:nextId===null, questionCount:BIOLOGY_QUESTIONS.length };
+    completed:nextId===null, questionCount:BIOLOGY_QUESTIONS.length, modelReady:isLiveBiologyTutorEnabled() };
 }
 export async function GET(request:Request) {
   try {
