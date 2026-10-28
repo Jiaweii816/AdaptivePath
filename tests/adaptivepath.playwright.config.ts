@@ -13,6 +13,7 @@ export default defineConfig({
   use:{baseURL:"http://127.0.0.1:3000",trace:"retain-on-failure"},
   webServer:{
     command:"npm run dev:try",
+    cwd:process.cwd(),
     url:"http://127.0.0.1:3000",
     reuseExistingServer:false,
     timeout:120_000,
