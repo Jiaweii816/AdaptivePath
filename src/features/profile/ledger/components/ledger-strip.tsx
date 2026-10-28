@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 import type { LedgerTotals } from "../ledger-types";
 
-type Cell = {
+export type LedgerStripCell = {
   label: string;
   value: number;
   note: string;
   tone?: "primary" | "warn";
 };
 
-function buildCells(totals: LedgerTotals): Cell[] {
+function buildCells(totals: LedgerTotals): LedgerStripCell[] {
   return [
     {
       label: "L3 synthesis",
@@ -49,10 +49,12 @@ function buildCells(totals: LedgerTotals): Cell[] {
   ];
 }
 
-export function LedgerStrip({ totals }: { totals: LedgerTotals }) {
+/** Biology and programming profiles share this visual; their evidence counts do not share a data model. */
+export function LedgerStrip({ totals, cells }: { totals?: LedgerTotals; cells?: LedgerStripCell[] }) {
+  const displayCells = cells ?? (totals ? buildCells(totals) : []);
   return (
     <dl className="mt-6 grid grid-cols-2 overflow-hidden rounded-md border border-border bg-card sm:grid-cols-4 lg:grid-cols-7">
-      {buildCells(totals).map((cell) => (
+      {displayCells.map((cell) => (
         <div
           className="border-b border-r border-border/60 px-4 py-3.5 last:border-r-0"
           key={cell.label}
