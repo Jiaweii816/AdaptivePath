@@ -127,7 +127,7 @@ function EvidenceRow({attempt,index,previous,current}:{attempt:AttemptEvidence;i
         <div className="min-w-0 flex-1">
           <p className="font-mono text-[10px] text-muted-foreground">EVIDENCE #{index+1} · {question?.mode?human(question.mode):"Unknown mode"} · {TOPIC_NAMES[topic]}</p>
           <p className="mt-1.5 text-sm font-semibold">{attempt.questionId}: {question?.prompt??"Activity not found"}</p>
-          <p className="mt-1.5 text-xs text-muted-foreground">{attempt.assisted?"Assisted attempt":"Independent attempt"} · {attempt.evaluation.evaluator==="live_llm"?"LLM-evaluated":"Rule-evaluated (provisional)"} · {attempt.evaluation.successful?"Reasoning supported":"Needs more evidence"}</p>
+          <p className="mt-1.5 text-xs text-muted-foreground">{attempt.submittedAt?new Date(attempt.submittedAt).toLocaleString("en-US")+" · ":""}{attempt.assisted?"Assisted attempt":"Independent attempt"} · {attempt.evaluation.evaluator==="live_llm"?"LLM-evaluated":"Rule-evaluated (provisional)"} · {attempt.evaluation.successful?"Reasoning supported":"Needs more evidence"}</p>
         </div>
         <div className="flex items-center gap-3"><span className="rounded border border-border px-2 py-1 font-mono text-xs font-bold">CER {attempt.evaluation.reasoningScore}/4</span><ChevronRight className="h-4 w-4 text-primary transition-transform group-open:rotate-90"/></div>
       </div>
