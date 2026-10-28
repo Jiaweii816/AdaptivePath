@@ -164,7 +164,10 @@ export function AdaptiveLearnerProfilePage() {
   useEffect(()=>{
     let active=true;
     const id=window.sessionStorage.getItem(SESSION_KEY);
-    if(!id){setLoading(false);return;}
+    if(!id){
+      Promise.resolve().then(()=>{if(active)setLoading(false);});
+      return ()=>{active=false;};
+    }
     fetch("/api/adaptivepath?sessionId="+encodeURIComponent(id),{cache:"no-store"})
       .then(async response=>{
         if(!response.ok)throw new Error("Unable to read this learner session ("+response.status+").");
@@ -260,7 +263,7 @@ export function AdaptiveLearnerProfilePage() {
               </div>
             </LedgerTier>
           </div>
-          <p className="mt-4 text-xs leading-5 text-muted-foreground">Interface design reused from PatternCoach's Evidence Ledger components. Biology profile data comes from this session's persisted submissions, not the original LeetCode learner ledger.</p>
+          <p className="mt-4 text-xs leading-5 text-muted-foreground">Interface design reused from PatternCoach&apos;s Evidence Ledger components. Biology profile data comes from this session&apos;s persisted submissions, not the original LeetCode learner ledger.</p>
         </div>}
     </main>
   </div>;
