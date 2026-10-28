@@ -22,7 +22,14 @@ describe("AdaptivePath evidence rules",()=>{
     expect(deriveProfile([attempt("D1",false,false,["allele_disappears"])]).misconceptions.allele_disappears).toBe("suspected");
     expect(deriveProfile([attempt("D1",false,false,["allele_disappears"]),attempt("D4",false,false,["allele_disappears"])]).misconceptions.allele_disappears).toBe("confirmed");
   });
-  it("never exposes coding tools to Biology Coach",()=>{\n    expect(BIOLOGY_COACH_TOOLS).not.toContain("run_current_code");\n    expect(BIOLOGY_COACH_TOOLS).not.toContain("verify_proposed_repair");\n    expect(selectBiologyCoachTool({questionId:"D1",attempts:[]})).toBe("diagnostic_probe");\n    expect(selectBiologyCoachTool({questionId:"T1",attempts:[attempt("D1",true)]})).toBe("independent_transfer");\n    expect(selectBiologyCoachTool({questionId:"G1",attempts:[attempt("D1",false),attempt("D4",false)]})).toBe("prerequisite_review");\n  });\n  it("changes path based on response evidence, not learner name",()=>{
+  it("never exposes coding tools to Biology Coach",()=>{
+    expect(BIOLOGY_COACH_TOOLS).not.toContain("run_current_code");
+    expect(BIOLOGY_COACH_TOOLS).not.toContain("verify_proposed_repair");
+    expect(selectBiologyCoachTool({questionId:"D1",attempts:[]})).toBe("diagnostic_probe");
+    expect(selectBiologyCoachTool({questionId:"T1",attempts:[attempt("D1",true)]})).toBe("independent_transfer");
+    expect(selectBiologyCoachTool({questionId:"G1",attempts:[attempt("D1",false),attempt("D4",false)]})).toBe("prerequisite_review");
+  });
+  it("changes path based on response evidence, not learner name",()=>{
     expect(nextQuestionId([attempt("D1",false)])).toBe("D4");
     expect(nextQuestionId([attempt("D1",true)])).toBe("D2");
   });
