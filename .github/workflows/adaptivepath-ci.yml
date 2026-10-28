@@ -53,3 +53,9 @@ jobs:
         run: npm run lint
       - name: Next.js production build
         run: npm run build
+      - name: Live HTTP smoke for both learner paths
+        run: |
+          npm run dev:try > /tmp/adaptivepath-next.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          npx tsx scripts/adaptivepath-http-smoke.ts || { cat /tmp/adaptivepath-next.log; exit 1; }
