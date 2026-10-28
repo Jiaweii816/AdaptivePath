@@ -3,7 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingIncludes: {
-    "/api/adaptivepath/textbook/*": ["./src/features/adaptivepath/data/biology-12-2/assets/pages/*.png"],
+    "/api/adaptivepath/textbook/document": ["./src/features/adaptivepath/data/biology-12-2/assets/Biology_2e_Section_12_2.pdf"],
+    "/api/adaptivepath/textbook/worker": ["./node_modules/pdfjs-dist/build/pdf.worker.min.mjs"],
     "/*": ["./node_modules/sqlite-vec/**/*", "./node_modules/sqlite-vec-linux-x64/**/*"],
   },
   // sqlite-vec resolves and loads a platform-native .so at runtime. Keeping

@@ -8,7 +8,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { BiologyWorkbenchGrid } from "@/components/workbench/workbench-grid";
 import { AssistantBubble, UserBubble } from "@/components/workbench/coach-bubbles";
 import { ProblemStatement } from "@/components/workbench/problem-statement";
-import { OPENSTAX_URL,TEXTBOOK_CHUNKS,type BiologyQuestion } from "./content";
+import { OPENSTAX_URL,type BiologyQuestion } from "./content";
 import type { AttemptEvidence,LearnerProfile } from "./profile";
 import { TextbookViewer } from "./textbook-viewer";
 type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{role:"student"|"tutor";content:string}>;
@@ -80,7 +80,6 @@ export function AdaptivePathClient(){
       setLastFeedback(null);setOption("");setReasoning("");setChat("");setSelectedTeachingTool("");setReferenceOverride(null);}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
-  const refs=current?.referenceIds.map(id=>TEXTBOOK_CHUNKS.find(chunk=>chunk.id===id)).filter(chunk=>chunk!==undefined)??[];
   const referenceVisible=referenceOverride??(current?.mode==="guided_practice");
   const referencePreviouslyAccessed=Boolean(current && view?.referenceUsed?.includes(current.id));
   return (
@@ -130,12 +129,7 @@ export function AdaptivePathClient(){
             Reference accessed — this attempt is marked assisted, even if you hide the passage.
           </p>}
           {current && <TextbookViewer key={current.id} referenceIds={current.referenceIds}/> }
-          <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-teal-700">Read reference text</summary>
-          {refs.map(ref=><article key={ref.id} className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
-            <p className="mb-2 text-xs font-semibold text-teal-700">{ref.subtitle} · Printed p. {ref.page} · PDF p. {ref.pdfPage}</p>
-            <p className="text-sm leading-6 text-slate-700">{ref.original}</p>
-          </article>)}
-          </details>
+
           </>}
         </div>
         <p className="mt-3 text-xs text-slate-500">Source: OpenStax Biology 2e, Section 12.2. Access for free at <a href={OPENSTAX_URL} target="_blank" rel="noreferrer" className="text-teal-700 underline">openstax.org</a>. CC BY-NC-SA 4.0.</p>
