@@ -15,6 +15,11 @@ const EMPTY_ATTEMPTS: AttemptEvidence[] = [];
 const TOPIC_NAMES: Record<BiologyTopic,string> = {
   genotype_phenotype: "Genotype & phenotype",
   allele_segregation: "Allele segregation",
+  incomplete_dominance: "Incomplete dominance",
+  codominance: "Codominance",
+  multiple_alleles: "Multiple alleles",
+  sex_linkage: "X-linked inheritance",
+  lethality: "Lethal alleles",
 };
 const FILTERS = [
   { key: "all", label: "All evidence" },
