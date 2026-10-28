@@ -11,6 +11,7 @@ import { BIOLOGY_QUESTIONS, getQuestion, getReference, type BiologyTopic } from 
 import { deriveProfile, MISCONCEPTION_LABELS, type AttemptEvidence, type LearnerProfile, type MisconceptionStatus } from "../profile";
 
 const SESSION_KEY = "adaptivepath.demo.session.v1";
+const EMPTY_ATTEMPTS: AttemptEvidence[] = [];
 const TOPIC_NAMES: Record<BiologyTopic,string> = {
   genotype_phenotype: "Genotype & phenotype",
   allele_segregation: "Allele segregation",
@@ -54,7 +55,7 @@ function summaryCells(attempts:AttemptEvidence[],profile:LearnerProfile):LedgerS
     {label:"Evidence",value:attempts.length,note:"submitted attempts",tone:"primary"},
     {label:"Independent",value:independent.length,note:"without reference or hint"},
     {label:"Assisted",value:assisted.length,note:"reference or hint used"},
-    {label:"Transfer",value:successful.length,note:"successful independent tasks",tone:"primary"},
+    {label:"Transfer",value:new Set(successful.map(a=>a.questionId)).size,note:"distinct successful independent tasks",tone:"primary"},
     {label:"CER mean",value:average,note:attempts.length?"out of 4 · provisional":"no responses yet"},
     {label:"Open signals",value:unresolved,note:"suspected or confirmed",tone:unresolved?"warn":undefined},
     {label:"Practice",value:attempts.filter(a=>getQuestion(a.questionId)?.mode==="guided_practice").length,note:"guided activity attempts"},
@@ -173,7 +174,7 @@ export function AdaptiveLearnerProfilePage() {
       .finally(()=>{if(active)setLoading(false);});
     return ()=>{active=false;};
   },[]);
-  const attempts=session?.attempts??[];
+  const attempts=session?.attempts??EMPTY_ATTEMPTS;
   const profile=session?.profile;
   const snapshots=useMemo(()=>attempts.map((a,index)=>({
     attempt:a,
