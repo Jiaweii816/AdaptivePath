@@ -2,6 +2,7 @@ import "server-only";
 import { getQuestion } from "@/features/adaptivepath/content";
 import type { AttemptEvidence } from "@/features/adaptivepath/profile";
 import { buildBiologyMemoryContext } from "@/server/memory";
+import { selectBiologyCoachTool, type BiologyCoachTool } from "@/features/adaptivepath/coach-policy";
 import { isLiveBiologyTutorEnabled, liveBiologyTutorReply } from "@/server/adaptivepath/tutor-provider";
 
 /**
@@ -13,28 +14,6 @@ import { isLiveBiologyTutorEnabled, liveBiologyTutorReply } from "@/server/adapt
  * existing LLM client, memory projection and chat ledger while exposing
  * ONLY Biology tutoring actions, not coding tools.
  */
-export const BIOLOGY_COACH_TOOLS=[
-  "diagnostic_probe","prerequisite_review","guided_hint","worked_example",
-  "additional_practice","independent_transfer",
-] as const;
-export type BiologyCoachTool=(typeof BIOLOGY_COACH_TOOLS)[number];
-
-export function selectBiologyCoachTool(args:{questionId:string|null;attempts:AttemptEvidence[]}):BiologyCoachTool {
-  const question=args.questionId?getQuestion(args.questionId):null;
-  if(question?.mode==="diagnostic")return "diagnostic_probe";
-  if(question?.mode==="transfer")return "independent_transfer";
-  const {profile,recentEvidence}=buildBiologyMemoryContext(args.attempts);
-  if(recentEvidence.length===0)return "diagnostic_probe";
-  const mistakes=Object.values(profile.misconceptions);
-  if(mistakes.some(x=>x==="confirmed"))return "worked_example";
-  if(profile.priorKnowledge==="limited" && recentEvidence.length<3)return "prerequisite_review";
-  if(profile.support==="worked_example")return "worked_example";
-  if(profile.support==="guided_hint")return "guided_hint";
-  if(recentEvidence.at(-1)?.successful && profile.priorKnowledge==="strong")
-    return "additional_practice";
-  return "guided_hint";
-}
-
 export async function biologyCoachReply(args:{
   message:string;
   questionId:string|null;
@@ -42,13 +21,14 @@ export async function biologyCoachReply(args:{
   history:Array<{role:"student"|"tutor";content:string}>;
 }) {
   const tool=selectBiologyCoachTool(args);
+  const memory=buildBiologyMemoryContext(args.attempts);
   const question=args.questionId?getQuestion(args.questionId):null;
   // Avoid leaking answers even if live model is configured.
   if(tool==="diagnostic_probe"||tool==="independent_transfer"){
     return {reply:"This is an independent assessment. I can clarify the instructions, but I cannot give you the genotype, correct option, or a worked solution before you submit. Explain which alleles each parent may pass on.",
       provider:"offline_rules" as const,tool};
   }
-  const liveReply=await liveBiologyTutorReply({...args,selectedTool:tool}).catch(error=>{
+  const liveReply=await liveBiologyTutorReply({...args,selectedTool:tool,learnerMemory:memory}).catch(error=>{
     console.warn("AdaptivePath Biology Coach fallback",error instanceof Error?error.message:"provider error");
     return null;
   });
