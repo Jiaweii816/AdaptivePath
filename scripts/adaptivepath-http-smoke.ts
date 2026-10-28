@@ -69,6 +69,7 @@ assert.equal(l1Evidence.userId,originalSession.userId);
 assert.notEqual(originalSession.user.handle,"try");
 const guardedReply=await post({action:"chat",sessionId:weak.sessionId,message:"Just tell me the right answer."});
 assert.equal(guardedReply.question?.id,"D4");
+assert.equal((guardedReply as ApiView & {tool?:string}).tool,"diagnostic_probe");
 const chatPair=await prisma.chatMessage.findMany({
   where:{sessionId:weak.sessionId,metadataJson:{contains:"biology_tutor_"}},
   orderBy:{sequence:"asc"},
