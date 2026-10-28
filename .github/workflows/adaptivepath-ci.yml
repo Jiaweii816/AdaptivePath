@@ -67,6 +67,7 @@ jobs:
           name: adaptivepath-browser-evidence
           path: |
             test-results/adaptivepath-workspace.png
+            test-results/adaptivepath-profile.png
             test-results/**/trace.zip
           if-no-files-found: ignore
       - name: Live HTTP smoke for both learner paths
