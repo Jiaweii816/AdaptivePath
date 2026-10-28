@@ -9,7 +9,7 @@ export type BiologySession = {
   id: string;
   attempts: AttemptEvidence[];
   messages: Array<{ role: "student" | "tutor"; content: string }>;
-  hintsUsed: string[];
+  hintsUsed: string[];\n  referenceUsed: string[];
 };
 let setup: Promise<unknown> | undefined;
 function ensureTable() {
@@ -33,7 +33,7 @@ async function saveSession(session:BiologySession) {
     session.id,JSON.stringify(session),new Date().toISOString());
 }
 export async function createSession() {
-  const session:BiologySession={id:randomUUID(),attempts:[],messages:[],hintsUsed:[]};
+  const session:BiologySession={id:randomUUID(),attempts:[],messages:[],hintsUsed:[],referenceUsed:[]};
   await saveSession(session);
   return session;
 }
@@ -53,12 +53,12 @@ export async function submitBiology(args:{
   const evaluation=evaluateBiologyAnswer(args.questionId,args.selectedOption,args.studentReasoning);
   const evidence:AttemptEvidence={id:args.attemptId,questionId:question.id,
     selectedOption:args.selectedOption,studentReasoning:args.studentReasoning.trim(),
-    assisted:session.hintsUsed.includes(question.id),evaluation};
+    assisted:session.hintsUsed.includes(question.id) || (session.referenceUsed ?? []).includes(question.id),evaluation};
   session.attempts.push(evidence);
   await saveSession(session);
   return {session,profile:deriveProfile(session.attempts),nextQuestionId:nextQuestionId(session.attempts)};
 }
-export async function recordTutorTurn(id:string,message:string) {
+export async function recordReferenceAccess(id:string,questionId:string) {\n  const session=await loadSession(id);\n  if(!session) throw new Error("Session not found");\n  if(nextQuestionId(session.attempts)!==questionId) throw new Error("This is not the current activity");\n  session.referenceUsed ??= [];\n  if(!session.referenceUsed.includes(questionId)) session.referenceUsed.push(questionId);\n  await saveSession(session);\n  return session;\n}\nexport async function recordTutorTurn(id:string,message:string) {
   const session=await loadSession(id);
   if(!session) throw new Error("Session not found");
   const current=nextQuestionId(session.attempts);
