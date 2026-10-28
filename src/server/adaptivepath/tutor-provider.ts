@@ -4,6 +4,7 @@ import { createChatClient } from "@/server/llm/client";
 import { getChatModel } from "@/server/llm/models";
 import { getQuestion } from "@/features/adaptivepath/content";
 import { deriveProfile, MISCONCEPTION_LABELS, type AttemptEvidence, type Evaluation } from "@/features/adaptivepath/profile";
+import type { buildBiologyMemoryContext } from "@/server/memory";
 import { evaluateBiologyAnswer } from "./evaluate";
 
 /**
@@ -91,12 +92,13 @@ export async function liveBiologyTutorReply(args:{
   message:string;questionId:string|null;attempts:AttemptEvidence[];
   history: Array<{role:"student"|"tutor";content:string}>;
   selectedTool?:string;
+  learnerMemory?:ReturnType<typeof buildBiologyMemoryContext>;
 }):Promise<string|null> {
   if(!isLiveBiologyTutorEnabled()) return null;
   const question=args.questionId?getQuestion(args.questionId):null;
   // Critical answer-leak guard: independent assessment never goes to the LLM.
   if(question && question.mode!=="guided_practice") return null;
-  const profile=deriveProfile(args.attempts);
+  const profile=args.learnerMemory?.profile??deriveProfile(args.attempts);
   const client=createChatClient();
   const history=args.history.slice(-MAX_HISTORY).map(m=>({
     role:(m.role==="student"?"user":"assistant") as "user"|"assistant",
@@ -127,6 +129,8 @@ export async function liveBiologyTutorReply(args:{
           misconceptions:profile.misconceptions,support:profile.support,certainty:profile.certainty},
         permittedConceptNotes:safeConcepts,
         selectedInstructionalTool:args.selectedTool??"guided_hint",
+        recentValidatedEvidence:args.learnerMemory?.recentEvidence??[],
+        deterministicMasteryGates:args.learnerMemory?.learningConstraints,
       })},
       ...history,
       {role:"user",content:args.message.slice(0,2000)},
