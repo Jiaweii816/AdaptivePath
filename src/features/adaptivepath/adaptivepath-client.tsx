@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useCallback,useEffect,useState } from "react";
 import { BookOpen,Brain,MessageCircle,Send,RotateCcw,ChevronRight } from "lucide-react";
 import { CoachMarkdown } from "@/components/coach/coach-markdown";
@@ -8,13 +9,11 @@ type SessionView={sessionId:string;attempts:AttemptEvidence[];messages:Array<{ro
   profile:LearnerProfile;question:BiologyQuestion|null;completed:boolean;questionCount:number;feedback?:AttemptEvidence["evaluation"];
   reply?:string;provider?:"offline_rules"|"live_llm";modelReady:boolean;referenceUsed?:string[];error?:string};
 const storageKey="adaptivepath.demo.session.v1";
-const human=(s:string)=>s.replaceAll("_"," ").replace(/\b\w/g,c=>c.toUpperCase());
 export function AdaptivePathClient(){
   const [view,setView]=useState<SessionView|null>(null);
   const [option,setOption]=useState("");
   const [reasoning,setReasoning]=useState("");
   const [chat,setChat]=useState("");
-  const [profileOpen,setProfileOpen]=useState(false);
   const [referenceOverride,setReferenceOverride]=useState<boolean|null>(null);
   const [pending,setPending]=useState(false);
   const [error,setError]=useState("");
@@ -84,7 +83,7 @@ export function AdaptivePathClient(){
       <p className="text-xs text-slate-500">Biology 2e · Section 12.2 · Characteristics and Traits</p></div></div>
       <div className="flex items-center gap-2">
         <span className="rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-800">{view?.modelReady?"Live model configured":"Offline mode · model key not configured"}</span>
-        <button onClick={()=>setProfileOpen(true)} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold hover:bg-slate-50">Learner Profile</button>
+        <Link href="/adaptivepath/profile" className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold hover:bg-slate-50">Learner Profile</Link>
         <button onClick={reset} className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50"><RotateCcw size={14}/> Reset</button>
       </div>
     </header>
@@ -159,24 +158,6 @@ export function AdaptivePathClient(){
         </form>
       </section>
     </div>
-    {profileOpen&&<div className="fixed inset-0 z-50 flex justify-end bg-black/35" onClick={()=>setProfileOpen(false)}>
-      <aside aria-label="Learner Profile" className="h-full w-full max-w-md overflow-y-auto bg-white p-6 shadow-2xl" onClick={e=>e.stopPropagation()}>
-        <div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-bold">Dynamic Learner Profile</h2>
-        <button onClick={()=>setProfileOpen(false)} className="text-sm text-teal-700">Close</button></div>
-        {view&&<><p className="mb-5 text-sm text-slate-600">Derived from actual submitted answers and persisted attempt evidence.</p>
-          <dl className="space-y-3 text-sm">
-            <div><dt className="text-slate-500">Prior Knowledge</dt><dd className="font-semibold">{human(view.profile.priorKnowledge)}</dd></div>
-            <div><dt className="text-slate-500">Support</dt><dd className="font-semibold">{human(view.profile.support)}</dd></div>
-            <div><dt className="text-slate-500">Certainty</dt><dd className="font-semibold">{human(view.profile.certainty)}</dd></div>
-          </dl><h3 className="mb-2 mt-6 font-semibold">Mastery by topic</h3>
-          {Object.entries(view.profile.mastery).map(([topic,p])=><div key={topic} className="mb-2 rounded-lg border p-3 text-sm">
-            <p className="font-semibold">{human(topic)}: {human(p.mastery)}</p>
-            <p className="text-xs text-slate-500">{p.independentTransferSuccesses}/2 distinct successful independent transfers · {p.evidenceCount} attempts</p></div>)}
-          <h3 className="mb-2 mt-6 font-semibold">Misconceptions</h3>{Object.entries(view.profile.misconceptions).map(([key,status])=>
-            status!=="none"?<p key={key} className="mb-2 rounded-lg border p-3 text-sm">{human(key)} · {human(status)}</p>:null)}
-          <h3 className="mb-2 mt-6 font-semibold">Evidence history</h3>
-          {view.profile.latestEvidence.length?view.profile.latestEvidence.map((s,i)=><p key={i} className="mb-2 rounded-lg bg-slate-50 p-3 text-sm">{s}</p>):<p className="text-sm text-slate-500">No submissions yet</p>}
-          </>}
-      </aside></div>}
+
   </main>;
 }
