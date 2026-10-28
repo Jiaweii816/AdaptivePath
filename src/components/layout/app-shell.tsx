@@ -18,13 +18,14 @@ type AppShellProps = {
   children: ReactNode;
   headerActions?: ReactNode;
   currentProblemLabel: string;
-  currentProblemDifficulty: string | null;
-  language: WorkbenchLanguage;
-  problemQuery: string;
-  resolutionMessage: string | null;
-  onLanguageChange: (language: WorkbenchLanguage) => void;
-  onProblemQueryChange: (query: string) => void;
-  onProblemResolve: () => void;
+  currentProblemDifficulty?: string | null;
+  language?: WorkbenchLanguage;
+  problemQuery?: string;
+  resolutionMessage?: string | null;
+  onLanguageChange?: (language: WorkbenchLanguage) => void;
+  onProblemQueryChange?: (query: string) => void;
+  onProblemResolve?: () => void;
+  mode?: "coding" | "biology";
 };
 
 function difficultyClassName(difficulty: string | null) {
@@ -54,6 +55,7 @@ export function AppShell({
   onLanguageChange,
   onProblemQueryChange,
   onProblemResolve,
+  mode = "coding",
 }: AppShellProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -61,18 +63,18 @@ export function AppShell({
         <div className="mx-auto flex h-full w-full max-w-[1800px] items-center gap-4 overflow-x-auto px-4 lg:px-6">
           <div className="flex shrink-0 items-center gap-3">
             <div className="grid h-9 w-9 place-items-center rounded-md bg-[#101418] text-sm font-bold text-white shadow-sm">
-              PC
+              {mode === "biology" ? "AP" : "PC"}
             </div>
             <span className="whitespace-nowrap text-sm font-semibold">
-              PatternCoach
+              {mode === "biology" ? "AdaptivePath" : "PatternCoach"}
             </span>
           </div>
 
-          <form
+          {mode !== "biology" && <form
             className="relative flex w-[330px] shrink-0 items-center"
             onSubmit={(event) => {
               event.preventDefault();
-              onProblemResolve();
+              onProblemResolve?.();
             }}
           >
             <Search
@@ -82,9 +84,9 @@ export function AppShell({
             <Input
               aria-label="Problem resolver"
               className="h-9 rounded-md bg-card pl-9 pr-10"
-              onChange={(event) => onProblemQueryChange(event.target.value)}
+              onChange={(event) => onProblemQueryChange?.(event.target.value)}
               placeholder="Problem # / slug search..."
-              value={problemQuery}
+              value={problemQuery ?? ""}
             />
             <Button
               aria-label="Resolve problem"
@@ -100,28 +102,24 @@ export function AppShell({
                 {resolutionMessage}
               </p>
             ) : null}
-          </form>
+          </form>}
 
           <div className="flex min-w-[180px] flex-1 items-center gap-3">
             <h1 className="truncate text-base font-semibold leading-6">
               {currentProblemLabel}
             </h1>
-            <span
-              className={cn(
-                "shrink-0 rounded-full border px-3 py-1 text-xs font-medium",
-                difficultyClassName(currentProblemDifficulty),
-              )}
-            >
-              {currentProblemDifficulty ?? "Demo"}
-            </span>
+            {mode === "biology" ? <span className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs text-primary">Biology 2e · §12.2</span> :
+              <span className={cn("shrink-0 rounded-full border px-3 py-1 text-xs font-medium", difficultyClassName(currentProblemDifficulty ?? null))}>
+                {currentProblemDifficulty ?? "Demo"}
+              </span>}
           </div>
 
-          <div className="w-32 shrink-0">
+          {mode !== "biology" && <div className="w-32 shrink-0">
             <Select
               onValueChange={(value) =>
-                onLanguageChange(value as WorkbenchLanguage)
+                onLanguageChange?.(value as WorkbenchLanguage)
               }
-              value={language}
+              value={language ?? "Python"}
             >
               <SelectTrigger aria-label="Language" className="h-9 bg-card">
                 <SelectValue />
@@ -131,7 +129,7 @@ export function AppShell({
                 <SelectItem value="C++">C++</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div>}
 
           {headerActions ? (
             <div className="shrink-0">{headerActions}</div>
