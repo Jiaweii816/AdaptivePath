@@ -21,7 +21,7 @@ export function evaluateBiologyAnswer(questionId: string, option: string, reason
   const concepts: Record<string,boolean[]> = {
     D1: [has(/not necessarily|not always|can (?:be|have)|could (?:be|have)|different genotype|no,? (?:they|both)/),
       has(/\brr\b/i) && has(/\brr\b/i) && /\bRR\b/.test(reasoning) && /\bRr\b/.test(reasoning),
-      has(/dominant|phenotype|same appearance|same trait/) && has(/heterozyg|genotype|two allele/)],
+      has(/dominant|phenotype|same appearance|same trait/) && has(/heterozyg|genotype|two allele|allele/)],
     D2: [has(/gamete|parent|segregat/),
       /\bR\b/.test(reasoning) && /\br\b/.test(reasoning),
       /\bRr\b/.test(reasoning) && /\brr\b/.test(reasoning)],
