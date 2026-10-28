@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import prisma from "@/server/db/prisma";
 import { getQuestion } from "@/features/adaptivepath/content";
 import { deriveProfile, nextQuestionId, type AttemptEvidence } from "@/features/adaptivepath/profile";
-import { evaluateBiologyAnswer } from "./evaluate";
+import { evaluateBiologyWithProvider, liveBiologyTutorReply, isLiveBiologyTutorEnabled } from "./tutor-provider";
 
 export type BiologySession = {
   id: string;
@@ -51,7 +51,7 @@ export async function submitBiology(args:{
   const question=getQuestion(args.questionId);
   if(!question || !question.options.some(o=>o.id===args.selectedOption)) throw new Error("Invalid answer option");
   if(args.studentReasoning.trim().length<12) throw new Error("Please explain your reasoning (at least 12 characters).");
-  const evaluation=evaluateBiologyAnswer(args.questionId,args.selectedOption,args.studentReasoning);
+  const evaluation=await evaluateBiologyWithProvider(args.questionId,args.selectedOption,args.studentReasoning);
   const evidence:AttemptEvidence={id:args.attemptId,questionId:question.id,
     selectedOption:args.selectedOption,studentReasoning:args.studentReasoning.trim(),
     assisted:session.hintsUsed.includes(question.id) || (session.referenceUsed ?? []).includes(question.id),evaluation};
@@ -78,15 +78,17 @@ export async function recordTutorTurn(id:string,message:string) {
   if(question?.mode==="diagnostic" || question?.mode==="transfer"){
     reply="This is an independent assessment. I can clarify the instructions, but I cannot give you the genotype, the correct option, or a worked solution before you submit. Explain which alleles each parent may pass on.";
   } else {
+    const liveReply=await liveBiologyTutorReply({message,questionId:current,attempts:session.attempts,history:session.messages}).catch(error=>{console.warn("AdaptivePath live tutor unavailable",error instanceof Error?error.message:"error");return null;});
     const q=message.toLowerCase();
     if(q.includes("example") || profile.support==="worked_example") {
       reply="Worked example (different alleles): In a simple Aa × aa cross, the Aa parent can contribute A or a, while the aa parent contributes a. Combine one allele from each gamete. Now apply this same method to the current problem.";
     } else {
       reply="Guided hint: Identify each parent's pair of alleles, then list the single allele each gamete can carry. Which genotypes can form at fertilization? Try explaining this in your own words.";
     }
+    if(liveReply) reply=liveReply;
     if(current && !session.hintsUsed.includes(current)) session.hintsUsed.push(current);
   }
   session.messages.push({role:"student",content:message},{role:"tutor",content:reply});
   await saveSession(session);
-  return {session,reply,provider:"offline_rules" as const};
+  return {session,reply,provider: question?.mode === "guided_practice" && isLiveBiologyTutorEnabled() && !reply.startsWith("Guided hint:") && !reply.startsWith("Worked example") ? "live_llm" as const : "offline_rules" as const};
 }
