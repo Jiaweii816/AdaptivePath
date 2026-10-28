@@ -27,7 +27,7 @@ export function resolveLocalDatabaseProfile(
   name: LocalDatabaseProfileName,
   cwd = process.cwd(),
 ): LocalDatabaseProfile {
-  const dataRoot = "/home/iris/patterncoach-data";
+  const dataRoot = process.env.PATTERNCOACH_DATA_ROOT\n    ? resolve(process.env.PATTERNCOACH_DATA_ROOT)\n    : resolve(cwd, ".patterncoach-data");
   const profiles: Record<LocalDatabaseProfileName, LocalDatabaseProfile> = {
     iris: {
       name: "iris",
