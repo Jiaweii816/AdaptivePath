@@ -12,7 +12,7 @@ export type Evaluation = {
   successful: boolean;
   misconceptionTags: string[];
   feedback: string;
-  evaluator: "offline_rules";
+  evaluator: "offline_rules" | "live_llm";
 };
 export type AttemptEvidence = {
   id: string;
