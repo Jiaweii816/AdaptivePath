@@ -15,6 +15,7 @@ const bodySchema=z.discriminatedUnion("action",[
 function view(session:NonNullable<Awaited<ReturnType<typeof loadSession>>>) {
   const nextId=nextQuestionId(session.attempts);
   return { sessionId:session.id, attempts:session.attempts, messages:session.messages,
+    referenceUsed:session.referenceUsed ?? [],
     profile:deriveProfile(session.attempts), question:nextId?getQuestion(nextId):null,
     completed:nextId===null, questionCount:BIOLOGY_QUESTIONS.length, modelReady:isLiveBiologyTutorEnabled() };
 }
