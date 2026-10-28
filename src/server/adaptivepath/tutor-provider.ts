@@ -67,7 +67,7 @@ export async function evaluateBiologyWithProvider(questionId:string,option:strin
           studentReasoning:reasoning, concepts:safeConcepts,
         })},
       ],
-    });
+    },{timeout:20_000,maxRetries:0});
     const raw=completion.choices[0]?.message?.content;
     if(!raw) throw new Error("Empty CER evaluation");
     const proposal=proposalSchema.parse(JSON.parse(raw));
@@ -128,7 +128,7 @@ export async function liveBiologyTutorReply(args:{
       ...history,
       {role:"user",content:args.message.slice(0,2000)},
     ],
-  });
+  },{timeout:20_000,maxRetries:0});
   const reply=response.choices[0]?.message?.content?.trim();
   if(!reply) throw new Error("Empty AI tutor reply");
   return reply.slice(0,2500);
