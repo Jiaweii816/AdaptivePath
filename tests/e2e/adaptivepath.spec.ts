@@ -66,11 +66,11 @@ test("Full OpenStax 12.2 textbook chunks can be searched and filtered",async ({p
   await expect(page.getByRole("heading",{name:"Biology 2e · Section 12.2"})).toBeVisible();
   expect(await page.locator("article").count()).toBeGreaterThan(35);
   await page.getByRole("combobox",{name:"Filter textbook topic"}).selectOption("codominance");
-  await expect(page.getByText("Codominance",{exact:true}).first()).toBeVisible();
-  await expect(page.getByText("MN blood groups",{exact:false}).first()).toBeVisible();
+  await expect(page.locator("article").getByRole("heading",{name:"Codominance"}).first()).toBeVisible();
+  await expect(page.locator("article").getByText("MN blood groups",{exact:false}).first()).toBeVisible();
   await page.getByRole("combobox",{name:"Filter textbook topic"}).selectOption("all");
   await page.getByRole("combobox",{name:"Filter printed page"}).selectOption("327");
-  await expect(page.getByText("Huntington",{exact:false}).first()).toBeVisible();
+  await expect(page.locator("article").getByText("Huntington",{exact:false}).first()).toBeVisible();
   await page.getByRole("combobox",{name:"Filter printed page"}).selectOption("all");
   await page.screenshot({path:"test-results/adaptivepath-textbook.png",fullPage:true});
 });
