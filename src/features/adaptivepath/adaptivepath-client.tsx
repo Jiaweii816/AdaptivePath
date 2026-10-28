@@ -51,7 +51,7 @@ export function AdaptivePathClient(){
     try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setChat("");}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
-  async function reset(){
+  async function revealReference(){\n    if(!view||!current||pending)return;setPending(true);setError("");\n    try{const result=await request({action:"reference",sessionId:view.sessionId,questionId:current.id});setView(result);setReferenceOpen(true);}\n    catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}\n  }\n  async function reset(){
     if(pending)return;setPending(true);setError("");
     try{const result=await request({action:"start"});setView(result);window.sessionStorage.setItem(storageKey,result.sessionId);
       setLastFeedback(null);setOption("");setReasoning("");setChat("");setReferenceOpen(false);}
@@ -80,7 +80,7 @@ export function AdaptivePathClient(){
         </div>
         <div className="flex-1 overflow-y-auto p-5"><div className="mb-3 flex items-center justify-between gap-2">
           <h3 className="text-sm font-bold">Textbook Reference</h3>
-          {diagnosticLocked&&<button onClick={()=>setReferenceOpen(true)} className="text-xs font-semibold text-teal-700 underline">Reveal reference (assisted)</button>}
+          {diagnosticLocked&&<button onClick={()=>void revealReference()} className="text-xs font-semibold text-teal-700 underline">Reveal reference (assisted)</button>}
         </div>
         {diagnosticLocked?<p className="rounded-lg bg-slate-50 p-4 text-sm text-slate-600">Reference hidden for independent assessment. You may reveal it, but this will mark the attempt as assisted.</p>:
           refs.map(ref=><article key={ref.id} className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
