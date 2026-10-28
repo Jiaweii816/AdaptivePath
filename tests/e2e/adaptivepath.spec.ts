@@ -41,11 +41,11 @@ test("AdaptivePath three columns, profile, and evidence-driven D1 branching", as
   await expect(page.getByRole("heading", { name: "Misconception evidence" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Evidence episodes" })).toBeVisible();
   await expect(page.getByText("Genotype & phenotype", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Stable requires two distinct successful independent transfer", { exact: false })).toBeVisible();
+  await expect(page.getByText("Stable requires two distinct successful independent transfer", { exact: false }).first()).toBeVisible();
   await expect(page.getByText("Round phenotype always means RR", { exact: false }).first()).toBeVisible();
   await page.screenshot({ path: "test-results/adaptivepath-profile.png", fullPage: true });
   await page.getByText("D1: Two round-seed plants look the same.", { exact: false }).click();
-  await expect(page.getByText("Both plants must be RR because the dominant allele", { exact: false })).toBeVisible();
+  await expect(page.getByText("Both plants must be RR because the dominant allele", { exact: false }).last()).toBeVisible();
   await page.getByRole("link", { name: "Back to Biology Workbench" }).click();
   await expect(page).toHaveURL(/\/adaptivepath$/);
   await expect(page.getByText("The dominant allele wins", { exact: false })).toBeVisible();
