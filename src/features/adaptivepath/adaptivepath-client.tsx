@@ -51,7 +51,12 @@ export function AdaptivePathClient(){
     try{const result=await request({action:"chat",sessionId:view.sessionId,message:chat.trim()});setView(result);setChat("");}
     catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
   }
-  async function revealReference(){\n    if(!view||!current||pending)return;setPending(true);setError("");\n    try{const result=await request({action:"reference",sessionId:view.sessionId,questionId:current.id});setView(result);setReferenceOpen(true);}\n    catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}\n  }\n  async function reset(){
+  async function revealReference(){
+    if(!view||!current||pending)return;setPending(true);setError("");
+    try{const result=await request({action:"reference",sessionId:view.sessionId,questionId:current.id});setView(result);setReferenceOpen(true);}
+    catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}
+  }
+  async function reset(){
     if(pending)return;setPending(true);setError("");
     try{const result=await request({action:"start"});setView(result);window.sessionStorage.setItem(storageKey,result.sessionId);
       setLastFeedback(null);setOption("");setReasoning("");setChat("");setReferenceOpen(false);}
