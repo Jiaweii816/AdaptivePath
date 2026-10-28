@@ -18,7 +18,8 @@ export type SidebarNavItem = {
 
 export const SIDEBAR_NAV: SidebarNavItem[] = [
   { href: "/campaign/today", label: "Today", icon: CalendarDays },
-  { href: "/workbench", label: "Workbench", icon: Code2 },\n  { href: "/adaptivepath", label: "AdaptivePath Biology", icon: BookOpen },
+  { href: "/workbench", label: "Workbench", icon: Code2 },
+  { href: "/adaptivepath", label: "AdaptivePath Biology", icon: BookOpen },
   { href: "/mock-interview", label: "Mock Interview", icon: ClipboardCheck },
   { href: "/history/problems", label: "Problem History", icon: BookOpen },
   { href: "/profile", label: "Skill Profile", icon: UserRound },
