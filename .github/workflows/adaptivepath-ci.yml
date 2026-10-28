@@ -2,7 +2,7 @@ name: AdaptivePath demo checks
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feature/biology-demo]
     paths:
       - ".github/workflows/adaptivepath-ci.yml"
       - "app/adaptivepath/**"
