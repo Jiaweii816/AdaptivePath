@@ -1,0 +1,567 @@
+{
+  "schema_version": "1.0.0",
+  "id": "b2e-12-2",
+  "title": "Biology 2e — 12.2 Characteristics and Traits",
+  "authors": [
+    "Mary Ann Clark",
+    "Matthew Douglas",
+    "Jung Choi"
+  ],
+  "publisher": "OpenStax",
+  "language": "en",
+  "section": "12.2",
+  "section_url": "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits",
+  "source_file": "assets/Biology_2e_Section_12_2.pdf",
+  "source_sha256": "4beec1826a156c86ab1e45e8dbb015e031991708d125ad78fe80d4519d42dc04",
+  "supplied_pdf_page_count": 12,
+  "printed_page_range": [
+    316,
+    327
+  ],
+  "page_numbering": "page is 1-based within the supplied 12-page PDF; printed_page is the textbook page. Full-book PDF indices are intentionally not inferred.",
+  "coordinate_system": {
+    "origin": "top-left",
+    "bbox_order": [
+      "x0",
+      "y0",
+      "x1",
+      "y1"
+    ],
+    "unit": "pixel",
+    "render_dpi": 144,
+    "points_per_inch": 72,
+    "scale_pixels_per_point": 2,
+    "rounding": "floor left/top; ceil right/bottom",
+    "regions": "one rectangle per extracted text line; bbox is their enclosing rectangle"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "printed_page": 316,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-01.png"
+    },
+    {
+      "page": 2,
+      "printed_page": 317,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-02.png"
+    },
+    {
+      "page": 3,
+      "printed_page": 318,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-03.png"
+    },
+    {
+      "page": 4,
+      "printed_page": 319,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-04.png"
+    },
+    {
+      "page": 5,
+      "printed_page": 320,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-05.png"
+    },
+    {
+      "page": 6,
+      "printed_page": 321,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-06.png"
+    },
+    {
+      "page": 7,
+      "printed_page": 322,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-07.png"
+    },
+    {
+      "page": 8,
+      "printed_page": 323,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-08.png"
+    },
+    {
+      "page": 9,
+      "printed_page": 324,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-09.png"
+    },
+    {
+      "page": 10,
+      "printed_page": 325,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-10.png"
+    },
+    {
+      "page": 11,
+      "printed_page": 326,
+      "width_points": 612,
+      "height_points": 792,
+      "width_pixels": 1224,
+      "height_pixels": 1584,
+      "image_path": "assets/pages/page-11.png"
+    },
+    {
+      "page": 12,
+      "printed_page": 327,
+      "width_points": 612,
+      "height_points": 497,
+      "width_pixels": 1224,
+      "height_pixels": 994,
+      "image_path": "assets/pages/page-12.png"
+    }
+  ],
+  "extraction": {
+    "tool": "pdfplumber",
+    "version": "0.11.9",
+    "method": "native PDF text lines and image XObject boundaries; 144-DPI page-render crops",
+    "raw_text_policy": "line breaks, punctuation and PDF extraction artifacts retained; normalized_text only collapses whitespace",
+    "scope": "starts at 12.2 heading on page 1; stops before 12.3 heading on page 12",
+    "excluded_lines": [
+      {
+        "page": 1,
+        "text": "316 12 • Mendel's Experiments and Heredity",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          28.5,
+          26.006200000000035,
+          215.235,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 1,
+        "text": "traits were known, the offspring’s traits could be predicted accurately even before fertilization.",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          60.75,
+          451.3589999999999,
+          69.75
+        ]
+      },
+      {
+        "page": 1,
+        "text": "Access for free at openstax.org",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          72.0,
+          760.4062,
+          183.13499999999996,
+          767.9062
+        ]
+      },
+      {
+        "page": 2,
+        "text": "12.2 • Characteristics and Traits 317",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          424.9125,
+          26.006200000000035,
+          583.5,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 3,
+        "text": "318 12 • Mendel's Experiments and Heredity",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          28.5,
+          26.006200000000035,
+          215.235,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 3,
+        "text": "Access for free at openstax.org",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          72.0,
+          760.4062,
+          183.13499999999996,
+          767.9062
+        ]
+      },
+      {
+        "page": 4,
+        "text": "12.2 • Characteristics and Traits 319",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          424.9125,
+          26.006200000000035,
+          583.5,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 5,
+        "text": "320 12 • Mendel's Experiments and Heredity",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          28.5,
+          26.006200000000035,
+          215.235,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 5,
+        "text": "Access for free at openstax.org",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          72.0,
+          760.4062,
+          183.13499999999996,
+          767.9062
+        ]
+      },
+      {
+        "page": 6,
+        "text": "12.2 • Characteristics and Traits 321",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          424.9125,
+          26.006200000000035,
+          583.5,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 7,
+        "text": "322 12 • Mendel's Experiments and Heredity",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          28.5,
+          26.006200000000035,
+          215.235,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 7,
+        "text": "Access for free at openstax.org",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          72.0,
+          760.4062,
+          183.13499999999996,
+          767.9062
+        ]
+      },
+      {
+        "page": 8,
+        "text": "12.2 • Characteristics and Traits 323",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          424.9125,
+          26.006200000000035,
+          583.5,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 9,
+        "text": "324 12 • Mendel's Experiments and Heredity",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          28.5,
+          26.006200000000035,
+          215.235,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 9,
+        "text": "Access for free at openstax.org",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          72.0,
+          760.4062,
+          183.13499999999996,
+          767.9062
+        ]
+      },
+      {
+        "page": 10,
+        "text": "12.2 • Characteristics and Traits 325",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          424.9125,
+          26.006200000000035,
+          583.5,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 11,
+        "text": "326 12 • Mendel's Experiments and Heredity",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          28.5,
+          26.006200000000035,
+          215.235,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 11,
+        "text": "Access for free at openstax.org",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          72.0,
+          760.4062,
+          183.13499999999996,
+          767.9062
+        ]
+      },
+      {
+        "page": 12,
+        "text": "12.3 • Laws of Inheritance 327",
+        "reason": "running_header_or_footer",
+        "bbox_points": [
+          446.1525,
+          26.006200000000035,
+          583.5,
+          33.506200000000035
+        ]
+      },
+      {
+        "page": 12,
+        "text": "12.3 Laws of Inheritance",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          497.00289999999995,
+          221.20855999999998,
+          509.9629
+        ]
+      },
+      {
+        "page": 12,
+        "text": "LEARNING OBJECTIVES",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          518.278,
+          174.23100000000002,
+          527.278
+        ]
+      },
+      {
+        "page": 12,
+        "text": "By the end of this section, you will be able to do the following:",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          531.5305,
+          320.28299999999996,
+          540.5305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "• Explain Mendel’s law of segregation and independent assortment in terms of genetics and the events of",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          84.436,
+          544.1305,
+          511.62899999999996,
+          553.1305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "meiosis",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          96.0,
+          556.7305,
+          127.104,
+          565.7305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "• Use the forked-line method and the probability rules to calculate the probability of genotypes and",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          84.436,
+          569.3305,
+          488.418,
+          578.3305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "phenotypes from multiple gene crosses",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          96.0,
+          581.9304999999999,
+          255.12900000000002,
+          590.9304999999999
+        ]
+      },
+      {
+        "page": 12,
+        "text": "• Explain the effect of linkage and recombination on gamete genotypes",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          84.436,
+          594.5305,
+          374.3789999999999,
+          603.5305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "• Explain the phenotypic outcomes of epistatic effects between genes",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          84.436,
+          607.1305,
+          370.428,
+          616.1305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "Mendel generalized the results of his pea-plant experiments into four postulates, some of which are sometimes",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          626.0305,
+          519.5250000000001,
+          635.0305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "called “laws,” that describe the basis of dominant and recessive inheritance in diploid organisms. As you have",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          638.6305,
+          512.307,
+          647.6305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "learned, more complex extensions of Mendelism exist that do not exhibit the same F2 phenotypic ratios (3:1).",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          651.2305,
+          511.749,
+          661.67725
+        ]
+      },
+      {
+        "page": 12,
+        "text": "Nevertheless, these laws summarize the basics of classical genetics.",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          663.8305,
+          347.832,
+          672.8305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "Pairs of Unit Factors, or Genes",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          682.3075,
+          224.6904,
+          693.1075
+        ]
+      },
+      {
+        "page": 12,
+        "text": "Mendel proposed first that paired unit factors of heredity were transmitted faithfully from generation to generation",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          702.5305,
+          531.585,
+          711.5305
+        ]
+      },
+      {
+        "page": 12,
+        "text": "by the dissociation and reassociation of paired factors during gametogenesis and fertilization, respectively. After he",
+        "reason": "outside_section_12.2",
+        "bbox_points": [
+          72.0,
+          715.1305,
+          534.942,
+          724.1305
+        ]
+      }
+    ]
+  },
+  "attribution": "OpenStax, Biology 2e, Section 12.2. Access for free at https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits",
+  "rights": {
+    "license": "CC BY-NC-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "licensing_source": "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits",
+    "checked_on": "2026-10-28",
+    "third_party_figures": "Retain individual caption credits; third-party rights may differ.",
+    "changes": "Extracted excerpt text, line coordinates, page renders and figure/table crops; authored learning taxonomy and assessment items."
+  },
+  "content_notes": [
+    {
+      "id": "pod-color-example",
+      "chunk_ids": [
+        "b2e-12-2-p01-c07"
+      ],
+      "note": "The supplied text describes yellow pods as dominant. Preserve its raw wording, but do not use this pod-color statement as an assessed biological fact; seed-color examples are used instead."
+    },
+    {
+      "id": "rabbit-chinchilla",
+      "note": "The text describes chinchilla as incompletely dominant over Himalayan and albino. Do not silently replace it with a simplified complete-dominance hierarchy."
+    },
+    {
+      "id": "human-examples",
+      "note": "Questions use explicitly stated single-gene teaching models; do not infer real clinical penetrance or simplify all human traits in Table 12.4 into diagnostic rules."
+    }
+  ]
+}

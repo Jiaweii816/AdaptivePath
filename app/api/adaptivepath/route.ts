@@ -39,7 +39,7 @@ export async function POST(request:Request) {
     }
     if(input.action==="reference") return NextResponse.json(view(await recordReferenceAccess(input.sessionId,input.questionId)));
     const result=await recordTutorTurn(input.sessionId,input.message);
-    return NextResponse.json({...view(result.session),reply:result.reply,provider:result.provider});
+    return NextResponse.json({...view(result.session),reply:result.reply,provider:result.provider,tool:result.tool});
   } catch(error) {
     if(error instanceof z.ZodError) return NextResponse.json({error:"Invalid request",details:error.flatten()},{status:400});
     if(error instanceof Error && /not found/.test(error.message)) return NextResponse.json({error:error.message},{status:404});

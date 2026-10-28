@@ -1,0 +1,1789 @@
+[
+  {
+    "id": "b2e-12-2-q-i01-medium-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-04"
+    ],
+    "combination_id": "b2e-12-2-combination-01",
+    "objective": "Combine a recessive offspring observation with a follow-up test-cross prediction.",
+    "question": "In a hypothetical plant, A is completely dominant to a. A dominant-looking parent is crossed with aa and produces an aa offspring. If the same pair is crossed again, what is the probability that the next two offspring both show the dominant phenotype?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/4; the unknown parent must be Aa."
+      },
+      {
+        "id": "B",
+        "text": "1; the unknown parent must be AA."
+      },
+      {
+        "id": "C",
+        "text": "1/2; the unknown parent must be Aa."
+      },
+      {
+        "id": "D",
+        "text": "9/16; the unknown parent must be Aa."
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "An aa offspring received a from each parent. The dominant-looking unknown must therefore be Aa, not AA. Aa × aa gives a dominant Aa offspring with probability 1/2, so two independent dominant offspring have probability (1/2)^2 = 1/4.",
+    "option_explanations": {
+      "A": "An aa offspring received a from each parent. The dominant-looking unknown must therefore be Aa, not AA. Aa × aa gives a dominant Aa offspring with probability 1/2, so two independent dominant offspring have probability (1/2)^2 = 1/4.",
+      "B": "AA cannot supply the a allele required for the observed aa offspring.",
+      "C": "One offspring has probability 1/2; requiring both independent offspring multiplies two such probabilities.",
+      "D": "The 3/4 dominant probability applies to Aa × Aa, not to this cross with aa."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c04"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c01",
+        "quote": "developed a way to determine whether an organism that expressed a dominant trait was a heterozygote or a homozygote. Called the test cross, this technique is still used by plant and animal breeders. In a test cross, the dominant-expressing organism is crossed with an organism that is homozygous recessive for the same characteristic. If the dominant-expressing organism is a homozygote, then all F1 offspring will be heterozygotes expressing the dominant trait (Figure 12.5). Alternatively, if the dominant expressing organism is a heterozygote, the F1 offspring will exhibit a 1:1 ratio of heterozygotes and recessive homozygotes (Figure 12.5). The test cross further validates Mendel’s postulate that pairs of unit factors segregate equally."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c04",
+        "quote": "In pea plants, round peas (R) are dominant to wrinkled peas (r). You do a test cross between a pea plant with wrinkled peas (genotype rr) and a plant of unknown genotype that has round peas. You end up with three plants, all which have round peas. From this data, can you tell if the round pea parent plant is homozygous dominant or heterozygous? If the round pea parent plant is heterozygous, what is the probability that a random sample of 3 progeny peas will all be round?"
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "The dominant phenotype allows AA or Aa, but the aa offspring excludes AA."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Multiply two 1/2 offspring probabilities."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-04",
+        "reasoning": "The recessive tester makes transmission of a observable."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i01-medium-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-04"
+    ],
+    "combination_id": "b2e-12-2-combination-01",
+    "objective": "Identify a valid tester and interpret a small all-dominant sample.",
+    "question": "A violet-flowered plant is VV or Vv; V is completely dominant to v. Which plan both tests its genotype and correctly interprets a result of three violet offspring?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cross with vv; a Vv parent produces three violet offspring with probability 3/4."
+      },
+      {
+        "id": "B",
+        "text": "Cross with vv; three violet offspring do not rule out Vv, which produces that result with probability 1/8."
+      },
+      {
+        "id": "C",
+        "text": "Cross with VV; all violet offspring prove the unknown is VV."
+      },
+      {
+        "id": "D",
+        "text": "Cross with vv; three violet offspring prove the unknown is VV."
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "The vv tester produces only v gametes. VV would give all Vv offspring, while Vv would give 1/2 Vv and 1/2 vv. A Vv parent can still produce three violet offspring with probability (1/2)^3 = 1/8.",
+    "option_explanations": {
+      "A": "For Vv × vv each offspring has violet probability 1/2, so three independent violet outcomes have probability 1/8.",
+      "B": "The vv tester produces only v gametes. VV would give all Vv offspring, while Vv would give 1/2 Vv and 1/2 vv. A Vv parent can still produce three violet offspring with probability (1/2)^3 = 1/8.",
+      "C": "A VV partner masks the distinction: both VV and Vv unknowns can produce only violet offspring.",
+      "D": "An all-violet sample is also possible from Vv × vv, with probability 1/8."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c04"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c01",
+        "quote": "developed a way to determine whether an organism that expressed a dominant trait was a heterozygote or a homozygote. Called the test cross, this technique is still used by plant and animal breeders. In a test cross, the dominant-expressing organism is crossed with an organism that is homozygous recessive for the same characteristic. If the dominant-expressing organism is a homozygote, then all F1 offspring will be heterozygotes expressing the dominant trait (Figure 12.5). Alternatively, if the dominant expressing organism is a heterozygote, the F1 offspring will exhibit a 1:1 ratio of heterozygotes and recessive homozygotes (Figure 12.5). The test cross further validates Mendel’s postulate that pairs of unit factors segregate equally."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c04",
+        "quote": "In pea plants, round peas (R) are dominant to wrinkled peas (r). You do a test cross between a pea plant with wrinkled peas (genotype rr) and a plant of unknown genotype that has round peas. You end up with three plants, all which have round peas. From this data, can you tell if the round pea parent plant is homozygous dominant or heterozygous? If the round pea parent plant is heterozygous, what is the probability that a random sample of 3 progeny peas will all be round?"
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Both VV and Vv look violet."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Three independent 1/2 probabilities multiply to 1/8."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-04",
+        "reasoning": "A vv tester distinguishes genotype possibilities without eliminating finite-sample uncertainty."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i01-hard-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-04"
+    ],
+    "combination_id": "b2e-12-2-combination-01",
+    "objective": "Update genotype uncertainty using an explicit prior and test-cross data.",
+    "question": "Before testing a dominant-looking plant, a breeder assigns P(AA)=P(Aa)=1/2. A is completely dominant. The plant is crossed with aa; all three offspring are dominant-looking. What is P(Aa) after this evidence?",
+    "options": [
+      {
+        "id": "A",
+        "text": "0."
+      },
+      {
+        "id": "B",
+        "text": "1/2."
+      },
+      {
+        "id": "C",
+        "text": "1/9."
+      },
+      {
+        "id": "D",
+        "text": "1/8."
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "The all-dominant likelihood is 1 under AA and (1/2)^3 = 1/8 under Aa. Prior-weighted likelihoods are 1/2 and 1/16. Normalizing gives P(Aa | data) = (1/16)/(1/2 + 1/16) = 1/9.",
+    "option_explanations": {
+      "A": "Three dominant offspring are possible under Aa; finite sampling does not eliminate that genotype.",
+      "B": "The stated equal prior must be updated because AA makes the observed sample more likely than Aa does.",
+      "C": "The all-dominant likelihood is 1 under AA and (1/2)^3 = 1/8 under Aa. Prior-weighted likelihoods are 1/2 and 1/16. Normalizing gives P(Aa | data) = (1/16)/(1/2 + 1/16) = 1/9.",
+      "D": "1/8 is the likelihood of the data if the parent is Aa, not the posterior genotype probability."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c04"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c01",
+        "quote": "developed a way to determine whether an organism that expressed a dominant trait was a heterozygote or a homozygote. Called the test cross, this technique is still used by plant and animal breeders. In a test cross, the dominant-expressing organism is crossed with an organism that is homozygous recessive for the same characteristic. If the dominant-expressing organism is a homozygote, then all F1 offspring will be heterozygotes expressing the dominant trait (Figure 12.5). Alternatively, if the dominant expressing organism is a heterozygote, the F1 offspring will exhibit a 1:1 ratio of heterozygotes and recessive homozygotes (Figure 12.5). The test cross further validates Mendel’s postulate that pairs of unit factors segregate equally."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c04",
+        "quote": "In pea plants, round peas (R) are dominant to wrinkled peas (r). You do a test cross between a pea plant with wrinkled peas (genotype rr) and a plant of unknown genotype that has round peas. You end up with three plants, all which have round peas. From this data, can you tell if the round pea parent plant is homozygous dominant or heterozygous? If the round pea parent plant is heterozygous, what is the probability that a random sample of 3 progeny peas will all be round?"
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes.",
+      "The prior over AA and Aa is explicitly 1/2 each."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "The phenotype alone leaves two genotypes, assigned the stated equal prior."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Compute genotype-specific likelihoods and normalize their prior-weighted values."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-04",
+        "reasoning": "Use the aa test-cross offspring distribution for each possible genotype."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i01-hard-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-04"
+    ],
+    "combination_id": "b2e-12-2-combination-01",
+    "objective": "Plan test-cross sample size while distinguishing likelihood from certainty.",
+    "question": "In a complete-dominance model, a breeder tests an A_ plant against aa. The breeder wants the probability of seeing no recessive offspring, IF the unknown is Aa, to be below 5%. What is the smallest number of independent offspring required, and what does an all-dominant result establish?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Four; an all-dominant result proves AA."
+      },
+      {
+        "id": "B",
+        "text": "Five; an all-dominant result proves AA."
+      },
+      {
+        "id": "C",
+        "text": "Three; an all-dominant result makes P(Aa) exactly 1/8."
+      },
+      {
+        "id": "D",
+        "text": "Five; it makes the all-dominant result unlikely under Aa but does not prove AA."
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "For Aa × aa, no recessive offspring in n trials has probability (1/2)^n. Four give 1/16 = 6.25%, while five give 1/32 = 3.125%. Even after five, Aa remains possible; no posterior genotype probability follows without a prior.",
+    "option_explanations": {
+      "A": "Four still give a 6.25% chance under Aa, above 5%, and no finite all-dominant sample proves AA.",
+      "B": "Five meets the likelihood threshold but Aa can still give all dominant offspring with probability 1/32.",
+      "C": "Three give likelihood 1/8, above 5%; a likelihood is not a posterior genotype probability.",
+      "D": "For Aa × aa, no recessive offspring in n trials has probability (1/2)^n. Four give 1/16 = 6.25%, while five give 1/32 = 3.125%. Even after five, Aa remains possible; no posterior genotype probability follows without a prior."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c04"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c01",
+        "quote": "developed a way to determine whether an organism that expressed a dominant trait was a heterozygote or a homozygote. Called the test cross, this technique is still used by plant and animal breeders. In a test cross, the dominant-expressing organism is crossed with an organism that is homozygous recessive for the same characteristic. If the dominant-expressing organism is a homozygote, then all F1 offspring will be heterozygotes expressing the dominant trait (Figure 12.5). Alternatively, if the dominant expressing organism is a heterozygote, the F1 offspring will exhibit a 1:1 ratio of heterozygotes and recessive homozygotes (Figure 12.5). The test cross further validates Mendel’s postulate that pairs of unit factors segregate equally."
+      },
+      {
+        "chunk_id": "b2e-12-2-p04-c04",
+        "quote": "In pea plants, round peas (R) are dominant to wrinkled peas (r). You do a test cross between a pea plant with wrinkled peas (genotype rr) and a plant of unknown genotype that has round peas. You end up with three plants, all which have round peas. From this data, can you tell if the round pea parent plant is homozygous dominant or heterozygous? If the round pea parent plant is heterozygous, what is the probability that a random sample of 3 progeny peas will all be round?"
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Dominant phenotype cannot distinguish AA from Aa."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Compare (1/2)^n to 0.05 and find the smallest integer n."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-04",
+        "reasoning": "The recessive tester creates the diagnostic 1:1 expectation under Aa."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i02-medium-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-05"
+    ],
+    "combination_id": "b2e-12-2-combination-02",
+    "objective": "Infer obligate carriers in a pedigree and predict sibling risk.",
+    "question": "In a hypothetical autosomal recessive pedigree, two unaffected parents have an affected aa child. Under full penetrance and no new mutation, what is the probability that their next child is an unaffected carrier?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/2."
+      },
+      {
+        "id": "B",
+        "text": "2/3."
+      },
+      {
+        "id": "C",
+        "text": "1/4."
+      },
+      {
+        "id": "D",
+        "text": "3/4."
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Each unaffected parent supplied an a allele, so both are Aa. Aa × Aa produces 1/4 AA, 1/2 Aa, and 1/4 aa. Unaffected carriers are the Aa class, with probability 1/2 per child.",
+    "option_explanations": {
+      "A": "Each unaffected parent supplied an a allele, so both are Aa. Aa × Aa produces 1/4 AA, 1/2 Aa, and 1/4 aa. Unaffected carriers are the Aa class, with probability 1/2 per child.",
+      "B": "2/3 is the carrier probability conditional on the next child already being known to be unaffected; this question does not condition on that observation.",
+      "C": "1/4 is the probability of AA or of aa, not the two-cell Aa class.",
+      "D": "3/4 includes all unaffected offspring, both AA and Aa, rather than carriers alone."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c02"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c02",
+        "quote": "FIGURE 12.6 Alkaptonuria is a recessive genetic disorder in which two amino acids, phenylalanine and tyrosine, are not properly metabolized. Affected individuals may have darkened skin and brown urine, and may suffer joint damage and other complications. In this pedigree, individuals with the disorder are indicated in blue and have the genotype aa. Unaffected individuals are indicated in yellow and have the genotype AA or Aa. Note that it is often possible to determine a person’s genotype from the genotype of their offspring. For example, if neither parent has the disorder but their child does, they must be heterozygous. Two individuals on the pedigree have an unaffected phenotype but unknown genotype. Because they do not have the disorder, they must have at least one normal allele, so their genotype gets the “A?” designation."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes.",
+      "The trait is autosomal recessive; pedigree relationships are as stated."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Unaffected individuals can be AA or Aa; affected is aa."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Use the 1:2:1 Aa × Aa distribution."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-05",
+        "reasoning": "The affected child forces both unaffected parents to be carriers."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i02-medium-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-05"
+    ],
+    "combination_id": "b2e-12-2-combination-02",
+    "objective": "Use an affected ancestor to infer carrier status before predicting a cross.",
+    "question": "In a fully penetrant autosomal recessive model, an unaffected individual has an affected aa parent. This individual has children with a confirmed Aa partner. What fraction of their children is expected to be affected?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/4."
+      },
+      {
+        "id": "B",
+        "text": "1/4."
+      },
+      {
+        "id": "C",
+        "text": "0."
+      },
+      {
+        "id": "D",
+        "text": "1/2."
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "The aa parent supplies a to every child. Since the individual is unaffected, that individual must be Aa. Crossing Aa with the confirmed Aa partner produces aa with probability 1/4.",
+    "option_explanations": {
+      "A": "3/4 is the unaffected fraction from Aa × Aa; the affected fraction is 1/4.",
+      "B": "The aa parent supplies a to every child. Since the individual is unaffected, that individual must be Aa. Crossing Aa with the confirmed Aa partner produces aa with probability 1/4.",
+      "C": "The unaffected individual cannot be assumed AA; the affected parent guarantees an a allele.",
+      "D": "A 1/2 affected probability would apply to Aa × aa, not to two Aa parents."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c02"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c02",
+        "quote": "FIGURE 12.6 Alkaptonuria is a recessive genetic disorder in which two amino acids, phenylalanine and tyrosine, are not properly metabolized. Affected individuals may have darkened skin and brown urine, and may suffer joint damage and other complications. In this pedigree, individuals with the disorder are indicated in blue and have the genotype aa. Unaffected individuals are indicated in yellow and have the genotype AA or Aa. Note that it is often possible to determine a person’s genotype from the genotype of their offspring. For example, if neither parent has the disorder but their child does, they must be heterozygous. Two individuals on the pedigree have an unaffected phenotype but unknown genotype. Because they do not have the disorder, they must have at least one normal allele, so their genotype gets the “A?” designation."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes.",
+      "The trait is autosomal recessive; pedigree relationships are as stated."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "An unaffected individual with an a allele must be Aa in this model."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Aa × Aa yields aa in one of four equally likely combinations."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-05",
+        "reasoning": "The affected parent establishes an obligate carrier in the next generation."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i02-hard-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-05"
+    ],
+    "combination_id": "b2e-12-2-combination-02",
+    "objective": "Combine conditional carrier inference with reproductive risk.",
+    "question": "An unaffected person is selected from the children of two Aa parents in a hypothetical autosomal recessive pedigree. The person has a child with an aa partner. With no other information about the selected person, what is the probability that this child is affected?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/2."
+      },
+      {
+        "id": "B",
+        "text": "2/3."
+      },
+      {
+        "id": "C",
+        "text": "1/3."
+      },
+      {
+        "id": "D",
+        "text": "1/4."
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Among unaffected children of Aa × Aa, 1/3 are AA and 2/3 are Aa. AA × aa produces no affected children, whereas Aa × aa produces 1/2 aa. Thus the overall risk is (2/3)(1/2) = 1/3.",
+    "option_explanations": {
+      "A": "This would assume the selected person is certainly Aa, although AA is also possible.",
+      "B": "2/3 is the selected person’s carrier probability; even an Aa person passes a only half the time.",
+      "C": "Among unaffected children of Aa × Aa, 1/3 are AA and 2/3 are Aa. AA × aa produces no affected children, whereas Aa × aa produces 1/2 aa. Thus the overall risk is (2/3)(1/2) = 1/3.",
+      "D": "This treats the selected person as an unconditioned Aa × Aa offspring rather than conditioning on being unaffected and then using the aa partner."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c02"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c02",
+        "quote": "FIGURE 12.6 Alkaptonuria is a recessive genetic disorder in which two amino acids, phenylalanine and tyrosine, are not properly metabolized. Affected individuals may have darkened skin and brown urine, and may suffer joint damage and other complications. In this pedigree, individuals with the disorder are indicated in blue and have the genotype aa. Unaffected individuals are indicated in yellow and have the genotype AA or Aa. Note that it is often possible to determine a person’s genotype from the genotype of their offspring. For example, if neither parent has the disorder but their child does, they must be heterozygous. Two individuals on the pedigree have an unaffected phenotype but unknown genotype. Because they do not have the disorder, they must have at least one normal allele, so their genotype gets the “A?” designation."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes.",
+      "Selection is random among unaffected offspring of the stated parents."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "The unaffected phenotype removes aa but does not separate AA from Aa."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Normalize the remaining 1:2 classes and weight the subsequent offspring risks."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-05",
+        "reasoning": "The pedigree supplies the parental Aa × Aa relationship and the unaffected selection."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i02-hard-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-05"
+    ],
+    "combination_id": "b2e-12-2-combination-02",
+    "objective": "Retain shared parental-genotype uncertainty across multiple offspring.",
+    "question": "An unaffected person is randomly selected from the children of two Aa parents for an autosomal recessive trait. The person and an aa partner have two children. Before observing either child, what is the probability that both children are unaffected?",
+    "options": [
+      {
+        "id": "A",
+        "text": "4/9."
+      },
+      {
+        "id": "B",
+        "text": "1/4."
+      },
+      {
+        "id": "C",
+        "text": "2/3."
+      },
+      {
+        "id": "D",
+        "text": "1/2."
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "The selected person has probability 1/3 of AA and 2/3 of Aa. Given AA × aa, both children are unaffected with probability 1. Given Aa × aa, both are unaffected with probability (1/2)^2 = 1/4. The total is (1/3)(1) + (2/3)(1/4) = 1/2. Their outcomes share the same uncertain parent genotype.",
+    "option_explanations": {
+      "A": "This squares the marginal unaffected probability 2/3, incorrectly treating outcomes as independent after averaging over their shared uncertain parental genotype.",
+      "B": "This assumes the selected parent is certainly Aa and ignores the 1/3 chance of AA.",
+      "C": "2/3 is the marginal probability that one child is unaffected, not that both are unaffected.",
+      "D": "The selected person has probability 1/3 of AA and 2/3 of Aa. Given AA × aa, both children are unaffected with probability 1. Given Aa × aa, both are unaffected with probability (1/2)^2 = 1/4. The total is (1/3)(1) + (2/3)(1/4) = 1/2. Their outcomes share the same uncertain parent genotype."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c02"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c02",
+        "quote": "FIGURE 12.6 Alkaptonuria is a recessive genetic disorder in which two amino acids, phenylalanine and tyrosine, are not properly metabolized. Affected individuals may have darkened skin and brown urine, and may suffer joint damage and other complications. In this pedigree, individuals with the disorder are indicated in blue and have the genotype aa. Unaffected individuals are indicated in yellow and have the genotype AA or Aa. Note that it is often possible to determine a person’s genotype from the genotype of their offspring. For example, if neither parent has the disorder but their child does, they must be heterozygous. Two individuals on the pedigree have an unaffected phenotype but unknown genotype. Because they do not have the disorder, they must have at least one normal allele, so their genotype gets the “A?” designation."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus complete-dominance model with no mutation and full penetrance.",
+      "Gametes are equally likely and offspring outcomes are independent conditional on parental genotypes.",
+      "Selection is random among unaffected offspring of the stated parents; offspring are independent conditional on parental genotype."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Unaffected selection leaves AA and Aa possible."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Average conditional two-child probabilities; do not square a genotype-averaged marginal."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-05",
+        "reasoning": "The pedigree supplies the 1/3 AA and 2/3 Aa carrier uncertainty."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i03-medium-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-06",
+      "b2e-12-2-concept-07"
+    ],
+    "combination_id": "b2e-12-2-combination-03",
+    "objective": "Contrast equal genotype ratios with different heterozygote phenotypes.",
+    "question": "Pink snapdragons R/W have incomplete dominance, with R/R red and W/W white. MN humans express both antigens codominantly. Compare R/W × R/W with MN × MN. Which prediction correctly describes half the offspring in EACH cross?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Half the snapdragons are pink intermediates; half the MN offspring express both antigens."
+      },
+      {
+        "id": "B",
+        "text": "Half the snapdragons are red; half the MN offspring express only M."
+      },
+      {
+        "id": "C",
+        "text": "Half of each cross permanently blends its alleles into a new allele."
+      },
+      {
+        "id": "D",
+        "text": "Half of each cross expresses only a completely dominant allele."
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Both heterozygote crosses produce a 1:2:1 genotype ratio, so half are heterozygous. The R/W heterozygote is an intermediate pink phenotype; the MN heterozygote expresses both distinct antigens.",
+    "option_explanations": {
+      "A": "Both heterozygote crosses produce a 1:2:1 genotype ratio, so half are heterozygous. The R/W heterozygote is an intermediate pink phenotype; the MN heterozygote expresses both distinct antigens.",
+      "B": "Both red R/R and M-only MM are homozygote classes with frequency 1/4, not 1/2.",
+      "C": "Intermediate phenotype and simultaneous antigen expression do not merge or destroy the parental alleles.",
+      "D": "Neither the stated incomplete-dominance model nor the codominant MN model has a heterozygote expressing only one completely dominant allele."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c07",
+        "quote": "Mendel’s results, that traits are inherited as dominant and recessive pairs, contradicted the view at that time that offspring exhibited a blend of their parents’ traits. However, the heterozygote phenotype occasionally does appear to be intermediate between the two parents. For example, in the snapdragon, Antirrhinum majus (Figure 12.7), a cross between a homozygous parent with white flowers (CWCW) and a homozygous parent with red flowers (CRCR) will produce offspring with pink flowers (CRCW). (Note that different genotypic abbreviations are used for Mendelian extensions to distinguish these patterns from simple dominance and recessiveness.) This pattern of inheritance is described as incomplete dominance, denoting the expression of two contrasting alleles such that the individual displays an intermediate phenotype. This is a form of gene interaction where neither allele is completely dominant over the other. However, the results of a heterozygote self-cross can still be predicted, just as with Mendelian dominant and recessive crosses. In this case, the genotypic ratio would be 1 CRCR:2 CRCW:1 CWCW, and the phenotypic ratio would be 1:2:1 for red:pink:white."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c03",
+        "quote": "A variation on incomplete dominance is codominance, in which both alleles for the same characteristic are simultaneously expressed in the heterozygote. An example of codominance is the MN blood groups of humans. The M and N alleles are expressed in the form of an M or N antigen present on the surface of red blood cells. Homozygotes (LMLM and LNLN) express either the M or the N allele, and heterozygotes (LMLN) express both alleles equally. In a self-cross between heterozygotes expressing a codominant trait, the three possible offspring genotypes are phenotypically distinct. However, the 1:2:1 genotypic ratio characteristic of a Mendelian monohybrid cross still applies."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus models and equal allele transmission.",
+      "Independent samples are drawn from separate crosses; do not infer independence of linked loci in one organism."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Each heterozygote cross has heterozygote probability 1/2."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-06",
+        "reasoning": "R/W produces the intermediate pink phenotype."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-07",
+        "reasoning": "MN expresses both M and N antigens."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i03-medium-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-06",
+      "b2e-12-2-concept-07"
+    ],
+    "combination_id": "b2e-12-2-combination-03",
+    "objective": "Combine probabilities from two different non-Mendelian phenotype models.",
+    "question": "Under incomplete dominance, R/R snapdragons are red, R/W pink, and W/W white. An R/W × W/W cross is performed. Separately, codominant MN × NN produces blood-group offspring. One offspring is independently sampled from each cross. What is the probability of sampling a pink flower AND an offspring expressing both M and N antigens?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1."
+      },
+      {
+        "id": "B",
+        "text": "1/4."
+      },
+      {
+        "id": "C",
+        "text": "1/2."
+      },
+      {
+        "id": "D",
+        "text": "3/4."
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "R/W × W/W gives pink R/W with probability 1/2. MN × NN gives MN, expressing both antigens, with probability 1/2. For the independent samples the joint probability is (1/2)(1/2) = 1/4.",
+    "option_explanations": {
+      "A": "Neither cross guarantees a heterozygote; both also produce a homozygote class.",
+      "B": "R/W × W/W gives pink R/W with probability 1/2. MN × NN gives MN, expressing both antigens, with probability 1/2. For the independent samples the joint probability is (1/2)(1/2) = 1/4.",
+      "C": "Each event separately has probability 1/2; both independent events require multiplying them.",
+      "D": "3/4 is the probability of at least one of these independent events, not both."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c07",
+        "quote": "Mendel’s results, that traits are inherited as dominant and recessive pairs, contradicted the view at that time that offspring exhibited a blend of their parents’ traits. However, the heterozygote phenotype occasionally does appear to be intermediate between the two parents. For example, in the snapdragon, Antirrhinum majus (Figure 12.7), a cross between a homozygous parent with white flowers (CWCW) and a homozygous parent with red flowers (CRCR) will produce offspring with pink flowers (CRCW). (Note that different genotypic abbreviations are used for Mendelian extensions to distinguish these patterns from simple dominance and recessiveness.) This pattern of inheritance is described as incomplete dominance, denoting the expression of two contrasting alleles such that the individual displays an intermediate phenotype. This is a form of gene interaction where neither allele is completely dominant over the other. However, the results of a heterozygote self-cross can still be predicted, just as with Mendelian dominant and recessive crosses. In this case, the genotypic ratio would be 1 CRCR:2 CRCW:1 CWCW, and the phenotypic ratio would be 1:2:1 for red:pink:white."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c03",
+        "quote": "A variation on incomplete dominance is codominance, in which both alleles for the same characteristic are simultaneously expressed in the heterozygote. An example of codominance is the MN blood groups of humans. The M and N alleles are expressed in the form of an M or N antigen present on the surface of red blood cells. Homozygotes (LMLM and LNLN) express either the M or the N allele, and heterozygotes (LMLN) express both alleles equally. In a self-cross between heterozygotes expressing a codominant trait, the three possible offspring genotypes are phenotypically distinct. However, the 1:2:1 genotypic ratio characteristic of a Mendelian monohybrid cross still applies."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus models and equal allele transmission.",
+      "Independent samples are drawn from separate crosses; do not infer independence of linked loci in one organism."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Multiply probabilities for independently sampled offspring from the two crosses."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-06",
+        "reasoning": "Only the R/W class is pink, with probability 1/2."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-07",
+        "reasoning": "Only MN expresses both antigens, with probability 1/2."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i03-hard-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-06",
+      "b2e-12-2-concept-07"
+    ],
+    "combination_id": "b2e-12-2-combination-03",
+    "objective": "Infer inheritance pattern from heterozygote measurements rather than ratios alone.",
+    "question": "Two loci in separate experimental systems each give genotype frequencies 1/4 AA, 1/2 AB, 1/4 BB after AB × AB. At locus I, AB has a measured trait value intermediate between AA and BB. At locus II, AB displays both distinct products found separately in AA and BB. Which conclusion and next prediction are justified?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Both loci show incomplete dominance; AB × BB gives only intermediates."
+      },
+      {
+        "id": "B",
+        "text": "I shows codominance and II incomplete dominance; AB × BB gives 3:1 phenotypes."
+      },
+      {
+        "id": "C",
+        "text": "I shows incomplete dominance and II codominance; AB × BB gives a 1:1 heterozygote-to-BB phenotype ratio in either system."
+      },
+      {
+        "id": "D",
+        "text": "Both loci show complete dominance because the genotype ratio is 1:2:1."
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "A shared 1:2:1 genotype ratio does not distinguish the two patterns. Intermediate expression identifies incomplete dominance at I; simultaneous distinct products identify codominance at II. In either system AB × BB gives 1/2 AB and 1/2 BB, which are phenotypically distinct under the stated observations.",
+    "option_explanations": {
+      "A": "Locus II expresses two distinct products, and half the offspring of AB × BB are BB.",
+      "B": "This reverses the expression patterns and incorrectly applies the two-heterozygote complete-dominance ratio to AB × BB.",
+      "C": "A shared 1:2:1 genotype ratio does not distinguish the two patterns. Intermediate expression identifies incomplete dominance at I; simultaneous distinct products identify codominance at II. In either system AB × BB gives 1/2 AB and 1/2 BB, which are phenotypically distinct under the stated observations.",
+      "D": "A 1:2:1 genotype ratio also occurs under incomplete dominance and codominance; complete dominance requires different phenotype evidence."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c07",
+        "quote": "Mendel’s results, that traits are inherited as dominant and recessive pairs, contradicted the view at that time that offspring exhibited a blend of their parents’ traits. However, the heterozygote phenotype occasionally does appear to be intermediate between the two parents. For example, in the snapdragon, Antirrhinum majus (Figure 12.7), a cross between a homozygous parent with white flowers (CWCW) and a homozygous parent with red flowers (CRCR) will produce offspring with pink flowers (CRCW). (Note that different genotypic abbreviations are used for Mendelian extensions to distinguish these patterns from simple dominance and recessiveness.) This pattern of inheritance is described as incomplete dominance, denoting the expression of two contrasting alleles such that the individual displays an intermediate phenotype. This is a form of gene interaction where neither allele is completely dominant over the other. However, the results of a heterozygote self-cross can still be predicted, just as with Mendelian dominant and recessive crosses. In this case, the genotypic ratio would be 1 CRCR:2 CRCW:1 CWCW, and the phenotypic ratio would be 1:2:1 for red:pink:white."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c03",
+        "quote": "A variation on incomplete dominance is codominance, in which both alleles for the same characteristic are simultaneously expressed in the heterozygote. An example of codominance is the MN blood groups of humans. The M and N alleles are expressed in the form of an M or N antigen present on the surface of red blood cells. Homozygotes (LMLM and LNLN) express either the M or the N allele, and heterozygotes (LMLN) express both alleles equally. In a self-cross between heterozygotes expressing a codominant trait, the three possible offspring genotypes are phenotypically distinct. However, the 1:2:1 genotypic ratio characteristic of a Mendelian monohybrid cross still applies."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus models and equal allele transmission.",
+      "Independent samples are drawn from separate crosses; do not infer independence of linked loci in one organism."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Derive the AB × BB genotype distribution rather than applying a memorized 3:1 ratio."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-06",
+        "reasoning": "The intermediate measurement identifies I as incomplete dominance."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-07",
+        "reasoning": "The two distinct expressed products identify II as codominance."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i03-hard-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-06",
+      "b2e-12-2-concept-07"
+    ],
+    "combination_id": "b2e-12-2-combination-03",
+    "objective": "Normalize a conditional event spanning two inheritance patterns.",
+    "question": "Pink R/W snapdragons show incomplete dominance and MN blood groups show codominance. One offspring is independently sampled from R/W × R/W and another from MN × MN. Given that AT LEAST ONE sampled offspring is heterozygous, what is the probability that BOTH are heterozygous (pink and both-antigen-expressing, respectively)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/4."
+      },
+      {
+        "id": "B",
+        "text": "1/2."
+      },
+      {
+        "id": "C",
+        "text": "2/3."
+      },
+      {
+        "id": "D",
+        "text": "1/3."
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "Each cross produces heterozygotes with probability 1/2, identified by pink flowers or simultaneous M and N antigens. P(both) = 1/4 and P(at least one) = 1 - (1/2)(1/2) = 3/4. The conditional probability is (1/4)/(3/4) = 1/3.",
+    "option_explanations": {
+      "A": "1/4 is the unconditional probability of both; the stated conditioning removes the neither-heterozygous outcome.",
+      "B": "1/2 is a single-cross heterozygote probability; the conditional joint event has a different denominator.",
+      "C": "2/3 is the conditional probability that exactly one is heterozygous, not that both are.",
+      "D": "Each cross produces heterozygotes with probability 1/2, identified by pink flowers or simultaneous M and N antigens. P(both) = 1/4 and P(at least one) = 1 - (1/2)(1/2) = 3/4. The conditional probability is (1/4)/(3/4) = 1/3."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p05-c07",
+        "quote": "Mendel’s results, that traits are inherited as dominant and recessive pairs, contradicted the view at that time that offspring exhibited a blend of their parents’ traits. However, the heterozygote phenotype occasionally does appear to be intermediate between the two parents. For example, in the snapdragon, Antirrhinum majus (Figure 12.7), a cross between a homozygous parent with white flowers (CWCW) and a homozygous parent with red flowers (CRCR) will produce offspring with pink flowers (CRCW). (Note that different genotypic abbreviations are used for Mendelian extensions to distinguish these patterns from simple dominance and recessiveness.) This pattern of inheritance is described as incomplete dominance, denoting the expression of two contrasting alleles such that the individual displays an intermediate phenotype. This is a form of gene interaction where neither allele is completely dominant over the other. However, the results of a heterozygote self-cross can still be predicted, just as with Mendelian dominant and recessive crosses. In this case, the genotypic ratio would be 1 CRCR:2 CRCW:1 CWCW, and the phenotypic ratio would be 1:2:1 for red:pink:white."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c03",
+        "quote": "A variation on incomplete dominance is codominance, in which both alleles for the same characteristic are simultaneously expressed in the heterozygote. An example of codominance is the MN blood groups of humans. The M and N alleles are expressed in the form of an M or N antigen present on the surface of red blood cells. Homozygotes (LMLM and LNLN) express either the M or the N allele, and heterozygotes (LMLN) express both alleles equally. In a self-cross between heterozygotes expressing a codominant trait, the three possible offspring genotypes are phenotypically distinct. However, the 1:2:1 genotypic ratio characteristic of a Mendelian monohybrid cross still applies."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use the stated single-locus models and equal allele transmission.",
+      "Independent samples are drawn from separate crosses; do not infer independence of linked loci in one organism."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Divide the joint probability by the probability of the conditioning event."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-06",
+        "reasoning": "Pink identifies the R/W heterozygote without implying allele blending."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-07",
+        "reasoning": "Both antigens identify the MN heterozygote rather than an intermediate antigen."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i04-medium-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-08",
+      "b2e-12-2-concept-09"
+    ],
+    "combination_id": "b2e-12-2-combination-04",
+    "objective": "Distinguish population allelic diversity from sex-specific copy number.",
+    "question": "A hypothetical X-linked gene absent from Y has three alleles, a, b, and c, in a population. An XX mother is X^a X^b and an XY father is X^c Y. Which statement correctly gives possible sons’ allele copies and their source?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Each son carries one copy at this locus, either a or b from the mother; c is not inherited by sons from this father."
+      },
+      {
+        "id": "B",
+        "text": "Each son carries a, b, and c because all three exist in the population."
+      },
+      {
+        "id": "C",
+        "text": "Each son carries c from the father and a or b from the mother."
+      },
+      {
+        "id": "D",
+        "text": "Each son has two alleles because the organism is diploid."
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Three alleles exist across the population, not as three copies per individual. XY sons have only one X copy at this locus, supplied by the mother, and receive Y from the father. Thus their locus allele is a or b, not paternal c.",
+    "option_explanations": {
+      "A": "Three alleles exist across the population, not as three copies per individual. XY sons have only one X copy at this locus, supplied by the mother, and receive Y from the father. Thus their locus allele is a or b, not paternal c.",
+      "B": "Population diversity does not override chromosome copy number; a son has only one copy of this X-linked locus.",
+      "C": "This assigns the father’s X to a son, but sons receive the father’s Y.",
+      "D": "Diploid chromosome complement does not imply two copies of a locus absent from Y; XY sons are hemizygous here."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c04",
+      "b2e-12-2-p06-c05",
+      "b2e-12-2-p07-c02",
+      "b2e-12-2-p08-c08",
+      "b2e-12-2-p09-c01",
+      "b2e-12-2-p09-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c04",
+        "quote": "Physical characteristics are expressed through genes carried on chromosomes. The genetic makeup of peas consists of two similar, or homologous, copies of each chromosome, one from each parent. Each pair of homologous chromosomes has the same linear order of genes. In other words, peas are diploid organisms in that they have two copies of each chromosome. The same is true for many other plants and for virtually all animals. Diploid organisms produce haploid gametes, which contain one copy of each homologous chromosome that unite at fertilization to create a diploid zygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c05",
+        "quote": "Mendel implied that only two alleles, one dominant and one recessive, could exist for a given gene. We now know that this is an oversimplification. Although individual humans (and all diploid organisms) can only have two alleles for a given gene, multiple alleles may exist at the population level such that many combinations of two alleles are observed. Note that when many alleles exist for the same gene, the convention is to denote the most common phenotype or genotype among wild animals as the wild type (often abbreviated “+”); this is considered the standard or norm. All other phenotypes or genotypes are considered variants of this standard, meaning that they deviate from the wild type. The variant may be recessive or dominant to the wild-type allele."
+      },
+      {
+        "chunk_id": "b2e-12-2-p07-c02",
+        "quote": "The complete dominance of a wild-type phenotype over all other mutants often occurs as an effect of “dosage” of a specific gene product, such that the wild-type allele supplies the correct amount of gene product whereas the mutant alleles cannot. For the allelic series in rabbits, the wild-type allele may supply a given dosage of fur pigment, whereas the mutants supply a lesser dosage or none at all. Interestingly, the Himalayan phenotype is the result of an allele that produces a temperature-sensitive gene product that only produces pigment in the cooler extremities of the rabbit’s body."
+      },
+      {
+        "chunk_id": "b2e-12-2-p08-c08",
+        "quote": "In humans, as well as in many other animals and some plants, the sex of the individual is determined by sex chromosomes. The sex chromosomes are one pair of non-homologous chromosomes. Until now, we have only considered inheritance patterns among non-sex chromosomes, or autosomes. In addition to 22 homologous pairs of autosomes, human females have a homologous pair of X chromosomes, whereas human males have an XY chromosome pair. Although the Y chromosome contains a small region of similarity to the X chromosome so that they can pair during meiosis, the Y chromosome is much shorter and contains many fewer genes. In fact, when Nettie Stevens discovered that the X and Y chromosomes were the determinants of sex, she differentiated them only by size. (Note that in this case and in the description below, the terms X and Y chromosome were not used at the time.) When a gene being examined is present on the X chromosome, but not on the Y chromosome, it is said to be X-linked."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c01",
+        "quote": "Males are said to be hemizygous, because they have only one allele for any X-linked characteristic. Hemizygosity makes the descriptions of dominance and recessiveness irrelevant for XY males. Drosophila males lack a second allele copy on the Y chromosome; that is, their genotype can only be XWY or XwY. In contrast, females have two allele copies of this gene and can be XWXW, XWXw, or XwXw."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c03",
+        "quote": "In an X-linked cross, the genotypes of F1 and F2 offspring depend on whether the recessive trait was expressed by the male or the female in the P1 generation. With regard to Drosophila eye color, when the P1 male expresses the white-eye phenotype and the female is homozygous red-eyed, all members of the F1 generation exhibit red eyes (Figure 12.12). The F1 females are heterozygous (XWXw), and the males are all XWY, having received their X chromosome from the homozygous dominant P1 female and their Y chromosome from the P1 male. A subsequent cross between the XWXw female and the XWY male would produce only red-eyed females (with XWXW or XWXw genotypes) and both red- and white-eyed males (with XWY or XwY genotypes). Now, consider a cross between a homozygous white-eyed female and a male with red eyes. The F1 generation would exhibit only heterozygous red- eyed females (XWXw) and only white-eyed males (XwY). Half of the F2 females would be red-eyed (XWXw) and half would be white-eyed (XwXw). Similarly, half of the F2 males would be red-eyed (XWY) and half would be white-eyed (XwY)."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Consider a hypothetical X-linked locus present on X and absent from Y; normal XX and XY complements only.",
+      "Population allele alternatives are mutually exclusive at this locus; no mutation, duplication, or aneuploidy."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-01",
+        "reasoning": "A diploid organism can be hemizygous at a particular locus."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-08",
+        "reasoning": "Three population alleles do not mean three copies in one individual."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-09",
+        "reasoning": "Sons inherit maternal X and paternal Y."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i04-medium-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-08",
+      "b2e-12-2-concept-09"
+    ],
+    "combination_id": "b2e-12-2-combination-04",
+    "objective": "Trace a multi-allelic X-linked locus into daughters.",
+    "question": "At a hypothetical X-linked locus absent from Y, a population contains four alleles a, b, c, and d. An X^a X^b mother mates with an X^c Y father. Which set lists ALL possible daughter genotypes and their locus copy number?",
+    "options": [
+      {
+        "id": "A",
+        "text": "{X^a X^d, X^b X^d}; each daughter has all four alleles."
+      },
+      {
+        "id": "B",
+        "text": "{X^a X^c, X^b X^c}; each daughter has two copies of the locus."
+      },
+      {
+        "id": "C",
+        "text": "{X^a X^b}; each daughter has two copies."
+      },
+      {
+        "id": "D",
+        "text": "{X^a Y, X^b Y}; each daughter has one copy."
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Daughters receive the father’s X^c and one maternal X, either X^a or X^b. Each XX daughter therefore has two copies. The fourth population allele d cannot appear in these offspring without mutation.",
+    "option_explanations": {
+      "A": "Neither parent carries d, and a daughter has only two copies at this locus, not all population alleles.",
+      "B": "Daughters receive the father’s X^c and one maternal X, either X^a or X^b. Each XX daughter therefore has two copies. The fourth population allele d cannot appear in these offspring without mutation.",
+      "C": "This gives daughters both maternal X chromosomes and omits the paternal X.",
+      "D": "Those are possible sons, not XX daughters."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c04",
+      "b2e-12-2-p06-c05",
+      "b2e-12-2-p07-c02",
+      "b2e-12-2-p08-c08",
+      "b2e-12-2-p09-c01",
+      "b2e-12-2-p09-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c04",
+        "quote": "Physical characteristics are expressed through genes carried on chromosomes. The genetic makeup of peas consists of two similar, or homologous, copies of each chromosome, one from each parent. Each pair of homologous chromosomes has the same linear order of genes. In other words, peas are diploid organisms in that they have two copies of each chromosome. The same is true for many other plants and for virtually all animals. Diploid organisms produce haploid gametes, which contain one copy of each homologous chromosome that unite at fertilization to create a diploid zygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c05",
+        "quote": "Mendel implied that only two alleles, one dominant and one recessive, could exist for a given gene. We now know that this is an oversimplification. Although individual humans (and all diploid organisms) can only have two alleles for a given gene, multiple alleles may exist at the population level such that many combinations of two alleles are observed. Note that when many alleles exist for the same gene, the convention is to denote the most common phenotype or genotype among wild animals as the wild type (often abbreviated “+”); this is considered the standard or norm. All other phenotypes or genotypes are considered variants of this standard, meaning that they deviate from the wild type. The variant may be recessive or dominant to the wild-type allele."
+      },
+      {
+        "chunk_id": "b2e-12-2-p07-c02",
+        "quote": "The complete dominance of a wild-type phenotype over all other mutants often occurs as an effect of “dosage” of a specific gene product, such that the wild-type allele supplies the correct amount of gene product whereas the mutant alleles cannot. For the allelic series in rabbits, the wild-type allele may supply a given dosage of fur pigment, whereas the mutants supply a lesser dosage or none at all. Interestingly, the Himalayan phenotype is the result of an allele that produces a temperature-sensitive gene product that only produces pigment in the cooler extremities of the rabbit’s body."
+      },
+      {
+        "chunk_id": "b2e-12-2-p08-c08",
+        "quote": "In humans, as well as in many other animals and some plants, the sex of the individual is determined by sex chromosomes. The sex chromosomes are one pair of non-homologous chromosomes. Until now, we have only considered inheritance patterns among non-sex chromosomes, or autosomes. In addition to 22 homologous pairs of autosomes, human females have a homologous pair of X chromosomes, whereas human males have an XY chromosome pair. Although the Y chromosome contains a small region of similarity to the X chromosome so that they can pair during meiosis, the Y chromosome is much shorter and contains many fewer genes. In fact, when Nettie Stevens discovered that the X and Y chromosomes were the determinants of sex, she differentiated them only by size. (Note that in this case and in the description below, the terms X and Y chromosome were not used at the time.) When a gene being examined is present on the X chromosome, but not on the Y chromosome, it is said to be X-linked."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c01",
+        "quote": "Males are said to be hemizygous, because they have only one allele for any X-linked characteristic. Hemizygosity makes the descriptions of dominance and recessiveness irrelevant for XY males. Drosophila males lack a second allele copy on the Y chromosome; that is, their genotype can only be XWY or XwY. In contrast, females have two allele copies of this gene and can be XWXW, XWXw, or XwXw."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c03",
+        "quote": "In an X-linked cross, the genotypes of F1 and F2 offspring depend on whether the recessive trait was expressed by the male or the female in the P1 generation. With regard to Drosophila eye color, when the P1 male expresses the white-eye phenotype and the female is homozygous red-eyed, all members of the F1 generation exhibit red eyes (Figure 12.12). The F1 females are heterozygous (XWXw), and the males are all XWY, having received their X chromosome from the homozygous dominant P1 female and their Y chromosome from the P1 male. A subsequent cross between the XWXw female and the XWY male would produce only red-eyed females (with XWXW or XWXw genotypes) and both red- and white-eyed males (with XWY or XwY genotypes). Now, consider a cross between a homozygous white-eyed female and a male with red eyes. The F1 generation would exhibit only heterozygous red- eyed females (XWXw) and only white-eyed males (XwY). Half of the F2 females would be red-eyed (XWXw) and half would be white-eyed (XwXw). Similarly, half of the F2 males would be red-eyed (XWY) and half would be white-eyed (XwY)."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Consider a hypothetical X-linked locus present on X and absent from Y; normal XX and XY complements only.",
+      "Population allele alternatives are mutually exclusive at this locus; no mutation, duplication, or aneuploidy."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-01",
+        "reasoning": "XX daughters have two copies at this locus."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-08",
+        "reasoning": "Only parental alleles, not every population alternative, enter this cross."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-09",
+        "reasoning": "Every daughter receives paternal X^c and one maternal X."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i04-hard-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-08",
+      "b2e-12-2-concept-09"
+    ],
+    "combination_id": "b2e-12-2-combination-04",
+    "objective": "Count sex-specific genotypes for a multi-allelic X-linked locus.",
+    "question": "A hypothetical locus present on X and absent from Y has four alleles in a population. Ignoring allele order and excluding new mutations or chromosome-number changes, how many distinct locus genotypes are possible among XX individuals and among XY individuals, respectively?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10 among XX; 10 among XY."
+      },
+      {
+        "id": "B",
+        "text": "4 among XX; 1 among XY."
+      },
+      {
+        "id": "C",
+        "text": "10 among XX; 4 among XY."
+      },
+      {
+        "id": "D",
+        "text": "16 among XX; 4 among XY."
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "XX individuals have two locus copies: four homozygotes plus 4×3/2 = 6 unordered heterozygotes, for 10 genotypes. XY individuals have one copy, so each of the four population alleles specifies one hemizygous genotype.",
+    "option_explanations": {
+      "A": "The XX count is correct, but XY individuals lack a second copy of this locus and cannot form the ten diploid pairs.",
+      "B": "Four is the number of population alleles, not all XX allele pairs; XY individuals can carry any one of four alleles.",
+      "C": "XX individuals have two locus copies: four homozygotes plus 4×3/2 = 6 unordered heterozygotes, for 10 genotypes. XY individuals have one copy, so each of the four population alleles specifies one hemizygous genotype.",
+      "D": "16 counts ordered XX allele pairs and double-counts each heterozygote; the question explicitly ignores allele order."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c04",
+      "b2e-12-2-p06-c05",
+      "b2e-12-2-p07-c02",
+      "b2e-12-2-p08-c08",
+      "b2e-12-2-p09-c01",
+      "b2e-12-2-p09-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c04",
+        "quote": "Physical characteristics are expressed through genes carried on chromosomes. The genetic makeup of peas consists of two similar, or homologous, copies of each chromosome, one from each parent. Each pair of homologous chromosomes has the same linear order of genes. In other words, peas are diploid organisms in that they have two copies of each chromosome. The same is true for many other plants and for virtually all animals. Diploid organisms produce haploid gametes, which contain one copy of each homologous chromosome that unite at fertilization to create a diploid zygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c05",
+        "quote": "Mendel implied that only two alleles, one dominant and one recessive, could exist for a given gene. We now know that this is an oversimplification. Although individual humans (and all diploid organisms) can only have two alleles for a given gene, multiple alleles may exist at the population level such that many combinations of two alleles are observed. Note that when many alleles exist for the same gene, the convention is to denote the most common phenotype or genotype among wild animals as the wild type (often abbreviated “+”); this is considered the standard or norm. All other phenotypes or genotypes are considered variants of this standard, meaning that they deviate from the wild type. The variant may be recessive or dominant to the wild-type allele."
+      },
+      {
+        "chunk_id": "b2e-12-2-p07-c02",
+        "quote": "The complete dominance of a wild-type phenotype over all other mutants often occurs as an effect of “dosage” of a specific gene product, such that the wild-type allele supplies the correct amount of gene product whereas the mutant alleles cannot. For the allelic series in rabbits, the wild-type allele may supply a given dosage of fur pigment, whereas the mutants supply a lesser dosage or none at all. Interestingly, the Himalayan phenotype is the result of an allele that produces a temperature-sensitive gene product that only produces pigment in the cooler extremities of the rabbit’s body."
+      },
+      {
+        "chunk_id": "b2e-12-2-p08-c08",
+        "quote": "In humans, as well as in many other animals and some plants, the sex of the individual is determined by sex chromosomes. The sex chromosomes are one pair of non-homologous chromosomes. Until now, we have only considered inheritance patterns among non-sex chromosomes, or autosomes. In addition to 22 homologous pairs of autosomes, human females have a homologous pair of X chromosomes, whereas human males have an XY chromosome pair. Although the Y chromosome contains a small region of similarity to the X chromosome so that they can pair during meiosis, the Y chromosome is much shorter and contains many fewer genes. In fact, when Nettie Stevens discovered that the X and Y chromosomes were the determinants of sex, she differentiated them only by size. (Note that in this case and in the description below, the terms X and Y chromosome were not used at the time.) When a gene being examined is present on the X chromosome, but not on the Y chromosome, it is said to be X-linked."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c01",
+        "quote": "Males are said to be hemizygous, because they have only one allele for any X-linked characteristic. Hemizygosity makes the descriptions of dominance and recessiveness irrelevant for XY males. Drosophila males lack a second allele copy on the Y chromosome; that is, their genotype can only be XWY or XwY. In contrast, females have two allele copies of this gene and can be XWXW, XWXw, or XwXw."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c03",
+        "quote": "In an X-linked cross, the genotypes of F1 and F2 offspring depend on whether the recessive trait was expressed by the male or the female in the P1 generation. With regard to Drosophila eye color, when the P1 male expresses the white-eye phenotype and the female is homozygous red-eyed, all members of the F1 generation exhibit red eyes (Figure 12.12). The F1 females are heterozygous (XWXw), and the males are all XWY, having received their X chromosome from the homozygous dominant P1 female and their Y chromosome from the P1 male. A subsequent cross between the XWXw female and the XWY male would produce only red-eyed females (with XWXW or XWXw genotypes) and both red- and white-eyed males (with XWY or XwY genotypes). Now, consider a cross between a homozygous white-eyed female and a male with red eyes. The F1 generation would exhibit only heterozygous red- eyed females (XWXw) and only white-eyed males (XwY). Half of the F2 females would be red-eyed (XWXw) and half would be white-eyed (XwXw). Similarly, half of the F2 males would be red-eyed (XWY) and half would be white-eyed (XwY)."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Consider a hypothetical X-linked locus present on X and absent from Y; normal XX and XY complements only.",
+      "Population allele alternatives are mutually exclusive at this locus; no mutation, duplication, or aneuploidy."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-01",
+        "reasoning": "Count unordered allele pairs for a two-copy locus versus single-copy alternatives."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-08",
+        "reasoning": "Use four population alleles to enumerate homozygous and heterozygous possibilities."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-09",
+        "reasoning": "X/Y location makes XX two-copy and XY hemizygous."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i04-hard-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-08",
+      "b2e-12-2-concept-09"
+    ],
+    "combination_id": "b2e-12-2-combination-04",
+    "objective": "Compare hemizygous expression with diploid carrier masking in a multi-allelic system.",
+    "question": "In a hypothetical population an X-linked locus absent from Y has alleles F, r, and s. F provides enough functional product to mask either nonfunctional allele; r and s each produce no functional product. An X^F X^r mother mates with an X^s Y father. Under full penetrance, which outcome correctly separates offspring sex, allele copy number, and phenotype?",
+    "options": [
+      {
+        "id": "A",
+        "text": "No daughters lack functional product because all daughters receive a normal paternal X."
+      },
+      {
+        "id": "B",
+        "text": "All sons lack functional product because they inherit the father’s s."
+      },
+      {
+        "id": "C",
+        "text": "All offspring have three alleles, so F masks r and s in everyone."
+      },
+      {
+        "id": "D",
+        "text": "Half the sons and half the daughters lack functional product; affected sons have one nonfunctional copy, while affected daughters have two different nonfunctional alleles."
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "Sons are X^F Y or X^r Y, so half lack functional product with one locus copy. Daughters are X^F X^s or X^r X^s, so half lack functional product with two different nonfunctional alleles. The population’s three alleles do not change individual copy number, and two nonfunctional alleles need not be identical to yield no product under the stated model.",
+    "option_explanations": {
+      "A": "The father’s allele is explicitly nonfunctional s, not normal F; X^r X^s daughters have no functional copy.",
+      "B": "Sons inherit paternal Y, not X^s; half receive maternal F and have functional product.",
+      "C": "No offspring inherits all three population alleles; sons have one copy and daughters two.",
+      "D": "Sons are X^F Y or X^r Y, so half lack functional product with one locus copy. Daughters are X^F X^s or X^r X^s, so half lack functional product with two different nonfunctional alleles. The population’s three alleles do not change individual copy number, and two nonfunctional alleles need not be identical to yield no product under the stated model."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c04",
+      "b2e-12-2-p06-c05",
+      "b2e-12-2-p07-c02",
+      "b2e-12-2-p08-c08",
+      "b2e-12-2-p09-c01",
+      "b2e-12-2-p09-c03"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c04",
+        "quote": "Physical characteristics are expressed through genes carried on chromosomes. The genetic makeup of peas consists of two similar, or homologous, copies of each chromosome, one from each parent. Each pair of homologous chromosomes has the same linear order of genes. In other words, peas are diploid organisms in that they have two copies of each chromosome. The same is true for many other plants and for virtually all animals. Diploid organisms produce haploid gametes, which contain one copy of each homologous chromosome that unite at fertilization to create a diploid zygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p06-c05",
+        "quote": "Mendel implied that only two alleles, one dominant and one recessive, could exist for a given gene. We now know that this is an oversimplification. Although individual humans (and all diploid organisms) can only have two alleles for a given gene, multiple alleles may exist at the population level such that many combinations of two alleles are observed. Note that when many alleles exist for the same gene, the convention is to denote the most common phenotype or genotype among wild animals as the wild type (often abbreviated “+”); this is considered the standard or norm. All other phenotypes or genotypes are considered variants of this standard, meaning that they deviate from the wild type. The variant may be recessive or dominant to the wild-type allele."
+      },
+      {
+        "chunk_id": "b2e-12-2-p07-c02",
+        "quote": "The complete dominance of a wild-type phenotype over all other mutants often occurs as an effect of “dosage” of a specific gene product, such that the wild-type allele supplies the correct amount of gene product whereas the mutant alleles cannot. For the allelic series in rabbits, the wild-type allele may supply a given dosage of fur pigment, whereas the mutants supply a lesser dosage or none at all. Interestingly, the Himalayan phenotype is the result of an allele that produces a temperature-sensitive gene product that only produces pigment in the cooler extremities of the rabbit’s body."
+      },
+      {
+        "chunk_id": "b2e-12-2-p08-c08",
+        "quote": "In humans, as well as in many other animals and some plants, the sex of the individual is determined by sex chromosomes. The sex chromosomes are one pair of non-homologous chromosomes. Until now, we have only considered inheritance patterns among non-sex chromosomes, or autosomes. In addition to 22 homologous pairs of autosomes, human females have a homologous pair of X chromosomes, whereas human males have an XY chromosome pair. Although the Y chromosome contains a small region of similarity to the X chromosome so that they can pair during meiosis, the Y chromosome is much shorter and contains many fewer genes. In fact, when Nettie Stevens discovered that the X and Y chromosomes were the determinants of sex, she differentiated them only by size. (Note that in this case and in the description below, the terms X and Y chromosome were not used at the time.) When a gene being examined is present on the X chromosome, but not on the Y chromosome, it is said to be X-linked."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c01",
+        "quote": "Males are said to be hemizygous, because they have only one allele for any X-linked characteristic. Hemizygosity makes the descriptions of dominance and recessiveness irrelevant for XY males. Drosophila males lack a second allele copy on the Y chromosome; that is, their genotype can only be XWY or XwY. In contrast, females have two allele copies of this gene and can be XWXW, XWXw, or XwXw."
+      },
+      {
+        "chunk_id": "b2e-12-2-p09-c03",
+        "quote": "In an X-linked cross, the genotypes of F1 and F2 offspring depend on whether the recessive trait was expressed by the male or the female in the P1 generation. With regard to Drosophila eye color, when the P1 male expresses the white-eye phenotype and the female is homozygous red-eyed, all members of the F1 generation exhibit red eyes (Figure 12.12). The F1 females are heterozygous (XWXw), and the males are all XWY, having received their X chromosome from the homozygous dominant P1 female and their Y chromosome from the P1 male. A subsequent cross between the XWXw female and the XWY male would produce only red-eyed females (with XWXW or XWXw genotypes) and both red- and white-eyed males (with XWY or XwY genotypes). Now, consider a cross between a homozygous white-eyed female and a male with red eyes. The F1 generation would exhibit only heterozygous red- eyed females (XWXw) and only white-eyed males (XwY). Half of the F2 females would be red-eyed (XWXw) and half would be white-eyed (XwXw). Similarly, half of the F2 males would be red-eyed (XWY) and half would be white-eyed (XwY)."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Consider a hypothetical X-linked locus present on X and absent from Y; normal XX and XY complements only.",
+      "Population allele alternatives are mutually exclusive at this locus; no mutation, duplication, or aneuploidy.",
+      "F is fully dominant for functional phenotype; both r and s are null alleles of the same gene, with no complementation."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-01",
+        "reasoning": "Count one functional locus copy in sons versus two copies in daughters and apply the stated product threshold."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-08",
+        "reasoning": "Use the three distinct allele alternatives without assigning all three to one offspring."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-09",
+        "reasoning": "Trace maternal X to sons and paternal X^s to daughters."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i05-medium-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-10"
+    ],
+    "combination_id": "b2e-12-2-combination-05",
+    "objective": "Separate a dominant visible trait from recessive lethality.",
+    "question": "In a hypothetical plant, Aa is purple, aa is white, and AA dies before germination. Two viable purple plants are crossed. What is the expected purple:white ratio among germinated offspring?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2:1."
+      },
+      {
+        "id": "B",
+        "text": "3:1."
+      },
+      {
+        "id": "C",
+        "text": "1:2."
+      },
+      {
+        "id": "D",
+        "text": "1:1."
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Both viable purple parents must be Aa. Their zygotes are 1/4 AA, 1/2 Aa, and 1/4 aa. Removing lethal AA leaves two purple Aa classes for each white aa class, so the germinated ratio is 2:1. Purple is dominant in heterozygotes, while lethality requires two A copies.",
+    "option_explanations": {
+      "A": "Both viable purple parents must be Aa. Their zygotes are 1/4 AA, 1/2 Aa, and 1/4 aa. Removing lethal AA leaves two purple Aa classes for each white aa class, so the germinated ratio is 2:1. Purple is dominant in heterozygotes, while lethality requires two A copies.",
+      "B": "3:1 would count lethal AA as a surviving purple class.",
+      "C": "This reverses the surviving purple Aa to white aa ratio.",
+      "D": "The zygotes contain two Aa classes for one aa class; removing AA does not make those frequencies equal."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p11-c07",
+      "b2e-12-2-p11-c08",
+      "b2e-12-2-p12-c01"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c07",
+        "quote": "A large proportion of genes in an individual’s genome are essential for survival. Occasionally, a nonfunctional allele for an essential gene can arise by mutation and be transmitted in a population as long as individuals with this allele also have a wild-type, functional copy. The wild-type allele functions at a capacity sufficient to sustain life and is therefore considered to be dominant over the nonfunctional allele. However, consider two heterozygous parents that have a genotype of wild-type/nonfunctional mutant for a hypothetical essential gene. In one quarter of their offspring, we would expect to observe individuals that are homozygous recessive for the nonfunctional allele. Because the gene is essential, these individuals might fail to develop past fertilization, die in utero, or die later in life, depending on what life stage requires this gene. An inheritance pattern in which an allele is only lethal in the homozygous form and in which the heterozygote may be normal or have some altered nonlethal phenotype is referred to as recessive lethal."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c08",
+        "quote": "For crosses between heterozygous individuals with a recessive lethal allele that causes death before birth when homozygous, only wild-type homozygotes and heterozygotes would be observed. The genotypic ratio would therefore be 2:1. In other instances, the recessive lethal allele might also exhibit a dominant (but not lethal) phenotype in the heterozygote. For instance, the recessive lethal Curly allele in Drosophila affects wing shape in the heterozygote form but is lethal in the homozygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p12-c01",
+        "quote": "result in dominant lethal alleles fail to survive even in the heterozygote form. Dominant lethal alleles are very rare because, as you might expect, the allele only lasts one generation and is not transmitted. However, just as the recessive lethal allele might not immediately manifest the phenotype of death, dominant lethal alleles also might not be expressed until adulthood. Once the individual reaches reproductive age, the allele may be unknowingly passed on, resulting in a delayed death in both generations. An example of this in humans is Huntington’s disease, in which the nervous system gradually wastes away (Figure 12.14). People who are heterozygous for the dominant Huntington allele (Hh) will inevitably develop the fatal disease. However, the onset of Huntington’s disease may not occur until age 40, at which point the afflicted persons may have already passed the allele to 50 percent of their offspring."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use equal allele transmission, random fertilization, and no mutation.",
+      "Only the explicitly specified genotype loses viability before the time of observation."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "The viable dominant-looking genotype is Aa; aa is white."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Compute 1:2:1 at fertilization."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-10",
+        "reasoning": "Remove AA before normalizing the surviving phenotype ratio."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i05-medium-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "medium",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-10"
+    ],
+    "combination_id": "b2e-12-2-combination-05",
+    "objective": "Convert a survivor-conditioned lethal ratio into expected counts.",
+    "question": "For a hypothetical gene, A provides a normal phenotype, Aa is also normal, and aa is lethal before birth. Aa × Aa produces 120 surviving offspring in a large cohort. How many survivors are expected to be carriers, and why?",
+    "options": [
+      {
+        "id": "A",
+        "text": "40; only one of the three surviving classes is Aa."
+      },
+      {
+        "id": "B",
+        "text": "80; Aa comprises two of the three surviving Punnett-square classes."
+      },
+      {
+        "id": "C",
+        "text": "60; carriers are half of every group including survivors."
+      },
+      {
+        "id": "D",
+        "text": "90; three quarters of survivors are carriers."
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "At fertilization AA:Aa:aa is 1:2:1. Removing lethal aa leaves AA:Aa = 1:2, so carriers are 2/3 of survivors. The expected carrier count is 120×2/3 = 80 even though AA and Aa share the normal phenotype.",
+    "option_explanations": {
+      "A": "There are two equally likely Aa combinations and one AA combination among survivors.",
+      "B": "At fertilization AA:Aa:aa is 1:2:1. Removing lethal aa leaves AA:Aa = 1:2, so carriers are 2/3 of survivors. The expected carrier count is 120×2/3 = 80 even though AA and Aa share the normal phenotype.",
+      "C": "Half refers to all zygotes, not survivors conditioned on loss of aa.",
+      "D": "Three quarters is the zygote survival probability, not the carrier fraction among survivors."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p11-c07",
+      "b2e-12-2-p11-c08",
+      "b2e-12-2-p12-c01"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c07",
+        "quote": "A large proportion of genes in an individual’s genome are essential for survival. Occasionally, a nonfunctional allele for an essential gene can arise by mutation and be transmitted in a population as long as individuals with this allele also have a wild-type, functional copy. The wild-type allele functions at a capacity sufficient to sustain life and is therefore considered to be dominant over the nonfunctional allele. However, consider two heterozygous parents that have a genotype of wild-type/nonfunctional mutant for a hypothetical essential gene. In one quarter of their offspring, we would expect to observe individuals that are homozygous recessive for the nonfunctional allele. Because the gene is essential, these individuals might fail to develop past fertilization, die in utero, or die later in life, depending on what life stage requires this gene. An inheritance pattern in which an allele is only lethal in the homozygous form and in which the heterozygote may be normal or have some altered nonlethal phenotype is referred to as recessive lethal."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c08",
+        "quote": "For crosses between heterozygous individuals with a recessive lethal allele that causes death before birth when homozygous, only wild-type homozygotes and heterozygotes would be observed. The genotypic ratio would therefore be 2:1. In other instances, the recessive lethal allele might also exhibit a dominant (but not lethal) phenotype in the heterozygote. For instance, the recessive lethal Curly allele in Drosophila affects wing shape in the heterozygote form but is lethal in the homozygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p12-c01",
+        "quote": "result in dominant lethal alleles fail to survive even in the heterozygote form. Dominant lethal alleles are very rare because, as you might expect, the allele only lasts one generation and is not transmitted. However, just as the recessive lethal allele might not immediately manifest the phenotype of death, dominant lethal alleles also might not be expressed until adulthood. Once the individual reaches reproductive age, the allele may be unknowingly passed on, resulting in a delayed death in both generations. An example of this in humans is Huntington’s disease, in which the nervous system gradually wastes away (Figure 12.14). People who are heterozygous for the dominant Huntington allele (Hh) will inevitably develop the fatal disease. However, the onset of Huntington’s disease may not occur until age 40, at which point the afflicted persons may have already passed the allele to 50 percent of their offspring."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use equal allele transmission, random fertilization, and no mutation.",
+      "Only the explicitly specified genotype loses viability before the time of observation."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Normal phenotype does not distinguish AA from the Aa carrier."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Start from the 1:2:1 Punnett distribution."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-10",
+        "reasoning": "Condition on survival and calculate 120×2/3."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i05-hard-01",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-10"
+    ],
+    "combination_id": "b2e-12-2-combination-05",
+    "objective": "Infer an unknown viable parent by combining conception and survivor data.",
+    "question": "At a hypothetical locus, Aa has a dominant visible phenotype, aa is recessive-looking, and AA is lethal before birth. A viable dominant-looking parent is crossed with an unknown viable parent. Across a large cohort, 25% of conceptions fail from AA lethality and surviving dominant:recessive offspring approach 2:1. Which cross and one-conception outcome probabilities explain BOTH observations?",
+    "options": [
+      {
+        "id": "A",
+        "text": "AA × aa; no lethal offspring and all viable dominant."
+      },
+      {
+        "id": "B",
+        "text": "Aa × Aa; 1/4 lethal, 2/3 viable dominant, 1/3 viable recessive per conception."
+      },
+      {
+        "id": "C",
+        "text": "Aa × Aa; 1/4 lethal, 1/2 viable dominant, 1/4 viable recessive."
+      },
+      {
+        "id": "D",
+        "text": "Aa × aa; 1/4 lethal, 1/2 viable dominant, 1/4 viable recessive."
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "The viable dominant-looking parent must be Aa. A viable unknown can be Aa or aa because AA is lethal. Aa × aa causes no AA loss, whereas Aa × Aa gives 1/4 AA, 1/2 Aa and 1/4 aa. Removing AA yields the observed 2:1 survivor ratio.",
+    "option_explanations": {
+      "A": "The presumed AA parent is not viable under the stated model; the cross also fails to explain 25% conception loss.",
+      "B": "The cross is correct, but 2/3 and 1/3 are conditional survivor proportions, not per-conception probabilities; the listed probabilities exceed 1.",
+      "C": "The viable dominant-looking parent must be Aa. A viable unknown can be Aa or aa because AA is lethal. Aa × aa causes no AA loss, whereas Aa × Aa gives 1/4 AA, 1/2 Aa and 1/4 aa. Removing AA yields the observed 2:1 survivor ratio.",
+      "D": "Aa × aa cannot produce AA and instead yields 1/2 Aa and 1/2 aa with no specified lethality."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p11-c07",
+      "b2e-12-2-p11-c08",
+      "b2e-12-2-p12-c01"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c07",
+        "quote": "A large proportion of genes in an individual’s genome are essential for survival. Occasionally, a nonfunctional allele for an essential gene can arise by mutation and be transmitted in a population as long as individuals with this allele also have a wild-type, functional copy. The wild-type allele functions at a capacity sufficient to sustain life and is therefore considered to be dominant over the nonfunctional allele. However, consider two heterozygous parents that have a genotype of wild-type/nonfunctional mutant for a hypothetical essential gene. In one quarter of their offspring, we would expect to observe individuals that are homozygous recessive for the nonfunctional allele. Because the gene is essential, these individuals might fail to develop past fertilization, die in utero, or die later in life, depending on what life stage requires this gene. An inheritance pattern in which an allele is only lethal in the homozygous form and in which the heterozygote may be normal or have some altered nonlethal phenotype is referred to as recessive lethal."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c08",
+        "quote": "For crosses between heterozygous individuals with a recessive lethal allele that causes death before birth when homozygous, only wild-type homozygotes and heterozygotes would be observed. The genotypic ratio would therefore be 2:1. In other instances, the recessive lethal allele might also exhibit a dominant (but not lethal) phenotype in the heterozygote. For instance, the recessive lethal Curly allele in Drosophila affects wing shape in the heterozygote form but is lethal in the homozygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p12-c01",
+        "quote": "result in dominant lethal alleles fail to survive even in the heterozygote form. Dominant lethal alleles are very rare because, as you might expect, the allele only lasts one generation and is not transmitted. However, just as the recessive lethal allele might not immediately manifest the phenotype of death, dominant lethal alleles also might not be expressed until adulthood. Once the individual reaches reproductive age, the allele may be unknowingly passed on, resulting in a delayed death in both generations. An example of this in humans is Huntington’s disease, in which the nervous system gradually wastes away (Figure 12.14). People who are heterozygous for the dominant Huntington allele (Hh) will inevitably develop the fatal disease. However, the onset of Huntington’s disease may not occur until age 40, at which point the afflicted persons may have already passed the allele to 50 percent of their offspring."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use equal allele transmission, random fertilization, and no mutation.",
+      "Only the explicitly specified genotype loses viability before the time of observation."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Map dominant and recessive viable phenotypes to Aa and aa."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Compare possible crosses and their zygote probabilities."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-10",
+        "reasoning": "Use both conception loss and survivor normalization without mixing denominators."
+      }
+    ],
+    "review_status": "author_reviewed"
+  },
+  {
+    "id": "b2e-12-2-q-i05-hard-02",
+    "source_id": "b2e-12-2",
+    "section": "12.2",
+    "language": "en",
+    "question_type": "integrated",
+    "difficulty": "hard",
+    "primary_concept_id": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-10"
+    ],
+    "combination_id": "b2e-12-2-combination-05",
+    "objective": "Distinguish late lethal onset from pre-observation viability selection.",
+    "question": "Use a hypothetical fully penetrant dominant-lethal model: Hh individuals develop a fatal condition only after reproductive age, hh remain unaffected, and no offspring die before birth. An asymptomatic reproductive-age Hh parent has children with hh. What is the probability that two independent children BOTH inherit H, and should their birth distribution be renormalized to a 2:1 survivor ratio?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/9; yes, use a 2:1 survivor ratio at birth."
+      },
+      {
+        "id": "B",
+        "text": "0; no, an asymptomatic parent cannot carry a dominant allele."
+      },
+      {
+        "id": "C",
+        "text": "1/2; no, because each child has a 1/2 chance."
+      },
+      {
+        "id": "D",
+        "text": "1/4; no, late onset does not remove a genotype before birth."
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "Asymptomatic status before onset does not change the specified Hh genotype. Hh × hh gives 1/2 Hh and 1/2 hh at birth. Both independent children inherit H with probability (1/2)^2 = 1/4. The prenatal 2:1 survivor adjustment applies only when a lethal genotype is removed before observation, which does not occur here.",
+    "option_explanations": {
+      "A": "This wrongly removes a genotype prenatally even though the model explicitly delays lethality and predicts a 1:1 birth distribution.",
+      "B": "An explicitly late-onset dominant phenotype can be absent before onset in an Hh individual.",
+      "C": "Each child individually has probability 1/2; requiring both multiplies two independent probabilities.",
+      "D": "Asymptomatic status before onset does not change the specified Hh genotype. Hh × hh gives 1/2 Hh and 1/2 hh at birth. Both independent children inherit H with probability (1/2)^2 = 1/4. The prenatal 2:1 survivor adjustment applies only when a lethal genotype is removed before observation, which does not occur here."
+    },
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p11-c07",
+      "b2e-12-2-p11-c08",
+      "b2e-12-2-p12-c01"
+    ],
+    "evidence": [
+      {
+        "chunk_id": "b2e-12-2-p01-c10",
+        "quote": "Our discussion of homozygous and heterozygous organisms brings us to why the F1 heterozygous offspring were identical to one of the parents, rather than expressing both alleles. In all seven pea-plant characteristics, one of the two contrasting alleles was dominant, and the other was recessive. Mendel called the dominant allele the expressed unit factor; the recessive allele was referred to as the latent unit factor. We now know that these so-called unit factors are actually genes on homologous chromosome pairs. For a gene that is expressed in a dominant and recessive pattern, homozygous dominant and heterozygous organisms will look identical (that is, they will have different genotypes but the same phenotype). The traits of the recessive allele will only be observed in homozygous recessive individuals (Table 12.4)."
+      },
+      {
+        "chunk_id": "b2e-12-2-p03-c02",
+        "quote": "A self-cross of one of the Yy heterozygous offspring can be represented in a 2 × 2 Punnett square because each parent can donate one of two different alleles. Therefore, the offspring can potentially have one of four allele combinations: YY, Yy, yY, or yy (Figure 12.4). Notice that there are two ways to obtain the Yy genotype: a Y from the egg and a y from the sperm, or a y from the egg and a Y from the sperm. Both of these possibilities must be counted. Recall that Mendel’s pea-plant characteristics behaved in the same way in reciprocal crosses. Therefore, the two possible heterozygous combinations produce offspring that are genotypically and phenotypically identical despite their dominant and recessive alleles deriving from different parents. They are grouped together. Because fertilization is a random event, we expect each combination to be equally likely and for the offspring to exhibit a ratio of YY:Yy:yy genotypes of 1:2:1 (Figure 12.4). Furthermore, because the YY and Yy offspring have yellow seeds and are phenotypically identical, applying the sum rule of probability, we expect the offspring to exhibit a phenotypic ratio of 3 yellow:1 green. Indeed, working with large sample sizes, Mendel observed approximately this ratio in every F2 generation resulting from crosses for individual traits."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c07",
+        "quote": "A large proportion of genes in an individual’s genome are essential for survival. Occasionally, a nonfunctional allele for an essential gene can arise by mutation and be transmitted in a population as long as individuals with this allele also have a wild-type, functional copy. The wild-type allele functions at a capacity sufficient to sustain life and is therefore considered to be dominant over the nonfunctional allele. However, consider two heterozygous parents that have a genotype of wild-type/nonfunctional mutant for a hypothetical essential gene. In one quarter of their offspring, we would expect to observe individuals that are homozygous recessive for the nonfunctional allele. Because the gene is essential, these individuals might fail to develop past fertilization, die in utero, or die later in life, depending on what life stage requires this gene. An inheritance pattern in which an allele is only lethal in the homozygous form and in which the heterozygote may be normal or have some altered nonlethal phenotype is referred to as recessive lethal."
+      },
+      {
+        "chunk_id": "b2e-12-2-p11-c08",
+        "quote": "For crosses between heterozygous individuals with a recessive lethal allele that causes death before birth when homozygous, only wild-type homozygotes and heterozygotes would be observed. The genotypic ratio would therefore be 2:1. In other instances, the recessive lethal allele might also exhibit a dominant (but not lethal) phenotype in the heterozygote. For instance, the recessive lethal Curly allele in Drosophila affects wing shape in the heterozygote form but is lethal in the homozygote."
+      },
+      {
+        "chunk_id": "b2e-12-2-p12-c01",
+        "quote": "result in dominant lethal alleles fail to survive even in the heterozygote form. Dominant lethal alleles are very rare because, as you might expect, the allele only lasts one generation and is not transmitted. However, just as the recessive lethal allele might not immediately manifest the phenotype of death, dominant lethal alleles also might not be expressed until adulthood. Once the individual reaches reproductive age, the allele may be unknowingly passed on, resulting in a delayed death in both generations. An example of this in humans is Huntington’s disease, in which the nervous system gradually wastes away (Figure 12.14). People who are heterozygous for the dominant Huntington allele (Hh) will inevitably develop the fatal disease. However, the onset of Huntington’s disease may not occur until age 40, at which point the afflicted persons may have already passed the allele to 50 percent of their offspring."
+      }
+    ],
+    "figure_ids": [],
+    "requires_figure": false,
+    "assumptions": [
+      "Use equal allele transmission, random fertilization, and no mutation.",
+      "Only the explicitly specified genotype loses viability before the time of observation.",
+      "This is an explicitly simplified hypothetical teaching model, not a clinical prediction."
+    ],
+    "concept_steps": [
+      {
+        "concept_id": "b2e-12-2-concept-02",
+        "reasoning": "Distinguish known genotype from a phenotype that has not appeared yet."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-03",
+        "reasoning": "Use Hh × hh and multiply two transmission probabilities."
+      },
+      {
+        "concept_id": "b2e-12-2-concept-10",
+        "reasoning": "Compare the timing of lethality with the time at which the offspring distribution is observed."
+      }
+    ],
+    "review_status": "author_reviewed"
+  }
+]

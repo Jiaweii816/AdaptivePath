@@ -1,0 +1,1141 @@
+{
+  "legacy_reference_ids": {
+    "b2e-12.2-p316-c01": [
+      "b2e-12-2-p01-c03"
+    ],
+    "b2e-12.2-p316-c02": [
+      "b2e-12-2-p01-c04"
+    ],
+    "b2e-12.2-p316-c03": [
+      "b2e-12-2-p01-c05"
+    ],
+    "b2e-12.2-p316-c04": [
+      "b2e-12-2-p01-c07"
+    ],
+    "b2e-12.2-p316-c05": [
+      "b2e-12-2-p01-c08"
+    ],
+    "b2e-12.2-p316-c06": [
+      "b2e-12-2-p01-c10"
+    ],
+    "b2e-12.2-p317-c01": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c02": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c03": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c04": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c05": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c06": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c07": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c08": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c09": [
+      "b2e-12-2-p02-c01"
+    ],
+    "b2e-12.2-p317-c10": [
+      "b2e-12-2-p02-c01",
+      "b2e-12-2-p02-c05"
+    ],
+    "b2e-12.2-p317-c11": [
+      "b2e-12-2-p02-c02"
+    ],
+    "b2e-12.2-p317-c12": [
+      "b2e-12-2-p02-c04"
+    ],
+    "b2e-12.2-p317-c13": [
+      "b2e-12-2-p02-c05"
+    ],
+    "b2e-12.2-p318-c01": [
+      "b2e-12-2-p03-c01"
+    ],
+    "b2e-12.2-p318-c02": [
+      "b2e-12-2-p03-c03"
+    ],
+    "b2e-12.2-p318-c03": [
+      "b2e-12-2-p03-c05"
+    ],
+    "b2e-12.2-p319-c01": [
+      "b2e-12-2-p04-c01"
+    ],
+    "b2e-12.2-p319-c02": [
+      "b2e-12-2-p04-c03"
+    ],
+    "b2e-12.2-p319-c03": [
+      "b2e-12-2-p04-c04"
+    ],
+    "b2e-12.2-p319-c04": [
+      "b2e-12-2-p04-c05"
+    ],
+    "b2e-12.2-p320-c01": [
+      "b2e-12-2-p05-c02"
+    ],
+    "b2e-12.2-p320-c02": [
+      "b2e-12-2-p05-c03"
+    ],
+    "b2e-12.2-p320-c03": [
+      "b2e-12-2-p05-c05"
+    ],
+    "b2e-12.2-p320-c04": [
+      "b2e-12-2-p05-c07"
+    ],
+    "b2e-12.2-p321-c01": [
+      "b2e-12-2-p06-c01"
+    ],
+    "b2e-12.2-p321-c02": [
+      "b2e-12-2-p06-c03"
+    ],
+    "b2e-12.2-p321-c03": [
+      "b2e-12-2-p06-c05"
+    ],
+    "b2e-12.2-p321-c04": [
+      "b2e-12-2-p06-c06"
+    ],
+    "b2e-12.2-p322-c01": [
+      "b2e-12-2-p07-c01"
+    ],
+    "b2e-12.2-p322-c02": [
+      "b2e-12-2-p07-c02"
+    ],
+    "b2e-12.2-p322-c03": [
+      "b2e-12-2-p07-c03"
+    ],
+    "b2e-12.2-p322-c04": [
+      "b2e-12-2-p07-c04"
+    ],
+    "b2e-12.2-p323-c01": [
+      "b2e-12-2-p08-c03"
+    ],
+    "b2e-12.2-p323-c02": [
+      "b2e-12-2-p08-c04"
+    ],
+    "b2e-12.2-p323-c03": [
+      "b2e-12-2-p08-c05"
+    ],
+    "b2e-12.2-p323-c04": [
+      "b2e-12-2-p08-c06"
+    ],
+    "b2e-12.2-p323-c05": [
+      "b2e-12-2-p08-c08"
+    ],
+    "b2e-12.2-p323-c06": [
+      "b2e-12-2-p08-c09"
+    ],
+    "b2e-12.2-p323-c07": [
+      "b2e-12-2-p08-c10"
+    ],
+    "b2e-12.2-p324-c01": [
+      "b2e-12-2-p09-c01"
+    ],
+    "b2e-12.2-p324-c02": [
+      "b2e-12-2-p09-c02",
+      "b2e-12-2-p09-c03"
+    ],
+    "b2e-12.2-p325-c01": [
+      "b2e-12-2-p10-c02"
+    ],
+    "b2e-12.2-p325-c02": [
+      "b2e-12-2-p10-c03"
+    ],
+    "b2e-12.2-p325-c03": [
+      "b2e-12-2-p10-c04"
+    ],
+    "b2e-12.2-p325-c04": [
+      "b2e-12-2-p10-c05"
+    ],
+    "b2e-12.2-p325-c05": [
+      "b2e-12-2-p10-c07"
+    ],
+    "b2e-12.2-p326-c01": [
+      "b2e-12-2-p11-c01"
+    ],
+    "b2e-12.2-p326-c02": [
+      "b2e-12-2-p11-c02"
+    ],
+    "b2e-12.2-p326-c03": [
+      "b2e-12-2-p11-c04"
+    ],
+    "b2e-12.2-p326-c04": [
+      "b2e-12-2-p11-c05"
+    ],
+    "b2e-12.2-p326-c05": [
+      "b2e-12-2-p11-c07"
+    ],
+    "b2e-12.2-p326-c06": [
+      "b2e-12-2-p11-c08"
+    ],
+    "b2e-12.2-p326-c07": [
+      "b2e-12-2-p11-c09"
+    ],
+    "b2e-12.2-p327-c01": [
+      "b2e-12-2-p12-c01"
+    ],
+    "b2e-12.2-p327-c02": [
+      "b2e-12-2-p12-c02"
+    ]
+  },
+  "chunks": [
+    {
+      "id": "b2e-12-2-p01-c01",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        156,
+        514,
+        183
+      ],
+      "subsection": "Introduction: genes and alleles"
+    },
+    {
+      "id": "b2e-12-2-p01-c02",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        199,
+        349,
+        218
+      ],
+      "subsection": "Introduction: genes and alleles"
+    },
+    {
+      "id": "b2e-12-2-p01-c03",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        225,
+        1009,
+        396
+      ],
+      "subsection": "Introduction: genes and alleles"
+    },
+    {
+      "id": "b2e-12-2-p01-c04",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        414,
+        1077,
+        559
+      ],
+      "subsection": "Introduction: genes and alleles"
+    },
+    {
+      "id": "b2e-12-2-p01-c05",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        578,
+        1072,
+        698
+      ],
+      "subsection": "Introduction: genes and alleles"
+    },
+    {
+      "id": "b2e-12-2-p01-c06",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        716,
+        423,
+        739
+      ],
+      "subsection": "Phenotypes and Genotypes"
+    },
+    {
+      "id": "b2e-12-2-p01-c07",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        756,
+        1080,
+        977
+      ],
+      "subsection": "Phenotypes and Genotypes"
+    },
+    {
+      "id": "b2e-12-2-p01-c08",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        996,
+        1063,
+        1141
+      ],
+      "subsection": "Phenotypes and Genotypes"
+    },
+    {
+      "id": "b2e-12-2-p01-c09",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        1160,
+        413,
+        1179
+      ],
+      "subsection": "Dominant and Recessive Alleles"
+    },
+    {
+      "id": "b2e-12-2-p01-c10",
+      "page": 1,
+      "printed_page": 316,
+      "bbox": [
+        144,
+        1187,
+        1078,
+        1382
+      ],
+      "subsection": "Dominant and Recessive Alleles"
+    },
+    {
+      "id": "b2e-12-2-p02-c01",
+      "page": 2,
+      "printed_page": 317,
+      "bbox": [
+        374,
+        134,
+        838,
+        598
+      ],
+      "subsection": "Dominant and Recessive Alleles"
+    },
+    {
+      "id": "b2e-12-2-p02-c02",
+      "page": 2,
+      "printed_page": 317,
+      "bbox": [
+        144,
+        615,
+        1072,
+        786
+      ],
+      "subsection": "Dominant and Recessive Alleles"
+    },
+    {
+      "id": "b2e-12-2-p02-c03",
+      "page": 2,
+      "printed_page": 317,
+      "bbox": [
+        144,
+        804,
+        693,
+        826
+      ],
+      "subsection": "The Punnett Square Approach for a Monohybrid Cross"
+    },
+    {
+      "id": "b2e-12-2-p02-c04",
+      "page": 2,
+      "printed_page": 317,
+      "bbox": [
+        144,
+        844,
+        1046,
+        964
+      ],
+      "subsection": "The Punnett Square Approach for a Monohybrid Cross"
+    },
+    {
+      "id": "b2e-12-2-p02-c05",
+      "page": 2,
+      "printed_page": 317,
+      "bbox": [
+        144,
+        983,
+        1079,
+        1279
+      ],
+      "subsection": "The Punnett Square Approach for a Monohybrid Cross"
+    },
+    {
+      "id": "b2e-12-2-p03-c01",
+      "page": 3,
+      "printed_page": 318,
+      "bbox": [
+        144,
+        840,
+        1072,
+        895
+      ],
+      "subsection": "The Punnett Square Approach for a Monohybrid Cross"
+    },
+    {
+      "id": "b2e-12-2-p03-c02",
+      "page": 3,
+      "printed_page": 318,
+      "bbox": [
+        144,
+        910,
+        1080,
+        1209
+      ],
+      "subsection": "The Punnett Square Approach for a Monohybrid Cross"
+    },
+    {
+      "id": "b2e-12-2-p03-c03",
+      "page": 3,
+      "printed_page": 318,
+      "bbox": [
+        144,
+        1225,
+        1070,
+        1398
+      ],
+      "subsection": "The Punnett Square Approach for a Monohybrid Cross"
+    },
+    {
+      "id": "b2e-12-2-p03-c04",
+      "page": 3,
+      "printed_page": 318,
+      "bbox": [
+        144,
+        1414,
+        601,
+        1433
+      ],
+      "subsection": "The Test Cross Distinguishes the Dominant Phenotype"
+    },
+    {
+      "id": "b2e-12-2-p03-c05",
+      "page": 3,
+      "printed_page": 318,
+      "bbox": [
+        144,
+        1441,
+        1023,
+        1460
+      ],
+      "subsection": "The Test Cross Distinguishes the Dominant Phenotype"
+    },
+    {
+      "id": "b2e-12-2-p04-c01",
+      "page": 4,
+      "printed_page": 319,
+      "bbox": [
+        144,
+        121,
+        1078,
+        291
+      ],
+      "subsection": "The Test Cross Distinguishes the Dominant Phenotype"
+    },
+    {
+      "id": "b2e-12-2-p04-c02",
+      "page": 4,
+      "printed_page": 319,
+      "bbox": [
+        201,
+        342,
+        452,
+        364
+      ],
+      "subsection": "The Test Cross Distinguishes the Dominant Phenotype"
+    },
+    {
+      "id": "b2e-12-2-p04-c03",
+      "page": 4,
+      "printed_page": 319,
+      "bbox": [
+        144,
+        988,
+        1002,
+        1022
+      ],
+      "subsection": "The Test Cross Distinguishes the Dominant Phenotype"
+    },
+    {
+      "id": "b2e-12-2-p04-c04",
+      "page": 4,
+      "printed_page": 319,
+      "bbox": [
+        144,
+        1039,
+        1071,
+        1159
+      ],
+      "subsection": "The Test Cross Distinguishes the Dominant Phenotype"
+    },
+    {
+      "id": "b2e-12-2-p04-c05",
+      "page": 4,
+      "printed_page": 319,
+      "bbox": [
+        144,
+        1194,
+        1062,
+        1289
+      ],
+      "subsection": "Recessive pedigrees"
+    },
+    {
+      "id": "b2e-12-2-p05-c01",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        201,
+        153,
+        452,
+        175
+      ],
+      "subsection": "Recessive pedigrees"
+    },
+    {
+      "id": "b2e-12-2-p05-c02",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        144,
+        625,
+        1062,
+        749
+      ],
+      "subsection": "Recessive pedigrees"
+    },
+    {
+      "id": "b2e-12-2-p05-c03",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        144,
+        766,
+        640,
+        785
+      ],
+      "subsection": "Recessive pedigrees"
+    },
+    {
+      "id": "b2e-12-2-p05-c04",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        144,
+        820,
+        609,
+        842
+      ],
+      "subsection": "Alternatives to Dominance and Recessiveness"
+    },
+    {
+      "id": "b2e-12-2-p05-c05",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        144,
+        860,
+        1077,
+        1055
+      ],
+      "subsection": "Alternatives to Dominance and Recessiveness"
+    },
+    {
+      "id": "b2e-12-2-p05-c06",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        144,
+        1075,
+        337,
+        1094
+      ],
+      "subsection": "Incomplete Dominance"
+    },
+    {
+      "id": "b2e-12-2-p05-c07",
+      "page": 5,
+      "printed_page": 320,
+      "bbox": [
+        144,
+        1101,
+        1073,
+        1372
+      ],
+      "subsection": "Incomplete Dominance"
+    },
+    {
+      "id": "b2e-12-2-p06-c01",
+      "page": 6,
+      "printed_page": 321,
+      "bbox": [
+        166,
+        724,
+        1058,
+        740
+      ],
+      "subsection": "Incomplete Dominance"
+    },
+    {
+      "id": "b2e-12-2-p06-c02",
+      "page": 6,
+      "printed_page": 321,
+      "bbox": [
+        144,
+        758,
+        259,
+        777
+      ],
+      "subsection": "Codominance"
+    },
+    {
+      "id": "b2e-12-2-p06-c03",
+      "page": 6,
+      "printed_page": 321,
+      "bbox": [
+        144,
+        784,
+        1070,
+        954
+      ],
+      "subsection": "Codominance"
+    },
+    {
+      "id": "b2e-12-2-p06-c04",
+      "page": 6,
+      "printed_page": 321,
+      "bbox": [
+        144,
+        974,
+        272,
+        993
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p06-c05",
+      "page": 6,
+      "printed_page": 321,
+      "bbox": [
+        144,
+        1000,
+        1057,
+        1170
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p06-c06",
+      "page": 6,
+      "printed_page": 321,
+      "bbox": [
+        144,
+        1189,
+        1078,
+        1359
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p07-c01",
+      "page": 7,
+      "printed_page": 322,
+      "bbox": [
+        366,
+        608,
+        858,
+        625
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p07-c02",
+      "page": 7,
+      "printed_page": 322,
+      "bbox": [
+        144,
+        642,
+        1077,
+        787
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p07-c03",
+      "page": 7,
+      "printed_page": 322,
+      "bbox": [
+        143,
+        806,
+        1067,
+        976
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p07-c04",
+      "page": 7,
+      "printed_page": 322,
+      "bbox": [
+        144,
+        1367,
+        1072,
+        1401
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p08-c01",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        201,
+        153,
+        501,
+        175
+      ],
+      "subsection": "Multiple Alleles"
+    },
+    {
+      "id": "b2e-12-2-p08-c02",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        199,
+        770,
+        222
+      ],
+      "subsection": "Multiple Alleles Confer Drug Resistance in the Malaria Parasite"
+    },
+    {
+      "id": "b2e-12-2-p08-c03",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        143,
+        227,
+        1069,
+        372
+      ],
+      "subsection": "Multiple Alleles Confer Drug Resistance in the Malaria Parasite"
+    },
+    {
+      "id": "b2e-12-2-p08-c04",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        578,
+        1043,
+        630
+      ],
+      "subsection": "Multiple Alleles Confer Drug Resistance in the Malaria Parasite"
+    },
+    {
+      "id": "b2e-12-2-p08-c05",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        647,
+        1069,
+        767
+      ],
+      "subsection": "Multiple Alleles Confer Drug Resistance in the Malaria Parasite"
+    },
+    {
+      "id": "b2e-12-2-p08-c06",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        786,
+        1079,
+        981
+      ],
+      "subsection": "Multiple Alleles Confer Drug Resistance in the Malaria Parasite"
+    },
+    {
+      "id": "b2e-12-2-p08-c07",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        1017,
+        271,
+        1036
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p08-c08",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        1043,
+        1070,
+        1289
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p08-c09",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        1308,
+        1074,
+        1402
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p08-c10",
+      "page": 8,
+      "printed_page": 323,
+      "bbox": [
+        144,
+        1423,
+        1078,
+        1457
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p09-c01",
+      "page": 9,
+      "printed_page": 324,
+      "bbox": [
+        144,
+        121,
+        1051,
+        216
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p09-c02",
+      "page": 9,
+      "printed_page": 324,
+      "bbox": [
+        144,
+        651,
+        1066,
+        703
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p09-c03",
+      "page": 9,
+      "printed_page": 324,
+      "bbox": [
+        144,
+        721,
+        1070,
+        992
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p10-c01",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        201,
+        153,
+        452,
+        175
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p10-c02",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        144,
+        806,
+        1041,
+        841
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p10-c03",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        144,
+        858,
+        1062,
+        902
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p10-c04",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        144,
+        937,
+        1062,
+        1107
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p10-c05",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        144,
+        1126,
+        1068,
+        1196
+      ],
+      "subsection": "X-Linked Traits"
+    },
+    {
+      "id": "b2e-12-2-p10-c06",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        144,
+        1215,
+        385,
+        1234
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p10-c07",
+      "page": 10,
+      "printed_page": 325,
+      "bbox": [
+        144,
+        1241,
+        1076,
+        1462
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p11-c01",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        121,
+        1063,
+        165
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p11-c02",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        763,
+        1030,
+        798
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p11-c03",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        181,
+        827,
+        402,
+        849
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p11-c04",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        867,
+        580,
+        886
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p11-c05",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        905,
+        997,
+        924
+      ],
+      "subsection": "Human Sex-linked Disorders"
+    },
+    {
+      "id": "b2e-12-2-p11-c06",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        959,
+        218,
+        978
+      ],
+      "subsection": "Lethality"
+    },
+    {
+      "id": "b2e-12-2-p11-c07",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        986,
+        1068,
+        1232
+      ],
+      "subsection": "Lethality"
+    },
+    {
+      "id": "b2e-12-2-p11-c08",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        1250,
+        1072,
+        1370
+      ],
+      "subsection": "Lethality"
+    },
+    {
+      "id": "b2e-12-2-p11-c09",
+      "page": 11,
+      "printed_page": 326,
+      "bbox": [
+        144,
+        1389,
+        1071,
+        1458
+      ],
+      "subsection": "Lethality"
+    },
+    {
+      "id": "b2e-12-2-p12-c01",
+      "page": 12,
+      "printed_page": 327,
+      "bbox": [
+        144,
+        121,
+        1079,
+        342
+      ],
+      "subsection": "Lethality"
+    },
+    {
+      "id": "b2e-12-2-p12-c02",
+      "page": 12,
+      "printed_page": 327,
+      "bbox": [
+        144,
+        908,
+        1073,
+        979
+      ],
+      "subsection": "Lethality"
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "printed_page": 316,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 2,
+      "printed_page": 317,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 3,
+      "printed_page": 318,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 4,
+      "printed_page": 319,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 5,
+      "printed_page": 320,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 6,
+      "printed_page": 321,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 7,
+      "printed_page": 322,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 8,
+      "printed_page": 323,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 9,
+      "printed_page": 324,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 10,
+      "printed_page": 325,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 11,
+      "printed_page": 326,
+      "width_pixels": 1224,
+      "height_pixels": 1584
+    },
+    {
+      "page": 12,
+      "printed_page": 327,
+      "width_pixels": 1224,
+      "height_pixels": 994
+    }
+  ]
+}

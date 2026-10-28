@@ -1,94 +1,114 @@
 import "server-only";
-import { randomUUID } from "node:crypto";
 import prisma from "@/server/db/prisma";
 import { getQuestion } from "@/features/adaptivepath/content";
 import { deriveProfile, nextQuestionId, type AttemptEvidence } from "@/features/adaptivepath/profile";
-import { evaluateBiologyWithProvider, liveBiologyTutorReply, isLiveBiologyTutorEnabled } from "./tutor-provider";
+import { evaluateBiologyWithProvider } from "./tutor-provider";
+import {
+  createBiologyLedgerSession,loadBiologyLedgerSession,
+  persistBiologyAccess,persistBiologyAnswer,persistBiologyChat,
+  type BiologySession,
+} from "./ledger-store";
+import { biologyCoachReply } from "@/server/agents/coach-agent/biology-chat-reply";
 
-export type BiologySession = {
-  id: string;
-  attempts: AttemptEvidence[];
-  messages: Array<{ role: "student" | "tutor"; content: string }>;
-  hintsUsed: string[];
-  referenceUsed: string[];
-};
-let setup: Promise<unknown> | undefined;
-function ensureTable() {
-  setup ??= prisma.$executeRawUnsafe(`CREATE TABLE IF NOT EXISTS adaptivepath_sessions (
-    id TEXT PRIMARY KEY NOT NULL,
-    payload TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  )`).catch(e => { setup=undefined; throw e; });
-  return setup;
+export type { BiologySession };
+
+/**
+ * Existing pre-integration sessions remain readable/writable as a compatibility
+ * path. NEW sessions use the original PatternCoach Prisma ChatSession and
+ * Memory ledger and do not create a parallel session table.
+ * Delete this adapter after an explicit reviewed data migration.
+ */
+async function readOldSession(id:string):Promise<BiologySession|null> {
+  try {
+    const rows=await prisma.$queryRawUnsafe<Array<{payload:string}>>(
+      "SELECT payload FROM adaptivepath_sessions WHERE id=? LIMIT 1",id);
+    if(!rows.length)return null;
+    const parsed=JSON.parse(rows[0].payload) as BiologySession;
+    return parsed?.id===id && Array.isArray(parsed.attempts) &&
+      Array.isArray(parsed.messages)?{
+      ...parsed,hintsUsed:parsed.hintsUsed??[],referenceUsed:parsed.referenceUsed??[],
+    }:null;
+  } catch {return null;} // Table may not exist in a fresh database.
 }
-export async function loadSession(id:string):Promise<BiologySession|null> {
-  await ensureTable();
-  const rows=await prisma.$queryRawUnsafe<Array<{payload:string}>>(
-    "SELECT payload FROM adaptivepath_sessions WHERE id=? LIMIT 1",id);
-  return rows.length ? JSON.parse(rows[0].payload) as BiologySession : null;
-}
-async function saveSession(session:BiologySession) {
-  await ensureTable();
+async function saveOldSession(session:BiologySession) {
   await prisma.$executeRawUnsafe(
-    "INSERT INTO adaptivepath_sessions(id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload, updated_at=excluded.updated_at",
-    session.id,JSON.stringify(session),new Date().toISOString());
+    "UPDATE adaptivepath_sessions SET payload=?,updated_at=? WHERE id=?",
+    JSON.stringify(session),new Date().toISOString(),session.id);
 }
-export async function createSession() {
-  const session:BiologySession={id:randomUUID(),attempts:[],messages:[],hintsUsed:[],referenceUsed:[]};
-  await saveSession(session);
-  return session;
+async function readSessionWithSource(id:string) {
+  const ledger=await loadBiologyLedgerSession(id);
+  if(ledger)return {session:ledger,legacy:false as const};
+  const legacy=await readOldSession(id);
+  if(legacy)return {session:legacy,legacy:true as const};
+  return null;
+}
+
+export async function loadSession(id:string):Promise<BiologySession|null> {
+  return (await readSessionWithSource(id))?.session??null;
+}
+export async function createSession():Promise<BiologySession> {
+  return createBiologyLedgerSession();
 }
 export async function submitBiology(args:{
   sessionId:string;questionId:string;selectedOption:string;studentReasoning:string;attemptId:string;
 }) {
-  const session=await loadSession(args.sessionId);
-  if(!session) throw new Error("Session not found");
-  const expected=nextQuestionId(session.attempts);
-  if(session.attempts.some(a=>a.id===args.attemptId)){
+  const found=await readSessionWithSource(args.sessionId);
+  if(!found)throw new Error("Session not found");
+  const session=found.session;
+  if(session.attempts.some(a=>a.id===args.attemptId))
     return {session,profile:deriveProfile(session.attempts),nextQuestionId:nextQuestionId(session.attempts)};
-  }
-  if(expected!==args.questionId) throw new Error("This is not the current activity");
+  if(nextQuestionId(session.attempts)!==args.questionId)throw new Error("This is not the current activity");
   const question=getQuestion(args.questionId);
-  if(!question || !question.options.some(o=>o.id===args.selectedOption)) throw new Error("Invalid answer option");
-  if(args.studentReasoning.trim().length<12) throw new Error("Please explain your reasoning (at least 12 characters).");
+  if(!question || !question.options.some(o=>o.id===args.selectedOption))
+    throw new Error("Invalid answer option");
+  if(args.studentReasoning.trim().length<12)
+    throw new Error("Please explain your reasoning (at least 12 characters).");
   const evaluation=await evaluateBiologyWithProvider(args.questionId,args.selectedOption,args.studentReasoning);
-  const evidence:AttemptEvidence={id:args.attemptId,questionId:question.id,submittedAt:new Date().toISOString(),
+  const evidence:AttemptEvidence={
+    id:args.attemptId,questionId:question.id,submittedAt:new Date().toISOString(),
     selectedOption:args.selectedOption,studentReasoning:args.studentReasoning.trim(),
-    assisted:session.hintsUsed.includes(question.id) || (session.referenceUsed ?? []).includes(question.id),evaluation};
-  session.attempts.push(evidence);
-  await saveSession(session);
-  return {session,profile:deriveProfile(session.attempts),nextQuestionId:nextQuestionId(session.attempts)};
+    assisted:session.hintsUsed.includes(question.id) || session.referenceUsed.includes(question.id),
+    evaluation,
+  };
+  if(found.legacy){
+    session.attempts.push(evidence);
+    await saveOldSession(session);
+  } else {
+    await persistBiologyAnswer(session.id,evidence,nextQuestionId);
+  }
+  const saved=(await loadSession(session.id))!;
+  return {session:saved,profile:deriveProfile(saved.attempts),nextQuestionId:nextQuestionId(saved.attempts)};
 }
 export async function recordReferenceAccess(id:string,questionId:string) {
-  const session=await loadSession(id);
-  if(!session) throw new Error("Session not found");
-  if(nextQuestionId(session.attempts)!==questionId) throw new Error("This is not the current activity");
-  session.referenceUsed ??= [];
-  if(!session.referenceUsed.includes(questionId)) session.referenceUsed.push(questionId);
-  await saveSession(session);
-  return session;
+  const found=await readSessionWithSource(id);
+  if(!found)throw new Error("Session not found");
+  if(nextQuestionId(found.session.attempts)!==questionId)
+    throw new Error("This is not the current activity");
+  if(!found.session.referenceUsed.includes(questionId)){
+    if(found.legacy){
+      found.session.referenceUsed.push(questionId);
+      await saveOldSession(found.session);
+    } else {
+      await persistBiologyAccess(id,questionId,"biology_reference_access");
+    }
+  }
+  return (await loadSession(id))!;
 }
 export async function recordTutorTurn(id:string,message:string) {
-  const session=await loadSession(id);
-  if(!session) throw new Error("Session not found");
+  const found=await readSessionWithSource(id);
+  if(!found)throw new Error("Session not found");
+  const {session}=found;
   const current=nextQuestionId(session.attempts);
-  const question=current?getQuestion(current):null;
-  const profile=deriveProfile(session.attempts);
-  let reply:string;
-  if(question?.mode==="diagnostic" || question?.mode==="transfer"){
-    reply="This is an independent assessment. I can clarify the instructions, but I cannot give you the genotype, the correct option, or a worked solution before you submit. Explain which alleles each parent may pass on.";
+  const turn=await biologyCoachReply({message,questionId:current,attempts:session.attempts,history:session.messages});
+  if(found.legacy){
+    session.messages.push({role:"student",content:message},{role:"tutor",content:turn.reply});
+    if(current && turn.tool!=="diagnostic_probe" && turn.tool!=="independent_transfer" &&
+      !session.hintsUsed.includes(current))session.hintsUsed.push(current);
+    await saveOldSession(session);
   } else {
-    const liveReply=await liveBiologyTutorReply({message,questionId:current,attempts:session.attempts,history:session.messages}).catch(error=>{console.warn("AdaptivePath live tutor unavailable",error instanceof Error?error.message:"error");return null;});
-    const q=message.toLowerCase();
-    if(q.includes("example") || profile.support==="worked_example") {
-      reply="Worked example (different alleles): In a simple Aa × aa cross, the Aa parent can contribute A or a, while the aa parent contributes a. Combine one allele from each gamete. Now apply this same method to the current problem.";
-    } else {
-      reply="Guided hint: Identify each parent's pair of alleles, then list the single allele each gamete can carry. Which genotypes can form at fertilization? Try explaining this in your own words.";
-    }
-    if(liveReply) reply=liveReply;
-    if(current && !session.hintsUsed.includes(current)) session.hintsUsed.push(current);
+    await persistBiologyChat(id,message,turn.reply,turn.tool);
+    if(current && turn.tool!=="diagnostic_probe" && turn.tool!=="independent_transfer")
+      await persistBiologyAccess(id,current,"biology_guided_assistance");
   }
-  session.messages.push({role:"student",content:message},{role:"tutor",content:reply});
-  await saveSession(session);
-  return {session,reply,provider: question?.mode === "guided_practice" && isLiveBiologyTutorEnabled() && !reply.startsWith("Guided hint:") && !reply.startsWith("Worked example") ? "live_llm" as const : "offline_rules" as const};
+  return {session:(await loadSession(id))!,reply:turn.reply,provider:turn.provider,tool:turn.tool};
 }

@@ -4,7 +4,8 @@ import { createChatClient } from "@/server/llm/client";
 import { getChatModel } from "@/server/llm/models";
 import { getQuestion } from "@/features/adaptivepath/content";
 import { deriveProfile, MISCONCEPTION_LABELS, type AttemptEvidence, type Evaluation } from "@/features/adaptivepath/profile";
-import { evaluateBiologyAnswer } from "./evaluate";
+import type { buildBiologyMemoryContext } from "@/server/memory";
+import { evaluateBiologyAnswer, BIOLOGY_ANSWER_KEY } from "./evaluate";
 
 /**
  * Biology-scoped adaptation of PatternCoach's existing OpenAI-compatible model
@@ -32,11 +33,15 @@ const safeConcepts = [
   "An Rr × rr cross can produce Rr and rr offspring in equal expected proportions.",
   "A recessive allele may be masked in a heterozygote but remains heritable.",
   "A test cross with rr can help distinguish RR from Rr.",
+  "In incomplete dominance, the heterozygote has an intermediate phenotype, and a heterozygote self-cross can have a 1:2:1 phenotype ratio.",
+  "In codominance, two different alleles can both be expressed in the heterozygote, as with the human MN blood group.",
+  "A population can have more than two alleles for one gene, while a diploid individual normally carries two at that locus.",
+  "In XY sex-linked inheritance, an XY son inherits his X chromosome from the mother, and his Y from the father.",
+  "With a recessive lethal homozygous genotype, fertilization may still yield 1:2:1, but only the two viable genotypes appear among survivors.",
+  "A late-onset dominant lethal allele can be transmitted before symptoms begin, such as in Huntington's disease.",
+  "A haploid parasite can express a single resistant allele because it has only one copy at the locus.",
 ];
-const answerKey: Record<string,string> = {
-  D1:"no", D2:"half", D3:"both", D4:"false", G1:"same", G2:"half",
-  T1:"Rr", T2:"RrRr", T3:"not",
-};
+
 
 export async function evaluateBiologyWithProvider(questionId:string,option:string,reasoning:string):Promise<Evaluation> {
   const conservative = evaluateBiologyAnswer(questionId,option,reasoning);
@@ -63,7 +68,7 @@ export async function evaluateBiologyWithProvider(questionId:string,option:strin
         ].join(" ")},
         {role:"user",content:JSON.stringify({
           task:"Evaluate CER reasoning after submission",
-          question:question.prompt, optionSelected:option, correctOptionId:answerKey[questionId],
+          question:question.prompt, optionSelected:option, correctOptionId:BIOLOGY_ANSWER_KEY[questionId],
           studentReasoning:reasoning, concepts:safeConcepts,
         })},
       ],
@@ -90,12 +95,14 @@ export async function evaluateBiologyWithProvider(questionId:string,option:strin
 export async function liveBiologyTutorReply(args:{
   message:string;questionId:string|null;attempts:AttemptEvidence[];
   history: Array<{role:"student"|"tutor";content:string}>;
+  selectedTool?:string;
+  learnerMemory?:ReturnType<typeof buildBiologyMemoryContext>;
 }):Promise<string|null> {
   if(!isLiveBiologyTutorEnabled()) return null;
   const question=args.questionId?getQuestion(args.questionId):null;
   // Critical answer-leak guard: independent assessment never goes to the LLM.
   if(question && question.mode!=="guided_practice") return null;
-  const profile=deriveProfile(args.attempts);
+  const profile=args.learnerMemory?.profile??deriveProfile(args.attempts);
   const client=createChatClient();
   const history=args.history.slice(-MAX_HISTORY).map(m=>({
     role:(m.role==="student"?"user":"assistant") as "user"|"assistant",
@@ -109,8 +116,9 @@ export async function liveBiologyTutorReply(args:{
         "Your role is to guide the student's scientific reasoning, not to give away answers.",
         "Choose an instructional technique based on the validated learner profile:",
         "prerequisite_review, guided_hint, worked_example, additional_practice, diagnostic_probe, independent_transfer.",
-        "Explain allele segregation, genotype/phenotype, and test crosses accurately.",
+        "Explain all seven topics of Biology 2e §12.2 accurately: genotype/phenotype, allele segregation, incomplete dominance, codominance, multiple alleles, X-linked inheritance, and lethal alleles.",
         "In practice mode, prefer a question or short hint, then wait for student reasoning.",
+        "Use the server-selected instructional tool; you cannot choose coding or execution tools.",
         "Do NOT claim to have changed the profile. The server alone owns profile transitions.",
         "Do NOT pretend to quote OpenStax passages. No textbook verbatim text is provided.",
         "Keep replies concise, conversational and appropriately scoped to the current objective.",
@@ -124,6 +132,9 @@ export async function liveBiologyTutorReply(args:{
         profile:{priorKnowledge:profile.priorKnowledge,mastery:profile.mastery,
           misconceptions:profile.misconceptions,support:profile.support,certainty:profile.certainty},
         permittedConceptNotes:safeConcepts,
+        selectedInstructionalTool:args.selectedTool??"guided_hint",
+        recentValidatedEvidence:args.learnerMemory?.recentEvidence??[],
+        deterministicMasteryGates:args.learnerMemory?.learningConstraints,
       })},
       ...history,
       {role:"user",content:args.message.slice(0,2000)},

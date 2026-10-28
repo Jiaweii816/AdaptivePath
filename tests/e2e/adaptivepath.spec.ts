@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 test("AdaptivePath three columns, profile, and evidence-driven D1 branching", async ({ page }) => {
   await page.goto("/adaptivepath");
-  await expect(page.getByRole("heading", { name: "AdaptivePath" })).toBeVisible();
+  await expect(page.getByText("AdaptivePath", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
   await expect(page.getByText("Textbook Reference", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
@@ -15,11 +15,11 @@ test("AdaptivePath three columns, profile, and evidence-driven D1 branching", as
   // Textbook excerpts can be expanded, collapsed and reopened. Access is
   // still recorded as assisted after closing or refreshing the page.
   await page.getByRole("button", { name: "Reveal reference (assisted)" }).click();
-  await expect(page.getByText("An organism’s underlying genetic makeup", { exact: false })).toBeVisible();
+  await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
   await page.getByRole("button", { name: "Hide reference" }).click();
   await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Show reference" }).click();
-  await expect(page.getByText("An organism’s underlying genetic makeup", { exact: false })).toBeVisible();
+  await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
   await page.reload();
   await expect(page.getByRole("button", { name: "Show reference" })).toBeVisible();
   await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
@@ -59,4 +59,18 @@ test("AdaptivePath three columns, profile, and evidence-driven D1 branching", as
   );
   await page.getByRole("button", { name: "Submit Answer" }).click();
   await expect(page.getByText("For Rr × rr, list the possible gametes", { exact: false })).toBeVisible();
+});
+
+test("Full OpenStax 12.2 textbook chunks can be searched and filtered",async ({page})=>{
+  await page.goto("/adaptivepath/textbook");
+  await expect(page.getByRole("heading",{name:"Biology 2e · Section 12.2"})).toBeVisible();
+  expect(await page.locator("article").count()).toBeGreaterThan(35);
+  await page.getByRole("combobox",{name:"Filter textbook topic"}).selectOption("codominance");
+  await expect(page.locator("article").getByRole("heading",{name:"Codominance"}).first()).toBeVisible();
+  await expect(page.locator("article").getByText("MN blood groups",{exact:false}).first()).toBeVisible();
+  await page.getByRole("combobox",{name:"Filter textbook topic"}).selectOption("all");
+  await page.getByRole("combobox",{name:"Filter printed page"}).selectOption("327");
+  await expect(page.locator("article").getByText("Huntington",{exact:false}).first()).toBeVisible();
+  await page.getByRole("combobox",{name:"Filter printed page"}).selectOption("all");
+  await page.screenshot({path:"test-results/adaptivepath-textbook.png",fullPage:true});
 });

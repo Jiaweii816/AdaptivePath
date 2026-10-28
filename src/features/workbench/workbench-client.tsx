@@ -3,7 +3,6 @@
 import { bffErrorMessage } from "./bff-errors";
 import {
   AlertCircle,
-  Bot,
   CheckCircle2,
   ChevronDown,
   ChevronLeft,
@@ -38,6 +37,8 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { CoachMarkdown } from "@/components/coach/coach-markdown";
+import { AssistantBubble, UserBubble } from "@/components/workbench/coach-bubbles";
+import { WORKBENCH_GRID_CLASS } from "@/components/workbench/workbench-grid";
 import { ActionOutcomeCard } from "@/features/workbench/action-outcome-card";
 import { AppShell } from "@/components/layout/app-shell";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -2002,7 +2003,7 @@ export function WorkbenchClient({
           ref={layoutRef}
           style={layoutStyle}
           className={cn(
-            "mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-[1800px] gap-3 overflow-y-auto p-3 lg:h-[calc(100vh-4rem)] lg:grid-cols-[var(--problem-panel-width)_8px_minmax(0,1fr)_8px_var(--coach-panel-width)] lg:gap-0 lg:overflow-hidden",
+            WORKBENCH_GRID_CLASS,
           )}
         >
           <ProblemPanel
@@ -3750,22 +3751,6 @@ function RunSummaryCard({
   );
 }
 
-function AssistantBubble({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      aria-label="Coach chat reply"
-      className="flex items-start gap-3 text-sm leading-6"
-    >
-      <div className="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-violet-200 bg-violet-100 text-violet-700">
-        <Bot className="h-4 w-4" aria-hidden="true" />
-      </div>
-      <div className="min-w-0 rounded-md border border-border bg-background p-4">
-        {children}
-      </div>
-    </div>
-  );
-}
-
 function HandbookCaptureChip({
   capture,
   onOpen,
@@ -3886,17 +3871,6 @@ function MistakeBookCaptureChip({
       >
         {openingHref === "/notebook" ? "Opening..." : "View Mistake Book"}
       </button>
-    </div>
-  );
-}
-
-function UserBubble({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      aria-label="User chat message"
-      className="ml-auto max-w-[88%] rounded-md border border-border bg-muted/40 p-3 text-sm leading-6"
-    >
-      {children}
     </div>
   );
 }
