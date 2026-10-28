@@ -52,7 +52,7 @@ export async function submitBiology(args:{
   if(!question || !question.options.some(o=>o.id===args.selectedOption)) throw new Error("Invalid answer option");
   if(args.studentReasoning.trim().length<12) throw new Error("Please explain your reasoning (at least 12 characters).");
   const evaluation=await evaluateBiologyWithProvider(args.questionId,args.selectedOption,args.studentReasoning);
-  const evidence:AttemptEvidence={id:args.attemptId,questionId:question.id,
+  const evidence:AttemptEvidence={id:args.attemptId,questionId:question.id,submittedAt:new Date().toISOString(),
     selectedOption:args.selectedOption,studentReasoning:args.studentReasoning.trim(),
     assisted:session.hintsUsed.includes(question.id) || (session.referenceUsed ?? []).includes(question.id),evaluation};
   session.attempts.push(evidence);
