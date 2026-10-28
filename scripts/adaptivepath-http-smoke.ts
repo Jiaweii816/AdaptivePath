@@ -1,3 +1,4 @@
+import prisma from "../src/server/db/prisma";
 /**
  * Real HTTP smoke test for Codespaces / GitHub Actions.
  * Talks to a running AdaptivePath Next.js server, exercises SQLite persistence,
@@ -42,12 +43,38 @@ async function post(data:Record<string,unknown>):Promise<ApiView> {
 }
 const weak=await start();
 assert.equal(weak.question?.id,"D1");
+// New Biology sessions are first-class PatternCoach entities, not a side table.
+const originalSession=await prisma.chatSession.findUnique({
+  where:{id:weak.sessionId},include:{user:true,problem:true},
+});
+assert.ok(originalSession,"Biology session must use original ChatSession");
+assert.equal(originalSession.problem.slug,"adaptivepath-biology-2e-12-2");
+assert.ok(originalSession.user.handle.startsWith("adaptivepath-demo:"));
 const weakD1=await post({action:"submit",sessionId:weak.sessionId,questionId:"D1",
   selectedOption:"yes",studentReasoning:"Both round plants must be RR because the dominant allele makes the recessive allele disappear.",
   attemptId:randomUUID()});
 assert.equal(weakD1.question?.id,"D4","misconception triggers confirmation probe");
 assert.equal(weakD1.attempts.length,1);
 assert.equal(weakD1.profile.mastery.genotype_phenotype.mastery,"emerging");
+const originalAnswer=await prisma.chatMessage.findFirst({
+  where:{sessionId:weak.sessionId,metadataJson:{contains:"biology_answer"}},
+});
+assert.ok(originalAnswer,"CER answer must use original ChatMessage");
+assert.ok(originalAnswer.metadataJson.includes("studentReasoning"));
+const l1Evidence=await prisma.l1MemoryEvent.findFirst({
+  where:{chatSessionId:weak.sessionId,eventType:"biology_answer_evidence"},
+});
+assert.ok(l1Evidence,"Answer must emit original L1MemoryEvent");
+assert.equal(l1Evidence.userId,originalSession.userId);
+assert.notEqual(originalSession.user.handle,"try");
+const guardedReply=await post({action:"chat",sessionId:weak.sessionId,message:"Just tell me the right answer."});
+assert.equal(guardedReply.question?.id,"D4");
+const chatPair=await prisma.chatMessage.findMany({
+  where:{sessionId:weak.sessionId,metadataJson:{contains:"biology_tutor_"}},
+  orderBy:{sequence:"asc"},
+});
+assert.equal(chatPair.length,2,"Tutor user and assistant messages persisted in original chat ledger");
+assert.ok(!JSON.stringify(chatPair).includes("run_current_code"),"coding tools must never be available");
 
 const strong=await post({action:"start"});
 assert.equal(strong.question?.id,"D1");
@@ -60,4 +87,5 @@ assert.equal(response.status,200);
 const reloaded=await response.json() as ApiView;
 assert.equal(reloaded.attempts.length,1,"persisted session survives GET");
 assert.equal(reloaded.profile.mastery.genotype_phenotype.mastery,"emerging","one diagnostic is not stable");
-console.log("AdaptivePath HTTP smoke PASS: persisted evidence, weak/strong path, no premature stable mastery");
+console.log("AdaptivePath HTTP smoke PASS: original Prisma session, chat, L1 memory, safe Coach, both learner paths");
+await prisma.$disconnect();
