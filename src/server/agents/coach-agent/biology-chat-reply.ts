@@ -41,9 +41,20 @@ export async function biologyCoachReply(args:{
     worked_example:"Worked example with *different* symbols: In Aa × aa, the Aa parent makes A and a gametes; the aa parent makes a gametes. Combine one from each parent, then try your Biology question yourself.",
     additional_practice:"Additional practice: Compare two possible parental genotypes. Explain what evidence from the offspring would help distinguish them, without looking up the answer.",
   };
-  // Question-specific solution never sent as a live model output in assessment.
-  void question;
-  return {reply:offline[tool],provider:"offline_rules" as const,tool};
+  // In practice, choose a prompt based on the current biology concept, not
+  // generic LeetCode "run tests" advice. Preserve guided questioning.
+  const topicHints:Record<string,string>={
+    genotype_phenotype:"Compare the observable trait with the actual pair of alleles. Could different genotypes produce the same phenotype?",
+    allele_segregation:"Draw one allele from each parent's gametes, then combine them in a Punnett square.",
+    incomplete_dominance:"Ask whether the heterozygote looks intermediate, and track the two distinct alleles through fertilization.",
+    codominance:"Think about whether both parental antigens can be present at the same time in a heterozygote.",
+    multiple_alleles:"Separate the number of allele types in the population from the number of copies in one diploid organism.",
+    sex_linkage:"Track the X from the mother and the X or Y from the father before counting phenotypes separately by sex.",
+    lethality:"First list all possible zygote genotypes, then identify which genotype is absent among surviving offspring.",
+  };
+  const reply=question&&tool==="guided_hint"?
+    "Guided hint: "+(topicHints[question.topic]??offline[tool]):offline[tool];
+  return {reply,provider:"offline_rules" as const,tool};
 }
 
 export function biologyCoachProviderConfigured() {return isLiveBiologyTutorEnabled();}
