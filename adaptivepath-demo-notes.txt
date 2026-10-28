@@ -47,3 +47,19 @@ Neither path should award Stable after only a single transfer. Check the Profile
 
 This is an incremental adaptation of the fork Jiaweii816/AdaptivePath.
 The original repository Iriss0904/personalized-leetcode-coach was not edited.
+
+
+2026-10-28 ADDENDUM — Live Biology tutor support
+The latest feature branch now supports optional live model grading (CER) and guided-practice tutoring using PatternCoach's existing createChatClient() and getChatModel() providers. This integration is code-complete but NOT live-credential-verified. Without credentials it deliberately falls back to clearly labeled offline rules. Diagnostic and independent-transfer tutoring are restricted to safe non-answer-revealing messages even if live mode is enabled.
+
+Secure GitHub Codespaces configuration (do not share keys in ChatGPT):
+1. Open GitHub account Settings > Codespaces > New secret; grant this repository access.
+2. Set LLM_CHAT_API_KEY to your provider key.
+3. Set LLM_CHAT_MODEL to a valid model name supported by that provider.
+4. For a non-OpenAI default API, set LLM_CHAT_BASE_URL to its official OpenAI-compatible endpoint.
+5. Set ADAPTIVEPATH_TUTOR_PROVIDER to live.
+6. Restart/recreate your Codespace and run npm run dev:try. GitHub Actions does not automatically receive Codespaces secrets.
+7. Check the submission's evaluator field: live_llm vs offline_rules. Live chat replies are available on guided-practice questions; independent diagnostic/transfer chat stays guarded.
+Your ChatGPT subscription or GitHub login alone does not provide these credentials.
+The full original LeetCode-specific Coach tool loop is NOT reused in the Biology demo, because code-running tools and code evidence policies are not appropriate to genetics tutoring.
+A new HTTP smoke script validates startup, persisted evidence and divergent learning paths without external model credentials.
