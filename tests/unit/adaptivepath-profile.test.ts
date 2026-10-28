@@ -1,7 +1,7 @@
 import { describe,it,expect } from "vitest";
 import { BIOLOGY_QUESTIONS,TEXTBOOK_CHUNKS } from "../../src/features/adaptivepath/content";
 import { deriveProfile,nextQuestionId,type AttemptEvidence } from "../../src/features/adaptivepath/profile";
-import { selectBiologyCoachTool, BIOLOGY_COACH_TOOLS } from "../../src/server/agents/coach-agent/biology-chat-reply";
+import { selectBiologyCoachTool, BIOLOGY_COACH_TOOLS } from "../../src/features/adaptivepath/coach-policy";
 const attempt=(id:string,successful:boolean,assisted=false,tags:string[]=[]):AttemptEvidence=>({
   id:id+"-"+String(assisted),questionId:id,studentReasoning:"independent explanation",selectedOption:"no",assisted,
   evaluation:{correctOption:successful,reasoningScore:successful?4:1,successful,misconceptionTags:tags,feedback:"",evaluator:"offline_rules"}
