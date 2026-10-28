@@ -5,7 +5,7 @@ import { getChatModel } from "@/server/llm/models";
 import { getQuestion } from "@/features/adaptivepath/content";
 import { deriveProfile, MISCONCEPTION_LABELS, type AttemptEvidence, type Evaluation } from "@/features/adaptivepath/profile";
 import type { buildBiologyMemoryContext } from "@/server/memory";
-import { evaluateBiologyAnswer } from "./evaluate";
+import { evaluateBiologyAnswer, BIOLOGY_ANSWER_KEY } from "./evaluate";
 
 /**
  * Biology-scoped adaptation of PatternCoach's existing OpenAI-compatible model
@@ -34,10 +34,7 @@ const safeConcepts = [
   "A recessive allele may be masked in a heterozygote but remains heritable.",
   "A test cross with rr can help distinguish RR from Rr.",
 ];
-const answerKey: Record<string,string> = {
-  D1:"no", D2:"half", D3:"both", D4:"false", G1:"same", G2:"half",
-  T1:"Rr", T2:"RrRr", T3:"not",
-};
+
 
 export async function evaluateBiologyWithProvider(questionId:string,option:string,reasoning:string):Promise<Evaluation> {
   const conservative = evaluateBiologyAnswer(questionId,option,reasoning);
@@ -64,7 +61,7 @@ export async function evaluateBiologyWithProvider(questionId:string,option:strin
         ].join(" ")},
         {role:"user",content:JSON.stringify({
           task:"Evaluate CER reasoning after submission",
-          question:question.prompt, optionSelected:option, correctOptionId:answerKey[questionId],
+          question:question.prompt, optionSelected:option, correctOptionId:BIOLOGY_ANSWER_KEY[questionId],
           studentReasoning:reasoning, concepts:safeConcepts,
         })},
       ],
