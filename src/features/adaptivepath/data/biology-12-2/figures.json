@@ -1,0 +1,470 @@
+[
+  {
+    "id": "b2e-12-2-table-12-4",
+    "source_id": "b2e-12-2",
+    "type": "table",
+    "label": "Table 12.4",
+    "page": 2,
+    "printed_page": 317,
+    "section": "12.2",
+    "bbox": [
+      370,
+      114,
+      910,
+      602
+    ],
+    "bbox_points": [
+      185,
+      57,
+      455,
+      301
+    ],
+    "image_path": "assets/figures/table-12-4.png",
+    "image_width": 540,
+    "image_height": 488,
+    "caption": "Human Inheritance in Dominant and Recessive Patterns",
+    "raw_text": "Human Inheritance in Dominant and Recessive Patterns\nDominant Traits Recessive Traits\nAchondroplasia Albinism\nBrachydactyly Cystic fibrosis\nHuntington’s disease Duchenne muscular dystrophy\nMarfan syndrome Galactosemia\nNeurofibromatosis Phenylketonuria\nWidow’s peak Sickle-cell anemia\nWooly hair Tay-Sachs disease\nTABLE 12.4",
+    "columns": [
+      "Dominant Traits",
+      "Recessive Traits"
+    ],
+    "rows": [
+      [
+        "Achondroplasia",
+        "Albinism"
+      ],
+      [
+        "Brachydactyly",
+        "Cystic fibrosis"
+      ],
+      [
+        "Huntington’s disease",
+        "Duchenne muscular dystrophy"
+      ],
+      [
+        "Marfan syndrome",
+        "Galactosemia"
+      ],
+      [
+        "Neurofibromatosis",
+        "Phenylketonuria"
+      ],
+      [
+        "Widow’s peak",
+        "Sickle-cell anemia"
+      ],
+      [
+        "Wooly hair",
+        "Tay-Sachs disease"
+      ]
+    ],
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p02-c01"
+    ]
+  },
+  {
+    "id": "b2e-12-2-figure-12-4",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.4",
+    "page": 3,
+    "printed_page": 318,
+    "section": "12.2",
+    "bbox": [
+      372,
+      115,
+      852,
+      832
+    ],
+    "bbox_points": [
+      186.0,
+      57.60000000000002,
+      426.0,
+      415.809
+    ],
+    "image_path": "assets/figures/figure-12-4.png",
+    "image_width": 480,
+    "image_height": 717,
+    "caption": "FIGURE 12.4 In the P generation, pea plants that are true-breeding for the dominant yellow phenotype are crossed with plants with the\nrecessive green phenotype. This cross produces F1 heterozygotes with a yellow phenotype. Punnett square analysis can be used to predict\nthe genotypes of the F2 generation.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p02-c05",
+      "b2e-12-2-p03-c01",
+      "b2e-12-2-p03-c02"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-5",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.5",
+    "page": 4,
+    "printed_page": 319,
+    "section": "12.2",
+    "bbox": [
+      372,
+      383,
+      852,
+      979
+    ],
+    "bbox_points": [
+      186.0,
+      191.70000000000005,
+      426.0,
+      489.4941
+    ],
+    "image_path": "assets/figures/figure-12-5.png",
+    "image_width": 480,
+    "image_height": 596,
+    "caption": "FIGURE 12.5 A test cross can be performed to determine whether an organism expressing a dominant trait is a homozygote or a\nheterozygote.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-04"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c03",
+      "b2e-12-2-p04-c04"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-6",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.6",
+    "page": 5,
+    "printed_page": 320,
+    "section": "12.2",
+    "bbox": [
+      372,
+      194,
+      852,
+      617
+    ],
+    "bbox_points": [
+      186.0,
+      97.20000000000005,
+      426.0,
+      308.0824
+    ],
+    "image_path": "assets/figures/figure-12-6.png",
+    "image_width": 480,
+    "image_height": 423,
+    "caption": "FIGURE 12.6 Alkaptonuria is a recessive genetic disorder in which two amino acids, phenylalanine and tyrosine, are not properly\nmetabolized. Affected individuals may have darkened skin and brown urine, and may suffer joint damage and other complications. In this\npedigree, individuals with the disorder are indicated in blue and have the genotype aa. Unaffected individuals are indicated in yellow and\nhave the genotype AA or Aa. Note that it is often possible to determine a person’s genotype from the genotype of their offspring. For\nexample, if neither parent has the disorder but their child does, they must be heterozygous. Two individuals on the pedigree have an\nunaffected phenotype but unknown genotype. Because they do not have the disorder, they must have at least one normal allele, so their\ngenotype gets the “A?” designation.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-05"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p04-c05",
+      "b2e-12-2-p05-c02",
+      "b2e-12-2-p05-c03"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-7",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.7",
+    "page": 6,
+    "printed_page": 321,
+    "section": "12.2",
+    "bbox": [
+      387,
+      115,
+      837,
+      715
+    ],
+    "bbox_points": [
+      193.5,
+      57.60000000000002,
+      418.5,
+      357.4621
+    ],
+    "image_path": "assets/figures/figure-12-7.png",
+    "image_width": 450,
+    "image_height": 600,
+    "caption": "FIGURE 12.7 These pink flowers of a heterozygote snapdragon result from incomplete dominance. (credit: “storebukkebruse”/Flickr)",
+    "credit": "(credit: “storebukkebruse”/Flickr)",
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-06"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c01"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-8",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.8",
+    "page": 7,
+    "printed_page": 322,
+    "section": "12.2",
+    "bbox": [
+      274,
+      115,
+      950,
+      600
+    ],
+    "bbox_points": [
+      137.25,
+      57.6001,
+      474.75,
+      299.7563
+    ],
+    "image_path": "assets/figures/figure-12-8.png",
+    "image_width": 676,
+    "image_height": 485,
+    "caption": "FIGURE 12.8 Four different alleles exist for the rabbit coat color (C) gene.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-08"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p06-c06",
+      "b2e-12-2-p07-c01"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-9",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.9",
+    "page": 7,
+    "printed_page": 322,
+    "section": "12.2",
+    "bbox": [
+      424,
+      988,
+      800,
+      1359
+    ],
+    "bbox_points": [
+      212.25,
+      494.4,
+      399.75,
+      679.1426
+    ],
+    "image_path": "assets/figures/figure-12-9.png",
+    "image_width": 376,
+    "image_height": 371,
+    "caption": "FIGURE 12.9 As seen in comparing the wild-type Drosophila (left) and the Antennapedia mutant (right), the Antennapedia mutant has legs\non its head in place of antennae.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-08"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p07-c03",
+      "b2e-12-2-p07-c04"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-10",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.10",
+    "page": 8,
+    "printed_page": 323,
+    "section": "12.2",
+    "bbox": [
+      424,
+      385,
+      800,
+      569
+    ],
+    "bbox_points": [
+      212.25,
+      192.60000000000002,
+      399.75,
+      284.4721
+    ],
+    "image_path": "assets/figures/figure-12-10.png",
+    "image_width": 376,
+    "image_height": 184,
+    "caption": "FIGURE 12.10 The (a) Anopheles gambiae, or African malaria mosquito, acts as a vector in the transmission to humans of the malaria-\ncausing parasite (b) Plasmodium falciparum, here visualized using false-color transmission electron microscopy. (credit a: James D.\nGathany; credit b: Ute Frevert; false color by Margaret Shear; scale-bar data from Matt Russell)",
+    "credit": "(credit a: James D.\nGathany; credit b: Ute Frevert; false color by Margaret Shear; scale-bar data from Matt Russell)",
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-08"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p08-c03",
+      "b2e-12-2-p08-c04"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-11",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.11",
+    "page": 9,
+    "printed_page": 324,
+    "section": "12.2",
+    "bbox": [
+      447,
+      228,
+      777,
+      643
+    ],
+    "bbox_points": [
+      223.5,
+      114.30000000000007,
+      388.5,
+      321.1566
+    ],
+    "image_path": "assets/figures/figure-12-11.png",
+    "image_width": 330,
+    "image_height": 415,
+    "caption": "FIGURE 12.11 In Drosophila, several genes determine eye color. The genes for white and vermilion eye colors are located on the X\nchromosome. Others are located on the autosomes. Clockwise from top left are brown, cinnabar, sepia, vermilion, white, and red. Red eye\ncolor is wild-type and is dominant to white eye color.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-09"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p08-c09",
+      "b2e-12-2-p09-c02"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-12",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.12",
+    "page": 10,
+    "printed_page": 325,
+    "section": "12.2",
+    "bbox": [
+      312,
+      194,
+      912,
+      798
+    ],
+    "bbox_points": [
+      156.0,
+      97.20000000000005,
+      456.0,
+      398.8529
+    ],
+    "image_path": "assets/figures/figure-12-12.png",
+    "image_width": 600,
+    "image_height": 604,
+    "caption": "FIGURE 12.12 Punnett square analysis is used to determine the ratio of offspring from a cross between a red-eyed male fruit fly and a\nwhite-eyed female fruit fly.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-09"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p09-c03",
+      "b2e-12-2-p10-c02",
+      "b2e-12-2-p10-c03"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-13",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.13",
+    "page": 11,
+    "printed_page": 326,
+    "section": "12.2",
+    "bbox": [
+      349,
+      178,
+      875,
+      755
+    ],
+    "bbox_points": [
+      174.75,
+      89.09999999999991,
+      437.25,
+      377.2489
+    ],
+    "image_path": "assets/figures/figure-12-13.png",
+    "image_width": 526,
+    "image_height": 577,
+    "caption": "FIGURE 12.13 The male offspring of a person who is a carrier of a recessive X-linked disorder will have a 50 percent chance of being\naffected. A female will not be affected, but she will have a 50 percent chance of being a carrier like the female parent.",
+    "credit": null,
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-09"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p10-c07",
+      "b2e-12-2-p11-c02"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  },
+  {
+    "id": "b2e-12-2-figure-12-14",
+    "source_id": "b2e-12-2",
+    "type": "figure",
+    "label": "Figure 12.14",
+    "page": 12,
+    "printed_page": 327,
+    "section": "12.2",
+    "bbox": [
+      402,
+      354,
+      822,
+      900
+    ],
+    "bbox_points": [
+      201.0,
+      177.29999999999995,
+      411.0,
+      449.8368
+    ],
+    "image_path": "assets/figures/figure-12-14.png",
+    "image_width": 420,
+    "image_height": 546,
+    "caption": "FIGURE 12.14 The neuron in the center of this micrograph (yellow) has nuclear inclusions characteristic of Huntington’s disease (orange\narea in the center of the neuron). Huntington’s disease occurs when an abnormal dominant allele for the Huntington gene is present.\n(credit: Dr. Steven Finkbeiner, Gladstone Institute of Neurological Disease, The Taube-Koret Center for Huntington's Disease Research, and\nthe University of California San Francisco/Wikimedia)",
+    "credit": "(credit: Dr. Steven Finkbeiner, Gladstone Institute of Neurological Disease, The Taube-Koret Center for Huntington's Disease Research, and\nthe University of California San Francisco/Wikimedia)",
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-10"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p12-c01",
+      "b2e-12-2-p12-c02"
+    ],
+    "figure_text_status": "labels_preserved_in_image_not_ocr_transcribed"
+  }
+]

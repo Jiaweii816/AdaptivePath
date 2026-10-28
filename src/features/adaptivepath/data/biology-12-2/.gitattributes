@@ -1,0 +1,4 @@
+# Preserve content fingerprints across Windows, macOS and Linux checkouts.
+* text eol=lf
+*.pdf -text
+*.png -text
