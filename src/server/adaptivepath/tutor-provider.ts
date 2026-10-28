@@ -90,6 +90,7 @@ export async function evaluateBiologyWithProvider(questionId:string,option:strin
 export async function liveBiologyTutorReply(args:{
   message:string;questionId:string|null;attempts:AttemptEvidence[];
   history: Array<{role:"student"|"tutor";content:string}>;
+  selectedTool?:string;
 }):Promise<string|null> {
   if(!isLiveBiologyTutorEnabled()) return null;
   const question=args.questionId?getQuestion(args.questionId):null;
@@ -111,6 +112,7 @@ export async function liveBiologyTutorReply(args:{
         "prerequisite_review, guided_hint, worked_example, additional_practice, diagnostic_probe, independent_transfer.",
         "Explain allele segregation, genotype/phenotype, and test crosses accurately.",
         "In practice mode, prefer a question or short hint, then wait for student reasoning.",
+        "Use the server-selected instructional tool; you cannot choose coding or execution tools.",
         "Do NOT claim to have changed the profile. The server alone owns profile transitions.",
         "Do NOT pretend to quote OpenStax passages. No textbook verbatim text is provided.",
         "Keep replies concise, conversational and appropriately scoped to the current objective.",
@@ -124,6 +126,7 @@ export async function liveBiologyTutorReply(args:{
         profile:{priorKnowledge:profile.priorKnowledge,mastery:profile.mastery,
           misconceptions:profile.misconceptions,support:profile.support,certainty:profile.certainty},
         permittedConceptNotes:safeConcepts,
+        selectedInstructionalTool:args.selectedTool??"guided_hint",
       })},
       ...history,
       {role:"user",content:args.message.slice(0,2000)},
