@@ -17,6 +17,7 @@ export type Evaluation = {
 export type AttemptEvidence = {
   id: string;
   questionId: string;
+  submittedAt?: string;
   selectedOption: string;
   studentReasoning: string;
   assisted: boolean;
