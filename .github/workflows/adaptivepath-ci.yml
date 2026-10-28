@@ -12,6 +12,9 @@ on:
       - "src/server/db/sqlite-path.ts"
       - "src/components/layout/sidebar-nav.ts"
       - "tests/unit/adaptivepath-profile.test.ts"
+      - "tests/e2e/adaptivepath.spec.ts"
+      - "tests/adaptivepath.playwright.config.ts"
+      - "scripts/adaptivepath-http-smoke.ts"
   workflow_dispatch:
 
 permissions:
@@ -53,6 +56,19 @@ jobs:
         run: npm run lint
       - name: Next.js production build
         run: npm run build
+      - name: Install Chromium for browser verification
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke of Biology workspace
+        run: npx playwright test tests/e2e/adaptivepath.spec.ts --config=tests/adaptivepath.playwright.config.ts
+      - name: Upload Biology workspace screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: adaptivepath-browser-evidence
+          path: |
+            test-results/adaptivepath-workspace.png
+            test-results/**/trace.zip
+          if-no-files-found: ignore
       - name: Live HTTP smoke for both learner paths
         run: |
           npm run dev:try > /tmp/adaptivepath-next.log 2>&1 &
