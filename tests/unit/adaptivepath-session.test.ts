@@ -44,7 +44,7 @@ afterEach(async () => db.cleanup());
 describe("biology learner", () => {
   it("missing local user yields BiologyLearnerNotFoundError", async () => {
     await expect(resolveBiologyLearner(db.prisma, env)).rejects.toBeInstanceOf(BiologyLearnerNotFoundError);
-    await expect(resolveBiologyLearner(db.prisma, env)).rejects.toThrow("npm run db:try:reset");
+    await expect(resolveBiologyLearner(db.prisma, env)).rejects.toThrow("npm run db:migrate:try && npm run db:seed:try");
   });
 
   it("reuses a single biology session", async () => {

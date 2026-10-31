@@ -7,7 +7,7 @@ import { BiologyLearnerNotFoundError } from "@/server/adaptivepath/learner";
 describe("biology API error mapping", () => {
   it("maps a missing local user to 503 with the setup command", () => {
     expect(biologyErrorResponse(new BiologyLearnerNotFoundError("guest"))).toEqual({
-      status: 503, body: { error: 'Local user "guest" not found in this database. Run: npm run db:guest:reset' },
+      status: 503, body: { error: 'Local user "guest" not found in this database. Run: npm run db:migrate:guest && npx tsx scripts/run-local-profile.ts guest -- tsx prisma/seed-guest.ts' },
     });
   });
 

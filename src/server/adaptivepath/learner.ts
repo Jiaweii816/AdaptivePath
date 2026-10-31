@@ -9,9 +9,10 @@ import { resolveMemoryOrigin } from "@/server/memory/memory-origin";
 import type { LearnerScope } from "./memory-store";
 
 export const BIOLOGY_PROBLEM_SLUG = "adaptivepath-biology-2e-12-2";
+/** Migrate + seed only; the db:*:reset scripts are restricted to the shared PatternCoach data root. */
 const SETUP_COMMANDS: Readonly<Record<string, string>> = {
-  try: "npm run db:try:reset",
-  guest: "npm run db:guest:reset",
+  try: "npm run db:migrate:try && npm run db:seed:try",
+  guest: "npm run db:migrate:guest && npx tsx scripts/run-local-profile.ts guest -- tsx prisma/seed-guest.ts",
 };
 
 type Env = Readonly<Record<string, string | undefined>>;
