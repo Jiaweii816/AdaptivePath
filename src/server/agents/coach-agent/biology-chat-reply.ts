@@ -11,7 +11,7 @@ import { offlineTutorReply } from "@/features/adaptivepath/memory/offline-hints"
 import type { TutorMemoryContext } from "@/features/adaptivepath/memory/tutor-context";
 import type { MasteryLevel } from "@/features/adaptivepath/memory/types";
 import type { TraceContext } from "@/server/llm/trace-context";
-import type { LiveTutor } from "@/server/adaptivepath/tutor-provider";
+import { LiveTutorError, type LiveTutor } from "@/server/adaptivepath/tutor-provider";
 
 export type BiologyTurnInput = Readonly<{
   question: BankQuestion;
@@ -56,6 +56,8 @@ export async function biologyCoachReply(
     subsections,
     history: input.history,
     message: input.message,
-  }, deps.trace);
+  }, deps.trace).catch((error: unknown) => {
+    throw new LiveTutorError(error);
+  });
   return { reply, provider: "live_llm", tool };
 }

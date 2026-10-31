@@ -96,3 +96,11 @@ export function createLiveBiologyTutor(client: OpenAI = createChatClient()): Liv
     },
   };
 }
+
+/** Marks a failure of the configured live tutor so the API can report it as 502. */
+export class LiveTutorError extends Error {
+  constructor(cause: unknown) {
+    super(`Live tutor failed: ${cause instanceof Error ? cause.message : String(cause)}`, { cause });
+    this.name = "LiveTutorError";
+  }
+}

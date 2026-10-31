@@ -1,114 +1,171 @@
-import "server-only";
-import prisma from "@/server/db/prisma";
-import { getQuestion } from "@/features/adaptivepath/content";
-import { deriveProfile, nextQuestionId, type AttemptEvidence } from "@/features/adaptivepath/profile";
-import { evaluateBiologyWithProvider } from "./tutor-provider";
-import {
-  createBiologyLedgerSession,loadBiologyLedgerSession,
-  persistBiologyAccess,persistBiologyAnswer,persistBiologyChat,
-  type BiologySession,
-} from "./ledger-store";
-import { biologyCoachReply } from "@/server/agents/coach-agent/biology-chat-reply";
-
-export type { BiologySession };
-
 /**
- * Existing pre-integration sessions remain readable/writable as a compatibility
- * path. NEW sessions use the original PatternCoach Prisma ChatSession and
- * Memory ledger and do not create a parallel session table.
- * Delete this adapter after an explicit reviewed data migration.
+ * Biology practice orchestration: current question from L2, answer
+ * submission into L1→L2→L3, help-usage recording, and tutor turns.
  */
-async function readOldSession(id:string):Promise<BiologySession|null> {
-  try {
-    const rows=await prisma.$queryRawUnsafe<Array<{payload:string}>>(
-      "SELECT payload FROM adaptivepath_sessions WHERE id=? LIMIT 1",id);
-    if(!rows.length)return null;
-    const parsed=JSON.parse(rows[0].payload) as BiologySession;
-    return parsed?.id===id && Array.isArray(parsed.attempts) &&
-      Array.isArray(parsed.messages)?{
-      ...parsed,hintsUsed:parsed.hintsUsed??[],referenceUsed:parsed.referenceUsed??[],
-    }:null;
-  } catch {return null;} // Table may not exist in a fresh database.
-}
-async function saveOldSession(session:BiologySession) {
-  await prisma.$executeRawUnsafe(
-    "UPDATE adaptivepath_sessions SET payload=?,updated_at=? WHERE id=?",
-    JSON.stringify(session),new Date().toISOString(),session.id);
-}
-async function readSessionWithSource(id:string) {
-  const ledger=await loadBiologyLedgerSession(id);
-  if(ledger)return {session:ledger,legacy:false as const};
-  const legacy=await readOldSession(id);
-  if(legacy)return {session:legacy,legacy:true as const};
-  return null;
+import type { PrismaClient } from "@prisma/client";
+import { CONCEPTS, type Concept } from "@/features/adaptivepath/concepts";
+import {
+  getBankQuestion, isCorrectOption, listQuestions, QUESTION_LOOKUP, toClientQuestion,
+  type BankQuestion, type ClientQuestion,
+} from "@/features/adaptivepath/question-bank";
+import { attemptCondition } from "@/features/adaptivepath/memory/mastery-engine";
+import { pickNextQuestion, type PickResult } from "@/features/adaptivepath/memory/question-picker";
+import { ACTIVE_RULE_VERSION, getRuleset } from "@/features/adaptivepath/memory/rules";
+import type { JudgmentState, LedgerRow, MasteryContext } from "@/features/adaptivepath/memory/types";
+import { biologyCoachReply, type BiologyTurnResult } from "@/server/agents/coach-agent/biology-chat-reply";
+import { createTraceContext, type TraceContext } from "@/server/llm/trace-context";
+import { recallBiologyTutorMemory } from "@/server/memory/biology-memory-context";
+import { finalizeTraceRun, markTraceRunDegradedBestEffort } from "@/server/observability/trace-store";
+import { appendTutorExchange, loadQuestionActivity, recordAccess, type QuestionActivity } from "./activity-store";
+import { resolveBiologyLearner } from "./learner";
+import { loadLearnerMemory, recordAttempt, type LatestProfile, type LearnerMemory, type LearnerScope } from "./memory-store";
+import type { StoredLedgerRow } from "./memory-records";
+import type { LiveTutor } from "./tutor-provider";
+
+export const MIN_EXPLANATION_CHARS = 12;
+export type BiologyDeps = Readonly<{ db: PrismaClient; live: LiveTutor | null; env?: Readonly<Record<string, string | undefined>> }>;
+export type BiologyView = Readonly<{
+  question: ClientQuestion | null;
+  pick: PickResult;
+  activity: QuestionActivity;
+  judgments: readonly JudgmentState[];
+  modelReady: boolean;
+}>;
+export type SubmitFeedback = Readonly<{ correct: boolean; correctAnswer: string; explanation: string; changes: readonly LedgerRow[] }>;
+type Current = Readonly<{ scope: LearnerScope; memory: LearnerMemory; pick: PickResult; question: BankQuestion | null }>;
+
+const NO_ACTIVITY: QuestionActivity = { tutorUsed: false, referenceUsed: false, messages: [] };
+const masteryContext = (): MasteryContext => ({ rules: getRuleset(ACTIVE_RULE_VERSION), lookup: QUESTION_LOOKUP });
+
+async function loadCurrent(deps: BiologyDeps): Promise<Current> {
+  const scope = await resolveBiologyLearner(deps.db, deps.env);
+  const memory = await loadLearnerMemory(deps.db, scope);
+  const pick = pickNextQuestion({
+    states: memory.states,
+    attemptedQuestionIds: new Set(memory.attempts.map((a) => a.questionId)),
+    concepts: CONCEPTS,
+    questions: listQuestions(),
+    rules: masteryContext().rules,
+  });
+  return { scope, memory, pick, question: pick.kind === "question" ? getBankQuestion(pick.questionId) : null };
 }
 
-export async function loadSession(id:string):Promise<BiologySession|null> {
-  return (await readSessionWithSource(id))?.session??null;
+function requireCurrent(current: Current, questionId: string): BankQuestion {
+  if (!current.question || current.question.id !== questionId) throw new Error("This is not the current activity");
+  return current.question;
 }
-export async function createSession():Promise<BiologySession> {
-  return createBiologyLedgerSession();
-}
-export async function submitBiology(args:{
-  sessionId:string;questionId:string;selectedOption:string;studentReasoning:string;attemptId:string;
-}) {
-  const found=await readSessionWithSource(args.sessionId);
-  if(!found)throw new Error("Session not found");
-  const session=found.session;
-  if(session.attempts.some(a=>a.id===args.attemptId))
-    return {session,profile:deriveProfile(session.attempts),nextQuestionId:nextQuestionId(session.attempts)};
-  if(nextQuestionId(session.attempts)!==args.questionId)throw new Error("This is not the current activity");
-  const question=getQuestion(args.questionId);
-  if(!question || !question.options.some(o=>o.id===args.selectedOption))
-    throw new Error("Invalid answer option");
-  if(args.studentReasoning.trim().length<12)
-    throw new Error("Please explain your reasoning (at least 12 characters).");
-  const evaluation=await evaluateBiologyWithProvider(args.questionId,args.selectedOption,args.studentReasoning);
-  const evidence:AttemptEvidence={
-    id:args.attemptId,questionId:question.id,submittedAt:new Date().toISOString(),
-    selectedOption:args.selectedOption,studentReasoning:args.studentReasoning.trim(),
-    assisted:session.hintsUsed.includes(question.id) || session.referenceUsed.includes(question.id),
-    evaluation,
+
+async function toView(deps: BiologyDeps, current: Current): Promise<BiologyView> {
+  const activity = current.question
+    ? await loadQuestionActivity(deps.db, { scope: current.scope, questionId: current.question.id })
+    : NO_ACTIVITY;
+  return {
+    question: current.question && toClientQuestion(current.question),
+    pick: current.pick,
+    activity,
+    judgments: [...current.memory.states.values()],
+    modelReady: deps.live !== null,
   };
-  if(found.legacy){
-    session.attempts.push(evidence);
-    await saveOldSession(session);
-  } else {
-    await persistBiologyAnswer(session.id,evidence,nextQuestionId);
-  }
-  const saved=(await loadSession(session.id))!;
-  return {session:saved,profile:deriveProfile(saved.attempts),nextQuestionId:nextQuestionId(saved.attempts)};
 }
-export async function recordReferenceAccess(id:string,questionId:string) {
-  const found=await readSessionWithSource(id);
-  if(!found)throw new Error("Session not found");
-  if(nextQuestionId(found.session.attempts)!==questionId)
-    throw new Error("This is not the current activity");
-  if(!found.session.referenceUsed.includes(questionId)){
-    if(found.legacy){
-      found.session.referenceUsed.push(questionId);
-      await saveOldSession(found.session);
-    } else {
-      await persistBiologyAccess(id,questionId,"biology_reference_access");
-    }
-  }
-  return (await loadSession(id))!;
+
+export async function loadBiologyView(deps: BiologyDeps): Promise<BiologyView> {
+  return toView(deps, await loadCurrent(deps));
 }
-export async function recordTutorTurn(id:string,message:string) {
-  const found=await readSessionWithSource(id);
-  if(!found)throw new Error("Session not found");
-  const {session}=found;
-  const current=nextQuestionId(session.attempts);
-  const turn=await biologyCoachReply({message,questionId:current,attempts:session.attempts,history:session.messages});
-  if(found.legacy){
-    session.messages.push({role:"student",content:message},{role:"tutor",content:turn.reply});
-    if(current && turn.tool!=="diagnostic_probe" && turn.tool!=="independent_transfer" &&
-      !session.hintsUsed.includes(current))session.hintsUsed.push(current);
-    await saveOldSession(session);
-  } else {
-    await persistBiologyChat(id,message,turn.reply,turn.tool);
-    if(current && turn.tool!=="diagnostic_probe" && turn.tool!=="independent_transfer")
-      await persistBiologyAccess(id,current,"biology_guided_assistance");
+
+function feedbackFor(question: BankQuestion, input: { selectedOption: string; changes: readonly LedgerRow[] }): SubmitFeedback {
+  return {
+    correct: isCorrectOption(question, input.selectedOption),
+    correctAnswer: question.correctAnswer,
+    explanation: question.explanation,
+    changes: input.changes,
+  };
+}
+
+function priorFeedback(memory: LearnerMemory, attemptId: string): SubmitFeedback | null {
+  const prior = memory.attempts.find((a) => a.attemptId === attemptId);
+  if (!prior) return null;
+  const changes: StoredLedgerRow[] = memory.rows.filter((r) => r.l1EventId === prior.l1EventId);
+  return feedbackFor(getBankQuestion(prior.questionId), { selectedOption: prior.selectedOption, changes });
+}
+
+export async function submitAnswer(
+  deps: BiologyDeps,
+  input: Readonly<{ questionId: string; selectedOption: string; explanation: string; attemptId: string }>,
+): Promise<BiologyView & { feedback: SubmitFeedback }> {
+  const current = await loadCurrent(deps);
+  const replayed = priorFeedback(current.memory, input.attemptId);
+  if (replayed) return { ...(await toView(deps, current)), feedback: replayed };
+  const question = requireCurrent(current, input.questionId);
+  const explanation = input.explanation.trim();
+  if (explanation.length < MIN_EXPLANATION_CHARS) throw new Error("Please explain your reasoning (at least 12 characters).");
+  const correct = isCorrectOption(question, input.selectedOption);
+  const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
+  const result = await recordAttempt(deps.db, {
+    scope: current.scope,
+    ctx: masteryContext(),
+    attempt: {
+      attemptId: input.attemptId, questionId: question.id, questionType: question.questionType, conceptIds: question.conceptIds,
+      difficulty: question.difficulty, selectedOption: input.selectedOption, correct, tutorUsed: activity.tutorUsed,
+      referenceUsed: activity.referenceUsed, condition: attemptCondition(activity), submittedAt: new Date().toISOString(), explanation,
+    },
+  });
+  const view = await loadBiologyView(deps);
+  return { ...view, feedback: feedbackFor(question, { selectedOption: input.selectedOption, changes: result.rows }) };
+}
+
+export async function recordReference(deps: BiologyDeps, questionId: string): Promise<BiologyView> {
+  const current = await loadCurrent(deps);
+  requireCurrent(current, questionId);
+  await recordAccess(deps.db, { scope: current.scope, questionId, kind: "biology_reference_access" });
+  return toView(deps, current);
+}
+
+/** Telemetry must not fail tutoring; a finalize failure is logged and the run marked degraded. */
+async function finalizeTurnTrace(trace: TraceContext, status: "succeeded" | "failed") {
+  try {
+    await finalizeTraceRun(trace.prisma, { traceRunId: trace.traceRunId, status, traceCompleteness: "complete", endedAt: new Date(), traceOverheadMs: 0 });
+  } catch (error) {
+    console.warn(`Unable to finalize biology tutor trace ${trace.traceRunId}:`, error);
+    await markTraceRunDegradedBestEffort(trace.prisma, trace.traceRunId);
   }
-  return {session:(await loadSession(id))!,reply:turn.reply,provider:turn.provider,tool:turn.tool};
+}
+
+async function runTutorTurn(deps: BiologyDeps, input: { current: Current; question: BankQuestion; message: string; trace: TraceContext }): Promise<BiologyTurnResult> {
+  const { current, question, message, trace } = input;
+  const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
+  const recalled = await recallBiologyTutorMemory(deps.db, { scope: current.scope, question, trace });
+  const turn = await biologyCoachReply({
+    question, message, history: activity.messages,
+    priorTutorTurns: activity.messages.filter((m) => m.role === "tutor").length,
+    memory: recalled.memory, levels: recalled.levels,
+  }, { live: deps.live, trace });
+  await appendTutorExchange(deps.db, { scope: current.scope, questionId: question.id, userText: message, reply: turn.reply, tool: turn.tool });
+  await recordAccess(deps.db, { scope: current.scope, questionId: question.id, kind: "biology_guided_assistance" });
+  return turn;
+}
+
+export async function tutorTurn(deps: BiologyDeps, message: string): Promise<BiologyView & BiologyTurnResult> {
+  const current = await loadCurrent(deps);
+  if (!current.question) throw new Error("This is not the current activity");
+  const { scope } = current;
+  const trace = createTraceContext({
+    prisma: deps.db, userId: scope.userId, path: "memory", task: "biology_tutor_turn",
+    problemId: scope.problemId, chatSessionId: scope.chatSessionId, memoryOrigin: scope.memoryOrigin,
+  });
+  try {
+    const turn = await runTutorTurn(deps, { current, question: current.question, message, trace });
+    await finalizeTurnTrace(trace, "succeeded");
+    return { ...(await toView(deps, current)), ...turn };
+  } catch (error) {
+    await finalizeTurnTrace(trace, "failed");
+    throw error;
+  }
+}
+
+export async function loadProfileData(deps: BiologyDeps): Promise<{
+  concepts: readonly Concept[]; states: readonly JudgmentState[]; rows: readonly StoredLedgerRow[]; latestProfile: LatestProfile | null;
+}> {
+  const scope = await resolveBiologyLearner(deps.db, deps.env);
+  const memory = await loadLearnerMemory(deps.db, scope);
+  return { concepts: CONCEPTS, states: [...memory.states.values()], rows: memory.rows, latestProfile: memory.latestProfile };
 }

@@ -1,50 +1,48 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createSession, loadSession, recordTutorTurn, recordReferenceAccess, submitBiology } from "@/server/adaptivepath/session";
-import { deriveProfile, nextQuestionId } from "@/features/adaptivepath/profile";
-import { BIOLOGY_QUESTIONS, getQuestion } from "@/features/adaptivepath/content";
-import { isLiveBiologyTutorEnabled } from "@/server/adaptivepath/tutor-provider";
-export const runtime="nodejs";
-const bodySchema=z.discriminatedUnion("action",[
-  z.object({action:z.literal("start")}),
-  z.object({action:z.literal("submit"),sessionId:z.string().uuid(),questionId:z.string(),
-    selectedOption:z.string(),studentReasoning:z.string().min(12).max(4000),attemptId:z.string().uuid()}),
-  z.object({action:z.literal("reference"),sessionId:z.string().uuid(),questionId:z.string()}),
-  z.object({action:z.literal("chat"),sessionId:z.string().uuid(),message:z.string().trim().min(1).max(2000)}),
+import prisma from "@/server/db/prisma";
+import { biologyErrorResponse } from "@/server/adaptivepath/http-errors";
+import { loadBiologyView, recordReference, submitAnswer, tutorTurn, type BiologyDeps } from "@/server/adaptivepath/session";
+import { createLiveBiologyTutor, isLiveBiologyTutorEnabled } from "@/server/adaptivepath/tutor-provider";
+
+export const runtime = "nodejs";
+
+const MAX_EXPLANATION_CHARS = 4_000;
+const MAX_MESSAGE_CHARS = 2_000;
+const bodySchema = z.discriminatedUnion("action", [
+  z.object({
+    action: z.literal("submit"), questionId: z.string().min(1), selectedOption: z.string().min(1),
+    explanation: z.string().max(MAX_EXPLANATION_CHARS), attemptId: z.string().uuid(),
+  }),
+  z.object({ action: z.literal("reference"), questionId: z.string().min(1) }),
+  z.object({ action: z.literal("chat"), message: z.string().trim().min(1).max(MAX_MESSAGE_CHARS) }),
 ]);
-function view(session:NonNullable<Awaited<ReturnType<typeof loadSession>>>) {
-  const nextId=nextQuestionId(session.attempts);
-  return { sessionId:session.id, attempts:session.attempts, messages:session.messages,
-    referenceUsed:session.referenceUsed ?? [],
-    profile:deriveProfile(session.attempts), question:nextId?getQuestion(nextId):null,
-    completed:nextId===null, questionCount:BIOLOGY_QUESTIONS.length, modelReady:isLiveBiologyTutorEnabled() };
+
+function deps(): BiologyDeps {
+  return { db: prisma, live: isLiveBiologyTutorEnabled() ? createLiveBiologyTutor() : null };
 }
-export async function GET(request:Request) {
+
+function fail(error: unknown) {
+  const response = biologyErrorResponse(error);
+  if (response.status >= 500) console.error("AdaptivePath request failed", error);
+  return NextResponse.json(response.body, { status: response.status });
+}
+
+export async function GET() {
   try {
-    const id=new URL(request.url).searchParams.get("sessionId");
-    if(!id || !z.string().uuid().safeParse(id).success) return NextResponse.json({error:"Invalid session ID"},{status:400});
-    const session=await loadSession(id);
-    return session?NextResponse.json(view(session)):NextResponse.json({error:"Session not found"},{status:404});
-  } catch {
-    return NextResponse.json({error:"Unable to load session"},{status:500});
+    return NextResponse.json(await loadBiologyView(deps()));
+  } catch (error) {
+    return fail(error);
   }
 }
-export async function POST(request:Request) {
+
+export async function POST(request: Request) {
   try {
-    const input=bodySchema.parse(await request.json());
-    if(input.action==="start") return NextResponse.json(view(await createSession()));
-    if(input.action==="submit"){
-      const result=await submitBiology(input);
-      return NextResponse.json({...view(result.session),feedback:result.session.attempts.at(-1)?.evaluation});
-    }
-    if(input.action==="reference") return NextResponse.json(view(await recordReferenceAccess(input.sessionId,input.questionId)));
-    const result=await recordTutorTurn(input.sessionId,input.message);
-    return NextResponse.json({...view(result.session),reply:result.reply,provider:result.provider,tool:result.tool});
-  } catch(error) {
-    if(error instanceof z.ZodError) return NextResponse.json({error:"Invalid request",details:error.flatten()},{status:400});
-    if(error instanceof Error && /not found/.test(error.message)) return NextResponse.json({error:error.message},{status:404});
-    if(error instanceof Error && /current activity|Invalid answer|explain your reasoning/.test(error.message)) return NextResponse.json({error:error.message},{status:400});
-    console.error("AdaptivePath request failed",error);
-    return NextResponse.json({error:"Unable to complete request"},{status:500});
+    const input = bodySchema.parse(await request.json());
+    if (input.action === "submit") return NextResponse.json(await submitAnswer(deps(), input));
+    if (input.action === "reference") return NextResponse.json(await recordReference(deps(), input.questionId));
+    return NextResponse.json(await tutorTurn(deps(), input.message));
+  } catch (error) {
+    return fail(error);
   }
 }
