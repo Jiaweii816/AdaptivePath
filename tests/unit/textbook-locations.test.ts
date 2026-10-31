@@ -1,23 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { BIOLOGY_QUESTIONS, TEXTBOOK_CHUNKS } from "../../src/features/adaptivepath/content";
+import { listQuestions } from "../../src/features/adaptivepath/question-bank";
 import sourceChunks from "../../src/features/adaptivepath/data/biology-12-2/chunks.json";
 import locations from "../../src/features/adaptivepath/textbook-locations.json";
 
 describe("textbook page coordinates", () => {
-  it("maps every active question reference to the actual PDF chunk and printed page", () => {
-    const mapping = locations.legacy_reference_ids as Record<string, string[]>;
-    for (const question of BIOLOGY_QUESTIONS) for (const id of question.referenceIds) {
-      expect(mapping[id]?.length, id).toBeGreaterThan(0);
-      const legacy = TEXTBOOK_CHUNKS.find(chunk => chunk.id === id)!;
-      for (const mapped of mapping[id]) {
-        const source = sourceChunks.find(chunk => chunk.id === mapped)!;
-        expect(source.printed_page).toBe(legacy.page);
-        const normalize = (text: string) => text.toLowerCase().replace(/[^a-z]/g, "");
-        const a = normalize(legacy.original), b = normalize(source.raw_text);
-        expect(a.includes(b) || b.includes(a), `${id} -> ${mapped}`).toBe(true);
-      }
+  it("locates every chunk referenced by the 320-question bank", () => {
+    const located = new Set(locations.chunks.map(chunk => chunk.id));
+    for (const question of listQuestions()) {
+      expect(question.chunkIds.length, question.id).toBeGreaterThan(0);
+      for (const id of question.chunkIds) expect(located.has(id), `${question.id} -> ${id}`).toBe(true);
     }
   });
+
+  it("carries no legacy reference mapping", () => {
+    expect(Object.keys(locations).sort()).toEqual(["chunks", "pages"]);
+  });
+
   it("uses unchanged source geometry, rather than guessed paragraph positions", () => {
     for (const location of locations.chunks) {
       const source = sourceChunks.find(chunk => chunk.id === location.id)!;
