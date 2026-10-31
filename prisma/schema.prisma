@@ -41,6 +41,9 @@ model User {
   problemWorkspaceSessions ProblemWorkspaceSession[]
   agentTraceRuns           AgentTraceRun[]
   campaigns                Campaign[]
+  biologyJudgments         BiologyMasteryJudgment[]
+  biologyLedgerRows        BiologyMasteryLedgerRow[]
+  biologyProfiles          BiologyLearnerProfile[]
 }
 
 model UserProfile {
@@ -1538,4 +1541,74 @@ model OperationalNote {
   @@unique([memoryOrigin, kind, scopeKind, scopeKey, signalKey, preconditionHash, contractVersion])
   @@index([memoryOrigin, status, scopeKind, scopeKey, contractVersion])
   @@index([invalidAt])
+}
+
+/// AdaptivePath Biology L2: one mastery judgment per learner x section x concept.
+/// Derived from L1 `biology_attempt` events by the versioned rule engine; replayable.
+model BiologyMasteryJudgment {
+  id            String   @id @default(cuid())
+  userId        String
+  sectionId     String
+  conceptId     String
+  level         Int
+  stability     Int
+  supportStreak Int
+  ruleVersion   String
+  memoryOrigin  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sectionId, conceptId, memoryOrigin])
+  @@index([memoryOrigin, userId])
+}
+
+/// AdaptivePath Biology L2 evidence ledger: one row per L1 event per concept.
+/// Keyed by learner x concept (not by judgment) so ineligible evidence on an
+/// unjudged concept is still auditable.
+model BiologyMasteryLedgerRow {
+  id              String   @id @default(cuid())
+  userId          String
+  sectionId       String
+  conceptId       String
+  memoryOrigin    String
+  l1EventId       String
+  sequence        Int
+  occurredAt      DateTime
+  condition       Int
+  result          String
+  effect          String
+  reason          String?
+  levelBefore     Int?
+  levelAfter      Int?
+  stabilityBefore Int?
+  stabilityAfter  Int?
+  ruleVersion     String
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sectionId, conceptId, memoryOrigin, l1EventId])
+  @@unique([userId, sectionId, conceptId, memoryOrigin, sequence])
+  @@index([memoryOrigin, userId, occurredAt])
+}
+
+/// AdaptivePath Biology L3: append-only versions of the section profile card.
+model BiologyLearnerProfile {
+  id           String   @id @default(cuid())
+  userId       String
+  sectionId    String
+  version      Int
+  cardJson     String
+  noteStatus   String
+  noteText     String?
+  ruleVersion  String
+  memoryOrigin String
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sectionId, version, memoryOrigin])
+  @@index([memoryOrigin, userId, sectionId])
 }

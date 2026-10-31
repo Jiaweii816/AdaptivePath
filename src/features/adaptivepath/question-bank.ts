@@ -6,6 +6,7 @@ import foundation from "./data/biology-12-2/questions/concepts-01-03.json";
 import middle from "./data/biology-12-2/questions/concepts-04-06.json";
 import advanced from "./data/biology-12-2/questions/concepts-07-10.json";
 import integrated from "./data/biology-12-2/questions/integrated.json";
+import type { QuestionLookup } from "./memory/types";
 
 export type Difficulty = "easy" | "medium" | "hard";
 export type QuestionType = "single_concept" | "integrated";
@@ -80,3 +81,8 @@ export function isCorrectOption(question: BankQuestion, optionId: string): boole
   if (!question.options.some((o) => o.id === optionId)) throw new Error("Invalid answer option");
   return question.correctAnswer === optionId;
 }
+
+export const QUESTION_LOOKUP: QuestionLookup = Object.freeze({
+  has: (questionId: string) => BY_ID.has(questionId),
+  optionIds: (questionId: string) => getBankQuestion(questionId).options.map((o) => o.id),
+});

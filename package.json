@@ -18,6 +18,8 @@
     "db:seed": "npm run db:seed:try",
     "db:seed:iris": "tsx scripts/run-local-profile.ts iris -- tsx prisma/seed.ts",
     "db:seed:try": "tsx scripts/run-local-profile.ts try -- tsx prisma/seed-try.ts",
+    "adaptivepath:replay:try": "tsx scripts/run-local-profile.ts try -- tsx scripts/adaptivepath-replay-l2.ts",
+    "adaptivepath:replay:guest": "tsx scripts/run-local-profile.ts guest -- tsx scripts/adaptivepath-replay-l2.ts",
     "db:guest:reset": "tsx scripts/reset-local-database.ts guest",
     "db:try:reset": "tsx scripts/reset-local-database.ts try",
     "db:profiles:smoke": "tsx scripts/run-local-profile.ts iris -- tsx scripts/smoke-local-databases.ts",
