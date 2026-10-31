@@ -5,9 +5,12 @@ import { ChevronLeft, ChevronRight, LocateFixed, Minus, Plus } from "lucide-reac
 import type { PDFDocumentProxy, PDFDocumentLoadingTask, RenderTask } from "pdfjs-dist";
 import locations from "./textbook-locations.json";
 
-export function referenceLocations(referenceIds: string[]) {
-  const legacy = locations.legacy_reference_ids as Record<string, string[]>;
-  const ids = new Set(referenceIds.flatMap(id => legacy[id] ?? [id]));
+/** Page locations for a question's chunk ids, in reading order; unknown ids are an error. */
+export function referenceLocations(chunkIds: readonly string[]) {
+  const known = new Set(locations.chunks.map(chunk => chunk.id));
+  const missing = chunkIds.filter(id => !known.has(id));
+  if (missing.length) throw new Error(`Unknown textbook chunk ids: ${missing.join(", ")}`);
+  const ids = new Set(chunkIds);
   return locations.chunks.filter(chunk => ids.has(chunk.id));
 }
 
@@ -37,8 +40,8 @@ function PdfPage({ document, page, width, renderKey, onReady, onError }: {
 }
 
 /** A fixed, first-column PDF preview. PDF pages and reference boxes share one coordinate plane. */
-export function TextbookViewer({ referenceIds }: { referenceIds: string[] }) {
-  const references = useMemo(() => referenceLocations(referenceIds), [referenceIds]);
+export function TextbookViewer({ chunkIds }: { chunkIds: readonly string[] }) {
+  const references = useMemo(() => referenceLocations(chunkIds), [chunkIds]);
   const first = references[0];
   const [page, setPage] = useState(first?.page ?? 1);
   const [zoom, setZoom] = useState(1);

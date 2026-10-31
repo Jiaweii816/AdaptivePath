@@ -2,6 +2,7 @@
 import rawConcepts from "./data/biology-12-2/concepts.json";
 
 export const BIOLOGY_SECTION_ID = "12.2";
+export const OPENSTAX_URL = "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits";
 
 export type Concept = Readonly<{
   id: string;

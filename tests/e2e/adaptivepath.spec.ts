@@ -1,76 +1,49 @@
 import { mkdirSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
-test("AdaptivePath three columns, profile, and evidence-driven D1 branching", async ({ page }) => {
+// Runs against the disposable try profile (npm run dev:try). Earlier runs may
+// have advanced the learner, so the test reads the current concept instead of
+// assuming the first question.
+test("practice flow records conditions and updates the profile", async ({ page }) => {
   await page.goto("/adaptivepath");
-  await expect(page.getByText("AdaptivePath", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
-  await expect(page.getByText("Textbook Reference", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
-  await expect(page.getByText("Two round-seed plants look the same.", { exact: false })).toBeVisible();
-
+  const concept = (await page.getByTestId("current-concept-name").textContent())!.trim();
+  await expect(page.getByTestId("current-difficulty")).toHaveText(/easy|medium|hard/);
   mkdirSync("test-results", { recursive: true });
   await page.screenshot({ path: "test-results/adaptivepath-workspace.png", fullPage: true });
 
-  // Textbook excerpts can be expanded, collapsed and reopened. Access is
-  // still recorded as assisted after closing or refreshing the page.
-  await page.getByRole("button", { name: "Reveal reference (assisted)" }).click();
-  await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
-  await page.getByRole("button", { name: "Hide reference" }).click();
-  await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
-  await page.getByRole("button", { name: "Show reference" }).click();
-  await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
+  await page.getByRole("button", { name: "Reveal reference (counts as reference use)" }).click();
+  await expect(page.getByTestId("textbook-reader")).toBeVisible();
   await page.reload();
-  await expect(page.getByRole("button", { name: "Show reference" })).toBeVisible();
-  await expect(page.getByText("the attempt remains assisted", { exact: false })).toBeVisible();
+  await expect(page.getByText("Reference used for this question")).toBeVisible();
 
-  // Incorrect reasoning should trigger the misconception confirmation question.
-  await page.getByRole("radio", { name: "Yes, both must be RR" }).check();
+  await page.getByRole("radio").first().check();
   await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill(
-    "Both plants must be RR because the dominant allele makes the recessive allele disappear.",
+    "Genes sit on chromosomes and each parent passes one allele to the offspring.",
   );
   await page.getByRole("button", { name: "Submit Answer" }).click();
-  await expect(page.getByText("The dominant allele wins", { exact: false })).toBeVisible();
+  const feedback = page.getByTestId("submit-feedback");
+  await expect(feedback).toContainText(concept);
+  await expect(feedback).toContainText("reference used");
 
-  // Standalone Biology evidence ledger, reusing the original PatternCoach
-  // profile layout and presentational components.
-  await page.getByRole("link", { name: "Learner Profile" }).click();
-  await expect(page).toHaveURL(/\/adaptivepath\/profile$/);
-  await expect(page.getByRole("heading", { name: "Dynamic Learner Profile" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Validated learner state" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Misconception evidence" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Evidence episodes" })).toBeVisible();
-  await expect(page.getByText("Genotype & phenotype", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Stable requires two distinct successful independent transfer", { exact: false }).first()).toBeVisible();
-  await expect(page.getByText("Round phenotype always means RR", { exact: false }).first()).toBeVisible();
+  await page.goto("/adaptivepath/profile");
+  await expect(page.getByRole("heading", { name: "Learner Profile" })).toBeVisible();
+  await expect(page.getByText("Tutor note: pending LLM generation")).toBeVisible();
+  const card = page.getByTestId("concept-card").filter({ hasText: concept });
+  await card.getByRole("button", { name: "Show ledger" }).click();
+  await expect(card.getByTestId("ledger-row").last()).toContainText("reference used");
   await page.screenshot({ path: "test-results/adaptivepath-profile.png", fullPage: true });
-  await page.getByText("D1: Two round-seed plants look the same.", { exact: false }).click();
-  await expect(page.getByText("Both plants must be RR because the dominant allele", { exact: false }).last()).toBeVisible();
-  await page.getByRole("link", { name: "Back to Biology Workbench" }).click();
-  await expect(page).toHaveURL(/\/adaptivepath$/);
-  await expect(page.getByText("The dominant allele wins", { exact: false })).toBeVisible();
-
-  // A fresh session with correct reasoning should go to D2, not D4.
-  await page.getByRole("button", { name: "Reset" }).click();
-  await expect(page.getByText("Two round-seed plants look the same.", { exact: false })).toBeVisible();
-  await page.getByRole("radio", { name: "No, they could be RR or Rr" }).check();
-  await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill(
-    "The two round plants could be RR or Rr. Both have a round phenotype because the dominant R allele is expressed. The recessive r allele can still be inherited.",
-  );
-  await page.getByRole("button", { name: "Submit Answer" }).click();
-  await expect(page.getByText("For Rr × rr, list the possible gametes", { exact: false })).toBeVisible();
 });
 
-test("Full OpenStax 12.2 textbook chunks can be searched and filtered",async ({page})=>{
+test("textbook browser filters by concept and page", async ({ page }) => {
   await page.goto("/adaptivepath/textbook");
-  await expect(page.getByRole("heading",{name:"Biology 2e · Section 12.2"})).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Biology 2e · Section 12.2" })).toBeVisible();
   expect(await page.locator("article").count()).toBeGreaterThan(35);
-  await page.getByRole("combobox",{name:"Filter textbook topic"}).selectOption("codominance");
-  await expect(page.locator("article").getByRole("heading",{name:"Codominance"}).first()).toBeVisible();
-  await expect(page.locator("article").getByText("MN blood groups",{exact:false}).first()).toBeVisible();
-  await page.getByRole("combobox",{name:"Filter textbook topic"}).selectOption("all");
-  await page.getByRole("combobox",{name:"Filter printed page"}).selectOption("327");
-  await expect(page.locator("article").getByText("Huntington",{exact:false}).first()).toBeVisible();
-  await page.getByRole("combobox",{name:"Filter printed page"}).selectOption("all");
-  await page.screenshot({path:"test-results/adaptivepath-textbook.png",fullPage:true});
+  await page.getByRole("combobox", { name: "Filter textbook concept" }).selectOption("b2e-12-2-concept-07");
+  await expect(page.locator("article").getByText("MN", { exact: false }).first()).toBeVisible();
+  await page.getByRole("combobox", { name: "Filter textbook concept" }).selectOption("all");
+  await page.getByRole("combobox", { name: "Filter printed page" }).selectOption("327");
+  await expect(page.locator("article").getByText("Huntington", { exact: false }).first()).toBeVisible();
+  await page.screenshot({ path: "test-results/adaptivepath-textbook.png", fullPage: true });
 });
