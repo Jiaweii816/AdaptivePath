@@ -54,8 +54,8 @@ export function AdaptivePathClient() {
   }
 
   async function ask() {
-    if (!chat.trim() || pending) return;
-    const result = await send({ action: "chat", message: chat.trim() });
+    if (!question || !chat.trim() || pending) return;
+    const result = await send({ action: "chat", questionId: question.id, message: chat.trim() });
     if (!result) return;
     if (result.provider && result.tool) setLastTurn({ provider: result.provider, tool: result.tool });
     setChat("");

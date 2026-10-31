@@ -15,7 +15,7 @@ const bodySchema = z.discriminatedUnion("action", [
     explanation: z.string().max(MAX_EXPLANATION_CHARS), attemptId: z.string().uuid(),
   }),
   z.object({ action: z.literal("reference"), questionId: z.string().min(1) }),
-  z.object({ action: z.literal("chat"), message: z.string().trim().min(1).max(MAX_MESSAGE_CHARS) }),
+  z.object({ action: z.literal("chat"), questionId: z.string().min(1), message: z.string().trim().min(1).max(MAX_MESSAGE_CHARS) }),
 ]);
 
 function deps(): BiologyDeps {
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     const input = bodySchema.parse(await request.json());
     if (input.action === "submit") return NextResponse.json(await submitAnswer(deps(), input));
     if (input.action === "reference") return NextResponse.json(await recordReference(deps(), input.questionId));
-    return NextResponse.json(await tutorTurn(deps(), input.message));
+    return NextResponse.json(await tutorTurn(deps(), { questionId: input.questionId, message: input.message }));
   } catch (error) {
     return fail(error);
   }

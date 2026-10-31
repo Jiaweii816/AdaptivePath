@@ -13,6 +13,7 @@ export const CONDITION_LABELS: Readonly<Record<AttemptCondition, string>> = {
   2: "reference used",
   3: "no help",
 };
+export const RESULT_LABELS = { S: "correct", F: "incorrect" } as const;
 const NONE = "—";
 
 export function levelLabel(level: MasteryLevel | null): string {
@@ -26,5 +27,5 @@ function stabilityLabel(stability: number | null): string {
 export function describeLedgerChange(row: LedgerRow): string {
   const effect = row.effect === "ineligible" ? `ineligible: ${row.reason}` : row.effect;
   return `${getConcept(row.conceptId).name}: ${levelLabel(row.levelBefore)} → ${levelLabel(row.levelAfter)}, ` +
-    `S ${stabilityLabel(row.stabilityBefore)} → ${stabilityLabel(row.stabilityAfter)} (${effect} · ${CONDITION_LABELS[row.condition]})`;
+    `S ${stabilityLabel(row.stabilityBefore)} → ${stabilityLabel(row.stabilityAfter)} (${effect} · ${RESULT_LABELS[row.result]} · ${CONDITION_LABELS[row.condition]})`;
 }

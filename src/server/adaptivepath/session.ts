@@ -144,16 +144,19 @@ async function runTutorTurn(deps: BiologyDeps, input: { current: Current; questi
   return turn;
 }
 
-export async function tutorTurn(deps: BiologyDeps, message: string): Promise<BiologyView & BiologyTurnResult> {
+export async function tutorTurn(
+  deps: BiologyDeps,
+  input: Readonly<{ questionId: string; message: string }>,
+): Promise<BiologyView & BiologyTurnResult> {
   const current = await loadCurrent(deps);
-  if (!current.question) throw new Error("This is not the current activity");
+  const question = requireCurrent(current, input.questionId);
   const { scope } = current;
   const trace = createTraceContext({
     prisma: deps.db, userId: scope.userId, path: "memory", task: "biology_tutor_turn",
     problemId: scope.problemId, chatSessionId: scope.chatSessionId, memoryOrigin: scope.memoryOrigin,
   });
   try {
-    const turn = await runTutorTurn(deps, { current, question: current.question, message, trace });
+    const turn = await runTutorTurn(deps, { current, question, message: input.message, trace });
     await finalizeTurnTrace(trace, "succeeded");
     return { ...(await toView(deps, current)), ...turn };
   } catch (error) {
@@ -162,10 +165,18 @@ export async function tutorTurn(deps: BiologyDeps, message: string): Promise<Bio
   }
 }
 
+export type ProfileLedgerRow = StoredLedgerRow & Readonly<{ questionId: string }>;
+
 export async function loadProfileData(deps: BiologyDeps): Promise<{
-  concepts: readonly Concept[]; states: readonly JudgmentState[]; rows: readonly StoredLedgerRow[]; latestProfile: LatestProfile | null;
+  concepts: readonly Concept[]; states: readonly JudgmentState[]; rows: readonly ProfileLedgerRow[]; latestProfile: LatestProfile | null;
 }> {
   const scope = await resolveBiologyLearner(deps.db, deps.env);
   const memory = await loadLearnerMemory(deps.db, scope);
-  return { concepts: CONCEPTS, states: [...memory.states.values()], rows: memory.rows, latestProfile: memory.latestProfile };
+  const questionByEvent = new Map(memory.attempts.map((a) => [a.l1EventId, a.questionId]));
+  const rows = memory.rows.map((row) => {
+    const questionId = questionByEvent.get(row.l1EventId);
+    if (!questionId) throw new Error(`Ledger row references unknown L1 event ${row.l1EventId}`);
+    return { ...row, questionId };
+  });
+  return { concepts: CONCEPTS, states: [...memory.states.values()], rows, latestProfile: memory.latestProfile };
 }

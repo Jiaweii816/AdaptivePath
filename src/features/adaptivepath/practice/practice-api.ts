@@ -6,7 +6,7 @@ export type PracticeResponse = BiologyView & Partial<{ feedback: SubmitFeedback 
 export type PracticeAction =
   | { action: "submit"; questionId: string; selectedOption: string; explanation: string; attemptId: string }
   | { action: "reference"; questionId: string }
-  | { action: "chat"; message: string };
+  | { action: "chat"; questionId: string; message: string };
 
 async function parse(response: Response): Promise<PracticeResponse> {
   const body = await response.json() as PracticeResponse & { error?: string };

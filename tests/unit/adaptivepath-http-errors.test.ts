@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { biologyErrorResponse, LiveTutorError } from "@/server/adaptivepath/http-errors";
 import { BiologyLearnerNotFoundError } from "@/server/adaptivepath/learner";
@@ -8,6 +9,14 @@ describe("biology API error mapping", () => {
     expect(biologyErrorResponse(new BiologyLearnerNotFoundError("guest"))).toEqual({
       status: 503, body: { error: 'Local user "guest" not found in this database. Run: npm run db:guest:reset' },
     });
+  });
+
+  it("maps missing Biology tables (unmigrated database) to 503 with the migrate command", () => {
+    const missing = new Prisma.PrismaClientKnownRequestError("The table `main.BiologyMasteryJudgment` does not exist", { code: "P2021", clientVersion: "test" });
+    expect(biologyErrorResponse(missing, { PATTERNCOACH_LOCAL_USER_HANDLE: "guest" })).toEqual({
+      status: 503, body: { error: "This database has not been migrated for Biology memory. Run: npm run db:migrate:guest" },
+    });
+    expect(biologyErrorResponse(missing, { PATTERNCOACH_LOCAL_USER_HANDLE: "try" }).body.error).toContain("npm run db:migrate:try");
   });
 
   it("maps validation and activity errors to 400", () => {

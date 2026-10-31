@@ -98,10 +98,13 @@ export async function recordAttempt(
 ): Promise<{ l1EventId: string; rows: readonly LedgerRow[]; profileVersion: number; duplicate: boolean }> {
   const { scope, attempt, ctx } = input;
   return db.$transaction(async (tx) => {
-    const existing = (await loadAttempts(tx, scope)).find((a) => a.attemptId === attempt.attemptId);
+    const prior = await loadAttempts(tx, scope);
+    const existing = prior.find((a) => a.attemptId === attempt.attemptId);
     if (existing) {
       return { l1EventId: existing.l1EventId, rows: [], profileVersion: (await latestProfile(tx, scope))?.version ?? 0, duplicate: true };
     }
+    // A question is answered once; a concurrent second submit must not count twice.
+    if (prior.some((a) => a.questionId === attempt.questionId)) throw new Error("This is not the current activity");
     const l1EventId = await writeL1(tx, scope, attempt);
     const applied = applyAttempt(await loadStates(tx, scope), { ...attemptFields(attempt), l1EventId }, ctx);
     await writeRows(tx, scope, { rows: applied.rows, occurredAt: new Date(attempt.submittedAt) });

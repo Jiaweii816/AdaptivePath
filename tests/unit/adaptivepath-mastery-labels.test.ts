@@ -14,14 +14,14 @@ describe("mastery labels", () => {
 
   it("describes a ledger change with concept, level, stability, effect and condition", () => {
     expect(describeLedgerChange(row({}))).toBe(
-      "Test crosses and sampling uncertainty: With tutor → With tutor, S 40 → 70 (support · tutor used)",
+      "Test crosses and sampling uncertainty: With tutor → With tutor, S 40 → 70 (support · correct · tutor used)",
     );
   });
 
   it("describes a first judgment and an ineligible row", () => {
     expect(describeLedgerChange(row({ effect: "first", levelBefore: null, stabilityBefore: null, levelAfter: 2, stabilityAfter: 40, condition: 2 })))
-      .toBe("Test crosses and sampling uncertainty: — → With reference, S — → 40 (first · reference used)");
-    expect(describeLedgerChange(row({ effect: "ineligible", reason: "invalid_option", levelBefore: null, levelAfter: null, stabilityBefore: null, stabilityAfter: null, condition: 3 })))
-      .toBe("Test crosses and sampling uncertainty: — → —, S — → — (ineligible: invalid_option · no help)");
+      .toBe("Test crosses and sampling uncertainty: — → With reference, S — → 40 (first · correct · reference used)");
+    expect(describeLedgerChange(row({ effect: "ineligible", reason: "invalid_option", result: "F", levelBefore: null, levelAfter: null, stabilityBefore: null, stabilityAfter: null, condition: 3 })))
+      .toBe("Test crosses and sampling uncertainty: — → —, S — → — (ineligible: invalid_option · incorrect · no help)");
   });
 });

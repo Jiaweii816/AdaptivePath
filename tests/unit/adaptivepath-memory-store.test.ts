@@ -79,6 +79,14 @@ describe("biology memory store", () => {
     expect(await counts()).toEqual({ l1: 1, rows: 1, judgments: 1, profiles: 1 });
   });
 
+  it("rejects a second attempt on the same question inside the transaction", async () => {
+    const first = attempt();
+    await recordAttempt(db.prisma, { scope, attempt: first, ctx });
+    await expect(recordAttempt(db.prisma, { scope, attempt: { ...attempt(), questionId: first.questionId }, ctx }))
+      .rejects.toThrow("This is not the current activity");
+    expect(await counts()).toEqual({ l1: 1, rows: 1, judgments: 1, profiles: 1 });
+  });
+
   it("integrated failure writes only L1", async () => {
     await recordAttempt(db.prisma, { scope, attempt: attempt({ questionType: "integrated", conceptIds: [C03, C04, "b2e-12-2-concept-05"], correct: false }), ctx });
     const after = await counts();

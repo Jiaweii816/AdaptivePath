@@ -70,7 +70,7 @@ describe("biology session", () => {
   });
 
   it("condition comes from server-recorded access, not the client", async () => {
-    await tutorTurn(deps, "Where do I start?");
+    await tutorTurn(deps, { questionId: await currentQuestionId(), message: "Where do I start?" });
     await recordReference(deps, await currentQuestionId());
     await answerCurrent();
     await recordReference(deps, await currentQuestionId());
@@ -84,6 +84,12 @@ describe("biology session", () => {
       questionId: "b2e-12-2-q-c05-hard-01", selectedOption: "A", explanation: EXPLANATION, attemptId: randomUUID(),
     })).rejects.toThrow("This is not the current activity");
     expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_attempt" } })).toBe(0);
+  });
+
+  it("rejects a tutor message about a stale question without recording help", async () => {
+    await expect(tutorTurn(deps, { questionId: "b2e-12-2-q-c05-hard-01", message: "help" })).rejects.toThrow("This is not the current activity");
+    expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_guided_assistance" } })).toBe(0);
+    expect(await db.prisma.chatMessage.count()).toBe(0);
   });
 
   it("rejects short explanations and unknown options", async () => {
@@ -105,8 +111,8 @@ describe("biology session", () => {
   });
 
   it("climbs the hint ladder per question and finalizes the trace run", async () => {
-    const first = await tutorTurn(deps, "help");
-    const second = await tutorTurn(deps, "more help");
+    const first = await tutorTurn(deps, { questionId: await currentQuestionId(), message: "help" });
+    const second = await tutorTurn(deps, { questionId: await currentQuestionId(), message: "more help" });
     expect(first).toMatchObject({ tool: "worked_example", provider: "offline_rules" });
     expect(second.activity.messages).toHaveLength(4);
     expect(second.activity.tutorUsed).toBe(true);
@@ -119,7 +125,7 @@ describe("biology session", () => {
     await answerCurrent(false);
     const profile = await loadProfileData(deps);
     expect(profile.concepts).toHaveLength(10);
-    expect(profile.rows.map((r) => r.effect)).toEqual(["first"]);
+    expect(profile.rows.map((r) => [r.effect, r.result, r.questionId])).toEqual([["first", "F", "b2e-12-2-q-c01-easy-01"]]);
     expect(profile.latestProfile?.card.gaps).toEqual(["b2e-12-2-concept-01"]);
   });
 });

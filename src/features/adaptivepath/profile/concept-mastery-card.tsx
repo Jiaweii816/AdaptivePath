@@ -27,6 +27,7 @@ export function ConceptMasteryCard({ concept, state, rows }: Props) {
     {open && <ol className="mt-2 space-y-1 border-t border-border pt-2 text-xs">
       {rows.map((r) => <li data-testid="ledger-row" key={r.l1EventId} className="flex flex-wrap gap-x-2">
         <span className="font-mono text-muted-foreground">{new Date(r.occurredAt).toLocaleString()}</span>
+        <span className="font-mono text-muted-foreground">{r.questionId}</span>
         <span>{describeLedgerChange(r)}</span>
         <span className="font-mono text-muted-foreground">{r.ruleVersion}</span>
       </li>)}
