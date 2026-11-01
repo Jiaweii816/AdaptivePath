@@ -98,6 +98,17 @@ describe("diagnoser", () => {
   it("diagnoser rejects probeStep quoting a past miss", async () => {
     await expect(run(diagnosis({ probeStep: "Earlier: one round offspring proves RR — why?" }))).rejects.toMatchObject({ code: "diagnosis_invalid" });
   });
+  it("diagnoser rejects probeStep asserting a wrong option's value too", async () => {
+    await expect(run(diagnosis({ probeStep: "Explain why the probability is 1/2." }))).rejects.toMatchObject({ code: "diagnosis_invalid" });
+  });
+  it("diagnoser rejection message does not mention the answer", async () => {
+    await expect(run(diagnosis({ probeStep: "Show that it equals 1/8." }))).rejects.toThrow(expect.objectContaining({ message: expect.not.stringMatching(/answer/i) }));
+  });
+  it("diagnoser may point at the student's current sentence even when it repeats a past miss", async () => {
+    const repeat: Draft = { selectedOption: "A", reasoning: `I think ${PAST.reasoningExcerpt}.` };
+    const result = await run(diagnosis({ studentSpan: PAST.reasoningExcerpt, probeStep: `Why would "${PAST.reasoningExcerpt}" hold?` }), repeat);
+    expect(result.forCoach.studentSpan).toBe(PAST.reasoningExcerpt);
+  });
   it("optionCorrect is computed by server, null without option", async () => {
     expect((await run(diagnosis(), { selectedOption: "C", reasoning: draft.reasoning })).internal.optionCorrect).toBe(true);
     expect((await run(diagnosis(), { selectedOption: null, reasoning: draft.reasoning })).internal.optionCorrect).toBeNull();

@@ -123,6 +123,27 @@ describe("biology coach turn", () => {
     expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_guided_assistance" } })).toBe(0);
   });
 
+  it("blocked replies use a neutral message that never mentions the answer", async () => {
+    script.coach = [JSON.stringify({ reply: "That's correct, well done.", citedChunkIds: [], quotedSpans: [] })];
+    const error = await chat("am I right?").then(() => null, (e: unknown) => e as Error);
+    expect(error).toMatchObject({ code: "answer_leak" });
+    expect(error?.message).not.toMatch(/answer/i);
+  });
+
+  it("a misconception the student repeats in the current draft can be discussed", async () => {
+    await submitWrong();
+    script.coach = [JSON.stringify({ reply: `Look again at: ${PAST_REASONING}. What would a recessive offspring show?`, citedChunkIds: [], quotedSpans: [] })];
+    const result = await chat("check", { selectedOption: "A", reasoning: PAST_REASONING });
+    expect(result.reply).toContain(PAST_REASONING);
+  });
+
+  it("biology coach turns keep full trace detail for audit", async () => {
+    await submitWrong();
+    await chat("check");
+    const recall = await db.prisma.agentTraceEvent.findFirstOrThrow({ where: { stage: "biology_l2_recall" }, include: { payload: true } });
+    expect(recall.payload?.detailMetadataJson).toContain("pastMissEventIds");
+  });
+
   it("answer leak fails only in current phase", async () => {
     const question = await currentQuestion();
     script.coach = [JSON.stringify({ reply: `The answer is ${question.correctAnswer}.`, citedChunkIds: [], quotedSpans: [] })];
@@ -152,6 +173,14 @@ describe("biology coach review", () => {
     expect(result.review?.messages).toHaveLength(2);
     expect(result.activity.tutorUsed).toBe(false);
     expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_guided_assistance" } })).toBe(0);
+  });
+
+  it("review may paraphrase the reviewed attempt's reasoning", async () => {
+    const attemptId = await submitWrong();
+    script.classifier = [turnJson("review_attempt")];
+    script.coach = [JSON.stringify({ reply: `You argued that ${PAST_REASONING.toLowerCase()}; compare that with the explanation.`, citedChunkIds: [], quotedSpans: [] })];
+    const result = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?" });
+    expect(result.reply).toContain("You argued");
   });
 
   it("review of unknown attempt is 404", async () => {

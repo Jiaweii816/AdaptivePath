@@ -12,17 +12,18 @@ function providerLabel(view: PracticeResponse | null, coach: Coach): string {
   return provider === "live_llm" ? "Live model" : "Offline rules";
 }
 
-function Citations({ coach, onCite }: { coach: Coach; onCite: (chunkId: string) => void }) {
+function Citations({ coach, onCite, countsAsReference }: { coach: Coach; onCite: (chunkId: string) => void; countsAsReference: boolean }) {
   const ids = coach.turn?.citedChunkIds ?? [];
   if (ids.length === 0) return null;
-  return <div data-testid="coach-citations" className="flex flex-wrap gap-2">
+  return <div data-testid="coach-citations" className="flex flex-wrap items-center gap-2">
+    {countsAsReference && <span className="text-xs text-slate-500">Opening a passage counts as reference use:</span>}
     {ids.map((id) => <button key={id} type="button" onClick={() => onCite(id)}
       className="rounded-full border border-amber-400 bg-amber-50 px-2 py-0.5 text-xs text-amber-900 hover:bg-amber-100">Textbook · {id.replace("b2e-12-2-", "")}</button>)}
   </div>;
 }
 
 export function PracticeTutorPanel(props: {
-  view: PracticeResponse | null; coach: Coach; pending: boolean; onSend: () => void; onCite: (chunkId: string) => void;
+  view: PracticeResponse | null; coach: Coach; pending: boolean; onSend: () => void; onCite: (chunkId: string) => void; citationCountsAsReference: boolean;
 }) {
   const { view, coach, pending } = props;
   const messages = coach.review ? coach.reviewMessages : view?.activity.messages ?? [];
@@ -43,7 +44,7 @@ export function PracticeTutorPanel(props: {
       {messages.map((m, i) => m.role === "student"
         ? <UserBubble key={i}>{m.content}</UserBubble>
         : <AssistantBubble key={i}><CoachMarkdown markdown={m.content} /></AssistantBubble>)}
-      <Citations coach={coach} onCite={props.onCite} />
+      <Citations coach={coach} onCite={props.onCite} countsAsReference={props.citationCountsAsReference} />
     </div>
     <form className="flex gap-2 border-t border-slate-200 p-4" onSubmit={(e) => { e.preventDefault(); props.onSend(); }}>
       <input value={coach.chat} onChange={(e) => coach.setChat(e.target.value)} aria-label="Message to tutor" placeholder="Ask your tutor a question…"

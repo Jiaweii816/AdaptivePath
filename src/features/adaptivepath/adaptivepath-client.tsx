@@ -9,6 +9,7 @@ import { PracticeAnswerPanel } from "./practice/practice-answer-panel";
 import { PracticeQuestionPanel } from "./practice/practice-question-panel";
 import { PracticeTutorPanel } from "./practice/practice-tutor-panel";
 import { useCoachChat, type ReviewTarget } from "./practice/use-coach-chat";
+import { planCitation } from "./practice/citation-plan";
 
 type Feedback = NonNullable<PracticeResponse["feedback"]>;
 
@@ -75,7 +76,9 @@ export function AdaptivePathClient() {
   }
 
   async function cite(chunkId: string) {
-    if (!(await openReference())) return;
+    if (!question || pending) return;
+    const plan = planCitation({ reviewing: Boolean(coach.review), referenceUsed: Boolean(view?.activity.referenceUsed) });
+    if (plan.recordReference && !(await send({ action: "reference", questionId: question.id }))) return;
     setHighlight([chunkId]);
     setReferenceOpen(true);
   }
@@ -102,7 +105,8 @@ export function AdaptivePathClient() {
           middle={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
             onReview={view?.modelReady && lastSubmitted ? () => coach.startReview(lastSubmitted) : null}
             onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()} />}
-          right={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} />}
+          right={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)}
+            citationCountsAsReference={!coach.review && !view?.activity.referenceUsed} />}
         />
       </AppShell>
     </div>

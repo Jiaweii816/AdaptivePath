@@ -188,6 +188,8 @@ export async function tutorTurn(deps: BiologyDeps, input: TurnInput): Promise<Bi
   const trace = createTraceContext({
     prisma: deps.db, userId: scope.userId, path: "memory", task: "biology_coach_turn",
     problemId: scope.problemId, chatSessionId: scope.chatSessionId, memoryOrigin: scope.memoryOrigin,
+    // Spec §5/§10.3: guard hits and recalled ids must survive for audit; summary capture drops arrays. Data stays in the local DB.
+    captureLevel: "full",
   });
   try {
     const response = deps.coach

@@ -37,21 +37,30 @@ function withoutQuotes(reply: string, quotedSpans: readonly string[]): string {
   return quotedSpans.reduce((text, span) => text.split(span).join(" "), reply);
 }
 
-/** Any 20-character window of a stored excerpt that reappears in the reply (case-insensitive). */
-function excerptOverlaps(reply: string, excerpts: readonly string[]): string[] {
+type DisclosureContext = Readonly<{
+  pastExcerpts: readonly string[];
+  quotedSpans: readonly string[];
+  /** Text the student can see this turn (their own reasoning, retrieved textbook passages); overlaps with it are not leaks. */
+  allowedSources?: readonly string[];
+}>;
+
+/** Any 20-character window of a stored excerpt that reappears in the reply (case-insensitive), unless the student can see it anyway. */
+function excerptOverlaps(reply: string, ctx: DisclosureContext): string[] {
   const haystack = reply.toLowerCase();
-  return excerpts.flatMap((excerpt) => {
+  const visible = (ctx.allowedSources ?? []).map((s) => s.toLowerCase());
+  return ctx.pastExcerpts.flatMap((excerpt) => {
     const source = excerpt.toLowerCase();
     for (let start = 0; start + MIN_DISCLOSURE_OVERLAP_CHARS <= source.length; start += 1) {
       const window = source.slice(start, start + MIN_DISCLOSURE_OVERLAP_CHARS);
-      if (window.trim().length === MIN_DISCLOSURE_OVERLAP_CHARS && haystack.includes(window)) return [window];
+      const leaked = window.trim().length === MIN_DISCLOSURE_OVERLAP_CHARS && haystack.includes(window) && !visible.some((v) => v.includes(window));
+      if (leaked) return [window];
     }
     return [];
   });
 }
 
-export function findMemoryDisclosures(reply: string, ctx: Readonly<{ pastExcerpts: readonly string[]; quotedSpans: readonly string[] }>): string[] {
+export function findMemoryDisclosures(reply: string, ctx: DisclosureContext): string[] {
   const text = withoutQuotes(reply, ctx.quotedSpans);
   const matches = DISCLOSURE_PATTERNS.flatMap((pattern) => [...text.matchAll(pattern)].map((m) => m[0]));
-  return [...matches, ...excerptOverlaps(text, ctx.pastExcerpts)];
+  return [...matches, ...excerptOverlaps(text, ctx)];
 }

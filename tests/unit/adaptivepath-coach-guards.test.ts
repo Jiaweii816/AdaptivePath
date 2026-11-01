@@ -51,9 +51,28 @@ describe("answer leak guard", () => {
   it.each(["你选了 D，说说为什么？", "each offspring is 1/2", "Think about 0.5 per offspring", "DNA 正确复制", "What does option D assume?", "你选 C 的理由是什么？"])("allows %s", (reply) => {
     expect(leaks(reply)).toEqual([]);
   });
-  it("short correct text matches only as a whole token", () => {
-    expect(leaks("Think about 0.5 per offspring", [], "B")).toEqual([]);
-    expect(leaks("Expect 0 recessive offspring", [], "B").length).toBeGreaterThan(0);
+  it("asserting any option's value is flagged the same way, so a block never singles out the answer", () => {
+    for (const option of OPTIONS) {
+      expect(leaks(`So the probability is ${option.text}.`).length, option.id).toBeGreaterThan(0);
+      expect(leaks(`答案是 ${option.text}`).length, option.id).toBeGreaterThan(0);
+    }
+  });
+  it.each([
+    ["Cross it with an aa tester and look at the offspring.", [{ id: "A", text: "aa" }, { id: "B", text: "Aa" }]],
+    ["One way to start is a Punnett square.", [{ id: "A", text: "One" }, { id: "B", text: "Two" }]],
+    ["Each offspring has a 1/2 chance of showing the dominant trait.", OPTIONS],
+    ["Expect 0 recessive offspring if the parent is homozygous.", OPTIONS],
+  ] as const)("allows ordinary teaching that mentions an option value: %s", (reply, options) => {
+    expect(findAnswerLeaks(reply, { correctOption: options[0].id, options, quotedSpans: [] })).toEqual([]);
+  });
+  it("normalizes case and trailing punctuation of option text", () => {
+    const options = [{ id: "A", text: "Incomplete dominance." }, { id: "B", text: "Codominance." }];
+    expect(findAnswerLeaks("The answer is incomplete dominance, because…", { correctOption: "A", options, quotedSpans: [] }).length).toBeGreaterThan(0);
+    const long = [{ id: "A", text: "The unknown parent must be homozygous dominant." }, { id: "B", text: "x y z w" }];
+    expect(findAnswerLeaks("so the unknown parent must be homozygous dominant here", { correctOption: "B", options: long, quotedSpans: [] }).length).toBeGreaterThan(0);
+  });
+  it.each(["你的推理是对的，很好！", "That's correct — nice work.", "Exactly right.", "没错，就是这样。", "你选得对。", "Your answer is right.", "You're wrong about this.", "你的思路不对。"])("flags a verdict on the student's work without a letter: %s", (reply) => {
+    expect(leaks(reply).length).toBeGreaterThan(0);
   });
   it("allows the correct text inside a quoted student span", () => {
     expect(leaks("你写了“I got 1/8 overall”，哪一步最关键？", ["I got 1/8 overall"])).toEqual([]);
@@ -74,6 +93,10 @@ describe("memory disclosure guard", () => {
   });
   it("overlap from the current draft quote is exempt", () => {
     expect(disclosures(`You wrote “${PAST}”. Why multiply?`, [PAST])).toEqual([]);
+  });
+  it("text the student can see right now (their draft, retrieved textbook passages) is not a stored-record leak", () => {
+    expect(findMemoryDisclosures(`So: ${PAST}`, { pastExcerpts: [PAST], quotedSpans: [], allowedSources: [`I still think ${PAST}`] })).toEqual([]);
+    expect(findMemoryDisclosures(`So: ${PAST}`, { pastExcerpts: [PAST], quotedSpans: [], allowedSources: ["unrelated"] }).length).toBeGreaterThan(0);
   });
   it("empty past excerpts never match", () => {
     expect(disclosures("Any reply at all, long enough to overlap something.", [], ["", " "])).toEqual([]);

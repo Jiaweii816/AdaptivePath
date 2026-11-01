@@ -12,6 +12,8 @@ import { isCorrectOption, type BankQuestion } from "@/features/adaptivepath/ques
 import { callLlmNode, NODE_TIMEOUT_MS, parseJsonOutput, type LlmNodeDeps } from "./llm-node";
 
 const TASK = "adaptivepath.biology.diagnoser";
+/** Same text for every rejection so the error itself carries no hint; details go to the trace. */
+const BLOCKED_PROBE = "The coach's diagnosis was blocked by a safety check. Please ask again.";
 const diagnosisSchema = z.object({
   issueKind: z.enum(["wrong_step", "missing_step", "unsupported_claim", "guess_risk", "none"]),
   recurringMisconception: z.boolean(),
@@ -43,10 +45,10 @@ function invalid(message: string, details?: unknown): BiologyCoachError {
 function validate(output: z.infer<typeof diagnosisSchema>, input: DiagnoserInput): void {
   if (output.studentSpan !== null && !input.draft.reasoning.includes(output.studentSpan)) throw invalid("studentSpan is not in the student's reasoning", { studentSpan: output.studentSpan });
   const leaks = findAnswerLeaks(output.probeStep, { correctOption: input.question.correctAnswer, options: input.question.options, quotedSpans: [] });
-  if (leaks.length) throw invalid("probeStep reveals the answer", { leaks });
+  if (leaks.length) throw invalid(BLOCKED_PROBE, { leaks });
   const excerpts = input.pastMisses.map((m) => m.reasoningExcerpt).filter((e) => e.trim().length >= MIN_DISCLOSURE_OVERLAP_CHARS);
-  const quoted = findMemoryDisclosures(output.probeStep, { pastExcerpts: excerpts, quotedSpans: [] });
-  if (quoted.length) throw invalid("probeStep reveals the learner's memory", { quoted });
+  const quoted = findMemoryDisclosures(output.probeStep, { pastExcerpts: excerpts, quotedSpans: [], allowedSources: [input.draft.reasoning] });
+  if (quoted.length) throw invalid(BLOCKED_PROBE, { quoted });
 }
 
 export async function diagnoseReasoning(deps: LlmNodeDeps, input: DiagnoserInput): Promise<Diagnosis> {

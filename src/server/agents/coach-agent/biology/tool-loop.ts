@@ -93,7 +93,8 @@ async function runRequired(state: LoopState, input: LoopInput) {
   pushCalls(state, calls, observations);
 }
 
-async function runModelCalls(state: LoopState, input: LoopInput, calls: readonly LlmToolCall[], allowed: readonly ToolName[]) {
+async function runModelCalls(state: LoopState, input: LoopInput, round: Readonly<{ calls: readonly LlmToolCall[]; allowed: readonly ToolName[] }>) {
+  const { calls, allowed } = round;
   const observations: Observation[] = [];
   for (const call of calls) {
     const observation = await execute(state, input.toolCtx, { name: call.name, args: call.arguments, origin: "model", allowed });
@@ -112,7 +113,7 @@ export async function runBiologyToolLoop(deps: LlmNodeDeps, input: LoopInput): P
   for (let round = 0; round < MAX_OPTIONAL_TOOL_ROUNDS && optional.length > 0; round += 1) {
     const result = await callLlmNode(deps, { node: "coach", task: TASK, json: true, timeoutMs: NODE_TIMEOUT_MS, messages: state.messages, tools: toOpenAiTools(optional) });
     if (result.toolCalls.length === 0) return done(parseJsonOutput(result.content, z.unknown(), "coach"), null);
-    await runModelCalls(state, input, result.toolCalls, optional);
+    await runModelCalls(state, input, { calls: result.toolCalls, allowed: optional });
   }
   const final = await callLlmNode(deps, { node: "coach", task: TASK, json: true, timeoutMs: NODE_TIMEOUT_MS, messages: [...state.messages, { role: "system", content: FINALIZE_NOTE }] });
   return done(parseJsonOutput(final.content, z.unknown(), "coach"), optional.length > 0 ? "tool_budget" : null);

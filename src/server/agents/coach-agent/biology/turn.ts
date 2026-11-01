@@ -13,6 +13,7 @@ import { findMemoryDisclosures, isMemoryDisclosureGuardEnabled } from "@/feature
 import type { MemorySignals } from "@/features/adaptivepath/coach/memory-signals";
 import { validateCoachReply, type CoachReply } from "@/features/adaptivepath/coach/reply-contract";
 import { planTeachingTurn, type TeachingPlan } from "@/features/adaptivepath/coach/teaching-policy";
+import { getPassages } from "@/features/adaptivepath/coach/textbook";
 import type { TutorEvidence } from "@/features/adaptivepath/memory/tutor-context";
 import type { BankQuestion } from "@/features/adaptivepath/question-bank";
 import { appendTutorExchange, loadCoachThread, recordAccess, type AssistantMeta, type CoachThread } from "@/server/adaptivepath/activity-store";
@@ -41,6 +42,8 @@ export type CoachTurnOutcome = Readonly<{
 type TurnState = Readonly<{ deps: CoachTurnDeps; request: CoachTurnRequest; llmDeps: LlmNodeDeps; thread: CoachThread }>;
 
 const HINT_INTENTS: ReadonlySet<string> = new Set(["question_hint", "request_answer"]);
+/** One message for both guards: which guard fired, and on what, is only in the trace. */
+const BLOCKED_REPLY = "The coach's reply was blocked by a safety check. Please ask again.";
 
 async function traceEvent(trace: TraceContext, event: Readonly<{ stage: string; kind: TraceKind; metadata: Record<string, unknown>; failed?: boolean }>) {
   await appendTraceEventBestEffort(trace, {
@@ -97,20 +100,28 @@ function quotableReasoning(target: CoachTarget, draft: Draft | null): string {
   return target.phase === "submitted_attempt" ? target.attempt?.explanation ?? "" : draft?.reasoning ?? "";
 }
 
-async function runGuards(state: TurnState, reply: CoachReply) {
+/** Stored excerpts other than the attempt under review; the student is looking at that one. */
+function pastExcerpts(request: CoachTurnRequest): string[] {
+  const reviewed = request.target.attempt?.l1EventId;
+  return request.signals.pastMisses.filter((m) => m.l1EventId !== reviewed).map((m) => m.reasoningExcerpt);
+}
+
+async function runGuards(state: TurnState, input: Readonly<{ reply: CoachReply; loop: LoopResult }>) {
   const { request, deps } = state;
+  const { reply } = input;
   const { question, phase } = request.target;
   const answerLeaks = phase === "current_question"
     ? findAnswerLeaks(reply.reply, { correctOption: question.correctAnswer, options: question.options, quotedSpans: reply.quotedSpans })
     : [];
   const disclosureGuardEnabled = isMemoryDisclosureGuardEnabled(deps.env ?? process.env);
+  const allowedSources = [quotableReasoning(request.target, request.draft), ...getPassages([...input.loop.retrievedChunkIds]).map((p) => p.text)];
   const memoryDisclosures = disclosureGuardEnabled
-    ? findMemoryDisclosures(reply.reply, { pastExcerpts: request.signals.pastMisses.map((m) => m.reasoningExcerpt), quotedSpans: reply.quotedSpans })
+    ? findMemoryDisclosures(reply.reply, { pastExcerpts: pastExcerpts(request), quotedSpans: reply.quotedSpans, allowedSources })
     : [];
   const failed = answerLeaks.length > 0 || memoryDisclosures.length > 0;
   await traceEvent(deps.trace, { stage: "biology_guard", kind: "guard", failed, metadata: { phase, answerLeaks, memoryDisclosures, disclosureGuardEnabled } });
-  if (answerLeaks.length) throw new BiologyCoachError("answer_leak", "guard", "The coach reply contained answer information and was blocked. Please ask again.", { details: { answerLeaks } });
-  if (memoryDisclosures.length) throw new BiologyCoachError("memory_disclosure", "guard", "The coach reply revealed stored learner records and was blocked. Please ask again.", { details: { memoryDisclosures } });
+  if (answerLeaks.length) throw new BiologyCoachError("answer_leak", "guard", BLOCKED_REPLY, { details: { answerLeaks } });
+  if (memoryDisclosures.length) throw new BiologyCoachError("memory_disclosure", "guard", BLOCKED_REPLY, { details: { memoryDisclosures } });
 }
 
 async function persist(state: TurnState, outcome: Readonly<{ turn: ClassifiedTurn; plan: TeachingPlan; loop: LoopResult; reply: CoachReply; diagnosis: DiagnosisCache | null }>) {
@@ -143,7 +154,7 @@ export async function runBiologyCoachTurn(deps: CoachTurnDeps, request: CoachTur
     toolCtx: { phase: request.target.phase, question: request.target.question, draft: request.draft, attempt: request.target.attempt, signals: request.signals, memory: request.memory, diagnose: diagnosis.run, trace: deps.trace },
   });
   const reply = validateCoachReply(loop.raw, { retrievedChunkIds: loop.retrievedChunkIds, reasoning: quotableReasoning(request.target, request.draft), requireCitation: plan.requireCitation });
-  await runGuards(state, reply);
+  await runGuards(state, { reply, loop });
   await persist(state, { turn, plan, loop, reply, diagnosis: diagnosis.used() });
   return {
     reply: reply.reply, intents: turn.intents.map((i) => i.kind), policyId: plan.policyId, tools: loop.tools,
