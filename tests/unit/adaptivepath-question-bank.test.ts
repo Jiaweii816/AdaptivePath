@@ -62,8 +62,16 @@ describe("biology question bank", () => {
       expect(keys).not.toContain("correctAnswer");
       expect(keys).not.toContain("explanation");
       expect(keys).not.toContain("option_explanations");
+      expect(keys).not.toContain("optionExplanations");
     }
     expect(toClientQuestion(listQuestions()[0]).assumptions.length).toBeGreaterThan(0);
+  });
+
+  it("every question has four option explanations", () => {
+    for (const question of listQuestions()) {
+      expect(Object.keys(question.optionExplanations).sort(), question.id).toEqual(question.options.map((o) => o.id).sort());
+      expect(Object.values(question.optionExplanations).every((text) => text.trim().length > 0)).toBe(true);
+    }
   });
 
   it("grades a valid option and rejects unknown options", () => {

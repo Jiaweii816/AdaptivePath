@@ -22,11 +22,12 @@ export type BankQuestion = Readonly<{
   options: readonly Readonly<{ id: string; text: string }>[];
   correctAnswer: string;
   explanation: string;
+  optionExplanations: Readonly<Record<string, string>>;
   chunkIds: readonly string[];
   assumptions: readonly string[];
 }>;
 
-export type ClientQuestion = Omit<BankQuestion, "correctAnswer" | "explanation">;
+export type ClientQuestion = Omit<BankQuestion, "correctAnswer" | "explanation" | "optionExplanations">;
 
 type RawQuestion = (typeof foundation)[number] | (typeof integrated)[number];
 
@@ -42,6 +43,7 @@ function toBankQuestion(raw: RawQuestion): BankQuestion {
     options: Object.freeze(raw.options.map((o) => Object.freeze({ id: o.id, text: o.text }))),
     correctAnswer: raw.correct_answer,
     explanation: raw.explanation,
+    optionExplanations: Object.freeze({ ...raw.option_explanations }),
     chunkIds: Object.freeze([...raw.chunk_ids]),
     assumptions: Object.freeze([...raw.assumptions]),
   });
