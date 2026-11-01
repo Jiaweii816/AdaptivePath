@@ -7,6 +7,8 @@ import { ConceptMasteryCard } from "./concept-mastery-card";
 import { ProfileSummaryCard } from "./profile-summary-card";
 import type { ProfileData } from "./profile-types";
 
+const LOCAL_STORAGE_NOTICE = "学习记录只存于本地数据库（Stored only in the local database）";
+
 async function loadProfile(): Promise<ProfileData> {
   const response = await fetch("/api/adaptivepath/profile", { cache: "no-store" });
   const body = await response.json() as ProfileData & { error?: string };
@@ -27,6 +29,7 @@ export function AdaptiveLearnerProfilePage() {
     <div className="mx-auto max-w-6xl space-y-5">
       <Link href="/adaptivepath" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"><ArrowLeft size={16} />Back to practice</Link>
       <PageHeader title="Learner Profile" description="L2 mastery per sub-topic (level, stability, evidence ledger) and the derived L3 section profile." />
+      <p data-testid="local-storage-notice" className="rounded-md border border-border bg-muted px-3 py-2 text-sm text-muted-foreground">{LOCAL_STORAGE_NOTICE}</p>
       {error && <p role="alert" className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
       {!data && !error && <p className="text-sm text-muted-foreground">Loading…</p>}
       {data && <>

@@ -36,6 +36,26 @@ test("practice flow records conditions and updates the profile", async ({ page }
   await page.screenshot({ path: "test-results/adaptivepath-profile.png", fullPage: true });
 });
 
+test("submits with an option and empty reasoning", async ({ page }) => {
+  await page.goto("/adaptivepath");
+  await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
+  await page.getByRole("radio").first().check();
+  await expect(page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)")).toHaveValue("");
+  await page.getByRole("button", { name: "Submit Answer" }).click();
+  await expect(page.getByTestId("submit-feedback")).toBeVisible();
+});
+
+test("tutor panel no longer mentions mastery level", async ({ page }) => {
+  await page.goto("/adaptivepath");
+  await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
+  await expect(page.getByText(/mastery level/i)).toHaveCount(0);
+});
+
+test("profile shows the local-database notice", async ({ page }) => {
+  await page.goto("/adaptivepath/profile");
+  await expect(page.getByText("学习记录只存于本地数据库（Stored only in the local database）")).toBeVisible();
+});
+
 test("textbook browser filters by concept and page", async ({ page }) => {
   await page.goto("/adaptivepath/textbook");
   await expect(page.getByRole("heading", { name: "Biology 2e · Section 12.2" })).toBeVisible();

@@ -8,6 +8,7 @@ import { getPractice, postPractice, type PracticeAction, type PracticeResponse }
 import { PracticeAnswerPanel } from "./practice/practice-answer-panel";
 import { PracticeQuestionPanel } from "./practice/practice-question-panel";
 import { PracticeTutorPanel } from "./practice/practice-tutor-panel";
+import { useCoachChat, type ReviewTarget } from "./practice/use-coach-chat";
 
 type Feedback = NonNullable<PracticeResponse["feedback"]>;
 
@@ -15,10 +16,10 @@ export function AdaptivePathClient() {
   const [view, setView] = useState<PracticeResponse | null>(null);
   const [option, setOption] = useState("");
   const [explanation, setExplanation] = useState("");
-  const [chat, setChat] = useState("");
   const [referenceOpen, setReferenceOpen] = useState(false);
+  const [highlight, setHighlight] = useState<readonly string[] | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
-  const [lastTurn, setLastTurn] = useState<{ provider: string; tool: string } | null>(null);
+  const [lastSubmitted, setLastSubmitted] = useState<ReviewTarget | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
 
@@ -44,30 +45,42 @@ export function AdaptivePathClient() {
   }, []);
 
   const question = view?.question;
+  const coach = useCoachChat(send);
 
   async function submit() {
     if (!question || pending) return;
-    const result = await send({ action: "submit", questionId: question.id, selectedOption: option, explanation, attemptId: crypto.randomUUID() });
+    const attemptId = crypto.randomUUID();
+    const result = await send({ action: "submit", questionId: question.id, selectedOption: option, explanation, attemptId });
     if (!result) return;
     setFeedback(result.feedback ?? null);
-    setOption(""); setExplanation(""); setReferenceOpen(false); setLastTurn(null);
+    setLastSubmitted({ attemptId, objective: question.objective });
+    setOption(""); setExplanation(""); setReferenceOpen(false); setHighlight(null);
+    coach.backToCurrent();
   }
 
   async function ask() {
-    if (!question || !chat.trim() || pending) return;
-    const draft = { selectedOption: (option || null) as "A" | "B" | "C" | "D" | null, reasoning: explanation };
-    const result = await send({ action: "chat", focus: { kind: "current_question", questionId: question.id }, message: chat.trim(), draft });
-    if (!result) return;
-    if (result.provider && result.policyId) setLastTurn({ provider: result.provider, tool: result.policyId });
-    setChat("");
+    if (pending) return;
+    await coach.ask(question?.id, { selectedOption: (option || null) as "A" | "B" | "C" | "D" | null, reasoning: explanation });
+  }
+
+  async function openReference() {
+    if (!question || pending) return false;
+    if (view?.activity.referenceUsed) return true;
+    return Boolean(await send({ action: "reference", questionId: question.id }));
   }
 
   async function toggleReference() {
-    if (!question || pending) return;
-    if (referenceOpen) { setReferenceOpen(false); return; }
-    if (view?.activity.referenceUsed) { setReferenceOpen(true); return; }
-    if (await send({ action: "reference", questionId: question.id })) setReferenceOpen(true);
+    if (referenceOpen) { setReferenceOpen(false); setHighlight(null); return; }
+    if (await openReference()) setReferenceOpen(true);
   }
+
+  async function cite(chunkId: string) {
+    if (!(await openReference())) return;
+    setHighlight([chunkId]);
+    setReferenceOpen(true);
+  }
+
+  const quotedSpans = coach.review ? [] : coach.turn?.quotedSpans ?? [];
 
   return (
     <div className="pl-14">
@@ -85,10 +98,11 @@ export function AdaptivePathClient() {
       >
         {error && <p role="alert" className="mx-4 mt-3 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
         <BiologyWorkbenchGrid
-          left={<PracticeQuestionPanel view={view} referenceOpen={referenceOpen} pending={pending} onToggleReference={() => void toggleReference()} />}
-          middle={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback}
+          left={<PracticeQuestionPanel view={view} referenceOpen={referenceOpen} highlightChunkIds={highlight} pending={pending} onToggleReference={() => void toggleReference()} />}
+          middle={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
+            onReview={view?.modelReady && lastSubmitted ? () => coach.startReview(lastSubmitted) : null}
             onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()} />}
-          right={<PracticeTutorPanel view={view} lastTurn={lastTurn} chat={chat} pending={pending} onChat={setChat} onSend={() => void ask()} />}
+          right={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} />}
         />
       </AppShell>
     </div>
