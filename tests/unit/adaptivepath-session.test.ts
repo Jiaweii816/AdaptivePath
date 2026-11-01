@@ -30,6 +30,10 @@ async function answerCurrent(correct = true) {
   return submitAnswer(deps, { questionId, selectedOption: option, explanation: EXPLANATION, attemptId: randomUUID() });
 }
 
+async function chat(message: string, questionId?: string) {
+  return tutorTurn(deps, { focus: { kind: "current_question", questionId: questionId ?? await currentQuestionId() }, message });
+}
+
 async function attemptConditions() {
   const events = await db.prisma.l1MemoryEvent.findMany({ where: { eventType: "biology_attempt" }, orderBy: { occurredAt: "asc" } });
   return events.map((e) => (JSON.parse(e.eventJson) as { condition: number }).condition);
@@ -37,7 +41,7 @@ async function attemptConditions() {
 
 beforeEach(async () => {
   db = await createMemoryTestDb();
-  deps = { db: db.prisma, live: null, env };
+  deps = { db: db.prisma, coach: null, env };
 });
 afterEach(async () => db.cleanup());
 
@@ -70,7 +74,7 @@ describe("biology session", () => {
   });
 
   it("condition comes from server-recorded access, not the client", async () => {
-    await tutorTurn(deps, { questionId: await currentQuestionId(), message: "Where do I start?" });
+    await chat("Where do I start?");
     await recordReference(deps, await currentQuestionId());
     await answerCurrent();
     await recordReference(deps, await currentQuestionId());
@@ -86,18 +90,39 @@ describe("biology session", () => {
     expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_attempt" } })).toBe(0);
   });
 
-  it("rejects a tutor message about a stale question without recording help", async () => {
-    await expect(tutorTurn(deps, { questionId: "b2e-12-2-q-c05-hard-01", message: "help" })).rejects.toThrow("This is not the current activity");
+  it("chat on a stale question writes nothing", async () => {
+    await expect(chat("help", "b2e-12-2-q-c05-hard-01")).rejects.toThrow("This is not the current activity");
     expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_guided_assistance" } })).toBe(0);
     expect(await db.prisma.chatMessage.count()).toBe(0);
   });
 
-  it("rejects short explanations and unknown options", async () => {
+  it("submit accepts empty reasoning and rejects unknown options", async () => {
     const questionId = await currentQuestionId();
-    await expect(submitAnswer(deps, { questionId, selectedOption: "A", explanation: "too short", attemptId: randomUUID() }))
-      .rejects.toThrow("Please explain your reasoning (at least 12 characters).");
     await expect(submitAnswer(deps, { questionId, selectedOption: "Z", explanation: EXPLANATION, attemptId: randomUUID() }))
       .rejects.toThrow("Invalid answer option");
+    const result = await submitAnswer(deps, { questionId, selectedOption: getBankQuestion(questionId).correctAnswer, explanation: "", attemptId: randomUUID() });
+    expect(result.feedback.correct).toBe(true);
+    const event = await db.prisma.l1MemoryEvent.findFirstOrThrow({ where: { eventType: "biology_attempt" } });
+    expect(event.content).toBe("");
+  });
+
+  it("legacy messages without phase load as current_question", async () => {
+    const questionId = await currentQuestionId();
+    const scope = await resolveBiologyLearner(db.prisma, env);
+    const meta = (type: string) => JSON.stringify({ domain: "adaptivepath:biology:12.2", type, questionId });
+    await db.prisma.chatMessage.create({ data: { sessionId: scope.chatSessionId, sequence: 1, role: "user", contentMarkdown: "old q", memoryOrigin: "test", metadataJson: meta("biology_tutor_user") } });
+    await db.prisma.chatMessage.create({ data: { sessionId: scope.chatSessionId, sequence: 2, role: "assistant", contentMarkdown: "old a", memoryOrigin: "test", metadataJson: meta("biology_tutor_assistant") } });
+    const view = await loadBiologyView(deps);
+    expect(view.activity.messages).toEqual([{ role: "student", content: "old q" }, { role: "tutor", content: "old a" }]);
+  });
+
+  it("offline review is 400", async () => {
+    const submitted = await answerCurrent();
+    expect(submitted.feedback).toBeDefined();
+    const attempt = await db.prisma.l1MemoryEvent.findFirstOrThrow({ where: { eventType: "biology_attempt" } });
+    const attemptId = (JSON.parse(attempt.eventJson) as { attemptId: string }).attemptId;
+    await expect(tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?" }))
+      .rejects.toMatchObject({ code: "review_requires_live" });
   });
 
   it("submit returns feedback with ledger changes", async () => {
@@ -111,9 +136,9 @@ describe("biology session", () => {
   });
 
   it("climbs the hint ladder per question and finalizes the trace run", async () => {
-    const first = await tutorTurn(deps, { questionId: await currentQuestionId(), message: "help" });
-    const second = await tutorTurn(deps, { questionId: await currentQuestionId(), message: "more help" });
-    expect(first).toMatchObject({ tool: "worked_example", provider: "offline_rules" });
+    const first = await chat("help");
+    const second = await chat("more help");
+    expect(first).toMatchObject({ policyId: "offline_rules:worked_example", provider: "offline_rules", review: null, tools: [] });
     expect(second.activity.messages).toHaveLength(4);
     expect(second.activity.tutorUsed).toBe(true);
     const runs = await db.prisma.agentTraceRun.findMany();

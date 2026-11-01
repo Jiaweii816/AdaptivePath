@@ -3,7 +3,9 @@ import { z } from "zod";
 import prisma from "@/server/db/prisma";
 import { biologyErrorResponse } from "@/server/adaptivepath/http-errors";
 import { loadBiologyView, recordReference, submitAnswer, tutorTurn, type BiologyDeps } from "@/server/adaptivepath/session";
-import { createLiveBiologyTutor, isLiveBiologyTutorEnabled } from "@/server/adaptivepath/tutor-provider";
+import { isLiveBiologyTutorEnabled } from "@/server/agents/coach-agent/biology/llm-node";
+import { createChatClient } from "@/server/llm/client";
+import { getChatModel } from "@/server/llm/models";
 
 export const runtime = "nodejs";
 
@@ -15,11 +17,19 @@ const bodySchema = z.discriminatedUnion("action", [
     explanation: z.string().max(MAX_EXPLANATION_CHARS), attemptId: z.string().uuid(),
   }),
   z.object({ action: z.literal("reference"), questionId: z.string().min(1) }),
-  z.object({ action: z.literal("chat"), questionId: z.string().min(1), message: z.string().trim().min(1).max(MAX_MESSAGE_CHARS) }),
+  z.object({
+    action: z.literal("chat"),
+    focus: z.discriminatedUnion("kind", [
+      z.object({ kind: z.literal("current_question"), questionId: z.string().min(1) }),
+      z.object({ kind: z.literal("submitted_attempt"), attemptId: z.string().min(1) }),
+    ]),
+    message: z.string().trim().min(1).max(MAX_MESSAGE_CHARS),
+    draft: z.object({ selectedOption: z.enum(["A", "B", "C", "D"]).nullable(), reasoning: z.string().max(MAX_EXPLANATION_CHARS) }).optional(),
+  }),
 ]);
 
 function deps(): BiologyDeps {
-  return { db: prisma, live: isLiveBiologyTutorEnabled() ? createLiveBiologyTutor() : null };
+  return { db: prisma, coach: isLiveBiologyTutorEnabled() ? { client: createChatClient(), model: getChatModel() } : null };
 }
 
 function fail(error: unknown) {
@@ -41,7 +51,7 @@ export async function POST(request: Request) {
     const input = bodySchema.parse(await request.json());
     if (input.action === "submit") return NextResponse.json(await submitAnswer(deps(), input));
     if (input.action === "reference") return NextResponse.json(await recordReference(deps(), input.questionId));
-    return NextResponse.json(await tutorTurn(deps(), { questionId: input.questionId, message: input.message }));
+    return NextResponse.json(await tutorTurn(deps(), { focus: input.focus, message: input.message, draft: input.draft }));
   } catch (error) {
     return fail(error);
   }

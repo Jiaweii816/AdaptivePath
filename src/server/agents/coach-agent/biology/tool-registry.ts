@@ -27,7 +27,8 @@ export type ToolContext = Readonly<{
   attempt: TutorEvidence | null;
   signals: MemorySignals;
   memory: LearnerMemory;
-  diagnose: () => Promise<Diagnosis>;
+  /** Fresh or cached; only the coach-safe part of a diagnosis ever reaches a tool result. */
+  diagnose: () => Promise<Diagnosis["forCoach"]>;
   trace: TraceContext;
 }>;
 export type ToolResult = Readonly<{ content: unknown; chunkIds: readonly string[] }>;
@@ -92,7 +93,7 @@ async function learnerStatusTool(args: unknown, ctx: ToolContext): Promise<ToolR
 
 async function diagnoseTool(args: unknown, ctx: ToolContext): Promise<ToolResult> {
   emptyArgs.parse(args);
-  return { content: (await ctx.diagnose()).forCoach, chunkIds: [] };
+  return { content: await ctx.diagnose(), chunkIds: [] };
 }
 
 async function attemptReviewTool(args: unknown, ctx: ToolContext): Promise<ToolResult> {

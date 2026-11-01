@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
-import { biologyErrorResponse, LiveTutorError } from "@/server/adaptivepath/http-errors";
+import { BiologyCoachError } from "@/features/adaptivepath/coach/errors";
+import { biologyErrorResponse } from "@/server/adaptivepath/http-errors";
 import { BiologyLearnerNotFoundError } from "@/server/adaptivepath/learner";
 
 describe("biology API error mapping", () => {
@@ -21,15 +22,17 @@ describe("biology API error mapping", () => {
 
   it("maps validation and activity errors to 400", () => {
     expect(biologyErrorResponse(new z.ZodError([])).status).toBe(400);
-    for (const message of ["This is not the current activity", "Invalid answer option", "Please explain your reasoning (at least 12 characters)."]) {
+    for (const message of ["This is not the current activity", "Invalid answer option"]) {
       expect(biologyErrorResponse(new Error(message))).toEqual({ status: 400, body: { error: message } });
     }
   });
 
-  it("maps live tutor failures to 502", () => {
-    expect(biologyErrorResponse(new LiveTutorError(new Error("provider down")))).toEqual({
-      status: 502, body: { error: "Live tutor failed: provider down" },
+  it("maps coach failures to their status with code and node", () => {
+    expect(biologyErrorResponse(new BiologyCoachError("answer_leak", "guard", "Coach reply contained answer information"))).toEqual({
+      status: 502, body: { error: "Coach reply contained answer information", details: { code: "answer_leak", node: "guard" } },
     });
+    expect(biologyErrorResponse(new BiologyCoachError("attempt_not_found", "request", "No such attempt")).status).toBe(404);
+    expect(biologyErrorResponse(new BiologyCoachError("review_requires_live", "request", "Review needs the live coach")).status).toBe(400);
   });
 
   it("maps anything else to 500", () => {

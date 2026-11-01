@@ -12,18 +12,28 @@ import { attemptCondition } from "@/features/adaptivepath/memory/mastery-engine"
 import { pickNextQuestion, type PickResult } from "@/features/adaptivepath/memory/question-picker";
 import { ACTIVE_RULE_VERSION, getRuleset } from "@/features/adaptivepath/memory/rules";
 import type { JudgmentState, LedgerRow, MasteryContext } from "@/features/adaptivepath/memory/types";
-import { biologyCoachReply, type BiologyTurnResult } from "@/server/agents/coach-agent/biology-chat-reply";
-import { createTraceContext, type TraceContext } from "@/server/llm/trace-context";
-import { recallBiologyTutorMemory } from "@/server/memory/biology-memory-context";
+import type { Draft } from "@/features/adaptivepath/coach/draft";
+import { BiologyCoachError } from "@/features/adaptivepath/coach/errors";
+import type { IntentKind } from "@/features/adaptivepath/coach/intents";
+import { describePickReason } from "@/features/adaptivepath/coach/wording";
+import { biologyOfflineReply } from "@/server/agents/coach-agent/biology-chat-reply";
+import { runBiologyCoachTurn, type BiologyCoachLlm, type CoachTarget } from "@/server/agents/coach-agent/biology/turn";
+import type { ToolUse } from "@/server/agents/coach-agent/biology/tool-loop";
+import { appendTraceEventBestEffort, createTraceContext, type TraceContext } from "@/server/llm/trace-context";
+import { recallBiologyCoachMemory } from "@/server/memory/biology-memory-context";
 import { finalizeTraceRun, markTraceRunDegradedBestEffort } from "@/server/observability/trace-store";
-import { appendTutorExchange, loadQuestionActivity, recordAccess, type QuestionActivity } from "./activity-store";
+import { appendTutorExchange, loadCoachThread, loadQuestionActivity, recordAccess, type QuestionActivity, type TutorMessage } from "./activity-store";
 import { resolveBiologyLearner } from "./learner";
 import { loadLearnerMemory, recordAttempt, type LatestProfile, type LearnerMemory, type LearnerScope } from "./memory-store";
 import type { StoredLedgerRow } from "./memory-records";
-import type { LiveTutor } from "./tutor-provider";
 
-export const MIN_EXPLANATION_CHARS = 12;
-export type BiologyDeps = Readonly<{ db: PrismaClient; live: LiveTutor | null; env?: Readonly<Record<string, string | undefined>> }>;
+export type BiologyDeps = Readonly<{ db: PrismaClient; coach: BiologyCoachLlm | null; env?: Readonly<Record<string, string | undefined>> }>;
+export type CoachFocus = Readonly<{ kind: "current_question"; questionId: string }> | Readonly<{ kind: "submitted_attempt"; attemptId: string }>;
+export type CoachTurnResponse = Readonly<{
+  provider: "offline_rules" | "live_llm"; focus: CoachFocus; reply: string; intents: readonly IntentKind[]; policyId: string;
+  tools: readonly ToolUse[]; citedChunkIds: readonly string[]; quotedSpans: readonly string[]; stopReason: "tool_budget" | null;
+  review: Readonly<{ question: ClientQuestion; messages: readonly TutorMessage[] }> | null;
+}>;
 export type BiologyView = Readonly<{
   question: ClientQuestion | null;
   pick: PickResult;
@@ -64,7 +74,7 @@ async function toView(deps: BiologyDeps, current: Current): Promise<BiologyView>
     pick: current.pick,
     activity,
     judgments: [...current.memory.states.values()],
-    modelReady: deps.live !== null,
+    modelReady: deps.coach !== null,
   };
 }
 
@@ -97,7 +107,6 @@ export async function submitAnswer(
   if (replayed) return { ...(await toView(deps, current)), feedback: replayed };
   const question = requireCurrent(current, input.questionId);
   const explanation = input.explanation.trim();
-  if (explanation.length < MIN_EXPLANATION_CHARS) throw new Error("Please explain your reasoning (at least 12 characters).");
   const correct = isCorrectOption(question, input.selectedOption);
   const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
   const result = await recordAttempt(deps.db, {
@@ -130,35 +139,62 @@ async function finalizeTurnTrace(trace: TraceContext, status: "succeeded" | "fai
   }
 }
 
-async function runTutorTurn(deps: BiologyDeps, input: { current: Current; question: BankQuestion; message: string; trace: TraceContext }): Promise<BiologyTurnResult> {
-  const { current, question, message, trace } = input;
-  const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
-  const recalled = await recallBiologyTutorMemory(deps.db, { scope: current.scope, question, trace });
-  const turn = await biologyCoachReply({
-    question, message, history: activity.messages,
-    priorTutorTurns: activity.messages.filter((m) => m.role === "tutor").length,
-    memory: recalled.memory, levels: recalled.levels,
-  }, { live: deps.live, trace });
-  await appendTutorExchange(deps.db, { scope: current.scope, questionId: question.id, userText: message, reply: turn.reply, tool: turn.tool });
-  await recordAccess(deps.db, { scope: current.scope, questionId: question.id, kind: "biology_guided_assistance" });
-  return turn;
+type TurnInput = Readonly<{ focus: CoachFocus; message: string; draft?: Draft }>;
+
+function resolveTarget(deps: BiologyDeps, current: Current, focus: CoachFocus): CoachTarget {
+  if (focus.kind === "current_question") return { phase: "current_question", question: requireCurrent(current, focus.questionId), attempt: null };
+  if (!deps.coach) throw new BiologyCoachError("review_requires_live", "request", "Reviewing a submitted answer needs the live coach.");
+  const attempt = current.memory.attempts.find((a) => a.attemptId === focus.attemptId);
+  if (!attempt) throw new BiologyCoachError("attempt_not_found", "request", "That submitted attempt was not found for this learner.");
+  return { phase: "submitted_attempt", question: getBankQuestion(attempt.questionId), attempt };
 }
 
-export async function tutorTurn(
-  deps: BiologyDeps,
-  input: Readonly<{ questionId: string; message: string }>,
-): Promise<BiologyView & BiologyTurnResult> {
+async function offlineTurn(deps: BiologyDeps, input: Readonly<{ current: Current; question: BankQuestion; focus: CoachFocus; message: string; trace: TraceContext }>): Promise<CoachTurnResponse> {
+  const { current, question } = input;
+  const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
+  const turn = biologyOfflineReply({
+    question, priorTutorTurns: activity.messages.filter((m) => m.role === "tutor").length,
+    levels: question.conceptIds.map((id) => current.memory.states.get(id)?.level ?? null),
+  });
+  await appendTraceEventBestEffort(input.trace, {
+    stage: "biology_offline_reply", kind: "lifecycle", title: "Biology offline rules reply", status: "succeeded",
+    details: { metadata: { questionId: question.id, tool: turn.tool } },
+  });
+  await appendTutorExchange(deps.db, { scope: current.scope, questionId: question.id, phase: "current_question", userText: input.message, reply: turn.reply, assistantMeta: { tool: turn.tool } });
+  await recordAccess(deps.db, { scope: current.scope, questionId: question.id, kind: "biology_guided_assistance" });
+  return { provider: "offline_rules", focus: input.focus, reply: turn.reply, intents: [], policyId: `offline_rules:${turn.tool}`, tools: [], citedChunkIds: [], quotedSpans: [], stopReason: null, review: null };
+}
+
+async function liveTurn(deps: BiologyDeps & { coach: BiologyCoachLlm }, input: Readonly<{ current: Current; target: CoachTarget; trace: TraceContext; turn: TurnInput }>): Promise<CoachTurnResponse> {
+  const { current, target, trace, turn } = input;
+  const recalled = await recallBiologyCoachMemory(deps.db, { scope: current.scope, question: target.question, trace });
+  const isCurrent = target.phase === "current_question";
+  const outcome = await runBiologyCoachTurn({ db: deps.db, llm: deps.coach, trace, env: deps.env }, {
+    scope: current.scope, target, memory: recalled.memory, signals: recalled.signals, message: turn.message,
+    pickReason: isCurrent && current.pick.kind === "question" ? describePickReason(current.pick.reason) : null,
+    draft: isCurrent ? turn.draft ?? null : null,
+  });
+  const review = isCurrent ? null : {
+    question: toClientQuestion(target.question),
+    messages: (await loadCoachThread(deps.db, { scope: current.scope, questionId: target.question.id, phase: "submitted_attempt" })).messages,
+  };
+  return { provider: "live_llm", focus: turn.focus, ...outcome, review };
+}
+
+export async function tutorTurn(deps: BiologyDeps, input: TurnInput): Promise<BiologyView & CoachTurnResponse> {
   const current = await loadCurrent(deps);
-  const question = requireCurrent(current, input.questionId);
+  const target = resolveTarget(deps, current, input.focus);
   const { scope } = current;
   const trace = createTraceContext({
-    prisma: deps.db, userId: scope.userId, path: "memory", task: "biology_tutor_turn",
+    prisma: deps.db, userId: scope.userId, path: "memory", task: "biology_coach_turn",
     problemId: scope.problemId, chatSessionId: scope.chatSessionId, memoryOrigin: scope.memoryOrigin,
   });
   try {
-    const turn = await runTutorTurn(deps, { current, question, message: input.message, trace });
+    const response = deps.coach
+      ? await liveTurn({ ...deps, coach: deps.coach }, { current, target, trace, turn: input })
+      : await offlineTurn(deps, { current, question: target.question, focus: input.focus, message: input.message, trace });
     await finalizeTurnTrace(trace, "succeeded");
-    return { ...(await toView(deps, current)), ...turn };
+    return { ...(await toView(deps, current)), ...response };
   } catch (error) {
     await finalizeTurnTrace(trace, "failed");
     throw error;

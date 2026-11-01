@@ -2,12 +2,10 @@
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { resolveLocalUserHandle } from "@/features/onboarding/profile-defaults";
+import { BiologyCoachError, coachErrorStatus } from "@/features/adaptivepath/coach/errors";
 import { BiologyLearnerNotFoundError } from "./learner";
-import { LiveTutorError } from "./tutor-provider";
 
-export { LiveTutorError };
-
-const CLIENT_ERRORS = /not the current activity|Invalid answer option|explain your reasoning/;
+const CLIENT_ERRORS = /not the current activity|Invalid answer option/;
 const TABLE_MISSING = "P2021";
 const MIGRATE_COMMANDS: Readonly<Record<string, string>> = {
   try: "npm run db:migrate:try",
@@ -27,7 +25,9 @@ export function biologyErrorResponse(error: unknown, env: Env = process.env): Bi
     return { status: 503, body: { error: `This database has not been migrated for Biology memory. Run: ${command}` } };
   }
   if (error instanceof z.ZodError) return { status: 400, body: { error: "Invalid request", details: error.flatten() } };
-  if (error instanceof LiveTutorError) return { status: 502, body: { error: error.message } };
+  if (error instanceof BiologyCoachError) {
+    return { status: coachErrorStatus(error.code), body: { error: error.message, details: { code: error.code, node: error.node } } };
+  }
   if (error instanceof Error && CLIENT_ERRORS.test(error.message)) return { status: 400, body: { error: error.message } };
   return { status: 500, body: { error: "Unable to complete request" } };
 }

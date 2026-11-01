@@ -19,4 +19,4 @@ export async function buildCoachMemoryContext(
   return assembleCoachMemory(prisma, args);
 }
 
-export { recallBiologyTutorMemory } from "./biology-memory-context";
+export { recallBiologyCoachMemory } from "./biology-memory-context";

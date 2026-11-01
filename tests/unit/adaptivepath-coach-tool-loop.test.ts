@@ -52,7 +52,7 @@ function client(steps: Step[]): OpenAI {
 function ctx(over: Partial<ToolContext> = {}): ToolContext {
   return {
     phase: "current_question", question, draft: { selectedOption: "D", reasoning: "half are dominant" }, attempt: null, signals, memory,
-    diagnose: async () => { diagnoseCalls += 1; return { forCoach: { probeStep: "From one offspring to three?", studentSpan: "half are dominant" }, internal: { issueKind: "missing_step", recurringMisconception: false, rationale: "", optionCorrect: false } }; },
+    diagnose: async () => { diagnoseCalls += 1; return { probeStep: "From one offspring to three?", studentSpan: "half are dominant" }; },
     trace, ...over,
   };
 }
