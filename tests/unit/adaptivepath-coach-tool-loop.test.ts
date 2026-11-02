@@ -1,4 +1,4 @@
-import type OpenAI from "openai";
+import type Anthropic from "@anthropic-ai/sdk";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { CONCEPTS } from "@/features/adaptivepath/concepts";
 import { getBankQuestion } from "@/features/adaptivepath/question-bank";
@@ -12,6 +12,7 @@ import { BIOLOGY_TOOL_REGISTRY, visibleTools, type ToolContext } from "@/server/
 import { buildCoachContext, COACH_SYSTEM_PROMPT } from "@/server/agents/coach-agent/biology/coach-prompt";
 import { runBiologyToolLoop } from "@/server/agents/coach-agent/biology/tool-loop";
 import { createTraceContext, type TraceContext } from "@/server/llm/trace-context";
+import { fakeAnthropic, toolResults, type FakeBody } from "./fake-anthropic";
 import { createMemoryTestDb, type MemoryTestDb } from "./memory-test-helpers";
 
 const rules = getRuleset(ACTIVE_RULE_VERSION);
@@ -33,20 +34,16 @@ const signals: MemorySignals = {
 const FINAL = JSON.stringify({ reply: "What does each offspring show?", citedChunkIds: [], quotedSpans: [] });
 let db: MemoryTestDb;
 let trace: TraceContext;
-let bodies: Array<{ tools?: unknown[]; messages: Array<Record<string, unknown>> }>;
+let bodies: FakeBody[];
 let diagnoseCalls: number;
 
 type Step = { content?: string; calls?: Array<{ name: string; args: unknown }> };
-function client(steps: Step[]): OpenAI {
+function client(steps: Step[]): Anthropic {
   const queue = [...steps];
-  let id = 0;
-  const create = async (body: (typeof bodies)[number]) => {
-    bodies.push(JSON.parse(JSON.stringify(body)));
+  return fakeAnthropic(() => {
     const step = queue.shift() ?? { content: FINAL };
-    const tool_calls = step.calls?.map((c) => ({ id: `m${id++}`, type: "function", function: { name: c.name, arguments: JSON.stringify(c.args) } }));
-    return { model: "fake", usage: null, choices: [{ message: { content: step.content ?? null, tool_calls }, finish_reason: "stop" }] };
-  };
-  return { chat: { completions: { create } } } as unknown as OpenAI;
+    return { text: step.content, calls: step.calls?.map((c) => ({ name: c.name, input: c.args })) };
+  }, (body) => bodies.push(body));
 }
 
 function ctx(over: Partial<ToolContext> = {}): ToolContext {
@@ -83,6 +80,7 @@ describe("biology tool registry", () => {
   it("get_concept_card returns no levels", async () => {
     const out = await BIOLOGY_TOOL_REGISTRY.get_concept_card.run({ conceptId: cid(4) }, ctx());
     expect(JSON.stringify(out.content)).not.toMatch(/level|stability/i);
+    expect(JSON.stringify(out.content)).not.toMatch(/[\u4e00-\u9fff]/);
     expect(out.content).toMatchObject({ name: CONCEPTS[3].name, prerequisites: CONCEPTS[3].prerequisiteIds.map((id) => CONCEPTS.find((c) => c.id === id)!.name) });
   });
   it("get_learner_status returns qualitative wording only", async () => {
@@ -109,8 +107,8 @@ describe("biology tool loop", () => {
   it("required calls run before the first model call", async () => {
     const result = await loop([{ content: FINAL }], plan(["question_hint"]));
     expect(diagnoseCalls).toBe(1);
-    const first = bodies[0].messages.map((m) => m.role);
-    expect(first.filter((r) => r === "tool")).toHaveLength(2);
+    expect(toolResults(bodies[0])).toHaveLength(2);
+    expect(bodies[0].system).toBe(COACH_SYSTEM_PROMPT);
     expect(result.tools).toEqual([{ name: "get_question_evidence", origin: "policy" }, { name: "diagnose_reasoning", origin: "policy" }]);
     expect(result.raw).toEqual(JSON.parse(FINAL));
   });
@@ -127,11 +125,18 @@ describe("biology tool loop", () => {
     expect(result.stopReason).toBe("tool_budget");
     expect(bodies).toHaveLength(3);
     expect(bodies[2].tools).toBeUndefined();
+    expect(JSON.stringify(bodies[2].messages.at(-1))).toContain("No more tools");
+  });
+  it("passes the model's own assistant content back unchanged before tool results", async () => {
+    await loop([{ calls: [{ name: "search_textbook", args: { query: "test cross" } }] }, { content: FINAL }], plan(["explain_concept"]));
+    const assistant = bodies[1].messages.filter((m) => m.role === "assistant").at(-1);
+    expect(JSON.stringify(assistant?.content)).toMatch(/"type":"tool_use".*"name":"search_textbook"/);
   });
   it("invalid tool args return an error observation", async () => {
     const result = await loop([{ calls: [{ name: "get_concept_card", args: { conceptId: "nope" } }] }, { content: FINAL }], plan(["explain_concept"]));
-    const toolMessages = bodies[1].messages.filter((m) => m.role === "tool");
-    expect(String(toolMessages.at(-1)?.content)).toContain("error");
+    const last = toolResults(bodies[1]).at(-1);
+    expect(last?.is_error).toBe(true);
+    expect(String(last?.content)).toContain("invalid arguments");
     expect(result.stopReason).toBeNull();
   });
   it("retrievedChunkIds collects every passage returned", async () => {
@@ -165,5 +170,9 @@ describe("coach prompt", () => {
   it("system prompt forbids restating option values", () => {
     expect(COACH_SYSTEM_PROMPT).toMatch(/never restate.*option/i);
     expect(COACH_SYSTEM_PROMPT).toMatch(/never mention.*record/i);
+  });
+  it("system prompt makes the coach reply in English only", () => {
+    expect(COACH_SYSTEM_PROMPT).toMatch(/always reply in English/i);
+    expect(COACH_SYSTEM_PROMPT).not.toMatch(/language the student wrote in/i);
   });
 });

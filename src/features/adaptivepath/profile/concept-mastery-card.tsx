@@ -13,7 +13,6 @@ export function ConceptMasteryCard({ concept, state, rows }: Props) {
     <div className="flex flex-wrap items-start justify-between gap-2">
       <div>
         <h3 className="text-sm font-semibold">{concept.name}</h3>
-        <p className="text-xs text-muted-foreground">{concept.nameZh}</p>
       </div>
       <div className="text-right text-xs">
         <p className="font-semibold">{state ? levelLabel(state.level) : "Not assessed"}</p>

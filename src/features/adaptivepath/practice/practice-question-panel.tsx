@@ -15,8 +15,7 @@ function PickSummary({ view }: { view: PracticeResponse }) {
   const exhausted = pick.exhaustedConceptIds.map((id) => getConcept(id).name);
   return <div className="mb-3 space-y-1 text-xs text-slate-500">
     {question && pick.kind === "question" && <>
-      <p><span data-testid="current-concept-name" className="font-semibold text-slate-700">{question.conceptIds.map((id) => getConcept(id).name).join(" · ")}</span>
-        {" "}<span>({question.conceptIds.map((id) => getConcept(id).nameZh).join(" · ")})</span></p>
+      <p><span data-testid="current-concept-name" className="font-semibold text-slate-700">{question.conceptIds.map((id) => getConcept(id).name).join(" · ")}</span></p>
       <p>Difficulty: <span data-testid="current-difficulty">{question.difficulty}</span> · {REASON_LABELS[pick.reason]}</p>
     </>}
     {exhausted.length > 0 && <p className="text-amber-700">Question pool exhausted for: {exhausted.join(", ")}</p>}

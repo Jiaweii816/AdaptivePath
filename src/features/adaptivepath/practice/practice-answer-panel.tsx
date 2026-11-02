@@ -13,7 +13,7 @@ function FeedbackCard({ feedback, onReview }: { feedback: Feedback; onReview: ((
       {feedback.changes.map((c) => <li key={c.conceptId + c.l1EventId}>{describeLedgerChange(c)}</li>)}
     </ul>}
     {feedback.changes.length === 0 && <p className="mt-3 text-xs text-slate-500">Integrated answer recorded as evidence only; no sub-topic judgment changed.</p>}
-    {onReview && <button type="button" onClick={onReview} className="mt-3 rounded-md border border-teal-700 px-3 py-1.5 text-xs font-semibold text-teal-800 hover:bg-teal-100">和 coach 复盘这题</button>}
+    {onReview && <button type="button" onClick={onReview} className="mt-3 rounded-md border border-teal-700 px-3 py-1.5 text-xs font-semibold text-teal-800 hover:bg-teal-100">Review this question with the coach</button>}
   </div>;
 }
 

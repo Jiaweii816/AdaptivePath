@@ -3,6 +3,8 @@ export type BiologyCoachErrorCode =
   | "llm_timeout"
   | "llm_provider"
   | "llm_empty"
+  | "llm_refusal"
+  | "llm_truncated"
   | "llm_invalid_json"
   | "llm_schema"
   | "diagnosis_invalid"

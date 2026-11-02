@@ -155,8 +155,8 @@ describe("teaching policy", () => {
   it("policyId carries no level", () => {
     expect(plan(["check_reasoning", "question_hint"], { signals: { level: 3 } }).policyId).toBe("bio-coach-v1:check_reasoning+question_hint");
   });
-  it("describePickReason copies spec text", () => {
-    expect(describePickReason("frontier_concept")).toBe("按课本的先修顺序，这是接下来要练的概念和难度");
-    expect(describePickReason("integrated_review")).toBe("把几个概念串起来练");
+  it("describePickReason is English text", () => {
+    expect(describePickReason("frontier_concept")).toBe("This is the next concept and difficulty in the textbook's prerequisite order.");
+    expect(describePickReason("integrated_review")).toBe("This question practices several concepts together.");
   });
 });

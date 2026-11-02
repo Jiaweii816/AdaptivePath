@@ -4,8 +4,8 @@ import prisma from "@/server/db/prisma";
 import { biologyErrorResponse } from "@/server/adaptivepath/http-errors";
 import { loadBiologyView, recordReference, submitAnswer, tutorTurn, type BiologyDeps } from "@/server/adaptivepath/session";
 import { isLiveBiologyTutorEnabled } from "@/server/agents/coach-agent/biology/llm-node";
-import { createChatClient } from "@/server/llm/client";
-import { getChatModel } from "@/server/llm/models";
+import { createBiologyCoachClient } from "@/server/llm/anthropic-client";
+import { getBiologyCoachModel } from "@/server/llm/models";
 
 export const runtime = "nodejs";
 
@@ -29,7 +29,7 @@ const bodySchema = z.discriminatedUnion("action", [
 ]);
 
 function deps(): BiologyDeps {
-  return { db: prisma, coach: isLiveBiologyTutorEnabled() ? { client: createChatClient(), model: getChatModel() } : null };
+  return { db: prisma, coach: isLiveBiologyTutorEnabled() ? { client: createBiologyCoachClient(), model: getBiologyCoachModel() } : null };
 }
 
 function fail(error: unknown) {

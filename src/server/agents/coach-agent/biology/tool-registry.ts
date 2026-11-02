@@ -70,7 +70,7 @@ async function conceptCardTool(args: unknown): Promise<ToolResult> {
   const { conceptId } = z.object({ conceptId: z.enum(CONCEPT_IDS) }).strict().parse(args);
   const concept = getConcept(conceptId);
   return {
-    content: { name: concept.name, nameZh: concept.nameZh, learningObjective: concept.learningObjective, prerequisites: concept.prerequisiteIds.map(nameOf) },
+    content: { name: concept.name, learningObjective: concept.learningObjective, prerequisites: concept.prerequisiteIds.map(nameOf) },
     chunkIds: [],
   };
 }

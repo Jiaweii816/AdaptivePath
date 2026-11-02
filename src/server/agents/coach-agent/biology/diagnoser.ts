@@ -9,7 +9,7 @@ import type { PastMiss } from "@/features/adaptivepath/coach/memory-signals";
 import { MIN_DISCLOSURE_OVERLAP_CHARS, findMemoryDisclosures } from "@/features/adaptivepath/coach/memory-disclosure-guard";
 import { findAnswerLeaks } from "@/features/adaptivepath/coach/answer-leak-guard";
 import { isCorrectOption, type BankQuestion } from "@/features/adaptivepath/question-bank";
-import { callLlmNode, NODE_TIMEOUT_MS, parseJsonOutput, type LlmNodeDeps } from "./llm-node";
+import { callLlmNode, parseJsonOutput, type LlmNodeDeps } from "./llm-node";
 
 const TASK = "adaptivepath.biology.diagnoser";
 /** Same text for every rejection so the error itself carries no hint; details go to the trace. */
@@ -60,10 +60,10 @@ export async function diagnoseReasoning(deps: LlmNodeDeps, input: DiagnoserInput
     pastMisses: input.pastMisses.map((m) => ({ selectedOption: m.selectedOption, reasoning: m.reasoningExcerpt, misconception: m.misconception })),
   };
   const result = await callLlmNode(deps, {
-    node: "diagnoser", task: TASK, json: true, timeoutMs: NODE_TIMEOUT_MS,
-    messages: [{ role: "system", content: SYSTEM_PROMPT }, { role: "user", content: JSON.stringify(payload) }],
+    node: "diagnoser", task: TASK, output: diagnosisSchema, system: SYSTEM_PROMPT,
+    messages: [{ role: "user", content: JSON.stringify(payload) }],
   });
-  const output = parseJsonOutput(result.content, diagnosisSchema, "diagnoser");
+  const output = parseJsonOutput(result.text, diagnosisSchema, "diagnoser");
   validate(output, input);
   return {
     forCoach: { probeStep: output.probeStep, studentSpan: output.studentSpan },

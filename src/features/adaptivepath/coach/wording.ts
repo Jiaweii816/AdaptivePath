@@ -15,8 +15,8 @@ export function describeLevel(level: MasteryLevel | null): string {
 }
 
 const PICK_REASON_WORDING = {
-  frontier_concept: "按课本的先修顺序，这是接下来要练的概念和难度",
-  integrated_review: "把几个概念串起来练",
+  frontier_concept: "This is the next concept and difficulty in the textbook's prerequisite order.",
+  integrated_review: "This question practices several concepts together.",
 } as const;
 
 export function describePickReason(reason: keyof typeof PICK_REASON_WORDING): string {

@@ -2,7 +2,7 @@
  * One memory-driven Biology coach turn (spec §5): classify → plan → required tools →
  * bounded tool loop → reply contract → guards → persist. Nothing is stored on failure.
  */
-import type OpenAI from "openai";
+import type Anthropic from "@anthropic-ai/sdk";
 import type { PrismaClient } from "@prisma/client";
 import { CONCEPTS, getConcept } from "@/features/adaptivepath/concepts";
 import { findAnswerLeaks } from "@/features/adaptivepath/coach/answer-leak-guard";
@@ -28,7 +28,7 @@ import { runBiologyToolLoop, type LoopResult, type ToolUse } from "./tool-loop";
 type Env = Readonly<Record<string, string | undefined>>;
 type TraceKind = "memory" | "guard" | "tool" | "lifecycle";
 type DiagnosisCache = NonNullable<AssistantMeta["diagnosisCache"]>;
-export type BiologyCoachLlm = Readonly<{ client: OpenAI; model: string }>;
+export type BiologyCoachLlm = Readonly<{ client: Anthropic; model: string }>;
 export type CoachTarget = Readonly<{ phase: CoachPhase; question: BankQuestion; attempt: TutorEvidence | null }>;
 export type CoachTurnDeps = Readonly<{ db: PrismaClient; llm: BiologyCoachLlm; trace: TraceContext; env?: Env }>;
 export type CoachTurnRequest = Readonly<{

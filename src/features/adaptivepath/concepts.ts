@@ -8,7 +8,6 @@ export type Concept = Readonly<{
   id: string;
   slug: string;
   name: string;
-  nameZh: string;
   learningObjective: string;
   prerequisiteIds: readonly string[];
   chunkIds: readonly string[];
@@ -20,7 +19,6 @@ export const CONCEPTS: readonly Concept[] = Object.freeze(
       id: c.id,
       slug: c.slug,
       name: c.name,
-      nameZh: c.name_zh,
       learningObjective: c.learning_objective,
       prerequisiteIds: Object.freeze([...c.prerequisite_ids]),
       chunkIds: Object.freeze([...c.chunk_ids]),

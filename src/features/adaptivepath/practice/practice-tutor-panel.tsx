@@ -32,8 +32,8 @@ export function PracticeTutorPanel(props: {
     <div className="border-b border-slate-200 p-5"><div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-teal-700"><MessageCircle size={16} /> AI Tutor Workspace</div>
       <h2 className="mt-2 text-lg font-semibold">Adaptive guidance</h2>
       {coach.review && <div className="mt-2 flex items-center justify-between gap-2 rounded-md bg-teal-50 px-3 py-2 text-xs text-teal-900">
-        <span>复盘：{coach.review.objective}</span>
-        <button type="button" onClick={coach.backToCurrent} className="font-semibold underline">回到当前题</button>
+        <span>Reviewing: {coach.review.objective}</span>
+        <button type="button" onClick={coach.backToCurrent} className="font-semibold underline">Back to current question</button>
       </div>}
       <p className="mt-1 text-xs text-slate-500">Provider: {providerLabel(view, coach)}
         {coach.turn?.stopReason === "tool_budget" && <span> · Tool budget reached this turn</span>}</p></div>

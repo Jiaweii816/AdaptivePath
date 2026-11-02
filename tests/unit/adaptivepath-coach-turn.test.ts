@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type OpenAI from "openai";
+import type Anthropic from "@anthropic-ai/sdk";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { getBankQuestion } from "@/features/adaptivepath/question-bank";
 import type { Draft } from "@/features/adaptivepath/coach/draft";
@@ -10,6 +10,7 @@ import { loadLearnerMemory } from "@/server/adaptivepath/memory-store";
 import { loadBiologyView, submitAnswer, tutorTurn, type BiologyDeps } from "@/server/adaptivepath/session";
 import { runBiologyCoachTurn } from "@/server/agents/coach-agent/biology/turn";
 import { createTraceContext } from "@/server/llm/trace-context";
+import { fakeAnthropic, toolResults, type FakeBody } from "./fake-anthropic";
 import { createMemoryTestDb, type MemoryTestDb } from "./memory-test-helpers";
 
 const env = { PATTERNCOACH_LOCAL_USER_HANDLE: "try", PATTERNCOACH_MEMORY_ORIGIN: "test" };
@@ -23,17 +24,17 @@ const DEFAULTS: Record<Node, string> = { classifier: turnJson("check_reasoning")
 let db: MemoryTestDb;
 let deps: BiologyDeps;
 let script: Record<Node, string[]>;
-let calls: Record<Node, Array<{ messages: Array<{ role: string; content: unknown }> }>>;
+let calls: Record<Node, FakeBody[]>;
 
-function routedClient(): OpenAI {
-  const create = async (body: (typeof calls)["coach"][number]) => {
-    const system = String(body.messages[0].content);
-    const node: Node = system.startsWith("Classify") ? "classifier" : system.startsWith("You diagnose") ? "diagnoser" : "coach";
-    calls[node].push(JSON.parse(JSON.stringify(body)));
-    const content = script[node].shift() ?? DEFAULTS[node];
-    return { model: "fake", usage: null, choices: [{ message: { content }, finish_reason: "stop" }] };
+function routedClient(): Anthropic {
+  const nodeOf = (body: FakeBody): Node => {
+    const system = String(body.system);
+    return system.startsWith("Classify") ? "classifier" : system.startsWith("You diagnose") ? "diagnoser" : "coach";
   };
-  return { chat: { completions: { create } } } as unknown as OpenAI;
+  return fakeAnthropic(
+    (body) => ({ text: script[nodeOf(body)].shift() ?? DEFAULTS[nodeOf(body)] }),
+    (body) => calls[nodeOf(body)].push(body),
+  );
 }
 
 async function currentQuestion() {
@@ -87,8 +88,8 @@ describe("biology coach turn", () => {
     const wrong = question.options.find((o) => o.id !== question.correctAnswer)!.id;
     await chat("check", { selectedOption: question.correctAnswer, reasoning: "Reason one." });
     await chat("check", { selectedOption: wrong, reasoning: "Reason two." });
-    const diagnosisMessages = calls.coach.map((c) => c.messages.find((m) => m.role === "tool" && String(m.content).includes("probeStep"))!);
-    const shapes = diagnosisMessages.map((m) => Object.keys(JSON.parse(String(m.content))).sort());
+    const diagnosisResults = calls.coach.map((c) => toolResults(c).find((r) => String(r.content).includes("probeStep"))!);
+    const shapes = diagnosisResults.map((r) => Object.keys(JSON.parse(String(r.content))).sort());
     expect(shapes).toEqual([["probeStep", "studentSpan"], ["probeStep", "studentSpan"]]);
   });
 
@@ -113,11 +114,11 @@ describe("biology coach turn", () => {
   it("passes the draft change to the coach", async () => {
     await chat("check", { selectedOption: "D", reasoning: "x" });
     await chat("check", { selectedOption: "A", reasoning: "x" });
-    expect(String(calls.coach[1].messages[1].content)).toContain('"optionChanged":{"from":"D","to":"A"}');
+    expect(String(calls.coach[1].messages[0].content)).toContain('"optionChanged":{"from":"D","to":"A"}');
   });
 
   it("memory disclosure in reply fails the turn and stores no messages", async () => {
-    script.coach = [JSON.stringify({ reply: "根据你的记录，你需要多练习。", citedChunkIds: [], quotedSpans: [] })];
+    script.coach = [JSON.stringify({ reply: "Your record shows you need more practice.", citedChunkIds: [], quotedSpans: [] })];
     await expect(chat("help")).rejects.toMatchObject({ code: "memory_disclosure", node: "guard" });
     expect(await db.prisma.chatMessage.count()).toBe(0);
     expect(await db.prisma.l1MemoryEvent.count({ where: { eventType: "biology_guided_assistance" } })).toBe(0);

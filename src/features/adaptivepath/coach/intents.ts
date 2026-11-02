@@ -19,7 +19,7 @@ const CONCEPT_IDS = CONCEPTS.map((c) => c.id) as [string, ...string[]];
 export type ClassifiedTurn = Readonly<{
   intents: readonly Readonly<{ kind: IntentKind; conceptId?: string }>[];
   affect: Affect;
-  /** English keywords for textbook search; the textbook is English even when the student is not. */
+  /** Keywords in the textbook's vocabulary for textbook search. */
   textbookQuery: string;
 }>;
 

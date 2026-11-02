@@ -7,7 +7,7 @@ import { ConceptMasteryCard } from "./concept-mastery-card";
 import { ProfileSummaryCard } from "./profile-summary-card";
 import type { ProfileData } from "./profile-types";
 
-const LOCAL_STORAGE_NOTICE = "学习记录只存于本地数据库（Stored only in the local database）";
+const LOCAL_STORAGE_NOTICE = "Your learning record is stored only in the local database.";
 
 async function loadProfile(): Promise<ProfileData> {
   const response = await fetch("/api/adaptivepath/profile", { cache: "no-store" });

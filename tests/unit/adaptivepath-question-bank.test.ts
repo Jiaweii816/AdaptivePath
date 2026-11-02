@@ -22,7 +22,8 @@ describe("biology concepts", () => {
     expect(CONCEPTS.map((c) => c.id)).toEqual(
       Array.from({ length: 10 }, (_, i) => `b2e-12-2-concept-${String(i + 1).padStart(2, "0")}`),
     );
-    expect(getConcept("b2e-12-2-concept-04").nameZh).toBe("测交与抽样不确定性");
+    expect(getConcept("b2e-12-2-concept-04").name).toMatch(/test cross/i);
+    expect(getConcept("b2e-12-2-concept-04")).not.toHaveProperty("nameZh");
   });
 
   it("orders every prerequisite before its dependent concept", () => {

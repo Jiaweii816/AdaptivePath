@@ -53,7 +53,7 @@ test("tutor panel no longer mentions mastery level", async ({ page }) => {
 
 test("profile shows the local-database notice", async ({ page }) => {
   await page.goto("/adaptivepath/profile");
-  await expect(page.getByText("学习记录只存于本地数据库（Stored only in the local database）")).toBeVisible();
+  await expect(page.getByText("Your learning record is stored only in the local database.")).toBeVisible();
 });
 
 test("textbook browser filters by concept and page", async ({ page }) => {

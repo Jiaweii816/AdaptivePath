@@ -1,4 +1,4 @@
-import type OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { getBankQuestion } from "@/features/adaptivepath/question-bank";
 import type { Draft } from "@/features/adaptivepath/coach/draft";
@@ -7,23 +7,21 @@ import { classifyBiologyTurn } from "@/server/agents/coach-agent/biology/intent-
 import { diagnoseReasoning } from "@/server/agents/coach-agent/biology/diagnoser";
 import type { LlmNodeDeps } from "@/server/agents/coach-agent/biology/llm-node";
 import { createTraceContext } from "@/server/llm/trace-context";
+import { fakeAnthropic, type FakeBody, type FakeStep } from "./fake-anthropic";
 import { createMemoryTestDb, type MemoryTestDb } from "./memory-test-helpers";
 
 const question = getBankQuestion("b2e-12-2-q-c04-medium-01");
 const PAST: PastMiss = { questionId: "b2e-12-2-q-c04-easy-01", l1EventId: "e1", selectedOption: "A", reasoningExcerpt: "one round offspring proves RR", misconception: "One offspring cannot reveal the genotype." };
 let db: MemoryTestDb;
-let requests: Array<{ messages: Array<{ role: string; content: string }> }>;
+let requests: FakeBody[];
 
-type Reply = string | Error;
-function fakeClient(replies: Reply[]): OpenAI {
+type Reply = string | FakeStep;
+function fakeClient(replies: Reply[]): Anthropic {
   const queue = [...replies];
-  const create = async (body: { messages: Array<{ role: string; content: string }> }) => {
-    requests.push(body);
-    const next = queue.shift();
-    if (next instanceof Error) throw next;
-    return { model: "fake", usage: null, choices: [{ message: { content: next ?? "" }, finish_reason: "stop" }] };
-  };
-  return { chat: { completions: { create } } } as unknown as OpenAI;
+  return fakeAnthropic(() => {
+    const next = queue.shift() ?? "";
+    return typeof next === "string" ? { text: next } : next;
+  }, (body) => requests.push(body));
 }
 
 async function depsWith(replies: Reply[]): Promise<LlmNodeDeps> {
@@ -32,9 +30,9 @@ async function depsWith(replies: Reply[]): Promise<LlmNodeDeps> {
   return { client: fakeClient(replies), model: "fake-model", trace };
 }
 
-const sent = () => JSON.stringify(requests.map((r) => r.messages));
+const sent = () => JSON.stringify(requests.map((r) => [r.system, r.messages]));
 const classify = (deps: LlmNodeDeps, reasoning = "half are dominant") =>
-  classifyBiologyTurn(deps, { phase: "current_question", message: "我选 D 对吗", history: [], draft: { selectedOption: "D", reasoning }, conceptNames: ["Test crosses"] });
+  classifyBiologyTurn(deps, { phase: "current_question", message: "I picked D, is that right?", history: [], draft: { selectedOption: "D", reasoning }, conceptNames: ["Test crosses"] });
 const VALID_TURN = JSON.stringify({ intents: [{ kind: "check_reasoning" }], affect: "none", textbookQuery: "test cross probability" });
 const diagnosis = (over: Record<string, unknown> = {}) => JSON.stringify({ issueKind: "missing_step", recurringMisconception: false, studentSpan: "half are dominant", probeStep: "How does one offspring's chance extend to three?", rationale: "stops at one offspring", ...over });
 
@@ -54,6 +52,20 @@ describe("intent classifier", () => {
     expect(sent()).not.toContain("correctAnswer");
     expect(sent()).not.toMatch(/stability|pastMisses/);
   });
+  it("requests schema-constrained JSON with a node effort and no sampling params", async () => {
+    await classify(await depsWith([VALID_TURN]));
+    const body = requests[0];
+    expect(body.output_config?.format).toMatchObject({ type: "json_schema" });
+    expect(body.output_config?.effort).toBe("low");
+    expect(body.system).toMatch(/^Classify/);
+    expect(body.messages.every((m) => m.role === "user" || m.role === "assistant")).toBe(true);
+    expect(body).not.toHaveProperty("temperature");
+  });
+  it("classifier prompt is English only", async () => {
+    await classify(await depsWith([VALID_TURN]));
+    expect(sent()).not.toMatch(/[\u4e00-\u9fff]/);
+    expect(sent()).not.toMatch(/Chinese/);
+  });
   it("classifier reasoning is truncated to 500 chars", async () => {
     await classify(await depsWith([VALID_TURN]), "x".repeat(600) + "TAIL");
     expect(sent()).toContain("x".repeat(500));
@@ -61,9 +73,11 @@ describe("intent classifier", () => {
     expect(sent()).not.toContain("TAIL");
   });
   it.each([
-    [Object.assign(new Error("timed out"), { name: "APIConnectionTimeoutError" }), "llm_timeout"],
+    [new Anthropic.APIConnectionTimeoutError(), "llm_timeout"],
     [new Error("500 upstream"), "llm_provider"],
     ["", "llm_empty"],
+    [{ text: "", stopReason: "refusal" }, "llm_refusal"],
+    [{ text: '{"intents":[', stopReason: "max_tokens" }, "llm_truncated"],
     ["not json", "llm_invalid_json"],
     [JSON.stringify({ intents: [{ kind: "review_attempt" }], affect: "none", textbookQuery: "x" }), "llm_schema"],
   ] as const)("maps failure %# to %s", async (reply, code) => {
