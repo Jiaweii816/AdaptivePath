@@ -9,13 +9,17 @@ import { buildTutorMemoryContext, type TutorMemoryContext } from "@/features/ada
 import type { MasteryLevel } from "@/features/adaptivepath/memory/types";
 import { loadLearnerMemory, type LearnerScope } from "@/server/adaptivepath/memory-store";
 import { appendTraceEventBestEffort, type TraceContext } from "@/server/llm/trace-context";
+import { loadOnboardingMetadata } from "@/server/adaptivepath/onboarding-store";
+import type { BiologyOnboardingMetadata } from "@/features/adaptivepath/onboarding/types";
 
 export async function recallBiologyTutorMemory(
   db: PrismaClient,
   input: Readonly<{ scope: LearnerScope; question: BankQuestion; trace: TraceContext }>,
-): Promise<{ memory: TutorMemoryContext; levels: readonly (MasteryLevel | null)[] }> {
+): Promise<{ memory: TutorMemoryContext; levels: readonly (MasteryLevel | null)[]; onboarding:BiologyOnboardingMetadata|null }> {
   const startedAt = Date.now();
-  const stored = await loadLearnerMemory(db, input.scope);
+  const [stored,onboarding]=await Promise.all([
+    loadLearnerMemory(db,input.scope),loadOnboardingMetadata(db,input.scope),
+  ]);
   const memory = buildTutorMemoryContext({
     questionConceptIds: input.question.conceptIds,
     states: stored.states,
@@ -37,5 +41,5 @@ export async function recallBiologyTutorMemory(
       },
     },
   });
-  return { memory, levels };
+  return { memory, levels, onboarding };
 }
