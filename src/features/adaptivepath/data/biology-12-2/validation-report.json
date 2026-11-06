@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "source_id": "b2e-12-2",
+  "source_sha256": "4beec1826a156c86ab1e45e8dbb015e031991708d125ad78fe80d4519d42dc04",
+  "counts": {
+    "pages": 12,
+    "concepts": 10,
+    "chunks": 73,
+    "figures": 11,
+    "tables": 1,
+    "single_concept_questions": 300,
+    "integrated_questions": 20,
+    "total_questions": 320,
+    "combinations": 5
+  },
+  "answer_positions": {
+    "A": 81,
+    "B": 81,
+    "C": 79,
+    "D": 79
+  },
+  "checks": [
+    "JSON Schema Draft 2020-12",
+    "unique IDs and question stems",
+    "source SHA-256 and catalog file hashes",
+    "all foreign keys and evidence quotes",
+    "all concept/difficulty quotas",
+    "option IDs, unique options and option rationales",
+    "three explicit concept steps per integrated item",
+    "pixel bounds, crop sizes and point conversion",
+    "printed page mapping and adjacent-section exclusion",
+    "bidirectional figure and combination links",
+    "all four derived retrieval lookup tables",
+    "acyclic prerequisites and chunk adjacency"
+  ],
+  "pdf_checks": "passed: every source line accounted for; all renders and crops pixel-matched",
+  "limitations": "Structural and provenance validation does not prove biological correctness, semantic uniqueness, or empirical difficulty. Items received author and cross-agent content review; difficulty is a designed level, not a calibrated measurement."
+}

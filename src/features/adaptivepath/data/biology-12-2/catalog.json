@@ -1,0 +1,270 @@
+{
+  "schema_version": "1.0.0",
+  "id": "b2e-12-2",
+  "title": "Biology 2e Section 12.2 static content database",
+  "source": "source.json",
+  "schema": "schema.json",
+  "retrieval_index": "retrieval-index.json",
+  "collections": {
+    "concepts": "concepts.json",
+    "chunks": "chunks.json",
+    "figures": "figures.json",
+    "combinations": "combinations.json",
+    "questions": [
+      "questions/concepts-01-03.json",
+      "questions/concepts-04-06.json",
+      "questions/concepts-07-10.json",
+      "questions/integrated.json"
+    ]
+  },
+  "language": "en",
+  "concept_label_languages": [
+    "en",
+    "zh"
+  ],
+  "counts": {
+    "concepts": 10,
+    "chunks": 73,
+    "figures": 11,
+    "tables": 1,
+    "single_concept_questions": 300,
+    "integrated_questions": 20,
+    "total_questions": 320,
+    "combinations": 5
+  },
+  "difficulty_definitions": {
+    "easy": "Recognize or directly interpret one concept.",
+    "medium": "Apply a stated rule to a new cross, observation, or short inference.",
+    "hard": "Combine several reasoning steps within the target concept, handle conditioning or uncertainty, or evaluate competing models."
+  },
+  "assessment_notes": [
+    "All items have four options and exactly one intended correct answer.",
+    "Single-concept items may apply prerequisites while assessing one primary concept.",
+    "Each integrated item assesses exactly three concepts and records a reasoning step for each.",
+    "Questions are original AI-assisted educational items reviewed by authoring and coordinating agents, not copied textbook exercises or empirically calibrated assessments.",
+    "Hypothetical scenarios are distinguished from source quotations through assumptions and evidence fields.",
+    "The existing UI and its legacy question bank are unchanged. This dataset can be imported explicitly by a future adapter.",
+    "This is RAG-ready ingestion and deterministic lookup data; no embedding model or vector search is claimed."
+  ],
+  "file_hash_policy": "SHA-256 of committed files; catalog.json and validation-report.json are excluded to avoid self-reference. Refresh after intentional edits, then run validation.",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "1d3b8757aee99f560b81bfe6af13a3a29176619b95338d2d5f226fce6337f089",
+      "bytes": 113
+    },
+    {
+      "path": "assets/Biology_2e_Section_12_2.pdf",
+      "sha256": "4beec1826a156c86ab1e45e8dbb015e031991708d125ad78fe80d4519d42dc04",
+      "bytes": 4154279
+    },
+    {
+      "path": "assets/figures/figure-12-10.png",
+      "sha256": "52eb25a777a9cfb6df84da858550f03b51b5ed8ede83acfb9661c8653d446b06",
+      "bytes": 138178
+    },
+    {
+      "path": "assets/figures/figure-12-11.png",
+      "sha256": "8a4bdea25d68c99833a53c90db76579a539b21d20e95a9269c83d48e8830cda4",
+      "bytes": 247553
+    },
+    {
+      "path": "assets/figures/figure-12-12.png",
+      "sha256": "e4841af1963ba95fb40585d1327d27fd287c88a4dff8f23807081676286e235f",
+      "bytes": 97449
+    },
+    {
+      "path": "assets/figures/figure-12-13.png",
+      "sha256": "17d9ade6438db78e8312f7fa580368897cd3a5e20810c8f32316b4e227782ec9",
+      "bytes": 122308
+    },
+    {
+      "path": "assets/figures/figure-12-14.png",
+      "sha256": "7767c8691129d1c14fcf47bc6c0c9c040ff85b8d2db342497f34b6e8a9352e34",
+      "bytes": 394554
+    },
+    {
+      "path": "assets/figures/figure-12-4.png",
+      "sha256": "f389373971974f522bb4ae4a96257e5da420ababf41de73b96ee77fe5e05dea7",
+      "bytes": 76351
+    },
+    {
+      "path": "assets/figures/figure-12-5.png",
+      "sha256": "a914afe1e41009f8c52401abfa73ecdd649461f02c654a8ad58a3ee456c87a94",
+      "bytes": 57322
+    },
+    {
+      "path": "assets/figures/figure-12-6.png",
+      "sha256": "b6100a446bf05af3954a4f66855230adb1cd0803536bfae0f7973d4b2fcbb7eb",
+      "bytes": 75106
+    },
+    {
+      "path": "assets/figures/figure-12-7.png",
+      "sha256": "fc33d00fd08022496f859f82132273a554071ed808d03c486a79cf75e575eb28",
+      "bytes": 451751
+    },
+    {
+      "path": "assets/figures/figure-12-8.png",
+      "sha256": "6d5589374157b94faf6d5d8441691072b323cb5806cea1009cd4eff7a5f5bef7",
+      "bytes": 129310
+    },
+    {
+      "path": "assets/figures/figure-12-9.png",
+      "sha256": "76c4f66163eb78b04a2d9efc3eb8256f3da5459e9f816daec06192833ced8d62",
+      "bytes": 213784
+    },
+    {
+      "path": "assets/figures/table-12-4.png",
+      "sha256": "6a5da99a6fdcfae4b94fb97dcce4cd9e32b399ddfdefb2e5bc05c8c90623760c",
+      "bytes": 7239
+    },
+    {
+      "path": "assets/pages/page-01.png",
+      "sha256": "cbdfe2fa9910f605a2a282b1a3b79d342553cae294dcccc2ac11e17019d4d2ba",
+      "bytes": 62134
+    },
+    {
+      "path": "assets/pages/page-02.png",
+      "sha256": "9fe48d4872b724ac88f67ebdfd868fec2e025981d50799373ffd3394e593f147",
+      "bytes": 48679
+    },
+    {
+      "path": "assets/pages/page-03.png",
+      "sha256": "fbea17f1de90e1218db1664e41282c99059c0f88405b478f8e10fc9d04c46c61",
+      "bytes": 126261
+    },
+    {
+      "path": "assets/pages/page-04.png",
+      "sha256": "5cbd82c3cd08b1a07fcc330676cf158034ffd4249f4cd92aeef89574c8619e9a",
+      "bytes": 96903
+    },
+    {
+      "path": "assets/pages/page-05.png",
+      "sha256": "559b6fda9fc8c4f5b87fa29ead8ae7af3dee0a655d80697f2448e561f3f00bfe",
+      "bytes": 126400
+    },
+    {
+      "path": "assets/pages/page-06.png",
+      "sha256": "ccff4eb9dbc508c56fc4bec0750a7bc827686a0c43d80e01f887133f05b5510f",
+      "bytes": 504458
+    },
+    {
+      "path": "assets/pages/page-07.png",
+      "sha256": "042d97d9d5bc45741053b876d8f1ac17edb4a1e18bcc351a4ebf58658dac64a3",
+      "bytes": 384842
+    },
+    {
+      "path": "assets/pages/page-08.png",
+      "sha256": "99c9e9ca6ae983374e869a03af0245c0222b4f885d412cf26f42f74ec6f759d6",
+      "bytes": 209458
+    },
+    {
+      "path": "assets/pages/page-09.png",
+      "sha256": "69237a73ca8d45662af71dabe2a9e2ef58c70dd501a9af6d5c539274ef592d5b",
+      "bytes": 293095
+    },
+    {
+      "path": "assets/pages/page-10.png",
+      "sha256": "a1fa33822c0a64d8fe3dae3c31b103b0e0d03e48b50aac1084f39115304d5d50",
+      "bytes": 146091
+    },
+    {
+      "path": "assets/pages/page-11.png",
+      "sha256": "61222399be683af153d17d9ef57b1c384c328d510959a5cbc9b86a4c71e86e55",
+      "bytes": 169700
+    },
+    {
+      "path": "assets/pages/page-12.png",
+      "sha256": "3e2cbe42cd0ab0d19867de74e0553169d0a06a5de2316f9d552323524b03642a",
+      "bytes": 430695
+    },
+    {
+      "path": "chunks.json",
+      "sha256": "b85b3a466f9f932b4d8df98a9fa9f9dac2ae00d18f00ccc345a7db2cee6429b0",
+      "bytes": 182188,
+      "record_count": 73
+    },
+    {
+      "path": "combinations.json",
+      "sha256": "6361bd73792870bad45479199cdc3339347c16fa78151017834ce2bd0a6352ba",
+      "bytes": 2583,
+      "record_count": 5
+    },
+    {
+      "path": "concepts.json",
+      "sha256": "4dc15a07adcaa0a1e6a71a9af6a6fc7969b0744d332953b887918729656bd024",
+      "bytes": 5908,
+      "record_count": 10
+    },
+    {
+      "path": "figures.json",
+      "sha256": "2a3567a64dacff0f5494b45cbd54c34f941e37d5f6165ca88d073e9785291064",
+      "bytes": 13511,
+      "record_count": 12
+    },
+    {
+      "path": "questions/concepts-01-03.json",
+      "sha256": "11193623b308ed78eb1843d4f4be8d06eeaa1e8ca70749ec7bdaf4cc2754dcd5",
+      "bytes": 282853,
+      "record_count": 90
+    },
+    {
+      "path": "questions/concepts-04-06.json",
+      "sha256": "bda28ae4112fcfbb70e43d3b4ab85c93c974577643d2b3a6b7fc044e4586335b",
+      "bytes": 255508,
+      "record_count": 90
+    },
+    {
+      "path": "questions/concepts-07-10.json",
+      "sha256": "7cf383f890d46f7cd4c3d9d7f680e2f5d8ca2918a452191b91e91d7c618f9046",
+      "bytes": 285980,
+      "record_count": 120
+    },
+    {
+      "path": "questions/integrated.json",
+      "sha256": "e9bde82f369626c393b9697075e2c9c4784b2a9eab7ad8b9e7e25f2268f674db",
+      "bytes": 141562,
+      "record_count": 20
+    },
+    {
+      "path": "README.md",
+      "sha256": "6b111beba03e318a837cfa087d3c27ef5475921da70b786f11b84c00b7396bac",
+      "bytes": 8346
+    },
+    {
+      "path": "retrieval-index.json",
+      "sha256": "8ad0e5935c878841d0faa9f0d417381c68e54c40a3b0cfaa91aae4aaefca54fd",
+      "bytes": 34378
+    },
+    {
+      "path": "schema.json",
+      "sha256": "9581b0dce544a338306392deaf9698dab1ee9ab53de286a482dcf3489a2f1a29",
+      "bytes": 17682
+    },
+    {
+      "path": "source.json",
+      "sha256": "5b4aaed3a6766e6c3ac03318df44fec9e2411364b8d942044b6835b5657427db",
+      "bytes": 15289
+    },
+    {
+      "path": "tools/ingest.py",
+      "sha256": "3fa19939501c2ec7d820cf349ce5908a443869683b78ed8e66b1b33603e45b1c",
+      "bytes": 15567
+    },
+    {
+      "path": "tools/refresh_catalog.py",
+      "sha256": "7799e3c136f96912dc3193fa0d17ae1db1e724d4be65419fb149283a78b967b3",
+      "bytes": 4115
+    },
+    {
+      "path": "tools/requirements.txt",
+      "sha256": "d37d7e9955b1fa2976301b2cca28439c4ab5ee122088c46bbba62082fd1cf1a7",
+      "bytes": 71
+    },
+    {
+      "path": "tools/validate.py",
+      "sha256": "6056276c2a7026df388ccdb5111f34091feedf0cd8f69fc74e02ce2611907857",
+      "bytes": 13800
+    }
+  ]
+}

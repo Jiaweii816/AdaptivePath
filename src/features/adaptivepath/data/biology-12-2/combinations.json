@@ -1,0 +1,108 @@
+[
+  {
+    "id": "b2e-12-2-combination-01",
+    "name": "Dominant phenotype to test-cross inference",
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-04"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c04"
+    ],
+    "question_ids": [
+      "b2e-12-2-q-i01-medium-01",
+      "b2e-12-2-q-i01-medium-02",
+      "b2e-12-2-q-i01-hard-01",
+      "b2e-12-2-q-i01-hard-02"
+    ]
+  },
+  {
+    "id": "b2e-12-2-combination-02",
+    "name": "Pedigree inference to conditional offspring risk",
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-05"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c02"
+    ],
+    "question_ids": [
+      "b2e-12-2-q-i02-medium-01",
+      "b2e-12-2-q-i02-medium-02",
+      "b2e-12-2-q-i02-hard-01",
+      "b2e-12-2-q-i02-hard-02"
+    ]
+  },
+  {
+    "id": "b2e-12-2-combination-03",
+    "name": "Compare incomplete dominance and codominance",
+    "concept_ids": [
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-06",
+      "b2e-12-2-concept-07"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c03"
+    ],
+    "question_ids": [
+      "b2e-12-2-q-i03-medium-01",
+      "b2e-12-2-q-i03-medium-02",
+      "b2e-12-2-q-i03-hard-01",
+      "b2e-12-2-q-i03-hard-02"
+    ]
+  },
+  {
+    "id": "b2e-12-2-combination-04",
+    "name": "Ploidy, population allele diversity, and X linkage",
+    "concept_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-08",
+      "b2e-12-2-concept-09"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p01-c04",
+      "b2e-12-2-p06-c05",
+      "b2e-12-2-p07-c02",
+      "b2e-12-2-p08-c08",
+      "b2e-12-2-p09-c01",
+      "b2e-12-2-p09-c03"
+    ],
+    "question_ids": [
+      "b2e-12-2-q-i04-medium-01",
+      "b2e-12-2-q-i04-medium-02",
+      "b2e-12-2-q-i04-hard-01",
+      "b2e-12-2-q-i04-hard-02"
+    ]
+  },
+  {
+    "id": "b2e-12-2-combination-05",
+    "name": "Dominance, zygote probability, and lethal survival",
+    "concept_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03",
+      "b2e-12-2-concept-10"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p11-c07",
+      "b2e-12-2-p11-c08",
+      "b2e-12-2-p12-c01"
+    ],
+    "question_ids": [
+      "b2e-12-2-q-i05-medium-01",
+      "b2e-12-2-q-i05-medium-02",
+      "b2e-12-2-q-i05-hard-01",
+      "b2e-12-2-q-i05-hard-02"
+    ]
+  }
+]

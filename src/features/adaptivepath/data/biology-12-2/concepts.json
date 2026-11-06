@@ -1,0 +1,189 @@
+[
+  {
+    "id": "b2e-12-2-concept-01",
+    "slug": "genes-alleles-ploidy",
+    "name": "Genes, alleles, and ploidy",
+    "name_zh": "基因、等位基因与倍性",
+    "learning_objective": "Locate alleles on homologous chromosomes and trace haploid gametes to a diploid zygote.",
+    "legacy_topic": "genotype_phenotype",
+    "prerequisite_ids": [],
+    "chunk_ids": [
+      "b2e-12-2-p01-c04",
+      "b2e-12-2-p01-c05"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-02",
+    "slug": "genotype-phenotype-dominance",
+    "name": "Genotype, phenotype, and complete dominance",
+    "name_zh": "基因型、表型与完全显性",
+    "learning_objective": "Distinguish genotype from phenotype, homozygotes from heterozygotes, and dominance from allele loss.",
+    "legacy_topic": "genotype_phenotype",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-01"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p01-c07",
+      "b2e-12-2-p01-c08",
+      "b2e-12-2-p01-c10",
+      "b2e-12-2-p02-c01",
+      "b2e-12-2-p02-c02",
+      "b2e-12-2-p05-c05"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-03",
+    "slug": "monohybrid-punnett",
+    "name": "Monohybrid crosses and Punnett probabilities",
+    "name_zh": "单因子杂交与庞尼特方格",
+    "learning_objective": "Calculate gamete, genotype, and phenotype probabilities, including conditional F2 proportions.",
+    "legacy_topic": "allele_segregation",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p02-c04",
+      "b2e-12-2-p02-c05",
+      "b2e-12-2-p03-c01",
+      "b2e-12-2-p03-c02",
+      "b2e-12-2-p03-c03"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-04",
+    "slug": "test-cross",
+    "name": "Test crosses and sampling uncertainty",
+    "name_zh": "测交与抽样不确定性",
+    "learning_objective": "Infer an unknown dominant-expressing genotype using a recessive tester and interpret finite samples.",
+    "legacy_topic": "genotype_phenotype",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p03-c05",
+      "b2e-12-2-p04-c01",
+      "b2e-12-2-p04-c03",
+      "b2e-12-2-p04-c04"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-05",
+    "slug": "recessive-pedigrees",
+    "name": "Recessive pedigrees and carrier inference",
+    "name_zh": "隐性遗传家系与携带者推断",
+    "learning_objective": "Use a recessive pedigree to infer obligate carriers while retaining genuinely unknown genotypes.",
+    "legacy_topic": "genotype_phenotype",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p04-c05",
+      "b2e-12-2-p05-c02",
+      "b2e-12-2-p05-c03"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-06",
+    "slug": "incomplete-dominance",
+    "name": "Incomplete dominance",
+    "name_zh": "不完全显性",
+    "learning_objective": "Predict intermediate heterozygotes and distinguish intermediate phenotype from irreversible allele blending.",
+    "legacy_topic": "incomplete_dominance",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p05-c07",
+      "b2e-12-2-p06-c01"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-07",
+    "slug": "codominance",
+    "name": "Codominance and MN blood groups",
+    "name_zh": "共显性与 MN 血型",
+    "learning_objective": "Explain simultaneous expression of both alleles and predict distinct MN phenotypes.",
+    "legacy_topic": "codominance",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p06-c03"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-08",
+    "slug": "multiple-alleles",
+    "name": "Multiple alleles, wild type, and gene-product effects",
+    "name_zh": "复等位基因、野生型与基因产物效应",
+    "learning_objective": "Distinguish population diversity from individual copy number; interpret rabbit alleles, mutant dominance, and the haploid parasite example.",
+    "legacy_topic": "multiple_alleles",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p06-c05",
+      "b2e-12-2-p06-c06",
+      "b2e-12-2-p07-c01",
+      "b2e-12-2-p07-c02",
+      "b2e-12-2-p07-c03",
+      "b2e-12-2-p07-c04",
+      "b2e-12-2-p08-c03",
+      "b2e-12-2-p08-c04",
+      "b2e-12-2-p08-c05",
+      "b2e-12-2-p08-c06"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-09",
+    "slug": "x-linked-inheritance",
+    "name": "X-linked inheritance and hemizygosity",
+    "name_zh": "X 连锁遗传与半合子",
+    "learning_objective": "Trace X-linked alleles by offspring sex, distinguish reciprocal crosses, and interpret carriers within the stated model.",
+    "legacy_topic": "sex_linkage",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-01",
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p08-c08",
+      "b2e-12-2-p08-c09",
+      "b2e-12-2-p09-c01",
+      "b2e-12-2-p09-c02",
+      "b2e-12-2-p09-c03",
+      "b2e-12-2-p10-c02",
+      "b2e-12-2-p10-c03",
+      "b2e-12-2-p10-c04",
+      "b2e-12-2-p10-c05",
+      "b2e-12-2-p10-c07",
+      "b2e-12-2-p11-c01",
+      "b2e-12-2-p11-c02"
+    ]
+  },
+  {
+    "id": "b2e-12-2-concept-10",
+    "slug": "lethal-alleles",
+    "name": "Lethal alleles and survival-conditioned ratios",
+    "name_zh": "致死等位基因与存活者比例",
+    "learning_objective": "Distinguish recessive from dominant lethality, normalize survivor ratios, and explain delayed-onset transmission.",
+    "legacy_topic": "lethality",
+    "prerequisite_ids": [
+      "b2e-12-2-concept-02",
+      "b2e-12-2-concept-03"
+    ],
+    "chunk_ids": [
+      "b2e-12-2-p11-c07",
+      "b2e-12-2-p11-c08",
+      "b2e-12-2-p11-c09",
+      "b2e-12-2-p12-c01",
+      "b2e-12-2-p12-c02"
+    ]
+  }
+]

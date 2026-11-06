@@ -9,6 +9,7 @@ export const DEFAULT_MEMORY_MODEL = "qwen3-8b";
 /** Small non-thinking Qwen model with DashScope strict JSON Schema support. */
 export const DEFAULT_CHAT_ASSEMBLER_MODEL = "qwen3.8-flash";
 export const DEFAULT_STRATEGIST_MODEL = DEFAULT_CHAT_THINKING_MODEL;
+export const DEFAULT_BIOLOGY_COACH_MODEL = "claude-sonnet-5-5";
 
 /** LLM #1 — diagnoseAndReply — DeepSeek V4 Flash */
 export function getReviewModel(): string {
@@ -72,4 +73,10 @@ export function getChatAssemblerModel(): string {
 export function getStrategistModel(): string {
   loadLocalEnv();
   return process.env.LLM_STRATEGIST_MODEL || DEFAULT_STRATEGIST_MODEL;
+}
+
+/** AdaptivePath Biology coach (classifier, diagnoser, coach) — Claude Sonnet 5.5 */
+export function getBiologyCoachModel(): string {
+  loadLocalEnv();
+  return process.env.LLM_BIOLOGY_MODEL || DEFAULT_BIOLOGY_COACH_MODEL;
 }

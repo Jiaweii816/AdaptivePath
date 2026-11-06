@@ -1,0 +1,805 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdaptivePath Biology 2e 12.2 static content database",
+  "description": "Select the appropriate #/$defs collection when validating a JSON file. Cross-file invariants are checked by tools/validate.py.",
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "const": "b2e-12-2"
+        },
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "source_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "coordinate_system": {
+          "type": "object"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "printed_page": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "width_pixels": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "height_pixels": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "image_path": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "page",
+              "printed_page",
+              "width_pixels",
+              "height_pixels",
+              "image_path"
+            ],
+            "additionalProperties": true
+          },
+          "minItems": 12
+        },
+        "extraction": {
+          "type": "object"
+        },
+        "rights": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "schema_version",
+        "source_file",
+        "source_sha256",
+        "coordinate_system",
+        "pages",
+        "extraction",
+        "rights"
+      ],
+      "additionalProperties": true
+    },
+    "concept": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name_zh": {
+          "type": "string",
+          "minLength": 1
+        },
+        "learning_objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legacy_topic": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prerequisite_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "chunk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "slug",
+        "name",
+        "name_zh",
+        "learning_objective",
+        "legacy_topic",
+        "prerequisite_ids",
+        "chunk_ids"
+      ],
+      "additionalProperties": false
+    },
+    "region": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "bbox_points": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 4,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "page",
+        "bbox",
+        "bbox_points"
+      ],
+      "additionalProperties": false
+    },
+    "chunk": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "const": "b2e-12-2"
+        },
+        "section": {
+          "const": "12.2"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "printed_page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "subsection": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "heading",
+            "learning_objective",
+            "paragraph",
+            "figure_caption",
+            "table",
+            "exercise",
+            "context",
+            "footnote"
+          ]
+        },
+        "primary_concept_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalized_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concept_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region"
+          },
+          "minItems": 1
+        },
+        "figure_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "previous_chunk_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "next_chunk_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "continuation_of": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "section",
+        "page",
+        "printed_page",
+        "subsection",
+        "kind",
+        "primary_concept_id",
+        "raw_text",
+        "normalized_text",
+        "concept_ids",
+        "bbox",
+        "regions",
+        "figure_ids",
+        "previous_chunk_id",
+        "next_chunk_id",
+        "continuation_of"
+      ],
+      "additionalProperties": false
+    },
+    "figure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "const": "b2e-12-2"
+        },
+        "section": {
+          "const": "12.2"
+        },
+        "type": {
+          "enum": [
+            "figure",
+            "table"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "printed_page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "bbox_points": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "image_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "image_width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "image_height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1
+        },
+        "credit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "concept_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "chunk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "minItems": 1
+        },
+        "figure_text_status": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "section",
+        "type",
+        "label",
+        "page",
+        "printed_page",
+        "bbox",
+        "bbox_points",
+        "image_path",
+        "image_width",
+        "image_height",
+        "caption",
+        "credit",
+        "concept_ids",
+        "chunk_ids"
+      ],
+      "additionalProperties": false
+    },
+    "combination": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concept_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 3,
+          "uniqueItems": true,
+          "maxItems": 3
+        },
+        "chunk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "question_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 4,
+          "uniqueItems": true,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "concept_ids",
+        "chunk_ids",
+        "question_ids"
+      ],
+      "additionalProperties": false
+    },
+    "question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "const": "b2e-12-2"
+        },
+        "section": {
+          "const": "12.2"
+        },
+        "language": {
+          "const": "en"
+        },
+        "question_type": {
+          "enum": [
+            "single_concept",
+            "integrated"
+          ]
+        },
+        "difficulty": {
+          "enum": [
+            "easy",
+            "medium",
+            "hard"
+          ]
+        },
+        "primary_concept_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "concept_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "combination_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "text"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "correct_answer": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "option_explanations": {
+          "type": "object",
+          "properties": {
+            "A": {
+              "type": "string",
+              "minLength": 1
+            },
+            "B": {
+              "type": "string",
+              "minLength": 1
+            },
+            "C": {
+              "type": "string",
+              "minLength": 1
+            },
+            "D": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "additionalProperties": false
+        },
+        "chunk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "chunk_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "chunk_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "figure_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requires_figure": {
+          "type": "boolean"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "review_status": {
+          "enum": [
+            "agent_reviewed",
+            "author_reviewed",
+            "root_reviewed"
+          ]
+        },
+        "concept_steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "concept_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reasoning": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "concept_id",
+              "reasoning"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 3
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "section",
+        "language",
+        "question_type",
+        "difficulty",
+        "primary_concept_id",
+        "concept_ids",
+        "combination_id",
+        "objective",
+        "question",
+        "options",
+        "correct_answer",
+        "explanation",
+        "option_explanations",
+        "chunk_ids",
+        "evidence",
+        "figure_ids",
+        "requires_figure",
+        "assumptions",
+        "review_status"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "question_type": {
+                "const": "single_concept"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "concept_ids": {
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "combination_id": {
+                "type": "null"
+              },
+              "primary_concept_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "concept_steps"
+            ],
+            "properties": {
+              "concept_ids": {
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "difficulty": {
+                "enum": [
+                  "medium",
+                  "hard"
+                ]
+              },
+              "primary_concept_id": {
+                "type": "null"
+              },
+              "combination_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "concept_steps": {
+                "minItems": 3,
+                "maxItems": 3
+              }
+            }
+          }
+        }
+      ]
+    },
+    "concepts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/concept"
+      },
+      "minItems": 1
+    },
+    "chunks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/chunk"
+      },
+      "minItems": 1
+    },
+    "figures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/figure"
+      },
+      "minItems": 1
+    },
+    "combinations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/combination"
+      },
+      "minItems": 1
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/question"
+      },
+      "minItems": 1
+    }
+  }
+}

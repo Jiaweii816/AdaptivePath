@@ -64,6 +64,8 @@ export default defineConfig({
       PATTERNCOACH_MEMORY_ORIGIN: "test",
       PATTERNCOACH_LOCAL_USER_HANDLE: e2eUserHandle,
       CODE_RUNNER_PROVIDER: "mock",
+      // Deterministic offline Biology coach; .env.local may set "live" for manual runs.
+      ADAPTIVEPATH_TUTOR_PROVIDER: "offline",
     },
     reuseExistingServer: false,
     timeout: 120_000,

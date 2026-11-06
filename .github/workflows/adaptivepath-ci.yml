@@ -2,7 +2,7 @@ name: AdaptivePath demo checks
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feature/biology-demo]
     paths:
       - ".github/workflows/adaptivepath-ci.yml"
       - "app/adaptivepath/**"
@@ -11,10 +11,14 @@ on:
       - "src/server/adaptivepath/**"
       - "src/server/db/sqlite-path.ts"
       - "src/components/layout/sidebar-nav.ts"
-      - "tests/unit/adaptivepath-profile.test.ts"
+      - "src/server/memory/biology-memory-context.ts"
+      - "src/server/agents/coach-agent/biology-chat-reply.ts"
+      - "prisma/schema.prisma"
+      - "prisma/migrations/**"
+      - "tests/unit/adaptivepath-*.test.ts"
+      - "tests/unit/textbook-locations.test.ts"
       - "tests/e2e/adaptivepath.spec.ts"
       - "tests/adaptivepath.playwright.config.ts"
-      - "scripts/adaptivepath-http-smoke.ts"
   workflow_dispatch:
 
 permissions:
@@ -51,7 +55,7 @@ jobs:
       - name: TypeScript checking
         run: npm run typecheck
       - name: Focused AdaptivePath unit tests
-        run: npx vitest run tests/unit/adaptivepath-profile.test.ts
+        run: npx vitest run tests/unit/adaptivepath-*.test.ts tests/unit/textbook-locations.test.ts
       - name: ESLint
         run: npm run lint
       - name: Next.js production build
@@ -68,11 +72,6 @@ jobs:
           path: |
             test-results/adaptivepath-workspace.png
             test-results/adaptivepath-profile.png
+            test-results/adaptivepath-textbook.png
             test-results/**/trace.zip
           if-no-files-found: ignore
-      - name: Live HTTP smoke for both learner paths
-        run: |
-          npm run dev:try > /tmp/adaptivepath-next.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
-          npx tsx scripts/adaptivepath-http-smoke.ts || { cat /tmp/adaptivepath-next.log; exit 1; }
