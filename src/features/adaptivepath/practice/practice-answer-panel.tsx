@@ -31,8 +31,7 @@ export function PracticeAnswerPanel(props: {
     <div className="flex-1 space-y-6 overflow-y-auto p-6">
       {view && <PracticeQuestionHeader view={view} referenceOpen={props.referenceOpen} pending={pending} onToggleReference={props.onToggleReference} />}
       {!view ? <p className={TYPE.body}>Loading…</p> : question ? <>
-        <fieldset className="space-y-2.5 border-t border-slate-200 pt-5"><legend className="contents"><span className={`block ${TYPE.heading}`}>Choose an answer</span></legend>
-          <p className={`!mt-1 mb-3 ${TYPE.secondary}`}>Asking the tutor or opening the textbook is recorded with your answer.</p>
+        <fieldset className="space-y-2.5 border-t border-slate-200 pt-5"><legend className="contents"><span className={`mb-3 block ${TYPE.heading}`}>Choose an answer</span></legend>
           {question.options.map((o) => <label key={o.id} className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 ${TYPE.option} ` + (option === o.id ? "border-teal-600 bg-teal-50" : "border-slate-200 hover:bg-slate-50")}>
             <input type="radio" name="biology-answer" checked={option === o.id} onChange={() => props.onOption(o.id)} /><span><span className="font-semibold">{o.id}.</span> {o.text}</span></label>)}
         </fieldset>
@@ -43,11 +42,14 @@ export function PracticeAnswerPanel(props: {
         {props.quotedSpans.length > 0 && <ul data-testid="coach-quotes" className="space-y-1 text-[13px] text-teal-800">
           {props.quotedSpans.map((span) => <li key={span}>Coach quoted: “{span}”</li>)}
         </ul>}
-        <button onClick={props.onSubmit} disabled={!option || pending}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-3 text-base font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
-          Submit Answer <ChevronRight size={17} /></button>
       </> : <div className="rounded-xl bg-teal-50 p-5 text-teal-900"><h3 className={TYPE.heading}>All questions completed</h3><p className={`mt-2 ${TYPE.body}`}>Open the Learner Profile to review your mastery ledger.</p></div>}
       {props.feedback && <FeedbackCard feedback={props.feedback} onReview={props.onReview} />}
     </div>
+    {/* Pinned below the scrolling content so Submit is visible without scrolling. */}
+    {question && <div className="border-t border-slate-200 bg-card px-6 py-4">
+      <button onClick={props.onSubmit} disabled={!option || pending}
+        className="flex w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-3 text-base font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50">
+        Submit Answer <ChevronRight size={17} /></button>
+    </div>}
   </section>;
 }

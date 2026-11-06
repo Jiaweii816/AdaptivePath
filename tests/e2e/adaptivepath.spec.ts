@@ -118,6 +118,8 @@ test("question sits above the options and the reference column opens on demand",
   expect((await prompt.boundingBox())!.y).toBeLessThan((await workspace.getByRole("radio").first().boundingBox())!.y);
   expect(await prompt.evaluate((el) => getComputedStyle(el).fontSize)).toBe("20px");
   expect(await prompt.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("400");
+  await expect(page.getByRole("button", { name: "Submit Answer" })).toBeInViewport({ ratio: 1 });
+  await expect(page.getByText("Asking the tutor or opening the textbook is recorded with your answer.")).toHaveCount(0);
   const referencePanel = page.getByRole("region", { name: "Textbook Reference Panel" });
   await expect(referencePanel).toHaveCount(0);
   const widthBefore = (await workspace.boundingBox())!.width;
