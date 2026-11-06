@@ -6,7 +6,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import type { TeachingPlan, ToolName } from "@/features/adaptivepath/coach/teaching-policy";
-import { draftState } from "@/features/adaptivepath/coach/draft";
+import { draftState } from "@/features/adaptivepath/coach/draft-state";
 import { coachReplySchema } from "@/features/adaptivepath/coach/reply-contract";
 import type { TutorMessage } from "@/server/adaptivepath/activity-store";
 import { appendTraceEventBestEffort } from "@/server/llm/trace-context";

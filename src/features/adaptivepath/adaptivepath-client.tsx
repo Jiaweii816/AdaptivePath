@@ -10,6 +10,8 @@ import { PracticeQuestionPanel } from "./practice/practice-question-panel";
 import { PracticeTutorPanel } from "./practice/practice-tutor-panel";
 import { useCoachChat, type ReviewTarget } from "./practice/use-coach-chat";
 import { planCitation } from "./practice/citation-plan";
+import { focusedReference, suggestPrompts } from "./practice/suggested-prompts";
+import { draftState } from "./coach/draft-state";
 
 type Feedback = NonNullable<PracticeResponse["feedback"]>;
 
@@ -19,6 +21,7 @@ export function AdaptivePathClient() {
   const [explanation, setExplanation] = useState("");
   const [referenceOpen, setReferenceOpen] = useState(false);
   const [highlight, setHighlight] = useState<readonly string[] | null>(null);
+  const [focusedChunkId, setFocusedChunkId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [lastSubmitted, setLastSubmitted] = useState<ReviewTarget | null>(null);
   const [pending, setPending] = useState(false);
@@ -54,7 +57,7 @@ export function AdaptivePathClient() {
     const result = await send({ action: "submit", questionId: question.id, selectedOption: option, explanation, attemptId });
     if (!result) return;
     setFeedback(result.feedback ?? null);
-    setLastSubmitted({ attemptId, objective: question.objective });
+    setLastSubmitted({ attemptId, objective: question.objective, conceptIds: question.conceptIds });
     setOption(""); setExplanation(""); setReferenceOpen(false); setHighlight(null);
     coach.backToCurrent();
   }
@@ -84,6 +87,15 @@ export function AdaptivePathClient() {
   }
 
   const quotedSpans = coach.review ? [] : coach.turn?.quotedSpans ?? [];
+  const reference = question ? focusedReference({
+    open: referenceOpen, liveModel: Boolean(view?.modelReady), reviewing: Boolean(coach.review), highlight,
+    questionChunkIds: question.chunkIds, focusedChunkId,
+  }) : null;
+  const conceptIds = coach.review?.conceptIds ?? question?.conceptIds ?? [];
+  const prompts = conceptIds.length ? suggestPrompts({
+    phase: coach.review ? "submitted_attempt" : "current_question",
+    draftState: draftState({ selectedOption: option || null, reasoning: explanation }), conceptIds, reference,
+  }) : [];
 
   return (
     <div className="pl-14">
@@ -101,11 +113,11 @@ export function AdaptivePathClient() {
       >
         {error && <p role="alert" className="mx-4 mt-3 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
         <BiologyWorkbenchGrid
-          left={<PracticeQuestionPanel view={view} referenceOpen={referenceOpen} highlightChunkIds={highlight} pending={pending} onToggleReference={() => void toggleReference()} />}
+          left={<PracticeQuestionPanel view={view} referenceOpen={referenceOpen} highlightChunkIds={highlight} pending={pending} onToggleReference={() => void toggleReference()} onFocusReference={setFocusedChunkId} />}
           middle={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
             onReview={view?.modelReady && lastSubmitted ? () => coach.startReview(lastSubmitted) : null}
             onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()} />}
-          right={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)}
+          right={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} prompts={prompts} reference={reference}
             citationCountsAsReference={!coach.review && !view?.activity.referenceUsed} />}
         />
       </AppShell>

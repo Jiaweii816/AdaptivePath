@@ -6,14 +6,16 @@ import type Anthropic from "@anthropic-ai/sdk";
 import type { PrismaClient } from "@prisma/client";
 import { CONCEPTS, getConcept } from "@/features/adaptivepath/concepts";
 import { findAnswerLeaks } from "@/features/adaptivepath/coach/answer-leak-guard";
-import { diffDraft, draftHash, draftState, type Draft } from "@/features/adaptivepath/coach/draft";
+import { diffDraft, draftHash, type Draft } from "@/features/adaptivepath/coach/draft";
+import { draftState } from "@/features/adaptivepath/coach/draft-state";
 import { BiologyCoachError } from "@/features/adaptivepath/coach/errors";
 import type { ClassifiedTurn, CoachPhase, IntentKind } from "@/features/adaptivepath/coach/intents";
 import { findMemoryDisclosures, isMemoryDisclosureGuardEnabled } from "@/features/adaptivepath/coach/memory-disclosure-guard";
 import type { MemorySignals } from "@/features/adaptivepath/coach/memory-signals";
 import { validateCoachReply, type CoachReply } from "@/features/adaptivepath/coach/reply-contract";
 import { planTeachingTurn, type TeachingPlan } from "@/features/adaptivepath/coach/teaching-policy";
-import { getPassages } from "@/features/adaptivepath/coach/textbook";
+import { getPassages, type TextbookPassage } from "@/features/adaptivepath/coach/textbook";
+import type { PromptId } from "@/features/adaptivepath/practice/suggested-prompts";
 import type { TutorEvidence } from "@/features/adaptivepath/memory/tutor-context";
 import type { BankQuestion } from "@/features/adaptivepath/question-bank";
 import { appendTutorExchange, loadCoachThread, recordAccess, type AssistantMeta, type CoachThread } from "@/server/adaptivepath/activity-store";
@@ -26,7 +28,7 @@ import type { LlmNodeDeps } from "./llm-node";
 import { runBiologyToolLoop, type LoopResult, type ToolUse } from "./tool-loop";
 
 type Env = Readonly<Record<string, string | undefined>>;
-type TraceKind = "memory" | "guard" | "tool" | "lifecycle";
+type TraceKind = "memory" | "guard" | "tool" | "lifecycle" | "retrieval";
 type DiagnosisCache = NonNullable<AssistantMeta["diagnosisCache"]>;
 export type BiologyCoachLlm = Readonly<{ client: Anthropic; model: string }>;
 export type CoachTarget = Readonly<{ phase: CoachPhase; question: BankQuestion; attempt: TutorEvidence | null }>;
@@ -34,6 +36,8 @@ export type CoachTurnDeps = Readonly<{ db: PrismaClient; llm: BiologyCoachLlm; t
 export type CoachTurnRequest = Readonly<{
   scope: LearnerScope; target: CoachTarget; memory: LearnerMemory; signals: MemorySignals;
   pickReason: string | null; message: string; draft: Draft | null;
+  /** Suggested prompts clicked into the message (empty when typed) and the passage the student attached. */
+  promptIds: readonly PromptId[]; attachedPassage: TextbookPassage | null;
 }>;
 export type CoachTurnOutcome = Readonly<{
   reply: string; intents: IntentKind[]; policyId: string; tools: readonly ToolUse[];
@@ -83,7 +87,7 @@ async function classifyAndPlan(state: TurnState): Promise<{ turn: ClassifiedTurn
   const { request, thread, llmDeps } = state;
   const turn = await classifyBiologyTurn(llmDeps, {
     phase: request.target.phase, message: request.message, history: thread.messages, draft: request.draft,
-    conceptNames: request.target.question.conceptIds.map((id) => getConcept(id).name),
+    conceptNames: request.target.question.conceptIds.map((id) => getConcept(id).name), attachedPassage: request.attachedPassage,
   });
   const plan = planTeachingTurn({
     turn, phase: request.target.phase, signals: request.signals, draftState: draftState(request.draft),
@@ -106,6 +110,17 @@ function pastExcerpts(request: CoachTurnRequest): string[] {
   return request.signals.pastMisses.filter((m) => m.l1EventId !== reviewed).map((m) => m.reasoningExcerpt);
 }
 
+/** Passages the coach may cite and quote: what its tools retrieved plus the one the student attached. */
+function availableChunkIds(request: CoachTurnRequest, loop: LoopResult): ReadonlySet<string> {
+  const attached = request.attachedPassage ? [request.attachedPassage.chunkId] : [];
+  return new Set([...loop.retrievedChunkIds, ...attached]);
+}
+
+async function traceAttachedPassage(deps: CoachTurnDeps, passage: TextbookPassage | null) {
+  if (!passage) return;
+  await traceEvent(deps.trace, { stage: "biology_attached_reference", kind: "retrieval", metadata: { chunkId: passage.chunkId, source: "student_attached" } });
+}
+
 async function runGuards(state: TurnState, input: Readonly<{ reply: CoachReply; loop: LoopResult }>) {
   const { request, deps } = state;
   const { reply } = input;
@@ -114,7 +129,7 @@ async function runGuards(state: TurnState, input: Readonly<{ reply: CoachReply; 
     ? findAnswerLeaks(reply.reply, { correctOption: question.correctAnswer, options: question.options, quotedSpans: reply.quotedSpans })
     : [];
   const disclosureGuardEnabled = isMemoryDisclosureGuardEnabled(deps.env ?? process.env);
-  const allowedSources = [quotableReasoning(request.target, request.draft), ...getPassages([...input.loop.retrievedChunkIds]).map((p) => p.text)];
+  const allowedSources = [quotableReasoning(request.target, request.draft), ...getPassages([...availableChunkIds(request, input.loop)]).map((p) => p.text)];
   const memoryDisclosures = disclosureGuardEnabled
     ? findMemoryDisclosures(reply.reply, { pastExcerpts: pastExcerpts(request), quotedSpans: reply.quotedSpans, allowedSources })
     : [];
@@ -132,6 +147,7 @@ async function persist(state: TurnState, outcome: Readonly<{ turn: ClassifiedTur
     userMeta: {
       attemptId: target.attempt?.attemptId, intents: outcome.turn.intents.map((i) => i.kind), affect: outcome.turn.affect,
       draftSnapshot: draft ? { ...draft, hash: draftHash(target.question.id, draft) } : undefined,
+      promptIds: [...request.promptIds], referenceChunkId: request.attachedPassage?.chunkId,
     },
     assistantMeta: {
       policyId: outcome.plan.policyId, hintStep: outcome.plan.hintStep, tools: [...outcome.loop.tools],
@@ -145,15 +161,16 @@ async function persist(state: TurnState, outcome: Readonly<{ turn: ClassifiedTur
 export async function runBiologyCoachTurn(deps: CoachTurnDeps, request: CoachTurnRequest): Promise<CoachTurnOutcome> {
   const thread = await loadCoachThread(deps.db, { scope: request.scope, questionId: request.target.question.id, phase: request.target.phase });
   const state: TurnState = { deps, request, thread, llmDeps: { client: deps.llm.client, model: deps.llm.model, trace: deps.trace } };
+  await traceAttachedPassage(deps, request.attachedPassage);
   const { turn, plan } = await classifyAndPlan(state);
   const diagnosis = diagnosisRunner(state);
   const draftDiff = request.draft ? diffDraft(previousDraft(thread), request.draft) : null;
-  const context = buildCoachContext({ question: request.target.question, phase: request.target.phase, plan, draft: request.draft, draftDiff, pickReason: request.pickReason, concepts: CONCEPTS });
+  const context = buildCoachContext({ question: request.target.question, phase: request.target.phase, plan, draft: request.draft, draftDiff, pickReason: request.pickReason, concepts: CONCEPTS, attachedPassage: request.attachedPassage });
   const loop = await runBiologyToolLoop(state.llmDeps, {
     context, history: thread.messages, message: request.message, plan,
     toolCtx: { phase: request.target.phase, question: request.target.question, draft: request.draft, attempt: request.target.attempt, signals: request.signals, memory: request.memory, diagnose: diagnosis.run, trace: deps.trace },
   });
-  const reply = validateCoachReply(loop.raw, { retrievedChunkIds: loop.retrievedChunkIds, reasoning: quotableReasoning(request.target, request.draft), requireCitation: plan.requireCitation });
+  const reply = validateCoachReply(loop.raw, { retrievedChunkIds: availableChunkIds(request, loop), reasoning: quotableReasoning(request.target, request.draft), requireCitation: plan.requireCitation });
   await runGuards(state, { reply, loop });
   await persist(state, { turn, plan, loop, reply, diagnosis: diagnosis.used() });
   return {

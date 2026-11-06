@@ -22,9 +22,11 @@ function PickSummary({ view }: { view: PracticeResponse }) {
   </div>;
 }
 
-type ReferenceProps = { view: PracticeResponse; open: boolean; highlight: readonly string[] | null; pending: boolean; onToggle: () => void };
+type ReferenceProps = {
+  view: PracticeResponse; open: boolean; highlight: readonly string[] | null; pending: boolean; onToggle: () => void; onFocusReference: (chunkId: string) => void;
+};
 
-function ReferenceSection({ view, open, highlight, pending, onToggle }: ReferenceProps) {
+function ReferenceSection({ view, open, highlight, pending, onToggle, onFocusReference }: ReferenceProps) {
   const { question, activity } = view;
   if (!question) return null;
   const label = open ? "Hide reference" : activity.referenceUsed ? "Show reference" : "Reveal reference (counts as reference use)";
@@ -37,7 +39,7 @@ function ReferenceSection({ view, open, highlight, pending, onToggle }: Referenc
     <div id="adaptivepath-reference-content">
       {activity.referenceUsed && <p className="mb-3 text-xs font-medium text-amber-700">Reference used for this question</p>}
       {highlight && open && <p className="mb-2 text-xs text-teal-700">Showing the passage the coach cited</p>}
-      {open ? <TextbookViewer key={`${question.id}:${highlight?.join(",") ?? ""}`} chunkIds={highlight ?? question.chunkIds} /> :
+      {open ? <TextbookViewer key={`${question.id}:${highlight?.join(",") ?? ""}`} chunkIds={highlight ?? question.chunkIds} onFocusChange={onFocusReference} /> :
         <p className="rounded-lg bg-slate-50 p-4 text-sm text-slate-600">Reference hidden. Opening it records this attempt as completed with the textbook.</p>}
     </div>
   </>;
@@ -45,6 +47,7 @@ function ReferenceSection({ view, open, highlight, pending, onToggle }: Referenc
 
 export function PracticeQuestionPanel(props: {
   view: PracticeResponse | null; referenceOpen: boolean; highlightChunkIds: readonly string[] | null; pending: boolean; onToggleReference: () => void;
+  onFocusReference: (chunkId: string) => void;
 }) {
   const { view } = props;
   const question = view?.question;
@@ -62,7 +65,7 @@ export function PracticeQuestionPanel(props: {
       </div>}
     </div>
     <div className="flex-1 overflow-y-auto p-5 [scrollbar-gutter:stable]">
-      {view && <ReferenceSection view={view} open={props.referenceOpen} highlight={props.highlightChunkIds} pending={props.pending} onToggle={props.onToggleReference} />}
+      {view && <ReferenceSection view={view} open={props.referenceOpen} highlight={props.highlightChunkIds} pending={props.pending} onToggle={props.onToggleReference} onFocusReference={props.onFocusReference} />}
       <p className="mt-3 text-xs text-slate-500">Source: OpenStax Biology 2e, Section 12.2. Access for free at <a href={OPENSTAX_URL} target="_blank" rel="noreferrer" className="text-teal-700 underline">openstax.org</a>. CC BY-NC-SA 4.0.</p>
     </div>
   </section>;

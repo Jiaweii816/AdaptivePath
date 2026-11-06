@@ -67,3 +67,45 @@ test("textbook browser filters by concept and page", async ({ page }) => {
   await expect(page.locator("article").getByText("Huntington", { exact: false }).first()).toBeVisible();
   await page.screenshot({ path: "test-results/adaptivepath-textbook.png", fullPage: true });
 });
+
+test("suggested prompts stack, append into the tutor box and attach the focused reference", async ({ page }) => {
+  await page.goto("/adaptivepath");
+  await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
+  const pills = page.getByTestId("suggested-prompts").getByRole("button");
+  const box = page.getByLabel("Message to tutor");
+  await expect(pills.last()).toHaveText("Give me a hint to start");
+  const [first, second] = [await pills.nth(0).boundingBox(), await pills.nth(1).boundingBox()];
+  expect(second!.y).toBeGreaterThan(first!.y);
+
+  await box.fill("My idea.");
+  await pills.last().click();
+  await expect(box).toHaveValue("My idea. Give me a hint to start");
+  await expect(box).toBeFocused();
+
+  await page.getByRole("radio").first().check();
+  await expect(pills.last()).toHaveText("What should I check before I commit?");
+  await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill("Each parent passes one allele.");
+  await expect(pills.first()).toHaveText("Check my reasoning");
+
+  await page.getByRole("button", { name: /Reveal reference|Show reference/ }).click();
+  await expect(page.getByTestId("textbook-reader")).toBeVisible();
+  const live = await page.getByText("Live tutor configured").isVisible();
+  if (!live) {
+    await expect(pills).toHaveCount(2);
+    return;
+  }
+  await expect(pills).toHaveCount(3);
+  await expect(pills.last()).toHaveText(/^Explain Reference 1 \(p\. \d+\)$/);
+  const reference2 = page.getByRole("button", { name: /^Locate reference 2 / });
+  if (await reference2.count()) {
+    await reference2.click();
+    await expect(pills.last()).toHaveText(/^Explain Reference 2 \(p\. \d+\)$/);
+    await page.getByRole("button", { name: /^Locate reference 1 / }).click();
+  }
+  await pills.last().click();
+  await expect(page.getByTestId("prompt-attachment")).toContainText("Reference 1 · p.");
+  mkdirSync("test-results", { recursive: true });
+  await page.screenshot({ path: "test-results/adaptivepath-suggested-prompts.png", fullPage: true });
+  await page.getByRole("button", { name: "Remove attached reference" }).click();
+  await expect(page.getByTestId("prompt-attachment")).toHaveCount(0);
+});

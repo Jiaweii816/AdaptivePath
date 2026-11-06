@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { findAnswerLeaks } from "@/features/adaptivepath/coach/answer-leak-guard";
-import { diffDraft, draftHash, draftState } from "@/features/adaptivepath/coach/draft";
+import { diffDraft, draftHash } from "@/features/adaptivepath/coach/draft";
+import { draftState } from "@/features/adaptivepath/coach/draft-state";
 import { findMemoryDisclosures, isMemoryDisclosureGuardEnabled } from "@/features/adaptivepath/coach/memory-disclosure-guard";
 import { validateCoachReply } from "@/features/adaptivepath/coach/reply-contract";
 import { describeLevel } from "@/features/adaptivepath/coach/wording";

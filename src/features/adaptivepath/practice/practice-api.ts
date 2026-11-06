@@ -1,12 +1,13 @@
 /** Client calls to /api/adaptivepath. Server types are imported as types only. */
 import type { BiologyView, CoachFocus, CoachTurnResponse, SubmitFeedback } from "@/server/adaptivepath/session";
+import type { PromptId } from "./suggested-prompts";
 
 export type PracticeResponse = BiologyView & Partial<{ feedback: SubmitFeedback } & CoachTurnResponse>;
 export type PracticeDraft = { selectedOption: "A" | "B" | "C" | "D" | null; reasoning: string };
 export type PracticeAction =
   | { action: "submit"; questionId: string; selectedOption: string; explanation: string; attemptId: string }
   | { action: "reference"; questionId: string }
-  | { action: "chat"; focus: CoachFocus; message: string; draft?: PracticeDraft };
+  | { action: "chat"; focus: CoachFocus; message: string; draft?: PracticeDraft; promptIds: readonly PromptId[]; referenceChunkId?: string };
 
 async function parse(response: Response): Promise<PracticeResponse> {
   const body = await response.json() as PracticeResponse & { error?: string };

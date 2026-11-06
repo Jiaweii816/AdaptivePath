@@ -18,7 +18,7 @@ let deps: BiologyDeps;
 async function chat(message: string, draft = { selectedOption: "A", reasoning: "Half the offspring look dominant, so the parent must be heterozygous." }) {
   const view = await loadBiologyView(deps);
   const question = getBankQuestion(view.question!.id);
-  return tutorTurn(deps, { focus: { kind: "current_question", questionId: question.id }, message, draft });
+  return tutorTurn(deps, { focus: { kind: "current_question", questionId: question.id }, message, draft, promptIds: [] });
 }
 
 async function llmLatencies() {

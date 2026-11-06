@@ -3,16 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, LocateFixed, Minus, Plus } from "lucide-react";
 import type { PDFDocumentProxy, PDFDocumentLoadingTask, RenderTask } from "pdfjs-dist";
-import locations from "./textbook-locations.json";
-
-/** Page locations for a question's chunk ids, in reading order; unknown ids are an error. */
-export function referenceLocations(chunkIds: readonly string[]) {
-  const known = new Set(locations.chunks.map(chunk => chunk.id));
-  const missing = chunkIds.filter(id => !known.has(id));
-  if (missing.length) throw new Error(`Unknown textbook chunk ids: ${missing.join(", ")}`);
-  const ids = new Set(chunkIds);
-  return locations.chunks.filter(chunk => ids.has(chunk.id));
-}
+import { referenceLocations, TEXTBOOK_LOCATIONS as locations } from "./reference-locations";
 
 const MAX_PIXEL_RATIO = 2;
 
@@ -55,7 +46,7 @@ function PdfPage({ document, page, width, renderKey, onReady, onError }: {
 }
 
 /** A fixed, first-column PDF preview. PDF pages and reference boxes share one coordinate plane. */
-export function TextbookViewer({ chunkIds }: { chunkIds: readonly string[] }) {
+export function TextbookViewer({ chunkIds, onFocusChange }: { chunkIds: readonly string[]; onFocusChange?: (chunkId: string) => void }) {
   const references = useMemo(() => referenceLocations(chunkIds), [chunkIds]);
   const first = references[0];
   const [page, setPage] = useState(first?.page ?? 1);
@@ -94,6 +85,11 @@ export function TextbookViewer({ chunkIds }: { chunkIds: readonly string[] }) {
     observer.observe(element);
     return () => observer.disconnect();
   }, [viewport]);
+
+  // Tells the tutor which reference the student is looking at (Reference 1 on open).
+  useEffect(() => {
+    if (focusId) onFocusChange?.(focusId);
+  }, [focusId, onFocusChange]);
 
   // Scroll to the focused reference once per locate request, not on every re-render or resize.
   const scrolledSequence = useRef(-1);

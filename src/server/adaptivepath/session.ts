@@ -15,7 +15,9 @@ import type { JudgmentState, LedgerRow, MasteryContext } from "@/features/adapti
 import type { Draft } from "@/features/adaptivepath/coach/draft";
 import { BiologyCoachError } from "@/features/adaptivepath/coach/errors";
 import type { IntentKind } from "@/features/adaptivepath/coach/intents";
+import { getPassages, isKnownChunk, type TextbookPassage } from "@/features/adaptivepath/coach/textbook";
 import { describePickReason } from "@/features/adaptivepath/coach/wording";
+import type { PromptId } from "@/features/adaptivepath/practice/suggested-prompts";
 import { biologyOfflineReply } from "@/server/agents/coach-agent/biology-chat-reply";
 import { runBiologyCoachTurn, type BiologyCoachLlm, type CoachTarget } from "@/server/agents/coach-agent/biology/turn";
 import type { ToolUse } from "@/server/agents/coach-agent/biology/tool-loop";
@@ -139,7 +141,15 @@ async function finalizeTurnTrace(trace: TraceContext, status: "succeeded" | "fai
   }
 }
 
-type TurnInput = Readonly<{ focus: CoachFocus; message: string; draft?: Draft }>;
+type TurnInput = Readonly<{ focus: CoachFocus; message: string; draft?: Draft; promptIds: readonly PromptId[]; referenceChunkId?: string }>;
+
+/** Offline rules never read a passage, so attaching one needs the live coach. */
+function attachedPassage(deps: BiologyDeps, chunkId: string | undefined): TextbookPassage | null {
+  if (chunkId === undefined) return null;
+  if (!deps.coach) throw new BiologyCoachError("reference_requires_live", "request", "Asking about a reference passage needs the live coach.");
+  if (!isKnownChunk(chunkId)) throw new BiologyCoachError("unknown_reference", "request", `Unknown textbook passage ${chunkId}.`);
+  return getPassages([chunkId])[0];
+}
 
 function resolveTarget(deps: BiologyDeps, current: Current, focus: CoachFocus): CoachTarget {
   if (focus.kind === "current_question") return { phase: "current_question", question: requireCurrent(current, focus.questionId), attempt: null };
@@ -149,7 +159,7 @@ function resolveTarget(deps: BiologyDeps, current: Current, focus: CoachFocus): 
   return { phase: "submitted_attempt", question: getBankQuestion(attempt.questionId), attempt };
 }
 
-async function offlineTurn(deps: BiologyDeps, input: Readonly<{ current: Current; question: BankQuestion; focus: CoachFocus; message: string; trace: TraceContext }>): Promise<CoachTurnResponse> {
+async function offlineTurn(deps: BiologyDeps, input: Readonly<{ current: Current; question: BankQuestion; turn: TurnInput; trace: TraceContext }>): Promise<CoachTurnResponse> {
   const { current, question } = input;
   const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
   const turn = biologyOfflineReply({
@@ -160,12 +170,15 @@ async function offlineTurn(deps: BiologyDeps, input: Readonly<{ current: Current
     stage: "biology_offline_reply", kind: "lifecycle", title: "Biology offline rules reply", status: "succeeded",
     details: { metadata: { questionId: question.id, tool: turn.tool } },
   });
-  await appendTutorExchange(deps.db, { scope: current.scope, questionId: question.id, phase: "current_question", userText: input.message, reply: turn.reply, assistantMeta: { tool: turn.tool } });
+  await appendTutorExchange(deps.db, { scope: current.scope, questionId: question.id, phase: "current_question", userText: input.turn.message, reply: turn.reply,
+    userMeta: { promptIds: [...input.turn.promptIds] }, assistantMeta: { tool: turn.tool } });
   await recordAccess(deps.db, { scope: current.scope, questionId: question.id, kind: "biology_guided_assistance" });
-  return { provider: "offline_rules", focus: input.focus, reply: turn.reply, intents: [], policyId: `offline_rules:${turn.tool}`, tools: [], citedChunkIds: [], quotedSpans: [], stopReason: null, review: null };
+  return { provider: "offline_rules", focus: input.turn.focus, reply: turn.reply, intents: [], policyId: `offline_rules:${turn.tool}`, tools: [], citedChunkIds: [], quotedSpans: [], stopReason: null, review: null };
 }
 
-async function liveTurn(deps: BiologyDeps & { coach: BiologyCoachLlm }, input: Readonly<{ current: Current; target: CoachTarget; trace: TraceContext; turn: TurnInput }>): Promise<CoachTurnResponse> {
+type LiveTurnInput = Readonly<{ current: Current; target: CoachTarget; trace: TraceContext; turn: TurnInput; attachedPassage: TextbookPassage | null }>;
+
+async function liveTurn(deps: BiologyDeps & { coach: BiologyCoachLlm }, input: LiveTurnInput): Promise<CoachTurnResponse> {
   const { current, target, trace, turn } = input;
   const recalled = await recallBiologyCoachMemory(deps.db, { scope: current.scope, question: target.question, trace });
   const isCurrent = target.phase === "current_question";
@@ -173,6 +186,7 @@ async function liveTurn(deps: BiologyDeps & { coach: BiologyCoachLlm }, input: R
     scope: current.scope, target, memory: recalled.memory, signals: recalled.signals, message: turn.message,
     pickReason: isCurrent && current.pick.kind === "question" ? describePickReason(current.pick.reason) : null,
     draft: isCurrent ? turn.draft ?? null : null,
+    promptIds: turn.promptIds, attachedPassage: input.attachedPassage,
   });
   const review = isCurrent ? null : {
     question: toClientQuestion(target.question),
@@ -184,6 +198,7 @@ async function liveTurn(deps: BiologyDeps & { coach: BiologyCoachLlm }, input: R
 export async function tutorTurn(deps: BiologyDeps, input: TurnInput): Promise<BiologyView & CoachTurnResponse> {
   const current = await loadCurrent(deps);
   const target = resolveTarget(deps, current, input.focus);
+  const passage = attachedPassage(deps, input.referenceChunkId);
   const { scope } = current;
   const trace = createTraceContext({
     prisma: deps.db, userId: scope.userId, path: "memory", task: "biology_coach_turn",
@@ -193,8 +208,8 @@ export async function tutorTurn(deps: BiologyDeps, input: TurnInput): Promise<Bi
   });
   try {
     const response = deps.coach
-      ? await liveTurn({ ...deps, coach: deps.coach }, { current, target, trace, turn: input })
-      : await offlineTurn(deps, { current, question: target.question, focus: input.focus, message: input.message, trace });
+      ? await liveTurn({ ...deps, coach: deps.coach }, { current, target, trace, turn: input, attachedPassage: passage })
+      : await offlineTurn(deps, { current, question: target.question, turn: input, trace });
     await finalizeTurnTrace(trace, "succeeded");
     return { ...(await toView(deps, current)), ...response };
   } catch (error) {

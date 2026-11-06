@@ -31,7 +31,7 @@ async function answerCurrent(correct = true) {
 }
 
 async function chat(message: string, questionId?: string) {
-  return tutorTurn(deps, { focus: { kind: "current_question", questionId: questionId ?? await currentQuestionId() }, message });
+  return tutorTurn(deps, { focus: { kind: "current_question", questionId: questionId ?? await currentQuestionId() }, message, promptIds: [] });
 }
 
 async function attemptConditions() {
@@ -121,7 +121,7 @@ describe("biology session", () => {
     expect(submitted.feedback).toBeDefined();
     const attempt = await db.prisma.l1MemoryEvent.findFirstOrThrow({ where: { eventType: "biology_attempt" } });
     const attemptId = (JSON.parse(attempt.eventJson) as { attemptId: string }).attemptId;
-    await expect(tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?" }))
+    await expect(tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?", promptIds: [] }))
       .rejects.toMatchObject({ code: "review_requires_live" });
   });
 

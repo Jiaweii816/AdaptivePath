@@ -79,6 +79,10 @@ export function searchTextbook(input: Readonly<{ query: string; conceptIds?: rea
     .slice(0, k);
 }
 
+export function isKnownChunk(chunkId: string): boolean {
+  return PASSAGES.has(chunkId);
+}
+
 export function getPassages(chunkIds: readonly string[]): TextbookPassage[] {
   return chunkIds.map((id) => {
     const passage = PASSAGES.get(id);

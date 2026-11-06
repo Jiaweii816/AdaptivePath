@@ -1,14 +1,8 @@
 /** The student's unsubmitted work, sent with every chat turn so they never have to repeat it. */
 import { createHash } from "node:crypto";
-import type { DraftState } from "./teaching-policy";
 
 export type Draft = Readonly<{ selectedOption: string | null; reasoning: string }>;
 export type DraftDiff = Readonly<{ optionChanged: Readonly<{ from: string | null; to: string | null }> | null; reasoningChanged: boolean }>;
-
-export function draftState(draft: Draft | null): DraftState {
-  if (draft?.reasoning.trim()) return "reasoning";
-  return draft?.selectedOption ? "option_only" : "empty";
-}
 
 export function draftHash(questionId: string, draft: Draft): string {
   return createHash("sha256").update(JSON.stringify([questionId, draft.selectedOption, draft.reasoning])).digest("hex");

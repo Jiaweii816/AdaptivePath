@@ -154,7 +154,7 @@ describe("biology tool loop", () => {
 
 describe("coach prompt", () => {
   it("buildCoachContext has no stability, question ids, pastMisses text or correctAnswer", () => {
-    const text = buildCoachContext({ question, phase: "current_question", plan: plan(["question_hint"]), draft: { selectedOption: "D", reasoning: "half" }, draftDiff: null, pickReason: null, concepts: CONCEPTS });
+    const text = buildCoachContext({ question, phase: "current_question", plan: plan(["question_hint"]), draft: { selectedOption: "D", reasoning: "half" }, draftDiff: null, pickReason: null, concepts: CONCEPTS, attachedPassage: null });
     expect(text).not.toMatch(/stability|b2e-12-2-q-|b2e-12-2-concept-/);
     expect(text).not.toContain(memory.attempts[0].explanation);
     expect(text).not.toContain(question.explanation);
@@ -163,7 +163,7 @@ describe("coach prompt", () => {
   });
   it("names anchor and prerequisite concepts by name", () => {
     const p = { ...plan(["explain_concept"]), anchorConceptId: cid(3), prerequisiteConceptId: cid(2), styleKeys: ["depth_hint_ladder", "anchor_bridge", "prerequisite_detour"] as TeachingPlan["styleKeys"] };
-    const text = buildCoachContext({ question, phase: "current_question", plan: p, draft: null, draftDiff: null, pickReason: null, concepts: CONCEPTS });
+    const text = buildCoachContext({ question, phase: "current_question", plan: p, draft: null, draftDiff: null, pickReason: null, concepts: CONCEPTS, attachedPassage: null });
     expect(text).toContain(CONCEPTS[2].name);
     expect(text).toContain(CONCEPTS[1].name);
   });

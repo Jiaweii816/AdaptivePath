@@ -25,6 +25,9 @@ const userMetaSchema = baseMeta.extend({
   intents: z.array(z.string()).optional(),
   affect: z.string().optional(),
   draftSnapshot: z.object({ selectedOption: z.string().nullable(), reasoning: z.string(), hash: z.string() }).optional(),
+  /** Suggested prompts the student clicked into this message; empty means typed. Absent on older messages. */
+  promptIds: z.array(z.string()).optional(),
+  referenceChunkId: z.string().optional(),
 });
 const assistantMetaSchema = baseMeta.extend({
   type: z.literal("biology_tutor_assistant"),

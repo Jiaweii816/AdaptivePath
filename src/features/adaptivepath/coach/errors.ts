@@ -12,13 +12,17 @@ export type BiologyCoachErrorCode =
   | "answer_leak"
   | "memory_disclosure"
   | "attempt_not_found"
-  | "review_requires_live";
+  | "review_requires_live"
+  | "reference_requires_live"
+  | "unknown_reference";
 
 export type BiologyCoachNode = "classifier" | "diagnoser" | "coach" | "guard" | "request";
 
 const STATUS_BY_CODE: Partial<Record<BiologyCoachErrorCode, 400 | 404>> = {
   attempt_not_found: 404,
   review_requires_live: 400,
+  reference_requires_live: 400,
+  unknown_reference: 400,
 };
 const UPSTREAM_FAILURE = 502;
 

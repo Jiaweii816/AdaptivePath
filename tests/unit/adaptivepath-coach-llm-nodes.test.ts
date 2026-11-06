@@ -32,7 +32,7 @@ async function depsWith(replies: Reply[]): Promise<LlmNodeDeps> {
 
 const sent = () => JSON.stringify(requests.map((r) => [r.system, r.messages]));
 const classify = (deps: LlmNodeDeps, reasoning = "half are dominant") =>
-  classifyBiologyTurn(deps, { phase: "current_question", message: "I picked D, is that right?", history: [], draft: { selectedOption: "D", reasoning }, conceptNames: ["Test crosses"] });
+  classifyBiologyTurn(deps, { phase: "current_question", message: "I picked D, is that right?", history: [], draft: { selectedOption: "D", reasoning }, conceptNames: ["Test crosses"], attachedPassage: null });
 const VALID_TURN = JSON.stringify({ intents: [{ kind: "check_reasoning" }], affect: "none", textbookQuery: "test cross probability" });
 const diagnosis = (over: Record<string, unknown> = {}) => JSON.stringify({ issueKind: "missing_step", recurringMisconception: false, studentSpan: "half are dominant", probeStep: "How does one offspring's chance extend to three?", rationale: "stops at one offspring", ...over });
 

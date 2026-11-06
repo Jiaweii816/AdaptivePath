@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { getBankQuestion } from "@/features/adaptivepath/question-bank";
 import type { Draft } from "@/features/adaptivepath/coach/draft";
 import type { MemorySignals } from "@/features/adaptivepath/coach/memory-signals";
+import { getPassages } from "@/features/adaptivepath/coach/textbook";
 import { biologyErrorResponse } from "@/server/adaptivepath/http-errors";
 import { resolveBiologyLearner } from "@/server/adaptivepath/learner";
 import { loadLearnerMemory } from "@/server/adaptivepath/memory-store";
@@ -43,7 +44,7 @@ async function currentQuestion() {
   return getBankQuestion(view.question.id);
 }
 async function chat(message: string, draft: Draft | undefined = { selectedOption: "A", reasoning: "Half the offspring look dominant." }) {
-  return tutorTurn(deps, { focus: { kind: "current_question", questionId: (await currentQuestion()).id }, message, draft });
+  return tutorTurn(deps, { focus: { kind: "current_question", questionId: (await currentQuestion()).id }, message, draft, promptIds: [] });
 }
 async function submitWrong() {
   const question = await currentQuestion();
@@ -152,7 +153,7 @@ describe("biology coach turn", () => {
     const attemptId = await submitWrong();
     script.classifier = [turnJson("review_attempt")];
     script.coach = [JSON.stringify({ reply: `The answer is ${question.correctAnswer}.`, citedChunkIds: [], quotedSpans: [] })];
-    const review = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why was I wrong?" });
+    const review = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why was I wrong?", promptIds: [] });
     expect(review.reply).toContain("The answer is");
   });
 
@@ -169,7 +170,7 @@ describe("biology coach review", () => {
   it("review chat does not write biology_guided_assistance", async () => {
     const attemptId = await submitWrong();
     script.classifier = [turnJson("review_attempt")];
-    const result = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?" });
+    const result = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?", promptIds: [] });
     expect(result.tools).toContainEqual({ name: "get_attempt_review", origin: "policy" });
     expect(result.review?.messages).toHaveLength(2);
     expect(result.activity.tutorUsed).toBe(false);
@@ -180,12 +181,12 @@ describe("biology coach review", () => {
     const attemptId = await submitWrong();
     script.classifier = [turnJson("review_attempt")];
     script.coach = [JSON.stringify({ reply: `You argued that ${PAST_REASONING.toLowerCase()}; compare that with the explanation.`, citedChunkIds: [], quotedSpans: [] })];
-    const result = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?" });
+    const result = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId }, message: "why?", promptIds: [] });
     expect(result.reply).toContain("You argued");
   });
 
   it("review of unknown attempt is 404", async () => {
-    const error = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId: "nope" }, message: "why?" }).catch((e: unknown) => e);
+    const error = await tutorTurn(deps, { focus: { kind: "submitted_attempt", attemptId: "nope" }, message: "why?", promptIds: [] }).catch((e: unknown) => e);
     expect(biologyErrorResponse(error).status).toBe(404);
   });
 });
@@ -201,11 +202,70 @@ describe("biology coach memory policy", () => {
       const trace = createTraceContext({ prisma: db.prisma, userId: scope.userId, path: "memory", task: "biology_coach_turn", memoryOrigin: "test" });
       return runBiologyCoachTurn({ db: db.prisma, llm: { client: routedClient(), model: "fake" }, trace, env }, {
         scope, target: { phase: "current_question", question, attempt: null }, memory, signals, pickReason: null, message: "stuck", draft: null,
+        promptIds: [], attachedPassage: null,
       });
     };
     const plain = await run(base);
     const gap = await run({ ...base, prerequisiteGap: "b2e-12-2-concept-03" });
     expect(plain.tools.map((t) => t.name)).not.toContain("get_concept_card");
     expect(gap.tools).toContainEqual({ name: "get_concept_card", origin: "policy" });
+  });
+});
+
+describe("biology coach suggested prompts and attached reference", () => {
+  const CHUNK = "b2e-12-2-p01-c05";
+  const passage = () => getPassages([CHUNK])[0];
+  const userMeta = async () => JSON.parse((await db.prisma.chatMessage.findFirstOrThrow({ where: { role: "user" } })).metadataJson) as Record<string, unknown>;
+  const CITING = JSON.stringify({ reply: "This passage defines alleles.", citedChunkIds: [CHUNK], quotedSpans: [] });
+  const ask = async (extra: Readonly<{ promptIds: ("explain_reference" | "check_reasoning")[]; referenceChunkId?: string }>) =>
+    tutorTurn(deps, { focus: { kind: "current_question", questionId: (await currentQuestion()).id }, message: "Explain Reference 2 (p. 316)", ...extra });
+
+  it("puts the attached passage's text in front of the classifier and the coach", async () => {
+    script.classifier = [turnJson("explain_concept")];
+    script.coach = [CITING];
+    await ask({ promptIds: ["explain_reference"], referenceChunkId: CHUNK });
+    expect(JSON.stringify(calls.classifier)).toContain(JSON.stringify(passage().text).slice(1, -1));
+    expect(coachText()).toContain(JSON.stringify(passage().text).slice(1, -1));
+  });
+
+  it("lets the coach cite the attached passage and traces it as retrieval", async () => {
+    script.classifier = [turnJson("explain_concept")];
+    script.coach = [CITING];
+    const result = await ask({ promptIds: [], referenceChunkId: CHUNK });
+    expect(result.citedChunkIds).toEqual([CHUNK]);
+    const retrieval = await db.prisma.agentTraceEvent.findMany({ where: { kind: "retrieval", stage: "biology_attached_reference" } });
+    expect(retrieval).toHaveLength(1);
+  });
+
+  it("records which prompts and which passage the message used", async () => {
+    script.classifier = [turnJson("explain_concept")];
+    script.coach = [CITING];
+    await ask({ promptIds: ["explain_reference", "check_reasoning"], referenceChunkId: CHUNK });
+    expect(await userMeta()).toMatchObject({ promptIds: ["explain_reference", "check_reasoning"], referenceChunkId: CHUNK });
+  });
+
+  it("records an empty prompt list for a typed message", async () => {
+    await chat("Is my reasoning right?");
+    expect(await userMeta()).toMatchObject({ promptIds: [] });
+  });
+
+  it("rejects an unknown passage with 400 and stores nothing", async () => {
+    const error = await ask({ promptIds: [], referenceChunkId: "b2e-12-2-nope" }).catch((e: unknown) => e);
+    expect(error).toMatchObject({ code: "unknown_reference" });
+    expect(biologyErrorResponse(error).status).toBe(400);
+    expect(await db.prisma.chatMessage.count()).toBe(0);
+  });
+
+  it("offline rules cannot read a passage, so an attached reference is a 400", async () => {
+    deps = { ...deps, coach: null };
+    const error = await ask({ promptIds: ["explain_reference"], referenceChunkId: CHUNK }).catch((e: unknown) => e);
+    expect(error).toMatchObject({ code: "reference_requires_live" });
+    expect(biologyErrorResponse(error).status).toBe(400);
+  });
+
+  it("offline turns still record prompt usage", async () => {
+    deps = { ...deps, coach: null };
+    await ask({ promptIds: ["check_reasoning"] });
+    expect(await userMeta()).toMatchObject({ promptIds: ["check_reasoning"] });
   });
 });
