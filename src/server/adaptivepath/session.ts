@@ -138,7 +138,7 @@ async function runTutorTurn(deps: BiologyDeps, input: { current: Current; questi
   const turn = await biologyCoachReply({
     question, message, history: activity.messages,
     priorTutorTurns: activity.messages.filter((m) => m.role === "tutor").length,
-    memory: recalled.memory, levels: recalled.levels,
+    memory: recalled.memory, levels: recalled.levels, onboarding:recalled.onboarding,
   }, { live: deps.live, trace });
   await appendTutorExchange(deps.db, { scope: current.scope, questionId: question.id, userText: message, reply: turn.reply, tool: turn.tool });
   await recordAccess(deps.db, { scope: current.scope, questionId: question.id, kind: "biology_guided_assistance" });
