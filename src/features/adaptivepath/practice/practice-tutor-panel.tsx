@@ -43,7 +43,7 @@ function AttachmentChip({ reference, onRemove }: { reference: ReferenceRef; onRe
 }
 
 export function PracticeTutorPanel(props: {
-  view: PracticeResponse | null; coach: Coach; pending: boolean; onSend: () => void; onCite: (chunkId: string) => void; citationCountsAsReference: boolean;
+  view: PracticeResponse | null; coach: Coach; submitted: boolean; pending: boolean; onSend: () => void; onCite: (chunkId: string) => void; citationCountsAsReference: boolean;
   prompts: readonly SuggestedPrompt[]; reference: ReferenceRef | null;
 }) {
   const { view, coach, pending } = props;
@@ -59,7 +59,7 @@ export function PracticeTutorPanel(props: {
     });
   }
   const messages = coach.review ? coach.reviewMessages : view?.activity.messages ?? [];
-  const canChat = Boolean(coach.review || view?.question);
+  const canChat = Boolean(coach.review || (!props.submitted && view?.question));
   return <section aria-label="Coach Panel" className="flex min-h-[560px] min-w-0 flex-col overflow-hidden rounded-md border border-border bg-card lg:min-h-0">
     <div className="border-b border-slate-200 p-5"><div className={`flex items-center gap-2 ${TYPE.eyebrow}`}><MessageCircle size={15} /> AI Tutor Workspace</div>
       <h2 className={`mt-2 ${TYPE.heading}`}>Adaptive guidance</h2>
@@ -72,7 +72,7 @@ export function PracticeTutorPanel(props: {
     <div className="flex-1 space-y-4 overflow-y-auto p-4">
       <div className={`rounded-lg bg-slate-50 p-3 text-slate-700 ${TYPE.support}`}>{coach.review
         ? "Ask me why your submitted answer was right or wrong."
-        : "Hi! Ask me when you are stuck. I can see your selected option and reasoning, so you don't need to repeat them. I will guide you, but I will not give you the answer. Asking me is recorded as tutor help for this question."}</div>
+        : props.submitted ? "Your answer is submitted. Choose Review this question with the coach, or Next Question." : "Hi! Ask me when you are stuck. I can see your selected option and reasoning, so you don't need to repeat them. I will guide you, but I will not give you the answer. Asking me is recorded as tutor help for this question."}</div>
       {messages.map((m, i) => m.role === "student"
         ? <UserBubble key={i}>{m.content}</UserBubble>
         : <AssistantBubble key={i}><CoachMarkdown markdown={m.content} /></AssistantBubble>)}
