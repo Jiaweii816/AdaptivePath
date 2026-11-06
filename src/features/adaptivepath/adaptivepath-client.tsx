@@ -23,6 +23,9 @@ export function AdaptivePathClient() {
   const [highlight, setHighlight] = useState<readonly string[] | null>(null);
   const [focusedChunkId, setFocusedChunkId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
+  // UI-only submitted snapshot: original question and answer stay visible until
+  // Next Question. Never persist reasoning in browser storage.
+  const [submittedSnapshot,setSubmittedSnapshot]=useState<{view:PracticeResponse;option:string;explanation:string}|null>(null);
   const [lastSubmitted, setLastSubmitted] = useState<ReviewTarget | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
@@ -48,28 +51,46 @@ export function AdaptivePathClient() {
     }
   }, []);
 
-  const question = view?.question;
+  const displayedView=submittedSnapshot?.view??view;
+  const question=displayedView?.question;
   const coach = useCoachChat(send);
 
   async function submit() {
-    if (!question || pending) return;
-    const attemptId = crypto.randomUUID();
-    const result = await send({ action: "submit", questionId: question.id, selectedOption: option, explanation, attemptId });
+    if (!question || !displayedView || pending || submittedSnapshot) return;
+    const submittedView=displayedView;
+    const submittedOption=option;
+    const submittedExplanation=explanation;
+    const attemptId=crypto.randomUUID();
+    const result=await send({action:"submit",questionId:question.id,selectedOption:option,explanation,attemptId});
     if (!result) return;
-    setFeedback(result.feedback ?? null);
-    setLastSubmitted({ attemptId, objective: question.objective, conceptIds: question.conceptIds });
-    setOption(""); setExplanation(""); setReferenceOpen(false); setHighlight(null);
+    setSubmittedSnapshot({view:submittedView,option:submittedOption,explanation:submittedExplanation});
+    setFeedback(result.feedback??null);
+    setLastSubmitted({attemptId,objective:question.objective,conceptIds:question.conceptIds});
+    coach.backToCurrent();
+  }
+
+  function nextQuestion(){
+    if(!submittedSnapshot||pending)return;
+    setSubmittedSnapshot(null);
+    setFeedback(null);
+    setLastSubmitted(null);
+    setOption("");
+    setExplanation("");
+    setReferenceOpen(false);
+    setHighlight(null);
+    setFocusedChunkId(null);
     coach.backToCurrent();
   }
 
   async function ask() {
-    if (pending) return;
+    if (pending || (submittedSnapshot && !coach.review)) return;
     await coach.ask(question?.id, { selectedOption: (option || null) as "A" | "B" | "C" | "D" | null, reasoning: explanation });
   }
 
   async function openReference() {
     if (!question || pending) return false;
-    if (view?.activity.referenceUsed) return true;
+    if (submittedSnapshot) return true; // already submitted; do not rewrite access condition
+    if (displayedView?.activity.referenceUsed) return true;
     return Boolean(await send({ action: "reference", questionId: question.id }));
   }
 
@@ -80,7 +101,8 @@ export function AdaptivePathClient() {
 
   async function cite(chunkId: string) {
     if (!question || pending) return;
-    const plan = planCitation({ reviewing: Boolean(coach.review), referenceUsed: Boolean(view?.activity.referenceUsed) });
+    if (submittedSnapshot) { setHighlight([chunkId]); setReferenceOpen(true); return; }
+    const plan = planCitation({ reviewing: Boolean(coach.review), referenceUsed: Boolean(displayedView?.activity.referenceUsed) });
     if (plan.recordReference && !(await send({ action: "reference", questionId: question.id }))) return;
     setHighlight([chunkId]);
     setReferenceOpen(true);
@@ -88,11 +110,11 @@ export function AdaptivePathClient() {
 
   const quotedSpans = coach.review ? [] : coach.turn?.quotedSpans ?? [];
   const reference = question ? focusedReference({
-    open: referenceOpen, liveModel: Boolean(view?.modelReady), reviewing: Boolean(coach.review), highlight,
+    open: referenceOpen, liveModel: Boolean(displayedView?.modelReady), reviewing: Boolean(coach.review), highlight,
     questionChunkIds: question.chunkIds, focusedChunkId,
   }) : null;
   const conceptIds = coach.review?.conceptIds ?? question?.conceptIds ?? [];
-  const prompts = conceptIds.length ? suggestPrompts({
+  const prompts = conceptIds.length && (!submittedSnapshot || coach.review) ? suggestPrompts({
     phase: coach.review ? "submitted_attempt" : "current_question",
     draftState: draftState({ selectedOption: option || null, reasoning: explanation }), conceptIds, reference,
   }) : [];
@@ -103,18 +125,18 @@ export function AdaptivePathClient() {
       <AppShell
         mode="biology"
         currentProblemLabel={question?.objective ?? "Characteristics and Traits"}
-        headerActions={<PracticeHeaderActions liveTutor={Boolean(view?.modelReady)} />}
+        headerActions={<PracticeHeaderActions liveTutor={Boolean(displayedView?.modelReady)} />}
       >
         {error && <p role="alert" className="mx-4 mt-3 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
         <BiologyWorkbenchLayout
           reference={referenceOpen && question ? <PracticeReferencePanel question={question} highlight={highlight}
             onClose={() => void toggleReference()} onFocusReference={setFocusedChunkId} /> : null}
-          workspace={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
+          workspace={<PracticeAnswerPanel view={displayedView} option={option} explanation={explanation} submitted={Boolean(submittedSnapshot)} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
             onReview={view?.modelReady && lastSubmitted ? () => coach.startReview(lastSubmitted) : null}
-            onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()}
+            onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()} onNext={nextQuestion}
             referenceOpen={referenceOpen} onToggleReference={() => void toggleReference()} />}
-          tutor={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} prompts={prompts} reference={reference}
-            citationCountsAsReference={!coach.review && !view?.activity.referenceUsed} />}
+          tutor={<PracticeTutorPanel view={displayedView} coach={coach} submitted={Boolean(submittedSnapshot)} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} prompts={prompts} reference={reference}
+            citationCountsAsReference={!coach.review && !submittedSnapshot && !displayedView?.activity.referenceUsed} />}
         />
       </AppShell>
     </div>

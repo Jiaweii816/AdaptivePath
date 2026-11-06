@@ -28,6 +28,7 @@ import { appendTutorExchange, loadCoachThread, loadQuestionActivity, recordAcces
 import { resolveBiologyLearner } from "./learner";
 import { loadLearnerMemory, recordAttempt, type LatestProfile, type LearnerMemory, type LearnerScope } from "./memory-store";
 import type { StoredLedgerRow } from "./memory-records";
+import { loadOnboardingMetadata } from "./onboarding-store";
 
 export type BiologyDeps = Readonly<{ db: PrismaClient; coach: BiologyCoachLlm | null; env?: Readonly<Record<string, string | undefined>> }>;
 export type CoachFocus = Readonly<{ kind: "current_question"; questionId: string }> | Readonly<{ kind: "submitted_attempt"; attemptId: string }>;
@@ -165,6 +166,7 @@ async function offlineTurn(deps: BiologyDeps, input: Readonly<{ current: Current
   const turn = biologyOfflineReply({
     question, priorTutorTurns: activity.messages.filter((m) => m.role === "tutor").length,
     levels: question.conceptIds.map((id) => current.memory.states.get(id)?.level ?? null),
+    onboarding: await loadOnboardingMetadata(deps.db,current.scope),
   });
   await appendTraceEventBestEffort(input.trace, {
     stage: "biology_offline_reply", kind: "lifecycle", title: "Biology offline rules reply", status: "succeeded",
@@ -222,6 +224,7 @@ export type ProfileLedgerRow = StoredLedgerRow & Readonly<{ questionId: string }
 
 export async function loadProfileData(deps: BiologyDeps): Promise<{
   concepts: readonly Concept[]; states: readonly JudgmentState[]; rows: readonly ProfileLedgerRow[]; latestProfile: LatestProfile | null;
+  onboarding: Awaited<ReturnType<typeof loadOnboardingMetadata>>;
 }> {
   const scope = await resolveBiologyLearner(deps.db, deps.env);
   const memory = await loadLearnerMemory(deps.db, scope);
@@ -231,5 +234,6 @@ export async function loadProfileData(deps: BiologyDeps): Promise<{
     if (!questionId) throw new Error(`Ledger row references unknown L1 event ${row.l1EventId}`);
     return { ...row, questionId };
   });
-  return { concepts: CONCEPTS, states: [...memory.states.values()], rows, latestProfile: memory.latestProfile };
+  return { concepts: CONCEPTS, states: [...memory.states.values()], rows, latestProfile: memory.latestProfile,
+    onboarding: await loadOnboardingMetadata(deps.db,scope) };
 }

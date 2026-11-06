@@ -7,6 +7,9 @@ import type { BankQuestion } from "../question-bank";
 import type { ProfileCard } from "../memory/profile-card";
 import { EXCERPT_CHARS, type TutorEvidence } from "../memory/tutor-context";
 import type { JudgmentState, MasteryLevel } from "../memory/types";
+import { selectBiologyCoachTool } from "../onboarding/coach-policy";
+import type { BiologyOnboardingMetadata } from "../onboarding/types";
+import type { BiologyCoachTool } from "../memory/coach-policy";
 
 export const MAX_PAST_MISSES = 3;
 export const FADING_WINDOW = 3;
@@ -22,6 +25,8 @@ export type MemorySignals = Readonly<{
   anchor: string | null;
   pastMisses: readonly PastMiss[];
   reliesOnTutor: boolean;
+  /** Only a generic teaching-tool choice survives onboarding transformation. */
+  initialCoachTool?: BiologyCoachTool;
 }>;
 
 type SignalInput = Readonly<{
@@ -31,6 +36,7 @@ type SignalInput = Readonly<{
   attempts: readonly TutorEvidence[];
   concepts: readonly Concept[];
   lookupQuestion: (id: string) => BankQuestion;
+  onboarding?: BiologyOnboardingMetadata|null;
 }>;
 
 const levelOf = (states: SignalInput["states"], id: string) => states.get(id)?.level ?? UNJUDGED_LEVEL;
@@ -43,6 +49,19 @@ function prerequisiteGap(input: SignalInput, focus: string): string | null {
   if (levelOf(input.states, focus) > PREREQUISITE_GAP_MAX_LEVEL || !input.card) return null;
   const gaps = input.card.prerequisiteGaps.filter((g) => g.conceptId === focus).map((g) => g.prerequisiteId).sort();
   return gaps[0] ?? null;
+}
+
+/** A weak initial prerequisite is only a cautious prompt for a local detour.
+ * It is NOT promoted to an L2 judgment and loses priority once L2 exists.
+ */
+function onboardingPrerequisiteGap(input:SignalInput,focus:string):string|null{
+  if(input.onboarding?.status!=="completed")return null;
+  const concept=input.concepts.find(c=>c.id===focus);
+  return (concept?.prerequisiteIds??[]).find(id=>
+    !input.states.has(id)&&input.onboarding?.conceptSignals.some(
+      signal=>signal.conceptId===id&&signal.status==="needs_review",
+    ),
+  )??null;
 }
 
 function anchor(input: SignalInput, focus: string): string | null {
@@ -72,12 +91,15 @@ export function deriveMemorySignals(input: SignalInput): MemorySignals {
   const focus = focusConcept(input.question, input.states);
   const recent = newestOnQuestionConcepts(input);
   const window = recent.slice(0, FADING_WINDOW);
+  const initialCoachTool=!input.states.has(focus)&&input.onboarding?.status==="completed"
+    ?selectBiologyCoachTool([null],input.question.conceptIds,input.onboarding):null;
   return {
     level: levelOf(input.states, focus),
     focusConceptId: focus,
-    prerequisiteGap: prerequisiteGap(input, focus),
+    prerequisiteGap: prerequisiteGap(input, focus) ?? onboardingPrerequisiteGap(input,focus),
     anchor: anchor(input, focus),
     pastMisses: pastMisses(input, recent),
     reliesOnTutor: window.length === FADING_WINDOW && window.every((a) => a.condition === TUTOR_CONDITION),
+    ...(initialCoachTool ? {initialCoachTool} : {}),
   };
 }

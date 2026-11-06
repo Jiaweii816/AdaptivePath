@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { ConceptMasteryCard } from "./concept-mastery-card";
 import { ProfileSummaryCard } from "./profile-summary-card";
+import { InitialBackgroundCard } from "./initial-background-card";
 import type { ProfileData } from "./profile-types";
 
 const LOCAL_STORAGE_NOTICE = "Your learning record is stored only in the local database.";
@@ -33,6 +34,7 @@ export function AdaptiveLearnerProfilePage() {
       {error && <p role="alert" className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
       {!data && !error && <p className="text-sm text-muted-foreground">Loading…</p>}
       {data && <>
+        <InitialBackgroundCard onboarding={data.onboarding} />
         <ProfileSummaryCard profile={data.latestProfile} />
         <div className="grid gap-3 md:grid-cols-2">
           {data.concepts.map((concept) => <ConceptMasteryCard key={concept.id} concept={concept}
