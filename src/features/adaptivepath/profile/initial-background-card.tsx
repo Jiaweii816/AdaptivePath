@@ -29,7 +29,7 @@ export function InitialBackgroundCard({onboarding}:{onboarding:BiologyOnboarding
         </div>)}
       </div>
     </>}
-    <p className="mt-4 text-xs text-muted-foreground">This starting context influences the local Coach policy. It never replaces evidence-based L2 judgments. Only approved, non-identifying teaching instructions reach an external model.</p>
+    <p className="mt-4 text-xs text-muted-foreground">Onboarding data informs only the local Coach policy and never replaces L2 evidence. Raw onboarding responses are not sent to the model. In Live Tutor mode, chat messages and question reasoning may separately be processed by the configured AI provider; do not enter identifying details.</p>
     <Link className="mt-3 inline-block text-sm text-primary underline" href="/adaptivepath/onboarding">Update learning background</Link>
   </section>;
 }
