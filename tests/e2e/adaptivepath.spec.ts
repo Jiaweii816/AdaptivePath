@@ -6,14 +6,14 @@ import { expect, test } from "@playwright/test";
 // assuming the first question.
 test("practice flow records conditions and updates the profile", async ({ page }) => {
   await page.goto("/adaptivepath");
-  await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
+  await expect(page.getByTestId("question-prompt")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Adaptive guidance" })).toBeVisible();
   const concept = (await page.getByTestId("current-concept-name").textContent())!.trim();
   await expect(page.getByTestId("current-difficulty")).toHaveText(/easy|medium|hard/);
   mkdirSync("test-results", { recursive: true });
   await page.screenshot({ path: "test-results/adaptivepath-workspace.png", fullPage: true });
 
-  await page.getByRole("button", { name: "Reveal reference (counts as reference use)" }).click();
+  await page.getByRole("button", { name: /^Show textbook reference/ }).click();
   await expect(page.getByTestId("textbook-reader")).toBeVisible();
   await page.reload();
   await expect(page.getByText("Reference used for this question")).toBeVisible();
@@ -38,7 +38,7 @@ test("practice flow records conditions and updates the profile", async ({ page }
 
 test("submits with an option and empty reasoning", async ({ page }) => {
   await page.goto("/adaptivepath");
-  await expect(page.getByRole("heading", { name: "Think, select, and explain" })).toBeVisible();
+  await expect(page.getByTestId("question-prompt")).toBeVisible();
   await page.getByRole("radio").first().check();
   await expect(page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)")).toHaveValue("");
   await page.getByRole("button", { name: "Submit Answer" }).click();
@@ -87,9 +87,9 @@ test("suggested prompts stack, append into the tutor box and attach the focused 
   await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill("Each parent passes one allele.");
   await expect(pills.first()).toHaveText("Check my reasoning");
 
-  await page.getByRole("button", { name: /Reveal reference|Show reference/ }).click();
+  await page.getByRole("button", { name: /^Show textbook reference/ }).click();
   await expect(page.getByTestId("textbook-reader")).toBeVisible();
-  const live = await page.getByText("Live tutor configured").isVisible();
+  const live = await page.getByText("Live tutor: On").isVisible();
   if (!live) {
     await expect(pills).toHaveCount(2);
     return;
@@ -108,4 +108,26 @@ test("suggested prompts stack, append into the tutor box and attach the focused 
   await page.screenshot({ path: "test-results/adaptivepath-suggested-prompts.png", fullPage: true });
   await page.getByRole("button", { name: "Remove attached reference" }).click();
   await expect(page.getByTestId("prompt-attachment")).toHaveCount(0);
+});
+
+test("question sits above the options and the reference column opens on demand", async ({ page }) => {
+  await page.goto("/adaptivepath");
+  const workspace = page.getByRole("region", { name: "Student Workspace Panel" });
+  const prompt = workspace.getByTestId("question-prompt");
+  await expect(prompt).toBeVisible();
+  expect((await prompt.boundingBox())!.y).toBeLessThan((await workspace.getByRole("radio").first().boundingBox())!.y);
+  expect(await prompt.evaluate((el) => getComputedStyle(el).fontSize)).toBe("20px");
+  expect(await prompt.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("400");
+  const referencePanel = page.getByRole("region", { name: "Textbook Reference Panel" });
+  await expect(referencePanel).toHaveCount(0);
+  const widthBefore = (await workspace.boundingBox())!.width;
+  await page.getByRole("button", { name: /^Show textbook reference/ }).click();
+  await expect(referencePanel.getByTestId("textbook-reader")).toBeVisible();
+  expect((await referencePanel.boundingBox())!.x).toBeLessThan((await workspace.boundingBox())!.x);
+  expect((await workspace.boundingBox())!.width).toBeLessThan(widthBefore);
+  mkdirSync("test-results", { recursive: true });
+  await page.screenshot({ path: "test-results/adaptivepath-reference-open.png" });
+  await referencePanel.getByRole("button", { name: "Hide reference" }).click();
+  await expect(referencePanel).toHaveCount(0);
+  await page.screenshot({ path: "test-results/adaptivepath-reference-closed.png" });
 });

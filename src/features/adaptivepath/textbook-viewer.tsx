@@ -120,12 +120,11 @@ export function TextbookViewer({ chunkIds, onFocusChange }: { chunkIds: readonly
     setPage(ref.page); setFocusId(ref.id); setFocusSequence(value => value + 1);
   }
 
-  const reader = <div className="min-w-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-50" data-testid="textbook-reader">
-    <p className="border-b border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600">Biology 2e · PDF</p>
-    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 bg-white p-2">
+  const reader = <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-lg border border-slate-200 bg-slate-50" data-testid="textbook-reader">
+    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 bg-white p-1.5 text-slate-500">
       <div className="flex items-center gap-1">
         <button aria-label="Previous textbook page" disabled={page === 1} onClick={() => goToPage(page - 1)} className="rounded p-1.5 hover:bg-slate-100 disabled:opacity-30"><ChevronLeft size={16}/></button>
-        <select aria-label="Textbook page" value={page} onChange={event => goToPage(Number(event.target.value))} className="min-w-0 rounded border border-slate-200 bg-white px-1 py-1 text-xs">
+        <select aria-label="Textbook page" value={page} onChange={event => goToPage(Number(event.target.value))} className="min-w-0 rounded border border-slate-200 bg-white px-1 py-1 text-xs text-slate-600">
           {locations.pages.map(item => <option key={item.page} value={item.page}>p. {item.printed_page} · {item.page}/12</option>)}
         </select>
         <button aria-label="Next textbook page" disabled={page === 12} onClick={() => goToPage(page + 1)} className="rounded p-1.5 hover:bg-slate-100 disabled:opacity-30"><ChevronRight size={16}/></button>
@@ -136,10 +135,10 @@ export function TextbookViewer({ chunkIds, onFocusChange }: { chunkIds: readonly
         <button aria-label="Zoom in textbook" disabled={zoom >= 4} onClick={() => changeZoom(Math.min(4, zoom + .5))} className="rounded p-1.5 hover:bg-slate-100 disabled:opacity-30"><Plus size={15}/></button>
       </div>
     </div>
-    {references.length > 0 && <div className="flex flex-wrap gap-1.5 border-b border-slate-200 p-2">
-      {references.map((ref, index) => <button key={ref.id} aria-label={`Locate reference ${index + 1} on page ${ref.printed_page}`} onClick={() => locate(ref.id)} className="inline-flex items-center gap-1 rounded border border-amber-300 bg-amber-50 px-2 py-1 text-[11px] font-medium text-amber-900 hover:bg-amber-100"><LocateFixed size={12}/>Reference {index + 1} · p. {ref.printed_page}</button>)}
+    {references.length > 0 && <div className="flex flex-wrap gap-1.5 border-b border-slate-200 bg-white p-2">
+      {references.map((ref, index) => <button key={ref.id} aria-label={`Locate reference ${index + 1} on page ${ref.printed_page}`} onClick={() => locate(ref.id)} className={`inline-flex items-center gap-1 rounded border px-2 py-0.5 text-xs hover:bg-slate-50 ${ref.id === focusId ? "border-amber-300 text-slate-700" : "border-slate-200 text-slate-500"}`}><LocateFixed size={12} className="text-amber-600"/>Reference {index + 1} · p. {ref.printed_page}</button>)}
     </div>}
-    <div ref={setViewport} tabIndex={0} aria-label="Textbook page viewport" className="relative h-[420px] overflow-auto overscroll-contain [scrollbar-gutter:stable]">
+    <div ref={setViewport} tabIndex={0} aria-label="Textbook page viewport" className="relative min-h-[420px] flex-1 overflow-auto overscroll-contain [scrollbar-gutter:stable]">
       {renderedKey !== renderKey && !error && <p role="status" className="absolute left-3 top-3 z-10 rounded bg-white p-2 text-xs">Loading PDF page…</p>}
       {error ? <p role="alert" className="p-4 text-sm">{error} <button onClick={() => { setError(""); setDocument(null); setRetry(value => value + 1); }} className="text-teal-700 underline">Retry</button></p> : <div className="min-w-full p-3">
         <div ref={canvas} className="relative mx-auto bg-white shadow-sm" style={{ width: canvasWidth, aspectRatio: `${sheet.width_pixels}/${sheet.height_pixels}` }}>
@@ -150,7 +149,7 @@ export function TextbookViewer({ chunkIds, onFocusChange }: { chunkIds: readonly
         </div>
       </div>}
     </div>
-    <p aria-live="polite" className="border-t border-slate-200 px-3 py-2 text-[11px] text-slate-600">{visible.length ? "Amber boxes mark this question’s source passages." : "No reference on this page. Use a reference button to return."}</p>
+    <p aria-live="polite" className="border-t border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-500">{visible.length ? "Amber boxes mark this question’s source passages." : "No reference on this page. Use a reference button to return."}</p>
   </div>;
 
   if (!first) return <p className="text-sm text-slate-500">No page location is available for this reference.</p>;

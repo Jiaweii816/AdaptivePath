@@ -1,12 +1,12 @@
 "use client";
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { AppShell } from "@/components/layout/app-shell";
-import { BiologyWorkbenchGrid } from "@/components/workbench/workbench-grid";
 import { getPractice, postPractice, type PracticeAction, type PracticeResponse } from "./practice/practice-api";
 import { PracticeAnswerPanel } from "./practice/practice-answer-panel";
-import { PracticeQuestionPanel } from "./practice/practice-question-panel";
+import { BiologyWorkbenchLayout } from "./practice/biology-workbench-layout";
+import { PracticeHeaderActions } from "./practice/practice-header-actions";
+import { PracticeReferencePanel } from "./practice/practice-reference-panel";
 import { PracticeTutorPanel } from "./practice/practice-tutor-panel";
 import { useCoachChat, type ReviewTarget } from "./practice/use-coach-chat";
 import { planCitation } from "./practice/citation-plan";
@@ -103,21 +103,17 @@ export function AdaptivePathClient() {
       <AppShell
         mode="biology"
         currentProblemLabel={question?.objective ?? "Characteristics and Traits"}
-        headerActions={<div className="flex items-center gap-2">
-          <span className="rounded-md border border-border bg-muted px-2 py-1 text-xs text-muted-foreground">
-            {view?.modelReady ? "Live tutor configured" : "Offline tutor · model key not configured"}
-          </span>
-          <Link href="/adaptivepath/textbook" className="rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold hover:bg-muted">Full textbook §12.2</Link>
-          <Link href="/adaptivepath/profile" className="rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold hover:bg-muted">Learner Profile</Link>
-        </div>}
+        headerActions={<PracticeHeaderActions liveTutor={Boolean(view?.modelReady)} />}
       >
         {error && <p role="alert" className="mx-4 mt-3 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
-        <BiologyWorkbenchGrid
-          left={<PracticeQuestionPanel view={view} referenceOpen={referenceOpen} highlightChunkIds={highlight} pending={pending} onToggleReference={() => void toggleReference()} onFocusReference={setFocusedChunkId} />}
-          middle={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
+        <BiologyWorkbenchLayout
+          reference={referenceOpen && question ? <PracticeReferencePanel question={question} highlight={highlight}
+            onClose={() => void toggleReference()} onFocusReference={setFocusedChunkId} /> : null}
+          workspace={<PracticeAnswerPanel view={view} option={option} explanation={explanation} pending={pending} feedback={feedback} quotedSpans={quotedSpans}
             onReview={view?.modelReady && lastSubmitted ? () => coach.startReview(lastSubmitted) : null}
-            onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()} />}
-          right={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} prompts={prompts} reference={reference}
+            onOption={setOption} onExplanation={setExplanation} onSubmit={() => void submit()}
+            referenceOpen={referenceOpen} onToggleReference={() => void toggleReference()} />}
+          tutor={<PracticeTutorPanel view={view} coach={coach} pending={pending} onSend={() => void ask()} onCite={(id) => void cite(id)} prompts={prompts} reference={reference}
             citationCountsAsReference={!coach.review && !view?.activity.referenceUsed} />}
         />
       </AppShell>

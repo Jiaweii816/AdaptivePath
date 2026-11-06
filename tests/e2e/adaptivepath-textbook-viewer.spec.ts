@@ -47,13 +47,14 @@ test("reference reader locates passages, scales boxes, turns pages and resets fo
   page.on("request", req => { if (/\/api\/adaptivepath\/textbook\/\d+$/.test(req.url())) imageRequests.push(req.url()); });
   await page.goto("/adaptivepath");
   await expect(page.getByTestId("textbook-reader")).toHaveCount(0);
-  await page.getByRole("button", { name: "Reveal reference (counts as reference use)" }).click();
+  await expect(page.getByRole("region", { name: "Textbook Reference Panel" })).toHaveCount(0);
+  await page.getByRole("button", { name: "Show textbook reference (counts as reference use)" }).click();
   const pdf = page.getByTestId("textbook-pdf-page");
   await expect(pdf).toBeVisible();
   await expect(page.getByRole("status")).toHaveCount(0);
   expect(await pdf.evaluate((element: HTMLCanvasElement) => element.width)).toBeGreaterThan(0);
   const reader = page.getByTestId("textbook-reader");
-  const problem = page.getByRole("region", { name: "Problem Panel" });
+  const problem = page.getByRole("region", { name: "Textbook Reference Panel" });
   const readerBounds = (await reader.boundingBox())!;
   const panelBounds = (await problem.boundingBox())!;
   expect(readerBounds.x).toBeGreaterThanOrEqual(panelBounds.x);
@@ -74,13 +75,14 @@ test("reference reader locates passages, scales boxes, turns pages and resets fo
   await expect(page.getByTestId("textbook-highlight")).toHaveCount(2);
   await page.getByRole("button", { name: "Hide reference" }).click();
   await expect(page.getByText("Reference used for this question")).toBeVisible();
-  await page.getByRole("button", { name: "Show reference" }).click();
+  await expect(page.getByRole("region", { name: "Textbook Reference Panel" })).toHaveCount(0);
+  await page.getByRole("button", { name: "Show textbook reference" }).click();
   await expect(page.getByTestId("textbook-reader")).toBeVisible();
   await page.getByRole("radio").first().check();
   await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill("Both RR and Rr have the dominant round phenotype.");
   await page.getByRole("button", { name: "Submit Answer" }).click();
   await expect(page.getByTestId("textbook-reader")).toHaveCount(0);
-  await page.getByRole("button", { name: "Reveal reference (counts as reference use)" }).click();
+  await page.getByRole("button", { name: "Show textbook reference (counts as reference use)" }).click();
   await expect(page.getByRole("img", { name: /printed page 317/ })).toBeVisible();
   await expect(page.getByRole("button", { name: "Fit textbook to width" })).toHaveText("100%");
   await expect(page.getByTestId("textbook-highlight")).toHaveCount(1);
@@ -95,7 +97,7 @@ test("reference reader locates passages, scales boxes, turns pages and resets fo
 
 test("reference reader renders figure pages and fits a phone viewport", async ({ page }) => {
   await page.goto("/adaptivepath");
-  await page.getByRole("button", { name: "Reveal reference (counts as reference use)" }).click();
+  await page.getByRole("button", { name: "Show textbook reference (counts as reference use)" }).click();
   await expect(page.getByRole("img", { name: /printed page 316/ })).toBeVisible();
   await expect(page.getByRole("status")).toHaveCount(0);
   await page.screenshot({ path: "test-results/adaptivepath-textbook-pdf-inline.png" });
