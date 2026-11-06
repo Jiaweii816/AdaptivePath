@@ -119,3 +119,23 @@ test("suggested prompts stack, append into the tutor box and attach the focused 
   await page.getByRole("button", { name: "Remove attached reference" }).click();
   await expect(page.getByTestId("prompt-attachment")).toHaveCount(0);
 });
+
+test("onboarding from whole-book topics seeds a visible profile",async({page})=>{
+  await page.goto("/adaptivepath/onboarding");
+  await expect(page.getByRole("heading",{name:"Your Biology learning starting point"})).toBeVisible();
+  await page.getByText("Genetics",{exact:false}).first().click();
+  await page.getByRole("combobox",{name:"Preferred teaching style"}).selectOption("step_by_step");
+  const answers=["A","B","C","B","D"];
+  for(let i=0;i<5;i++){
+    const fieldset=page.locator("fieldset").nth(i);
+    await fieldset.getByRole("radio",{name:new RegExp("^"+answers[i]+"\\.")}).check();
+  }
+  await page.getByRole("button",{name:"Save initial context"}).click();
+  await expect(page.getByRole("heading",{name:"Initial learning context saved"})).toBeVisible();
+  await page.getByRole("link",{name:"Open learner profile"}).click();
+  await expect(page.getByRole("heading",{name:"Initial Learning Background"})).toBeVisible();
+  await expect(page.getByText("Teaching preference:")).toBeVisible();
+  await expect(page.getByText("not a mastery score")).toBeVisible();
+  mkdirSync("test-results",{recursive:true});
+  await page.screenshot({path:"test-results/adaptivepath-onboarding-profile.png",fullPage:true});
+});
