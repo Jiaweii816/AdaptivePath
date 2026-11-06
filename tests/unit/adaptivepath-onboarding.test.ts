@@ -110,6 +110,16 @@ describe("L1/L2/L3 integration without fabricated mastery",()=>{
       priorHintTurns:0,firstTurnOnQuestion:true,
     });
     expect(plan.styleKeys).toContain("depth_hint_ladder");
+    const missingPrereq=summarizeOnboarding({
+      studiedUnits:["genetics"],geneticsFamiliarity:"some",supportPreference:"socratic",
+      responses:{...answers,"ob-gametes":"A"},
+    });
+    const cautious=deriveMemorySignals({
+      question:q,states:new Map(),card:null,attempts:[],
+      concepts:CONCEPTS,lookupQuestion:getBankQuestion,onboarding:missingPrereq,
+    });
+    expect(cautious.prerequisiteGap).toBe("b2e-12-2-concept-01");
+    expect(cautious.initialCoachTool).toBe("guided_hint");
     expect(JSON.stringify(signals)).not.toContain("studiedUnits");
     expect(JSON.stringify(plan)).not.toContain("geneticsFamiliarity");
   });
