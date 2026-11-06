@@ -61,7 +61,7 @@ export function PracticeQuestionPanel(props: {
         <ul className="mt-1 list-disc pl-4">{question.assumptions.map((a) => <li key={a}>{a}</li>)}</ul>
       </div>}
     </div>
-    <div className="flex-1 overflow-y-auto p-5">
+    <div className="flex-1 overflow-y-auto p-5 [scrollbar-gutter:stable]">
       {view && <ReferenceSection view={view} open={props.referenceOpen} highlight={props.highlightChunkIds} pending={props.pending} onToggle={props.onToggleReference} />}
       <p className="mt-3 text-xs text-slate-500">Source: OpenStax Biology 2e, Section 12.2. Access for free at <a href={OPENSTAX_URL} target="_blank" rel="noreferrer" className="text-teal-700 underline">openstax.org</a>. CC BY-NC-SA 4.0.</p>
     </div>
