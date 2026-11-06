@@ -2,7 +2,7 @@ name: AdaptivePath demo checks
 
 on:
   pull_request:
-    branches: [main, feature/biology-demo]
+    branches: [main, feature/biology-demo, feature/biology-workbench-integration]
     paths:
       - ".github/workflows/adaptivepath-ci.yml"
       - "app/adaptivepath/**"
@@ -73,5 +73,6 @@ jobs:
             test-results/adaptivepath-workspace.png
             test-results/adaptivepath-profile.png
             test-results/adaptivepath-textbook.png
+            test-results/adaptivepath-onboarding-profile.png
             test-results/**/trace.zip
           if-no-files-found: ignore
