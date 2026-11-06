@@ -5,11 +5,13 @@
  */
 import locations from "@/features/adaptivepath/textbook-locations.json";
 import type { BankQuestion } from "@/features/adaptivepath/question-bank";
-import { hintStep, selectCoachTool, type BiologyCoachTool } from "@/features/adaptivepath/memory/coach-policy";
+import { hintStep, type BiologyCoachTool } from "@/features/adaptivepath/memory/coach-policy";
 import { offlineTutorReply } from "@/features/adaptivepath/memory/offline-hints";
 import type { MasteryLevel } from "@/features/adaptivepath/memory/types";
+import { selectBiologyCoachTool } from "@/features/adaptivepath/onboarding/coach-policy";
+import type { BiologyOnboardingMetadata } from "@/features/adaptivepath/onboarding/types";
 
-export type OfflineTurnInput = Readonly<{ question: BankQuestion; priorTutorTurns: number; levels: readonly (MasteryLevel | null)[] }>;
+export type OfflineTurnInput = Readonly<{ question: BankQuestion; priorTutorTurns: number; levels: readonly (MasteryLevel | null)[]; onboarding?:BiologyOnboardingMetadata|null }>;
 export type OfflineTurnResult = Readonly<{ reply: string; provider: "offline_rules"; tool: BiologyCoachTool }>;
 
 /** Subsection titles only. */
@@ -23,7 +25,7 @@ function subsectionsFor(chunkIds: readonly string[]): string[] {
 }
 
 export function biologyOfflineReply(input: OfflineTurnInput): OfflineTurnResult {
-  const tool = selectCoachTool(input.levels);
+  const tool = selectBiologyCoachTool(input.levels,input.question.conceptIds,input.onboarding??null);
   const reply = offlineTutorReply({
     tool, conceptIds: input.question.conceptIds, hintStep: hintStep(input.priorTutorTurns), subsections: subsectionsFor(input.question.chunkIds),
   });
