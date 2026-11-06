@@ -153,8 +153,10 @@ function resolveTarget(deps: BiologyDeps, current: Current, focus: CoachFocus): 
 async function offlineTurn(deps: BiologyDeps, input: Readonly<{ current: Current; question: BankQuestion; focus: CoachFocus; message: string; trace: TraceContext }>): Promise<CoachTurnResponse> {
   const { current, question } = input;
   const activity = await loadQuestionActivity(deps.db, { scope: current.scope, questionId: question.id });
+  const onboarding=await loadOnboardingMetadata(deps.db,current.scope);
   const turn = biologyOfflineReply({
     question, priorTutorTurns: activity.messages.filter((m) => m.role === "tutor").length,
+    onboarding,
     levels: question.conceptIds.map((id) => current.memory.states.get(id)?.level ?? null),
   });
   await appendTraceEventBestEffort(input.trace, {
