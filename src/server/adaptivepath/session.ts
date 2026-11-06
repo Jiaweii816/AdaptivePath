@@ -26,6 +26,7 @@ import { appendTutorExchange, loadCoachThread, loadQuestionActivity, recordAcces
 import { resolveBiologyLearner } from "./learner";
 import { loadLearnerMemory, recordAttempt, type LatestProfile, type LearnerMemory, type LearnerScope } from "./memory-store";
 import type { StoredLedgerRow } from "./memory-records";
+import { loadOnboardingMetadata } from "./onboarding-store";
 
 export type BiologyDeps = Readonly<{ db: PrismaClient; coach: BiologyCoachLlm | null; env?: Readonly<Record<string, string | undefined>> }>;
 export type CoachFocus = Readonly<{ kind: "current_question"; questionId: string }> | Readonly<{ kind: "submitted_attempt"; attemptId: string }>;
@@ -216,5 +217,6 @@ export async function loadProfileData(deps: BiologyDeps): Promise<{
     if (!questionId) throw new Error(`Ledger row references unknown L1 event ${row.l1EventId}`);
     return { ...row, questionId };
   });
-  return { concepts: CONCEPTS, states: [...memory.states.values()], rows, latestProfile: memory.latestProfile };
+  return { concepts: CONCEPTS, states: [...memory.states.values()], rows, latestProfile: memory.latestProfile,
+    onboarding: await loadOnboardingMetadata(deps.db,scope) };
 }
