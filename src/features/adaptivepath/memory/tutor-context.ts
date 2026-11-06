@@ -1,6 +1,7 @@
 /**
  * Bounded learner memory handed to the tutor model (report §8): at most two
- * L2 judgments and five short L1 excerpts, never answers or chosen options.
+ * L2 judgments and five categorized L1 evidence summaries. Student-written
+ * explanations never leave this boundary, even as short substrings.
  */
 import type { Concept } from "../concepts";
 import type { AttemptEvidence, AttemptCondition, AttemptResult, JudgmentState, MasteryLevel } from "./types";
@@ -56,7 +57,8 @@ export function buildTutorMemoryContext(input: ContextInput): TutorMemoryContext
       questionId: a.questionId,
       condition: a.condition,
       result: (a.correct ? "S" : "F") as AttemptResult,
-      explanationExcerpt: a.explanation.slice(0, EXCERPT_CHARS),
+      // No raw reasoning text: lengths are not anonymization.
+      explanationExcerpt: a.correct ? "structured_evidence_success" : "structured_evidence_needs_review",
     }));
   return {
     judgments: judgments.map((j) => ({ conceptId: j.conceptId, level: j.level, stability: j.stability })),
