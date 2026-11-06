@@ -1,6 +1,6 @@
 import { describe,expect,it,beforeEach,afterEach } from "vitest";
 import { BIOLOGY_UNITS,ONBOARDING_QUESTIONS } from "@/features/adaptivepath/onboarding/catalog";
-import { summarizeOnboarding,SKIPPED_ONBOARDING } from "@/server/adaptivepath/onboarding-scoring";
+import { summarizeOnboarding,SKIPPED_ONBOARDING,type OnboardingSubmission } from "@/server/adaptivepath/onboarding-scoring";
 import { saveOnboardingMetadata,loadOnboardingMetadata } from "@/server/adaptivepath/onboarding-store";
 import { selectBiologyCoachTool } from "@/features/adaptivepath/onboarding/coach-policy";
 import { deriveMemorySignals } from "@/features/adaptivepath/coach/memory-signals";
@@ -12,7 +12,7 @@ import { createMemoryTestDb,type MemoryTestDb } from "./memory-test-helpers";
 
 const answers={
   "ob-dna":"A","ob-homologs":"B","ob-gametes":"C","ob-dominance":"A","ob-cross":"B",
-};
+} as const;
 const metadata=()=>summarizeOnboarding({
   studiedUnits:["cell","genetics"],geneticsFamiliarity:"some",
   supportPreference:"socratic",responses:answers,
@@ -56,7 +56,7 @@ describe("whole-book-aware onboarding diagnostics",()=>{
     expect(serialized).not.toContain("reasoning");
   });
   it("rejects missing, extra and arbitrary untrusted fields",()=>{
-    const input={studiedUnits:["genetics"],geneticsFamiliarity:"some",supportPreference:"socratic",responses:answers};
+    const input:OnboardingSubmission={studiedUnits:["genetics"],geneticsFamiliarity:"some",supportPreference:"socratic",responses:answers};
     expect(()=>summarizeOnboarding({...input,responses:{"ob-dna":"A"}})).toThrow("All five");
     expect(()=>summarizeOnboarding({...input,fullName:"A Student"} as never)).toThrow();
     expect(()=>summarizeOnboarding({...input,responses:{...answers,extra:"A"}})).toThrow("All five");
