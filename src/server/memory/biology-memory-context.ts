@@ -7,6 +7,7 @@ import { CONCEPTS } from "@/features/adaptivepath/concepts";
 import { getBankQuestion, type BankQuestion } from "@/features/adaptivepath/question-bank";
 import { deriveMemorySignals, type MemorySignals } from "@/features/adaptivepath/coach/memory-signals";
 import { loadLearnerMemory, type LearnerMemory, type LearnerScope } from "@/server/adaptivepath/memory-store";
+import { loadOnboardingMetadata } from "@/server/adaptivepath/onboarding-store";
 import { appendTraceEventBestEffort, type TraceContext } from "@/server/llm/trace-context";
 
 export async function recallBiologyCoachMemory(
@@ -14,10 +15,13 @@ export async function recallBiologyCoachMemory(
   input: Readonly<{ scope: LearnerScope; question: BankQuestion; trace: TraceContext }>,
 ): Promise<{ memory: LearnerMemory; signals: MemorySignals }> {
   const startedAt = Date.now();
-  const memory = await loadLearnerMemory(db, input.scope);
+  const [memory,onboarding]=await Promise.all([
+    loadLearnerMemory(db,input.scope), loadOnboardingMetadata(db,input.scope),
+  ]);
   const signals = deriveMemorySignals({
     question: input.question, states: memory.states, card: memory.latestProfile?.card ?? null,
     attempts: memory.attempts, concepts: CONCEPTS, lookupQuestion: getBankQuestion,
+    onboarding,
   });
   const judgmentConceptIds = [signals.focusConceptId, signals.prerequisiteGap, signals.anchor].filter((id): id is string => id !== null && memory.states.has(id));
   await appendTraceEventBestEffort(input.trace, {
@@ -32,6 +36,7 @@ export async function recallBiologyCoachMemory(
         judgmentConceptIds,
         pastMissEventIds: signals.pastMisses.map((m) => m.l1EventId),
         profileVersion: memory.latestProfile?.version ?? null,
+        onboardingAvailable: onboarding?.status==="completed",
       },
     },
   });
