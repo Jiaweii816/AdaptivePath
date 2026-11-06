@@ -51,6 +51,19 @@ function prerequisiteGap(input: SignalInput, focus: string): string | null {
   return gaps[0] ?? null;
 }
 
+/** A weak initial prerequisite is only a cautious prompt for a local detour.
+ * It is NOT promoted to an L2 judgment and loses priority once L2 exists.
+ */
+function onboardingPrerequisiteGap(input:SignalInput,focus:string):string|null{
+  if(input.onboarding?.status!=="completed")return null;
+  const concept=input.concepts.find(c=>c.id===focus);
+  return (concept?.prerequisiteIds??[]).find(id=>
+    !input.states.has(id)&&input.onboarding?.conceptSignals.some(
+      signal=>signal.conceptId===id&&signal.status==="needs_review",
+    ),
+  )??null;
+}
+
 function anchor(input: SignalInput, focus: string): string | null {
   const concept = input.concepts.find((c) => c.id === focus);
   const strengths = new Set(input.card?.strengths ?? []);
@@ -83,7 +96,7 @@ export function deriveMemorySignals(input: SignalInput): MemorySignals {
   return {
     level: levelOf(input.states, focus),
     focusConceptId: focus,
-    prerequisiteGap: prerequisiteGap(input, focus),
+    prerequisiteGap: prerequisiteGap(input, focus) ?? onboardingPrerequisiteGap(input,focus),
     anchor: anchor(input, focus),
     pastMisses: pastMisses(input, recent),
     reliesOnTutor: window.length === FADING_WINDOW && window.every((a) => a.condition === TUTOR_CONDITION),
