@@ -208,6 +208,7 @@ export type ProfileLedgerRow = StoredLedgerRow & Readonly<{ questionId: string }
 
 export async function loadProfileData(deps: BiologyDeps): Promise<{
   concepts: readonly Concept[]; states: readonly JudgmentState[]; rows: readonly ProfileLedgerRow[]; latestProfile: LatestProfile | null;
+  onboarding: Awaited<ReturnType<typeof loadOnboardingMetadata>>;
 }> {
   const scope = await resolveBiologyLearner(deps.db, deps.env);
   const memory = await loadLearnerMemory(deps.db, scope);
