@@ -67,3 +67,23 @@ test("textbook browser filters by concept and page", async ({ page }) => {
   await expect(page.locator("article").getByText("Huntington", { exact: false }).first()).toBeVisible();
   await page.screenshot({ path: "test-results/adaptivepath-textbook.png", fullPage: true });
 });
+
+test("onboarding from whole-book topics seeds a visible profile",async({page})=>{
+  await page.goto("/adaptivepath/onboarding");
+  await expect(page.getByRole("heading",{name:"Your Biology learning starting point"})).toBeVisible();
+  await page.getByText("Genetics",{exact:false}).first().click();
+  await page.getByRole("combobox",{name:"Preferred teaching style"}).selectOption("step_by_step");
+  const answers=["A","B","C","B","D"];
+  for(let i=0;i<5;i++){
+    const fieldset=page.locator("fieldset").nth(i);
+    await fieldset.getByRole("radio",{name:new RegExp("^"+answers[i]+"\\.")}).check();
+  }
+  await page.getByRole("button",{name:"Save initial context"}).click();
+  await expect(page.getByRole("heading",{name:"Initial learning context saved"})).toBeVisible();
+  await page.getByRole("link",{name:"Open learner profile"}).click();
+  await expect(page.getByRole("heading",{name:"Initial Learning Background"})).toBeVisible();
+  await expect(page.getByText("Teaching preference:")).toBeVisible();
+  await expect(page.getByText("not a mastery score")).toBeVisible();
+  mkdirSync("test-results",{recursive:true});
+  await page.screenshot({path:"test-results/adaptivepath-onboarding-profile.png",fullPage:true});
+});
