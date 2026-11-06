@@ -9,6 +9,8 @@ import { buildProfileCard, PROFILE_NOTE_PENDING, type ProfileCard } from "@/feat
 import type { TutorEvidence } from "@/features/adaptivepath/memory/tutor-context";
 import type { AttemptEvidence, JudgmentState, LedgerRow, MasteryContext } from "@/features/adaptivepath/memory/types";
 import type { MemoryOrigin } from "@/server/memory/memory-origin";
+import { ACTIVE_RULE_VERSION,getRuleset } from "@/features/adaptivepath/memory/rules";
+import { QUESTION_LOOKUP } from "@/features/adaptivepath/question-bank";
 import {
   ATTEMPT_EVENT_TYPE, ATTEMPT_SCHEMA_VERSION, ATTEMPT_SOURCE, BIOLOGY_DOMAIN, attemptFields,
   parseProfileCard, toJudgmentState, toLedgerRow, toTutorEvidence, type StoredLedgerRow,
@@ -90,6 +92,24 @@ async function writeProfile(tx: Tx, scope: OwnerScope, ctx: MasteryContext): Pro
     data: { ...section(scope), version, cardJson: JSON.stringify(card), noteStatus: PROFILE_NOTE_PENDING, ruleVersion: ctx.rules.version },
   });
   return version;
+}
+
+/**
+ * Create an L3 baseline without fabricating L2 evidence. Called only when the
+ * initial onboarding has been persisted, preserving all existing judgments,
+ * ledger rules and future L3 versioning.
+ */
+export async function ensureInitialLearnerProfile(
+  db:PrismaClient,scope:OwnerScope,
+):Promise<number>{
+  return db.$transaction(async tx=>{
+    const prior=await latestProfile(tx,scope);
+    if(prior)return prior.version;
+    return writeProfile(tx,scope,{
+      rules:getRuleset(ACTIVE_RULE_VERSION),
+      lookup:QUESTION_LOOKUP,
+    });
+  });
 }
 
 export async function recordAttempt(
