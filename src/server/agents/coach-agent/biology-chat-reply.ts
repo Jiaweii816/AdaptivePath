@@ -6,12 +6,14 @@
 import locations from "@/features/adaptivepath/textbook-locations.json";
 import { getConcept } from "@/features/adaptivepath/concepts";
 import { toClientQuestion, type BankQuestion } from "@/features/adaptivepath/question-bank";
-import { hintStep, selectCoachTool, type BiologyCoachTool } from "@/features/adaptivepath/memory/coach-policy";
+import { hintStep, type BiologyCoachTool } from "@/features/adaptivepath/memory/coach-policy";
 import { offlineTutorReply } from "@/features/adaptivepath/memory/offline-hints";
 import type { TutorMemoryContext } from "@/features/adaptivepath/memory/tutor-context";
 import type { MasteryLevel } from "@/features/adaptivepath/memory/types";
 import type { TraceContext } from "@/server/llm/trace-context";
 import { LiveTutorError, type LiveTutor } from "@/server/adaptivepath/tutor-provider";
+import { selectBiologyCoachTool } from "@/features/adaptivepath/onboarding/coach-policy";
+import type { BiologyOnboardingMetadata } from "@/features/adaptivepath/onboarding/types";
 
 export type BiologyTurnInput = Readonly<{
   question: BankQuestion;
@@ -20,6 +22,7 @@ export type BiologyTurnInput = Readonly<{
   priorTutorTurns: number;
   memory: TutorMemoryContext;
   levels: readonly (MasteryLevel | null)[];
+  onboarding?:BiologyOnboardingMetadata|null;
 }>;
 export type BiologyTurnResult = Readonly<{ reply: string; provider: "offline_rules" | "live_llm"; tool: BiologyCoachTool }>;
 
@@ -37,7 +40,7 @@ export async function biologyCoachReply(
   input: BiologyTurnInput,
   deps: Readonly<{ live: LiveTutor | null; trace: TraceContext }>,
 ): Promise<BiologyTurnResult> {
-  const tool = selectCoachTool(input.levels);
+  const tool = selectBiologyCoachTool(input.levels,input.question.conceptIds,input.onboarding??null);
   const step = hintStep(input.priorTutorTurns);
   const subsections = subsectionsFor(input.question.chunkIds);
   if (!deps.live) {
