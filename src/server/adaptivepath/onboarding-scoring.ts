@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { BIOLOGY_UNITS,FAMILIARITY,ONBOARDING_QUESTIONS,SUPPORT_PREFERENCES } from "@/features/adaptivepath/onboarding/catalog";
+import { FAMILIARITY,ONBOARDING_QUESTIONS,SUPPORT_PREFERENCES } from "@/features/adaptivepath/onboarding/catalog";
 import type { BiologyOnboardingMetadata,ConceptSignal } from "@/features/adaptivepath/onboarding/types";
 
 const choice = z.enum(["A","B","C","D"]);
 export const onboardingSubmissionSchema = z.object({
-  studiedUnits:z.array(z.enum(BIOLOGY_UNITS.map(u=>u.id) as [string,...string[]])).max(8),
+  studiedUnits:z.array(z.enum(["chemistry","cell","genetics","evolution","diversity","plant","animal","ecology"])).max(8),
   geneticsFamiliarity:z.enum(FAMILIARITY),
   supportPreference:z.enum(SUPPORT_PREFERENCES),
   responses:z.record(z.string(),choice),
