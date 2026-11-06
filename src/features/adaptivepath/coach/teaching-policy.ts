@@ -92,7 +92,8 @@ function hasAny(turn: ClassifiedTurn, kinds: ReadonlySet<IntentKind>): boolean {
 }
 
 function hintStepFor(input: PlanInput): 1 | 2 | 3 | null {
-  if (input.signals.level !== HINT_LADDER_LEVEL || !hasAny(input.turn, HINT_INTENTS)) return null;
+  const initiallyGuided=input.signals.initialCoachTool==="guided_hint";
+  if ((input.signals.level!==HINT_LADDER_LEVEL&&!initiallyGuided)||!hasAny(input.turn,HINT_INTENTS))return null;
   if (input.turn.intents.some((i) => i.kind === "request_answer")) return LAST_HINT_STEP;
   const anxiousBoost = input.turn.affect === "anxious_stuck" ? 1 : 0;
   return Math.min(input.priorHintTurns + 1 + anxiousBoost, LAST_HINT_STEP) as 1 | 2 | 3;
@@ -118,7 +119,7 @@ export function planTeachingTurn(input: PlanInput): TeachingPlan {
   const parts = input.turn.intents.map((intent) => INTENT_RULES[intent.kind]({ intent, query: input.turn.textbookQuery, hasDraft }));
   const overlay = memoryOverlay(input);
   const review = input.phase === "submitted_attempt" ? [call("get_attempt_review")] : [];
-  const depth = DEPTH_BY_TOOL[selectCoachTool([input.signals.level])];
+  const depth = DEPTH_BY_TOOL[input.signals.initialCoachTool ?? selectCoachTool([input.signals.level])];
   return {
     requiredCalls: unique([...review, ...parts.flatMap((p) => p.required), ...overlay.required], (c) => `${c.name}:${JSON.stringify(c.args)}`),
     optionalTools: unique(parts.flatMap((p) => p.optional)),
