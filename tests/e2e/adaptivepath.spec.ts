@@ -22,10 +22,19 @@ test("practice flow records conditions and updates the profile", async ({ page }
   await page.getByLabel("Explain your reasoning (Claim · Evidence · Reasoning)").fill(
     "Genes sit on chromosomes and each parent passes one allele to the offspring.",
   );
+  const submittedPrompt=await page.getByTestId("question-prompt").textContent();
   await page.getByRole("button", { name: "Submit Answer" }).click();
+  await expect(page.getByTestId("question-prompt")).toHaveText(submittedPrompt!.trim());
+  await expect(page.getByTestId("submitted-question-notice")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Next Question" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Submit Answer" })).toHaveCount(0);
   const feedback = page.getByTestId("submit-feedback");
   await expect(feedback).toContainText(concept);
   await expect(feedback).toContainText("reference used");
+  await page.getByRole("button", { name: "Next Question" }).click();
+  await expect(page.getByTestId("submitted-question-notice")).toHaveCount(0);
+  await expect(page.getByTestId("submit-feedback")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Submit Answer" })).toBeVisible();
 
   await page.goto("/adaptivepath/profile");
   await expect(page.getByRole("heading", { name: "Learner Profile" })).toBeVisible();
@@ -130,4 +139,24 @@ test("question sits above the options and the reference column opens on demand",
   await referencePanel.getByRole("button", { name: "Hide reference" }).click();
   await expect(referencePanel).toHaveCount(0);
   await page.screenshot({ path: "test-results/adaptivepath-reference-closed.png" });
+});
+
+test("onboarding from whole-book topics seeds a visible profile",async({page})=>{
+  await page.goto("/adaptivepath/onboarding");
+  await expect(page.getByRole("heading",{name:"Your Biology learning starting point"})).toBeVisible();
+  await page.getByText("Genetics",{exact:false}).first().click();
+  await page.getByRole("combobox",{name:"Preferred teaching style"}).selectOption("step_by_step");
+  const answers=["A","B","C","B","D"];
+  for(let i=0;i<5;i++){
+    const fieldset=page.locator("fieldset").nth(i);
+    await fieldset.getByRole("radio",{name:new RegExp("^"+answers[i]+"\\.")}).check();
+  }
+  await page.getByRole("button",{name:"Save initial context"}).click();
+  await expect(page.getByRole("heading",{name:"Initial learning context saved"})).toBeVisible();
+  await page.getByRole("link",{name:"Open learner profile"}).click();
+  await expect(page.getByRole("heading",{name:"Initial Learning Background"})).toBeVisible();
+  await expect(page.getByText("Teaching preference:")).toBeVisible();
+  await expect(page.getByText("not a mastery score")).toBeVisible();
+  mkdirSync("test-results",{recursive:true});
+  await page.screenshot({path:"test-results/adaptivepath-onboarding-profile.png",fullPage:true});
 });
