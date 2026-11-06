@@ -78,6 +78,7 @@ export function AdaptivePathClient() {
           <span className="rounded-md border border-border bg-muted px-2 py-1 text-xs text-muted-foreground">
             {view?.modelReady ? "Live tutor configured" : "Offline tutor · model key not configured"}
           </span>
+          <Link href="/adaptivepath/onboarding" className="rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold hover:bg-muted">Onboarding</Link>
           <Link href="/adaptivepath/textbook" className="rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold hover:bg-muted">Full textbook §12.2</Link>
           <Link href="/adaptivepath/profile" className="rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold hover:bg-muted">Learner Profile</Link>
         </div>}
