@@ -61,7 +61,7 @@ const SYSTEM_PROMPT = [
 export function classifyBiologyIntent(raw:string):
   "answer_request"|"reasoning_check"|"weakness_question"|"reference_request"|"hint_request"|"general_help" {
   const value=raw.toLowerCase();
-  if(/(?:just tell|give me|show me|what is)\\s+(?:the )?(?:correct )?answer|system says.*answer/.test(value))return "answer_request";
+  if(/(?:just tell|give me|show me|what is)\s+(?:the )?(?:correct )?answer|system says.*answer/.test(value))return "answer_request";
   if(/where am i weak|my weaknesses|what.*struggl|what.*improve/.test(value))return "weakness_question";
   if(/my reasoning|my logic|is this right|is .*correct|i think|because/.test(value))return "reasoning_check";
   if(/textbook|source|reference|which page|look up|citation/.test(value))return "reference_request";
