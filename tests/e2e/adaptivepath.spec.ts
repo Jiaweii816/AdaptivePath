@@ -23,9 +23,19 @@ test("practice flow records conditions and updates the profile", async ({ page }
     "Genes sit on chromosomes and each parent passes one allele to the offspring.",
   );
   await page.getByRole("button", { name: "Submit Answer" }).click();
+  // The backend already picked the next item, but the UI must keep the
+  // submitted question visible until the learner explicitly advances.
+  await expect(page.getByTestId("current-concept-name")).toHaveText(concept);
+  await expect(page.getByTestId("submitted-question-notice")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Submit Answer" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Next Question" })).toBeVisible();
   const feedback = page.getByTestId("submit-feedback");
   await expect(feedback).toContainText(concept);
   await expect(feedback).toContainText("reference used");
+  await page.getByRole("button", { name: "Next Question" }).click();
+  await expect(page.getByTestId("submitted-question-notice")).toHaveCount(0);
+  await expect(page.getByTestId("submit-feedback")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Submit Answer" })).toBeVisible();
 
   await page.goto("/adaptivepath/profile");
   await expect(page.getByRole("heading", { name: "Learner Profile" })).toBeVisible();
