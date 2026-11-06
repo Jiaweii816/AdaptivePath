@@ -53,14 +53,14 @@ export function BiologyOnboardingPage(){
       </header>
       <aside className="rounded-md border border-teal-200 bg-teal-50 p-4 text-sm text-teal-900">
         <strong>Privacy first.</strong> No name, email, or free-text personal details are requested.
-        Only structured learning metadata is saved in the local database.
-        Raw onboarding answers are not sent to an external AI. This step is optional.
+        Only structured learning metadata is saved in the app-managed SQLite database.
+        Raw onboarding answers are not sent to an external AI. This demo shares one local learner profile across browsers; do not enter personal details. This step is optional.
       </aside>
       {error&&<p role="alert" className="rounded-md border border-red-300 p-3 text-sm text-red-700">{error}</p>}
       {done?<section aria-label="Onboarding complete" className="space-y-4 rounded-md border border-border bg-card p-6">
         <h2 className="text-lg font-semibold">{done.status==="skipped"?"Onboarding skipped":"Initial learning context saved"}</h2>
         <p className="text-sm text-muted-foreground">Your Coach can now use the initial context for its local teaching policy.
-          All existing L2 mastery levels remain unassessed until regular practice.</p>
+          Onboarding never changes evidence-based L2 mastery levels; those update through regular practice.</p>
         <p className="text-sm">Initial prerequisite checks: {done.diagnosticCount} · Concept signals: {done.conceptSignals.length}</p>
         <div className="flex flex-wrap gap-3">
           <Link className="rounded-md bg-teal-700 px-4 py-2 text-sm text-white" href="/adaptivepath/profile">Open learner profile</Link>
