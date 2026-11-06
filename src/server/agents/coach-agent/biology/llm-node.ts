@@ -15,8 +15,8 @@ type NodeSettings = Readonly<{ effort: "low" | "medium"; maxTokens: number; time
 /** Thinking tokens count toward maxTokens, so the caps leave room for adaptive thinking. */
 export const NODE_SETTINGS: Readonly<Record<LlmNode, NodeSettings>> = {
   classifier: { effort: "low", maxTokens: 2_000, timeoutMs: 8_000 },
-  diagnoser: { effort: "medium", maxTokens: 8_000, timeoutMs: 20_000 },
-  coach: { effort: "medium", maxTokens: 8_000, timeoutMs: 20_000 },
+  diagnoser: { effort: "medium", maxTokens: 8_000, timeoutMs: 45_000 },
+  coach: { effort: "medium", maxTokens: 8_000, timeoutMs: 45_000 },
 };
 const SOURCE = "adaptivepath_biology";
 const PROVIDER = "anthropic";
